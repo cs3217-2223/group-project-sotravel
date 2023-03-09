@@ -18,6 +18,20 @@
 		18DEC57E29B9A29700B3228A /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEC57D29B9A29700B3228A /* Font.swift */; };
 		18DEC58029B9A3D600B3228A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEC57F29B9A3D600B3228A /* Color.swift */; };
 		18F72A3829B997F40084B94A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F72A3729B997F40084B94A /* LoginView.swift */; };
+		AC32F94929B9EB8C0005F5B9 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F94829B9EB8C0005F5B9 /* MapView.swift */; };
+		AC32F94B29B9EC970005F5B9 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F94A29B9EC970005F5B9 /* FooterView.swift */; };
+		AC32F94F29B9F3400005F5B9 /* ColoredDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F94E29B9F3400005F5B9 /* ColoredDividerView.swift */; };
+		AC32F95129B9F58F0005F5B9 /* FooterIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95029B9F58F0005F5B9 /* FooterIconView.swift */; };
+		AC32F95329BA02700005F5B9 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95229BA02700005F5B9 /* CalendarView.swift */; };
+		AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95A29BA11B20005F5B9 /* EventView.swift */; };
+		AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95C29BA1A260005F5B9 /* InvitePageView.swift */; };
+		AC32F96029BA2A930005F5B9 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95F29BA2A930005F5B9 /* ChatView.swift */; };
+		AC32F96229BA2AD90005F5B9 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96129BA2AD90005F5B9 /* MessageView.swift */; };
+		AC32F96529BA33440005F5B9 /* ProfileIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96429BA33440005F5B9 /* ProfileIconView.swift */; };
+		AC32F96729BA36EB0005F5B9 /* FriendListIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96629BA36EB0005F5B9 /* FriendListIconView.swift */; };
+		AC32F96929BA37580005F5B9 /* FriendListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96829BA37580005F5B9 /* FriendListView.swift */; };
+		AC32F96B29BA38CE0005F5B9 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96A29BA38CE0005F5B9 /* ProfileView.swift */; };
+		AC32F96D29BA3DBB0005F5B9 /* MapPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96C29BA3DBB0005F5B9 /* MapPageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +48,20 @@
 		18DEC57D29B9A29700B3228A /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		18DEC57F29B9A3D600B3228A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		18F72A3729B997F40084B94A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AC32F94829B9EB8C0005F5B9 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		AC32F94A29B9EC970005F5B9 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		AC32F94E29B9F3400005F5B9 /* ColoredDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredDividerView.swift; sourceTree = "<group>"; };
+		AC32F95029B9F58F0005F5B9 /* FooterIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterIconView.swift; sourceTree = "<group>"; };
+		AC32F95229BA02700005F5B9 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		AC32F95A29BA11B20005F5B9 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
+		AC32F95C29BA1A260005F5B9 /* InvitePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitePageView.swift; sourceTree = "<group>"; };
+		AC32F95F29BA2A930005F5B9 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		AC32F96129BA2AD90005F5B9 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		AC32F96429BA33440005F5B9 /* ProfileIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileIconView.swift; sourceTree = "<group>"; };
+		AC32F96629BA36EB0005F5B9 /* FriendListIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListIconView.swift; sourceTree = "<group>"; };
+		AC32F96829BA37580005F5B9 /* FriendListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListView.swift; sourceTree = "<group>"; };
+		AC32F96A29BA38CE0005F5B9 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		AC32F96C29BA3DBB0005F5B9 /* MapPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +116,12 @@
 		1866DE6B29B993FA005D9F59 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AC32F96329BA2DEE0005F5B9 /* ProfileView */,
+				AC32F95E29BA2A870005F5B9 /* ChatView */,
+				AC32F95729BA05B40005F5B9 /* InvitePageView */,
+				AC32F95629BA05A50005F5B9 /* MapPageView */,
+				AC32F95529BA058F0005F5B9 /* General */,
+				AC32F95429BA05810005F5B9 /* LoginView */,
 				18F72A3729B997F40084B94A /* LoginView.swift */,
 			);
 			path = Views;
@@ -106,6 +140,62 @@
 			path = Styles;
 			sourceTree = "<group>";
 		};
+		AC32F95429BA05810005F5B9 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
+		AC32F95529BA058F0005F5B9 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				AC32F95029B9F58F0005F5B9 /* FooterIconView.swift */,
+				AC32F94E29B9F3400005F5B9 /* ColoredDividerView.swift */,
+				AC32F94A29B9EC970005F5B9 /* FooterView.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		AC32F95629BA05A50005F5B9 /* MapPageView */ = {
+			isa = PBXGroup;
+			children = (
+				AC32F94829B9EB8C0005F5B9 /* MapView.swift */,
+				AC32F96C29BA3DBB0005F5B9 /* MapPageView.swift */,
+			);
+			path = MapPageView;
+			sourceTree = "<group>";
+		};
+		AC32F95729BA05B40005F5B9 /* InvitePageView */ = {
+			isa = PBXGroup;
+			children = (
+				AC32F95229BA02700005F5B9 /* CalendarView.swift */,
+				AC32F95A29BA11B20005F5B9 /* EventView.swift */,
+				AC32F95C29BA1A260005F5B9 /* InvitePageView.swift */,
+			);
+			path = InvitePageView;
+			sourceTree = "<group>";
+		};
+		AC32F95E29BA2A870005F5B9 /* ChatView */ = {
+			isa = PBXGroup;
+			children = (
+				AC32F95F29BA2A930005F5B9 /* ChatView.swift */,
+				AC32F96129BA2AD90005F5B9 /* MessageView.swift */,
+			);
+			path = ChatView;
+			sourceTree = "<group>";
+		};
+		AC32F96329BA2DEE0005F5B9 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				AC32F96429BA33440005F5B9 /* ProfileIconView.swift */,
+				AC32F96629BA36EB0005F5B9 /* FriendListIconView.swift */,
+				AC32F96829BA37580005F5B9 /* FriendListView.swift */,
+				AC32F96A29BA38CE0005F5B9 /* ProfileView.swift */,
+			);
+			path = ProfileView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -116,6 +206,7 @@
 				1866DE5629B993E3005D9F59 /* Sources */,
 				1866DE5729B993E3005D9F59 /* Frameworks */,
 				1866DE5829B993E3005D9F59 /* Resources */,
+				AC32F94729B9DA720005F5B9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -175,16 +266,50 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		AC32F94729B9DA720005F5B9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1866DE5629B993E3005D9F59 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC32F95129B9F58F0005F5B9 /* FooterIconView.swift in Sources */,
+				AC32F96729BA36EB0005F5B9 /* FriendListIconView.swift in Sources */,
 				18DEC57E29B9A29700B3228A /* Font.swift in Sources */,
+				AC32F94B29B9EC970005F5B9 /* FooterView.swift in Sources */,
+				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
+				AC32F96029BA2A930005F5B9 /* ChatView.swift in Sources */,
+				AC32F96529BA33440005F5B9 /* ProfileIconView.swift in Sources */,
+				AC32F96929BA37580005F5B9 /* FriendListView.swift in Sources */,
+				AC32F96D29BA3DBB0005F5B9 /* MapPageView.swift in Sources */,
+				AC32F94929B9EB8C0005F5B9 /* MapView.swift in Sources */,
 				18F72A3829B997F40084B94A /* LoginView.swift in Sources */,
+				AC32F95329BA02700005F5B9 /* CalendarView.swift in Sources */,
+				AC32F96229BA2AD90005F5B9 /* MessageView.swift in Sources */,
+				AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */,
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,
+				AC32F96B29BA38CE0005F5B9 /* ProfileView.swift in Sources */,
 				1866DE5E29B993E3005D9F59 /* SotravelApp.swift in Sources */,
+				AC32F94F29B9F3400005F5B9 /* ColoredDividerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

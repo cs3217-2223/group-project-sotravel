@@ -70,6 +70,7 @@ struct LoginView: View {
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(Color.primaryColor)
+                
                 }
             }
             .padding(.horizontal)
