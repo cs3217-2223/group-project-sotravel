@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LoginScreen: View {
+struct LoginView: View {
     var body: some View {
         VStack {
             Image("snowman")
@@ -80,6 +80,6 @@ struct LoginScreen: View {
 
 struct LoginScreen_Previews: PreviewProvider {
     static var previews: some View {
-        LoginScreen()
+        LoginView()
     }
 }
