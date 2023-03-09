@@ -11,6 +11,12 @@
 		1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866DE5F29B993E3005D9F59 /* ContentView.swift */; };
 		1866DE6229B993E5005D9F59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1866DE6129B993E5005D9F59 /* Assets.xcassets */; };
 		1866DE6529B993E5005D9F59 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1866DE6429B993E5005D9F59 /* Preview Assets.xcassets */; };
+		18DEC57729B9A18500B3228A /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18DEC57329B9A18500B3228A /* Manrope-Bold.ttf */; };
+		18DEC57829B9A18500B3228A /* Manrope-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18DEC57429B9A18500B3228A /* Manrope-SemiBold.ttf */; };
+		18DEC57929B9A18500B3228A /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18DEC57529B9A18500B3228A /* Manrope-Regular.ttf */; };
+		18DEC57A29B9A18500B3228A /* Manrope-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18DEC57629B9A18500B3228A /* Manrope-Medium.ttf */; };
+		18DEC57E29B9A29700B3228A /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEC57D29B9A29700B3228A /* Font.swift */; };
+		18DEC58029B9A3D600B3228A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEC57F29B9A3D600B3228A /* Color.swift */; };
 		18F72A3829B997F40084B94A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F72A3729B997F40084B94A /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
@@ -20,6 +26,13 @@
 		1866DE5F29B993E3005D9F59 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1866DE6129B993E5005D9F59 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1866DE6429B993E5005D9F59 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		18DEC57329B9A18500B3228A /* Manrope-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Bold.ttf"; sourceTree = "<group>"; };
+		18DEC57429B9A18500B3228A /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
+		18DEC57529B9A18500B3228A /* Manrope-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Regular.ttf"; sourceTree = "<group>"; };
+		18DEC57629B9A18500B3228A /* Manrope-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Medium.ttf"; sourceTree = "<group>"; };
+		18DEC57B29B9A1F400B3228A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		18DEC57D29B9A29700B3228A /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		18DEC57F29B9A3D600B3228A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		18F72A3729B997F40084B94A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,6 +66,8 @@
 		1866DE5C29B993E3005D9F59 /* Sotravel */ = {
 			isa = PBXGroup;
 			children = (
+				18DEC57C29B9A28800B3228A /* Styles */,
+				18DEC57B29B9A1F400B3228A /* Info.plist */,
 				1866DE6B29B993FA005D9F59 /* Views */,
 				1866DE5D29B993E3005D9F59 /* SotravelApp.swift */,
 				1866DE5F29B993E3005D9F59 /* ContentView.swift */,
@@ -76,6 +91,19 @@
 				18F72A3729B997F40084B94A /* LoginView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		18DEC57C29B9A28800B3228A /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				18DEC57329B9A18500B3228A /* Manrope-Bold.ttf */,
+				18DEC57629B9A18500B3228A /* Manrope-Medium.ttf */,
+				18DEC57529B9A18500B3228A /* Manrope-Regular.ttf */,
+				18DEC57429B9A18500B3228A /* Manrope-SemiBold.ttf */,
+				18DEC57D29B9A29700B3228A /* Font.swift */,
+				18DEC57F29B9A3D600B3228A /* Color.swift */,
+			);
+			path = Styles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,7 +164,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18DEC57A29B9A18500B3228A /* Manrope-Medium.ttf in Resources */,
 				1866DE6529B993E5005D9F59 /* Preview Assets.xcassets in Resources */,
+				18DEC57929B9A18500B3228A /* Manrope-Regular.ttf in Resources */,
+				18DEC57729B9A18500B3228A /* Manrope-Bold.ttf in Resources */,
+				18DEC57829B9A18500B3228A /* Manrope-SemiBold.ttf in Resources */,
 				1866DE6229B993E5005D9F59 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,8 +180,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18DEC57E29B9A29700B3228A /* Font.swift in Sources */,
 				18F72A3829B997F40084B94A /* LoginView.swift in Sources */,
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
+				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,
 				1866DE5E29B993E3005D9F59 /* SotravelApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,6 +316,7 @@
 				DEVELOPMENT_TEAM = 2BCB7ZXRT9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sotravel/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -311,6 +346,7 @@
 				DEVELOPMENT_TEAM = 2BCB7ZXRT9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sotravel/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

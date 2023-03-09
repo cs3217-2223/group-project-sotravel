@@ -39,28 +39,28 @@ struct LoginScreen: View {
                 .padding(.top, 40)
                 .shadow(color: Color(.sRGBLinear, red: 0/255, green: 0/255, blue: 0/255).opacity(0.15), radius: 18, x: 0, y: 14)
             VStack(spacing: 10) {
-                HStack(alignment: .firstTextBaseline) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Image(systemName: "envelope.fill")
                         .imageScale(.medium)
-                    Text("Continue with Gmail")
+                    Text("Continue with Gmail").font(.primary700)
                 }
                 .font(.body.weight(.medium))
                 .padding(.vertical, 16)
                 .frame(maxWidth: .infinity)
                 .clipped()
-                .foregroundColor(Color(.sRGB, red: 0/255, green: 191/255, blue: 254/255))
+                .foregroundColor(Color.primaryColor)
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .stroke(.clear.opacity(0.25), lineWidth: 0)
-                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color(.sRGB, red: 0/255, green: 191/255, blue: 254/255).opacity(0.1)))
+                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.primaryColor.opacity(0.1)))
                 }
-                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Image(systemName: "paperplane.fill")
                         .imageScale(.medium)
                         .symbolRenderingMode(.monochrome)
                         .foregroundColor(.white)
                     Text("Continue with Telegram")
-                        .foregroundColor(.white)
+                        .foregroundColor(.white).font(.primary700)
                 }
                 .font(.body.weight(.medium))
                 .padding(.vertical, 16)
@@ -69,7 +69,7 @@ struct LoginScreen: View {
                 .foregroundColor(Color(.systemBackground))
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(Color(.sRGB, red: 0/255, green: 191/255, blue: 254/255))
+                        .fill(Color.primaryColor)
                 }
             }
             .padding(.horizontal)
