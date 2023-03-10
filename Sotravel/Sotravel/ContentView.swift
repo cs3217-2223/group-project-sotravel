@@ -17,7 +17,7 @@ struct ContentView: View {
                 }
             InvitePageView()
                 .tabItem {
-                    Image(systemName: "person.3.sequence.fill")
+                    Image(systemName: "megaphone.fill")
                     Text("Invites")
                 }
             ChatView()
@@ -30,7 +30,7 @@ struct ContentView: View {
                     Image(systemName: "person.fill")
                     Text("Profile")
                 }
-        }
+        }.font(.primary)
     }
 }
 

@@ -9,23 +9,19 @@ import SwiftUI
 
 struct InvitePageView: View {
     var body: some View {
-        VStack {
-            CalendarView()
-            ColoredDividerView()
-            ScrollView(.vertical) {
-                EventView()
-                EventView()
-                EventView()
-            }
-            ColoredDividerView()
-            Button(action: {
-                                // Join action
-            }) {
-                Text("Create an Invite")
-            }
-            .buttonStyle(.borderedProminent)
-            .padding(.all)
-        }
+            VStack(spacing: 4) {
+                CalendarView(calendar: Calendar(identifier: .iso8601))
+                ScrollView(.vertical) {
+                    VStack(spacing: 20) {
+                        // Shows all events, when you scroll past the current date, calendar view should auto update
+                        EventView()
+                        EventView()
+                        EventView()
+                        Spacer()
+                    }
+                }.padding(.horizontal)
+            }.padding(.vertical)
+        // Add FAB here to create event
     }
 }
 

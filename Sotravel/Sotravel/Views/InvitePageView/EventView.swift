@@ -9,40 +9,88 @@ import SwiftUI
 
 struct EventView: View {
     var body: some View {
-        ZStack {
-            Rectangle()
-                .stroke(.black, lineWidth: 5)
-            VStack {
-                Spacer()
-                HStack(spacing: 40) {
-                    Text("14:00")
-                        .font(.title)
-                        .padding(.leading)
-                    ScrollView(.vertical) {
-                        Text("Hello, World! Hello, World! Hello, World! Hello, World! Hello, World! Hello, World!, Hello, World! Hello, World! Hello, World! Hello, World! ")
-                            .font(.primary)
-                            .padding(.trailing)
+        VStack {
+            HStack(spacing: 47) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("5.30pm")
+                        .font(.title3)
+                        .foregroundColor(Color.black)
+                    Text("Today")
+                        .font(.body)
+                        .foregroundColor(Color.gray)
+                }.offset(x: 4, y: -7)
+                VStack(spacing: 7) {
+                    Text("Fish & Grill")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .clipped()
+                        .font(.title3)
+                        .foregroundColor(.black)
+                    Text("Railay Beach")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .clipped()
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                        .padding(.top, 4)
+                    HStack(spacing: 0) {
+                        Text("12 Attending")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .clipped()
+                            .font(.footnote)
+                            .foregroundColor(.blue)
+                        HStack(spacing: 0) {
+                            Image("demo-sleeper")
+                                .renderingMode(.original)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 30, height: 30)
+                                .clipped()
+                                .mask {
+                                    Circle()
+                                }
+                            Image("demo-climber")
+                                .renderingMode(.original)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 30, height: 30)
+                                .clipped()
+                                .mask {
+                                    Circle()
+                                }
+                                .offset(x: -8)
+                            Image("demo-snowboarder")
+                                .renderingMode(.original)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 30, height: 30)
+                                .clipped()
+                                .mask {
+                                    Circle()
+                                }
+                                .offset(x: -16)
+                        }
                     }
-                }
-                Spacer()
-                ColoredDividerView()
-                Button(action: {
-                    // Join action
-                }) {
-                    Text("Join")
-                        .font(.primary700)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 10)
-                        .cornerRadius(5)
+                    .padding(.top, 1)
                 }
             }
+            HStack(alignment: .firstTextBaseline) {
+                Text("Join")
+            }
+            .font(.button)
+            .padding(.vertical, 14)
+            .frame(maxWidth: .infinity)
             .clipped()
+            .foregroundColor(Color.primary)
+            .background {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .stroke(.clear.opacity(0.25), lineWidth: 0)
+                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.primary.opacity(0.1)))
+            }
         }
-        .frame(maxWidth: UIScreen.main.bounds.width,
-               maxHeight: UIScreen.main.bounds.height/4,
-               alignment: .center)
+        .padding(16)
+        .background(.white)
         .clipped()
-        .padding([.all])
+        .mask { RoundedRectangle(cornerRadius: 20, style: .continuous) }
+        .overlay(RoundedRectangle(cornerRadius: 16).stroke(.gray.opacity(0.3), lineWidth: 1))
     }
 }
 

@@ -1,0 +1,7 @@
+import Foundation
+
+extension Date {
+    func startOfMonth(using calendar: Calendar) -> Date {
+        calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? self
+    }
+}
