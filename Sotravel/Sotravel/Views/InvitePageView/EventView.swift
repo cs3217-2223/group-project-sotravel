@@ -31,59 +31,63 @@ struct EventView: View {
                         .font(.headline)
                         .foregroundColor(.gray)
                         .padding(.top, 4)
-                    HStack(spacing: 0) {
-                        Text("12 Attending")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .clipped()
-                            .font(.footnote)
-                            .foregroundColor(.blue)
+                    Button(action: {}){
                         HStack(spacing: 0) {
-                            Image("demo-sleeper")
-                                .renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 30, height: 30)
+                            Text("12 Attending")
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .clipped()
-                                .mask {
-                                    Circle()
-                                }
-                            Image("demo-climber")
-                                .renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 30, height: 30)
-                                .clipped()
-                                .mask {
-                                    Circle()
-                                }
-                                .offset(x: -8)
-                            Image("demo-snowboarder")
-                                .renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 30, height: 30)
-                                .clipped()
-                                .mask {
-                                    Circle()
-                                }
-                                .offset(x: -16)
+                                .font(.footnote)
+                                .foregroundColor(.blue.opacity(0.8))
+                            HStack(spacing: 0) {
+                                Image("demo-sleeper")
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 30, height: 30)
+                                    .clipped()
+                                    .mask {
+                                        Circle()
+                                    }
+                                Image("demo-climber")
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 30, height: 30)
+                                    .clipped()
+                                    .mask {
+                                        Circle()
+                                    }
+                                    .offset(x: -8)
+                                Image("demo-snowboarder")
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 30, height: 30)
+                                    .clipped()
+                                    .mask {
+                                        Circle()
+                                    }
+                                    .offset(x: -16)
+                            }
                         }
+                        .padding(.top, 1)
                     }
-                    .padding(.top, 1)
                 }
             }
-            HStack(alignment: .firstTextBaseline) {
-                Text("Join")
-            }
-            .font(.button)
-            .padding(.vertical, 14)
-            .frame(maxWidth: .infinity)
-            .clipped()
-            .foregroundColor(Color.primary)
-            .background {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .stroke(.clear.opacity(0.25), lineWidth: 0)
-                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.primary.opacity(0.1)))
+            Button(action: { }) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text("Join")
+                }
+                .font(.button)
+                .padding(.vertical, 14)
+                .frame(maxWidth: .infinity)
+                .clipped()
+                .foregroundColor(Color.primary)
+                .background {
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .stroke(.clear.opacity(0.25), lineWidth: 0)
+                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.primary.opacity(0.1)))
+                }
             }
         }
         .padding(16)

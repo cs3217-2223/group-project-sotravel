@@ -9,22 +9,24 @@ import SwiftUI
 
 struct MessageView: View {
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("Title")
-                    .font(.title)
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(alignment: .center) {
+                Text("Fishing at Railay")
+                    .font(.headline)
                     .clipped()
-                Text("Just finished my morning coffee and feeling ready to take on the day! Trying to decide what to have for dinner tonight... any suggestions?")
-                    .font(.primary)
-                    .clipped()
+                Spacer()
+                Text("Wed")
+                    .font(.caption)
+                    .foregroundColor(.gray)
             }
-            Spacer()
-            Text("Wed")
-                .font(.primary500)
-                .opacity(0.5)
+            // Show latest message by
+            Text("Ashley: Just finished my morning coffee and feeling ready to take on the day! Trying to decide..")
+                .foregroundColor(.gray)
+                .font(Font.custom("Manrope-Regular", size: 14))
+                .clipped()
+                .padding(0)
+            Divider().padding(.top, 8)
         }
-        .frame(height: UIScreen.main.bounds.height / 10)
-        .padding(.all)
     }
 }
 
