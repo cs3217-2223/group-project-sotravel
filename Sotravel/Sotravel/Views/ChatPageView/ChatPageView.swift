@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ChatView: View {
+struct ChatPageView: View {
     var body: some View {
         NavigationView {
             ScrollView {
@@ -24,8 +24,8 @@ struct ChatView: View {
     }
 }
 
-struct ChatView_Previews: PreviewProvider {
+struct ChatPageView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView()
+        ChatPageView()
     }
 }

@@ -20,12 +20,12 @@ struct ContentView: View {
                     Image(systemName: "megaphone.fill")
                     Text("Invites")
                 }
-            ChatView()
+            ChatPageView()
                 .tabItem {
                     Image(systemName: "message.fill")
                     Text("Chat")
                 }
-            ProfileView()
+            ProfilePageView()
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("Profile")
