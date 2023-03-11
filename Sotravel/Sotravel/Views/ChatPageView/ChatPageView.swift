@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ChatPageView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 MessageView()
                 MessageView()
