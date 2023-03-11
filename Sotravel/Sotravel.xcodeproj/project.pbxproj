@@ -23,9 +23,7 @@
 		18DEC58029B9A3D600B3228A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEC57F29B9A3D600B3228A /* Color.swift */; };
 		18F72A3829B997F40084B94A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F72A3729B997F40084B94A /* LoginView.swift */; };
 		AC32F94929B9EB8C0005F5B9 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F94829B9EB8C0005F5B9 /* MapView.swift */; };
-		AC32F94B29B9EC970005F5B9 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F94A29B9EC970005F5B9 /* FooterView.swift */; };
 		AC32F94F29B9F3400005F5B9 /* ColoredDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F94E29B9F3400005F5B9 /* ColoredDividerView.swift */; };
-		AC32F95129B9F58F0005F5B9 /* FooterIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95029B9F58F0005F5B9 /* FooterIconView.swift */; };
 		AC32F95329BA02700005F5B9 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95229BA02700005F5B9 /* CalendarView.swift */; };
 		AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95A29BA11B20005F5B9 /* EventView.swift */; };
 		AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95C29BA1A260005F5B9 /* InvitePageView.swift */; };
@@ -58,9 +56,7 @@
 		18DEC57F29B9A3D600B3228A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		18F72A3729B997F40084B94A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AC32F94829B9EB8C0005F5B9 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		AC32F94A29B9EC970005F5B9 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		AC32F94E29B9F3400005F5B9 /* ColoredDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredDividerView.swift; sourceTree = "<group>"; };
-		AC32F95029B9F58F0005F5B9 /* FooterIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterIconView.swift; sourceTree = "<group>"; };
 		AC32F95229BA02700005F5B9 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		AC32F95A29BA11B20005F5B9 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		AC32F95C29BA1A260005F5B9 /* InvitePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitePageView.swift; sourceTree = "<group>"; };
@@ -163,9 +159,7 @@
 		AC32F95529BA058F0005F5B9 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				AC32F95029B9F58F0005F5B9 /* FooterIconView.swift */,
 				AC32F94E29B9F3400005F5B9 /* ColoredDividerView.swift */,
-				AC32F94A29B9EC970005F5B9 /* FooterView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -306,9 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC32F95129B9F58F0005F5B9 /* FooterIconView.swift in Sources */,
 				18DEC57E29B9A29700B3228A /* Font.swift in Sources */,
-				AC32F94B29B9EC970005F5B9 /* FooterView.swift in Sources */,
 				AC75222729BCBD0A00E7C6E7 /* ProfileTextView.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
 				AC32F96029BA2A930005F5B9 /* ChatPageView.swift in Sources */,
