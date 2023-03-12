@@ -12,4 +12,3 @@ struct FriendProfilePageView: View {
         .navigationBarTitle(Text(friend.name))
     }
 }
-

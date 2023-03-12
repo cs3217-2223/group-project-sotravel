@@ -28,31 +28,31 @@ struct ProfileHeaderView: View {
                     Button(action: {
                         guard let url = URL(string: "https://t.me/\(telegramUsername)") else { return }
                         UIApplication.shared.open(url)
-                    }) {
+                    }, label: {
                         Image("telegram")
                             .resizable()
                             .frame(width: 30, height: 30)
-                    }
+                    })
                 }
                 if let instagramUsername = user.instagramUsername, !instagramUsername.isEmpty {
                     Button(action: {
                         guard let url = URL(string: "https://www.instagram.com/\(instagramUsername)/") else { return }
                         UIApplication.shared.open(url)
-                    }) {
+                    }, label: {
                         Image("instagram")
                             .resizable()
                             .frame(width: 30, height: 30)
-                    }
+                    })
                 }
                 if let tiktokUsername = user.tiktokUsername, !tiktokUsername.isEmpty {
                     Button(action: {
                         guard let url = URL(string: "https://www.tiktok.com/@\(tiktokUsername)") else { return }
                         UIApplication.shared.open(url)
-                    }) {
+                    }, label: {
                         Image("tiktok")
                             .resizable()
                             .frame(width: 30, height: 30)
-                    }
+                    })
                 }
 
             }.padding(.vertical, 12)

@@ -52,7 +52,9 @@ struct LoginView: View {
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .stroke(.clear.opacity(0.25), lineWidth: 0)
-                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.uiPrimary.opacity(0.1)))
+                        .background(RoundedRectangle(cornerRadius: 10,
+                                                     style: .continuous)
+                            .fill(Color.uiPrimary.opacity(0.1)))
                 }
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Image(systemName: "paperplane.fill")
