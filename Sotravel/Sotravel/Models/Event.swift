@@ -41,7 +41,7 @@ class Event: ObservableObject, Hashable, Identifiable {
     }
 
     static func == (lhs: Event, rhs: Event) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {

@@ -5,7 +5,7 @@ let mockEvent1 = Event(
     invitedUsers: mockFriends,
     attendingUsers: mockFriends,
     rejectedUsers: [mockFriends[2]],
-    datetime: Date(timeIntervalSinceNow: 3600),
+    datetime: Date(timeIntervalSinceNow: 3_600),
     location: "Railay Beach, Krabi",
     meetingPoint: "Hotel Lobby",
     // swiftlint:disable:next line_length
@@ -18,7 +18,7 @@ let mockEvent2 = Event(
     invitedUsers: mockFriends,
     attendingUsers: [mockFriends[1], mockFriends[3]],
     rejectedUsers: [mockFriends[0]],
-    datetime: Date(timeIntervalSinceNow: 7200),
+    datetime: Date(timeIntervalSinceNow: 7_200),
     location: "Tiger Cave Temple, Krabi",
     meetingPoint: "Taxi Stand beside Hostel",
     // swiftlint:disable:next line_length
@@ -31,7 +31,7 @@ let mockEvent3 = Event(
     invitedUsers: mockFriends,
     attendingUsers: [mockFriends[4], mockFriends[5]],
     rejectedUsers: [],
-    datetime: Date(timeIntervalSinceNow: 10800),
+    datetime: Date(timeIntervalSinceNow: 10_800),
     location: "Phi Phi Islands, Krabi",
     meetingPoint: "Coffee Shop beside Hostel",
     // swiftlint:disable:next line_length
@@ -44,7 +44,7 @@ let mockEvent4 = Event(
     invitedUsers: mockFriends,
     attendingUsers: [mockFriends[2]],
     rejectedUsers: [mockFriends[1]],
-    datetime: Date(timeIntervalSinceNow: 14400),
+    datetime: Date(timeIntervalSinceNow: 14_400),
     location: "Emerald Pool, Krabi",
     meetingPoint: "Room 6B in Hostel",
     // swiftlint:disable:next line_length
@@ -57,7 +57,7 @@ let mockEvent5 = Event(
     invitedUsers: mockFriends,
     attendingUsers: [mockFriends[0], mockFriends[1], mockFriends[2]],
     rejectedUsers: [mockFriends[3]],
-    datetime: Date(timeIntervalSinceNow: 18000),
+    datetime: Date(timeIntervalSinceNow: 18_000),
     location: "Ao Nang Beach, Krabi",
     meetingPoint: "Hotel Lobby",
     // swiftlint:disable:next line_length
@@ -70,7 +70,7 @@ let mockEvent6 = Event(
     invitedUsers: mockFriends,
     attendingUsers: [mockUser, mockFriends[3], mockFriends[4], mockFriends[5]],
     rejectedUsers: [],
-    datetime: Date(timeIntervalSinceNow: 21600),
+    datetime: Date(timeIntervalSinceNow: 21_600),
     location: "Hong Island, Krabi",
     meetingPoint: "Hotel Lobby",
     // swiftlint:disable:next line_length
@@ -83,7 +83,7 @@ let mockEvent7 = Event(
     invitedUsers: mockFriends,
     attendingUsers: [mockUser, mockFriends[2], mockFriends[4]],
     rejectedUsers: [mockFriends[0]],
-    datetime: Date(timeIntervalSinceNow: 25200),
+    datetime: Date(timeIntervalSinceNow: 25_200),
     location: "Thung Teao Forest Natural Park, Krabi",
     meetingPoint: "Hotel Lobby",
     // swiftlint:disable:next line_length
@@ -96,7 +96,7 @@ let mockEvent8 = Event(
     invitedUsers: mockFriends,
     attendingUsers: [mockUser, mockFriends[1], mockFriends[3], mockFriends[4]],
     rejectedUsers: [mockFriends[2]],
-    datetime: Date(timeIntervalSinceNow: 28800),
+    datetime: Date(timeIntervalSinceNow: 28_800),
     location: "Krabi Town Night Market, Krabi",
     meetingPoint: "Hotel Lobby",
     // swiftlint:disable:next line_length
@@ -109,7 +109,7 @@ let mockEvent9 = Event(
     invitedUsers: mockFriends,
     attendingUsers: [mockUser, mockFriends[0], mockFriends[2], mockFriends[5]],
     rejectedUsers: [],
-    datetime: Date(timeIntervalSinceNow: 32400),
+    datetime: Date(timeIntervalSinceNow: 32_400),
     location: "Krabi Hot Springs, Krabi",
     meetingPoint: "Hotel Lobby",
     // swiftlint:disable:next line_length

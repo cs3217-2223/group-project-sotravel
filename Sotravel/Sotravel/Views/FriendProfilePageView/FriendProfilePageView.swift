@@ -23,6 +23,6 @@ struct FriendProfilePageView: View {
 
 struct FriendProfilePageView_Previews: PreviewProvider {
     static var previews: some View {
-        return FriendProfilePageView(friend: mockUser)
+        FriendProfilePageView(friend: mockUser)
     }
 }
