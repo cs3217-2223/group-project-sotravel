@@ -16,6 +16,7 @@ struct SotravelApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(user)
+                .environmentObject(events)
         }
     }
 }
