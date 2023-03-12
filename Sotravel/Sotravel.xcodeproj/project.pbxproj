@@ -35,11 +35,13 @@
 		AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95A29BA11B20005F5B9 /* EventView.swift */; };
 		AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95C29BA1A260005F5B9 /* InvitePageView.swift */; };
 		AC32F96029BA2A930005F5B9 /* ChatPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95F29BA2A930005F5B9 /* ChatPageView.swift */; };
-		AC32F96229BA2AD90005F5B9 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96129BA2AD90005F5B9 /* MessageView.swift */; };
+		AC32F96229BA2AD90005F5B9 /* ChatPageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96129BA2AD90005F5B9 /* ChatPageCellView.swift */; };
 		AC32F96529BA33440005F5B9 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96429BA33440005F5B9 /* ProfileHeaderView.swift */; };
 		AC32F96B29BA38CE0005F5B9 /* ProfilePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96A29BA38CE0005F5B9 /* ProfilePageView.swift */; };
 		AC32F96D29BA3DBB0005F5B9 /* MapPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96C29BA3DBB0005F5B9 /* MapPageView.swift */; };
-		AC75222729BCBD0A00E7C6E7 /* ProfileTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75222629BCBD0A00E7C6E7 /* ProfileTextView.swift */; };
+		AC63059C29BDA34F00EEEA85 /* GroupChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC63059B29BDA34F00EEEA85 /* GroupChatView.swift */; };
+		AC63059E29BDA43F00EEEA85 /* GroupChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC63059D29BDA43F00EEEA85 /* GroupChatHeaderView.swift */; };
+		AC6305A229BDA6E600EEEA85 /* GroupChatCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A129BDA6E600EEEA85 /* GroupChatCellView.swift */; };
 		AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,11 +76,13 @@
 		AC32F95A29BA11B20005F5B9 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		AC32F95C29BA1A260005F5B9 /* InvitePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitePageView.swift; sourceTree = "<group>"; };
 		AC32F95F29BA2A930005F5B9 /* ChatPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPageView.swift; sourceTree = "<group>"; };
-		AC32F96129BA2AD90005F5B9 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		AC32F96129BA2AD90005F5B9 /* ChatPageCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPageCellView.swift; sourceTree = "<group>"; };
 		AC32F96429BA33440005F5B9 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		AC32F96A29BA38CE0005F5B9 /* ProfilePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageView.swift; sourceTree = "<group>"; };
 		AC32F96C29BA3DBB0005F5B9 /* MapPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPageView.swift; sourceTree = "<group>"; };
-		AC75222629BCBD0A00E7C6E7 /* ProfileTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTextView.swift; sourceTree = "<group>"; };
+		AC63059B29BDA34F00EEEA85 /* GroupChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatView.swift; sourceTree = "<group>"; };
+		AC63059D29BDA43F00EEEA85 /* GroupChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatHeaderView.swift; sourceTree = "<group>"; };
+		AC6305A129BDA6E600EEEA85 /* GroupChatCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatCellView.swift; sourceTree = "<group>"; };
 		AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -239,7 +243,10 @@
 			isa = PBXGroup;
 			children = (
 				AC32F95F29BA2A930005F5B9 /* ChatPageView.swift */,
-				AC32F96129BA2AD90005F5B9 /* MessageView.swift */,
+				AC32F96129BA2AD90005F5B9 /* ChatPageCellView.swift */,
+				AC63059B29BDA34F00EEEA85 /* GroupChatView.swift */,
+				AC63059D29BDA43F00EEEA85 /* GroupChatHeaderView.swift */,
+				AC6305A129BDA6E600EEEA85 /* GroupChatCellView.swift */,
 			);
 			path = ChatPageView;
 			sourceTree = "<group>";
@@ -249,7 +256,6 @@
 			children = (
 				AC32F96429BA33440005F5B9 /* ProfileHeaderView.swift */,
 				AC32F96A29BA38CE0005F5B9 /* ProfilePageView.swift */,
-				AC75222629BCBD0A00E7C6E7 /* ProfileTextView.swift */,
 				AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */,
 			);
 			path = ProfilePageView;
@@ -351,7 +357,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				18DEC57E29B9A29700B3228A /* Font.swift in Sources */,
-				AC75222729BCBD0A00E7C6E7 /* ProfileTextView.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
 				18591C8829BD73FF00FA987D /* User.swift in Sources */,
@@ -362,13 +367,15 @@
 				AC32F96529BA33440005F5B9 /* ProfileHeaderView.swift in Sources */,
 				18A1AC5A29BB12CB0064CF37 /* DateFormatter.swift in Sources */,
 				AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */,
+				AC63059E29BDA43F00EEEA85 /* GroupChatHeaderView.swift in Sources */,
 				AC32F96D29BA3DBB0005F5B9 /* MapPageView.swift in Sources */,
 				AC32F94929B9EB8C0005F5B9 /* MapView.swift in Sources */,
 				18F72A3829B997F40084B94A /* LoginView.swift in Sources */,
 				AC32F95329BA02700005F5B9 /* CalendarView.swift in Sources */,
-				AC32F96229BA2AD90005F5B9 /* MessageView.swift in Sources */,
+				AC32F96229BA2AD90005F5B9 /* ChatPageCellView.swift in Sources */,
 				18A1AC5629BB12940064CF37 /* Calendar.swift in Sources */,
 				AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */,
+				AC63059C29BDA34F00EEEA85 /* GroupChatView.swift in Sources */,
 				18A1AC5429BB121A0064CF37 /* DateCellView.swift in Sources */,
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* FriendRowView.swift in Sources */,
@@ -377,6 +384,7 @@
 				AC32F96B29BA38CE0005F5B9 /* ProfilePageView.swift in Sources */,
 				18A1AC5829BB12B90064CF37 /* Date.swift in Sources */,
 				1866DE5E29B993E3005D9F59 /* SotravelApp.swift in Sources */,
+				AC6305A229BDA6E600EEEA85 /* GroupChatCellView.swift in Sources */,
 				AC32F94F29B9F3400005F5B9 /* ColoredDividerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

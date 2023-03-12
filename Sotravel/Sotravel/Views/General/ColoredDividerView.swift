@@ -13,6 +13,7 @@ struct ColoredDividerView: View {
         Rectangle()
             .fill(color)
             .frame(height: 3)
+            .opacity(0.3)
     }
 }
 

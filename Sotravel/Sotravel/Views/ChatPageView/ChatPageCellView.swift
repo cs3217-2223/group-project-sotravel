@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MessageView: View {
+struct ChatPageCellView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .center) {
@@ -30,8 +30,8 @@ struct MessageView: View {
     }
 }
 
-struct MessageView_Previews: PreviewProvider {
+struct ChatPageCellView_Previews: PreviewProvider {
     static var previews: some View {
-        MessageView()
+        ChatPageCellView()
     }
 }
