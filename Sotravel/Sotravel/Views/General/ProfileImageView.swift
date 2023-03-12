@@ -11,9 +11,10 @@ struct ProfileImageView: View {
             AsyncImage(url: url) { image in
                 image
                     .resizable()
-                    .scaledToFit()
+                    .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
-                    .frame(width: width, height: height)
+                    .frame(width: width, height: height, alignment: .center)
+                    .clipped()
             } placeholder: {
                 ProgressView()
                     .frame(width: width, height: height)

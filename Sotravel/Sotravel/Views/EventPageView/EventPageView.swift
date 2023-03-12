@@ -7,7 +7,7 @@ struct EventPageView: View {
     var body: some View {
         VStack {
             // Event title
-            Text(event.description)
+            Text(event.title)
                 .font(.uiTitle1)
                 .padding(.top, 50)
 
@@ -101,42 +101,44 @@ struct EventPageView: View {
             }
             .padding(.top, 30)
 
+            Spacer()
             // Group chat
-            VStack {
-                Text("Group Chat")
-                    .font(.uiTitle2)
-                    .padding(.top, 30)
-
-                ScrollView {
-                    VStack {
-                        ForEach(0..<10) { index in
-                            Text("Message \(index + 1)")
-                                .padding(.vertical, 10)
-                        }
-                    }
-                }
-
-                HStack {
-                    TextField("Type your message...", text: .constant(""))
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal, 10)
-
-                    Button(action: {}) {
-                        Text("Send")
-                            .fontWeight(.semibold)
-                            .padding(.horizontal, 10)
-                            .foregroundColor(.white)
-                            .background(Color.blue)
-                            .cornerRadius(40)
-                    }
-                }
-                .padding(.vertical, 20)
-            }
-            .padding(.top, 30)
+//            VStack {
+//                Text("Group Chat")
+//                    .font(.uiTitle2)
+//                    .padding(.top, 30)
+//
+//                ScrollView {
+//                    VStack {
+//                        ForEach(0..<10) { index in
+//                            Text("Message \(index + 1)")
+//                                .padding(.vertical, 10)
+//                        }
+//                    }
+//                }
+//
+//                HStack {
+//                    TextField("Type your message...", text: .constant(""))
+//                        .textFieldStyle(RoundedBorderTextFieldStyle())
+//                        .padding(.horizontal, 10)
+//
+//                    Button(action: {}) {
+//                        Text("Send")
+//                            .fontWeight(.semibold)
+//                            .padding(.horizontal, 10)
+//                            .foregroundColor(.white)
+//                            .background(Color.blue)
+//                            .cornerRadius(40)
+//                    }
+//                }
+//                .padding(.vertical, 20)
+//            }
+//            .padding(.top, 30)
 
             Spacer()
         }
         .padding(.horizontal, 20)
+        .navigationTitle(event.title)
     }
 }
 

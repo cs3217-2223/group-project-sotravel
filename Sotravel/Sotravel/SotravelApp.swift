@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct SotravelApp: App {
     @StateObject var user = mockUser
+    @StateObject var events = EventsStore(events: mockEvents)
 
     var body: some Scene {
         WindowGroup {
