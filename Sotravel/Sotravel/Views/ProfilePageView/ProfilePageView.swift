@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfilePageView: View {
+    @EnvironmentObject var user: User
+
     var body: some View {
         VStack {
             ProfileHeaderView()
@@ -17,8 +19,8 @@ struct ProfilePageView: View {
     }
 }
 
-struct ProfileView_Previews: PreviewProvider {
+struct ProfilePageView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePageView()
+        ProfilePageView().environmentObject(mockUser)
     }
 }

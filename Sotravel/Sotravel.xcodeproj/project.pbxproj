@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18591C8229BCDB2800FA987D /* ProfileImageView.swift */; };
+		18591C8529BCDB7700FA987D /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18591C8429BCDB7700FA987D /* SearchBarView.swift */; };
+		18591C8829BD73FF00FA987D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18591C8729BD73FF00FA987D /* User.swift */; };
 		1866DE5E29B993E3005D9F59 /* SotravelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866DE5D29B993E3005D9F59 /* SotravelApp.swift */; };
 		1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866DE5F29B993E3005D9F59 /* ContentView.swift */; };
 		1866DE6229B993E5005D9F59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1866DE6129B993E5005D9F59 /* Assets.xcassets */; };
@@ -15,6 +18,7 @@
 		18A1AC5629BB12940064CF37 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1AC5529BB12940064CF37 /* Calendar.swift */; };
 		18A1AC5829BB12B90064CF37 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1AC5729BB12B90064CF37 /* Date.swift */; };
 		18A1AC5A29BB12CB0064CF37 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1AC5929BB12CB0064CF37 /* DateFormatter.swift */; };
+		18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713229BD74B10064DC2A /* MockUsers.swift */; };
 		18DEC57729B9A18500B3228A /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18DEC57329B9A18500B3228A /* Manrope-Bold.ttf */; };
 		18DEC57829B9A18500B3228A /* Manrope-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18DEC57429B9A18500B3228A /* Manrope-SemiBold.ttf */; };
 		18DEC57929B9A18500B3228A /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18DEC57529B9A18500B3228A /* Manrope-Regular.ttf */; };
@@ -38,6 +42,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18591C8229BCDB2800FA987D /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		18591C8429BCDB7700FA987D /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		18591C8729BD73FF00FA987D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1866DE5A29B993E3005D9F59 /* Sotravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sotravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1866DE5D29B993E3005D9F59 /* SotravelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SotravelApp.swift; sourceTree = "<group>"; };
 		1866DE5F29B993E3005D9F59 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,6 +54,7 @@
 		18A1AC5529BB12940064CF37 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		18A1AC5729BB12B90064CF37 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		18A1AC5929BB12CB0064CF37 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		18D9713229BD74B10064DC2A /* MockUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUsers.swift; sourceTree = "<group>"; };
 		18DEC57329B9A18500B3228A /* Manrope-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Bold.ttf"; sourceTree = "<group>"; };
 		18DEC57429B9A18500B3228A /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
 		18DEC57529B9A18500B3228A /* Manrope-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Regular.ttf"; sourceTree = "<group>"; };
@@ -81,6 +89,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18591C8629BD73EF00FA987D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				18591C8729BD73FF00FA987D /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		1866DE5129B993E3005D9F59 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +116,8 @@
 		1866DE5C29B993E3005D9F59 /* Sotravel */ = {
 			isa = PBXGroup;
 			children = (
+				18D9713129BD749F0064DC2A /* Mocks */,
+				18591C8629BD73EF00FA987D /* Models */,
 				18DEC57C29B9A28800B3228A /* Extensions */,
 				18DEC57B29B9A1F400B3228A /* Info.plist */,
 				1866DE6B29B993FA005D9F59 /* Views */,
@@ -132,6 +150,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		18D9713129BD749F0064DC2A /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				18D9713229BD74B10064DC2A /* MockUsers.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		18DEC57C29B9A28800B3228A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +186,8 @@
 			isa = PBXGroup;
 			children = (
 				AC32F94E29B9F3400005F5B9 /* ColoredDividerView.swift */,
+				18591C8229BCDB2800FA987D /* ProfileImageView.swift */,
+				18591C8429BCDB7700FA987D /* SearchBarView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -303,7 +331,10 @@
 				18DEC57E29B9A29700B3228A /* Font.swift in Sources */,
 				AC75222729BCBD0A00E7C6E7 /* ProfileTextView.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
+				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
+				18591C8829BD73FF00FA987D /* User.swift in Sources */,
 				AC32F96029BA2A930005F5B9 /* ChatPageView.swift in Sources */,
+				18591C8529BCDB7700FA987D /* SearchBarView.swift in Sources */,
 				AC32F96529BA33440005F5B9 /* ProfileHeaderView.swift in Sources */,
 				18A1AC5A29BB12CB0064CF37 /* DateFormatter.swift in Sources */,
 				AC75222929BCBF8100E7C6E7 /* FriendsView.swift in Sources */,
@@ -316,6 +347,7 @@
 				AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */,
 				18A1AC5429BB121A0064CF37 /* DateCellView.swift in Sources */,
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
+				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,
 				AC32F96B29BA38CE0005F5B9 /* ProfilePageView.swift in Sources */,
 				18A1AC5829BB12B90064CF37 /* Date.swift in Sources */,

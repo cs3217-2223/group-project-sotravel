@@ -12,11 +12,11 @@ struct MessageView: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .center) {
                 Text("Fishing at Railay")
-                    .font(.headline)
+                    .font(.uiHeadline)
                     .clipped()
                 Spacer()
                 Text("Wed")
-                    .font(.caption)
+                    .font(.uiCaption1)
                     .foregroundColor(.gray)
             }
             // Show latest message by

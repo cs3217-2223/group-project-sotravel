@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct SotravelApp: App {
+    @StateObject var user = mockUser
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(user)
         }
     }
 }

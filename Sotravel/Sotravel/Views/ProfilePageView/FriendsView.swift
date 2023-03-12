@@ -13,7 +13,7 @@ struct FriendsView: View {
             Text("Friends")
                 .padding(.leading)
                 .bold()
-                .font(.title)
+                .font(.uiTitle1)
             ScrollView(.horizontal) {
                 HStack {
                     FriendsCellView()

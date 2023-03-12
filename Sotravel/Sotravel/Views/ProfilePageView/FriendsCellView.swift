@@ -19,7 +19,7 @@ struct FriendsCellView: View {
                 Text("John")
                     .bold()
                 Text("Student")
-                    .font(.body)
+                    .font(.uiBody)
                     .foregroundColor(.secondary)
             }
             .overlay(

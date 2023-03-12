@@ -26,13 +26,13 @@ struct DateCellView: View {
                 .scaledToFill()
                 .minimumScaleFactor(0.01)
                 .lineLimit(1)
-                .font(.body)
+                .font(.uiBody)
 
             Text(date, formatter: dateFormatter)
                 .scaledToFit()
                 .minimumScaleFactor(0.01)
                 .lineLimit(1)
-                .font(.body)
+                .font(.uiBody)
         }
         .padding(10)
         .frame(width: width / 8, height: width / 4)

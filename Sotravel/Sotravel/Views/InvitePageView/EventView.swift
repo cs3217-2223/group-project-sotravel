@@ -13,22 +13,22 @@ struct EventView: View {
             HStack(spacing: 47) {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("5.30pm")
-                        .font(.title3)
+                        .font(.uiTitle3)
                         .foregroundColor(Color.black)
                     Text("Today")
-                        .font(.body)
+                        .font(.uiBody)
                         .foregroundColor(Color.gray)
                 }.offset(x: 4, y: -7)
                 VStack(spacing: 7) {
                     Text("Fish & Grill")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .clipped()
-                        .font(.title3)
+                        .font(.uiTitle3)
                         .foregroundColor(.black)
                     Text("Railay Beach")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .clipped()
-                        .font(.headline)
+                        .font(.uiHeadline)
                         .foregroundColor(.gray)
                         .padding(.top, 4)
                     Button(action: {}){
@@ -36,7 +36,7 @@ struct EventView: View {
                             Text("12 Attending")
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .clipped()
-                                .font(.footnote)
+                                .font(.uiFootnote)
                                 .foregroundColor(.blue.opacity(0.8))
                             HStack(spacing: 0) {
                                 Image("demo-sleeper")
@@ -78,15 +78,15 @@ struct EventView: View {
                 HStack(alignment: .firstTextBaseline) {
                     Text("Join")
                 }
-                .font(.button)
+                .font(.uiButton)
                 .padding(.vertical, 14)
                 .frame(maxWidth: .infinity)
                 .clipped()
-                .foregroundColor(Color.primary)
+                .foregroundColor(Color.uiPrimary)
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .stroke(.clear.opacity(0.25), lineWidth: 0)
-                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.primary.opacity(0.1)))
+                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.uiPrimary.opacity(0.1)))
                 }
             }
         }

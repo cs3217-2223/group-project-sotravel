@@ -37,22 +37,22 @@ struct LoginView: View {
                 }
                 .padding()
                 .padding(.top, 40)
-                .shadow(color: Color(.sRGBLinear, red: 0/255, green: 0/255, blue: 0/255).opacity(0.15), radius: 18, x: 0, y: 14)
+                .shadow(color: .black.opacity(0.15), radius: 18, x: 0, y: 14)
             VStack(spacing: 10) {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Image(systemName: "envelope.fill")
                         .imageScale(.medium)
-                    Text("Continue with Gmail").font(.primary700)
+                    Text("Continue with Gmail").font(.uiButton)
                 }
-                .font(.body.weight(.medium))
+                .font(.uiBody.weight(.medium))
                 .padding(.vertical, 16)
                 .frame(maxWidth: .infinity)
                 .clipped()
-                .foregroundColor(Color.primary)
+                .foregroundColor(Color.uiPrimary)
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .stroke(.clear.opacity(0.25), lineWidth: 0)
-                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.primary.opacity(0.1)))
+                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.uiPrimary.opacity(0.1)))
                 }
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Image(systemName: "paperplane.fill")
@@ -60,17 +60,16 @@ struct LoginView: View {
                         .symbolRenderingMode(.monochrome)
                         .foregroundColor(.white)
                     Text("Continue with Telegram")
-                        .foregroundColor(.white).font(.primary700)
+                        .foregroundColor(.white).font(.uiButton)
                 }
-                .font(.body.weight(.medium))
+                .font(.uiBody.weight(.medium))
                 .padding(.vertical, 16)
                 .frame(maxWidth: .infinity)
                 .clipped()
                 .foregroundColor(Color(.systemBackground))
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(Color.primary)
-                
+                        .fill(Color.uiPrimary)
                 }
             }
             .padding(.horizontal)

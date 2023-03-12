@@ -12,9 +12,9 @@ struct ProfileTextView: View {
         VStack(spacing: 5) {
             Text("John")
                 .bold()
-                .font(.title)
+                .font(.uiTitle1)
             Text("Student")
-                .font(.body)
+                .font(.uiBody)
                 .foregroundColor(.secondary)
         }.padding()
         Text("This free calculator is also an excellent way to improve your creative writing.")
