@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GroupChatHeaderView: View {
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         HStack(spacing: 35) {
             Image(systemName: "chevron.backward")
@@ -15,6 +16,11 @@ struct GroupChatHeaderView: View {
                 .frame(width: 20, height: 30)
                 .opacity(0.5)
                 .offset(x: -10, y: -15)
+                .onTapGesture {
+                    withAnimation(.spring()) {
+                        dismiss()
+                    }
+                }
             VStack(alignment: .leading, spacing: 10) {
                 Text("Climb at Ao Nang Tower")
                     .font(.uiTitle2)

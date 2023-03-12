@@ -13,6 +13,7 @@ struct ChatPageCellView: View {
             HStack(alignment: .center) {
                 Text("Fishing at Railay")
                     .font(.uiHeadline)
+                    .foregroundColor(.black)
                     .clipped()
                 Spacer()
                 Text("Wed")
