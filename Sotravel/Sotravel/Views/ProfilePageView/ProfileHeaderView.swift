@@ -13,7 +13,7 @@ struct ProfileHeaderView: View {
     var body: some View {
         VStack(spacing: 10) {
             ProfileImageView(imageSrc: user.imageURL, name: user.name, width: 150, height: 150)
-            
+
             Text(user.name)
                 .font(.uiTitle2)
                 .fontWeight(.bold)

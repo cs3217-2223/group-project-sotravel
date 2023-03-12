@@ -243,10 +243,9 @@
 			children = (
 				18591C8229BCDB2800FA987D /* ProfileImageView.swift */,
 				18591C8429BCDB7700FA987D /* SearchBarView.swift */,
-				18D9713429BD7CC90064DC2A /* UserListItemView.swift */,
 				181C746E29BDDEB700E6D3B1 /* UserActionMenuView.swift */,
 				18BE7F2629BDEDBE0035DE2C /* UserHorizontalListView.swift */,
-				18D9713429BD7CC90064DC2A /* FriendRowView.swift */,
+				18D9713429BD7CC90064DC2A /* UserListItemView.swift */,
 				AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */,
 			);
 			path = General;
@@ -384,7 +383,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n    swiftlint --config .swiftlint.yml --fix --format .\n    swiftlint --config .swiftlint.yml\nelse\n    echo \"warning: SwiiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -424,7 +423,7 @@
 				18BE7F2729BDEDBE0035DE2C /* UserHorizontalListView.swift in Sources */,
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
-				18D9713529BD7CC90064DC2A /* FriendRowView.swift in Sources */,
+				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
 				AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,

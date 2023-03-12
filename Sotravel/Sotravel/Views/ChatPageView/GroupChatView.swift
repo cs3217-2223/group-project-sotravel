@@ -39,7 +39,7 @@ struct GroupChatView: View {
                     .padding(.trailing, 8)
                 }
                 .background(Color(.systemGray6)
-                    .ignoresSafeArea())
+                                .ignoresSafeArea())
                 .cornerRadius(20)
                 .padding()
                 .position(CGPoint(x: 195,

@@ -31,8 +31,8 @@ struct CalendarView: View {
     var body: some View {
         VStack(spacing: 0) {
             Text(calendar.isDate(Date(), inSameDayAs: selectedDate)
-                 ? LocalizedStringKey("Today")
-                 : "\(selectedDate, formatter: dateFormatter)")
+                    ? LocalizedStringKey("Today")
+                    : "\(selectedDate, formatter: dateFormatter)")
                 .font(.uiTitle3)
             HStack {
                 ForEach(self.days, id: \.self) { date in
@@ -47,30 +47,30 @@ struct CalendarView: View {
             .offset(x: dragOffset.width)
             .offset(x: finalOffset)
             .gesture(DragGesture()
-                .onChanged({ value in
-                    withAnimation(.spring()) {
-                        self.dragOffset = value.translation
-                    }
-                })
-                    .onEnded({ _ in
-                        if dragOffset.width > 150 && finalOffset != (width + 10) {
+                        .onChanged({ value in
                             withAnimation(.spring()) {
-                                finalOffset += (width + 10)
-                                dragOffset = .zero
+                                self.dragOffset = value.translation
                             }
+                        })
+                        .onEnded({ _ in
+                            if dragOffset.width > 150 && finalOffset != (width + 10) {
+                                withAnimation(.spring()) {
+                                    finalOffset += (width + 10)
+                                    dragOffset = .zero
+                                }
 
-                        } else if dragOffset.width < -150 && finalOffset != -(width + 10) {
-                            withAnimation(.spring()) {
-                                finalOffset -= (width + 10)
-                                dragOffset = .zero
-                            }
+                            } else if dragOffset.width < -150 && finalOffset != -(width + 10) {
+                                withAnimation(.spring()) {
+                                    finalOffset -= (width + 10)
+                                    dragOffset = .zero
+                                }
 
-                        } else {
-                            withAnimation(.spring()) {
-                                dragOffset = .zero
+                            } else {
+                                withAnimation(.spring()) {
+                                    dragOffset = .zero
+                                }
                             }
-                        }
-                    })
+                        })
             )
         }
         .background(Color.white)

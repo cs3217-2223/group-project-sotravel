@@ -2,7 +2,7 @@ import SwiftUI
 
 struct EventView: View {
     @ObservedObject var event: Event
-    
+
     var body: some View {
         VStack {
             HStack(spacing: 47) {
@@ -37,7 +37,7 @@ struct EventView: View {
                                 .foregroundColor(.blue.opacity(0.8))
                             ZStack {
                                 let renderedUsers = event.attendingUsers.prefix(3)
-                                ForEach(Array(renderedUsers.prefix(3).reversed().enumerated()), id: \.1.id) { (index, user) in
+                                ForEach(Array(renderedUsers.prefix(3).reversed().enumerated()), id: \.1.id) { index, user in
                                     ProfileImageView(
                                         imageSrc: user.imageURL,
                                         name: user.name,
@@ -65,7 +65,7 @@ struct EventView: View {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .stroke(.clear.opacity(0.25), lineWidth: 0)
                         .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .fill(Color.uiPrimary.opacity(0.1)))
+                                        .fill(Color.uiPrimary.opacity(0.1)))
                 }
             }
         }
