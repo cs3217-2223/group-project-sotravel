@@ -378,7 +378,6 @@
 			files = (
 				18DEC57E29B9A29700B3228A /* Font.swift in Sources */,
 				18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */,
-				AC75222729BCBD0A00E7C6E7 /* ProfileTextView.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
 				18D9714029BD91B60064DC2A /* Event.swift in Sources */,
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
