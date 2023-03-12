@@ -48,6 +48,8 @@
 		AC63059C29BDA34F00EEEA85 /* GroupChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC63059B29BDA34F00EEEA85 /* GroupChatView.swift */; };
 		AC63059E29BDA43F00EEEA85 /* GroupChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC63059D29BDA43F00EEEA85 /* GroupChatHeaderView.swift */; };
 		AC6305A229BDA6E600EEEA85 /* GroupChatCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A129BDA6E600EEEA85 /* GroupChatCellView.swift */; };
+		AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */; };
+		AC6305A629BDC60300EEEA85 /* RecentActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */; };
 		AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +97,8 @@
 		AC63059B29BDA34F00EEEA85 /* GroupChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatView.swift; sourceTree = "<group>"; };
 		AC63059D29BDA43F00EEEA85 /* GroupChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatHeaderView.swift; sourceTree = "<group>"; };
 		AC6305A129BDA6E600EEEA85 /* GroupChatCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatCellView.swift; sourceTree = "<group>"; };
+		AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksView.swift; sourceTree = "<group>"; };
+		AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentActivityView.swift; sourceTree = "<group>"; };
 		AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				18D9713729BD84480064DC2A /* FriendProfilePageView.swift */,
+				AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */,
 			);
 			path = FriendProfilePageView;
 			sourceTree = "<group>";
@@ -241,6 +246,8 @@
 				18D9713429BD7CC90064DC2A /* UserListItemView.swift */,
 				181C746E29BDDEB700E6D3B1 /* UserActionMenuView.swift */,
 				18BE7F2629BDEDBE0035DE2C /* UserHorizontalListView.swift */,
+				18D9713429BD7CC90064DC2A /* FriendRowView.swift */,
+				AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -412,10 +419,13 @@
 				AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */,
 				AC63059C29BDA34F00EEEA85 /* GroupChatView.swift in Sources */,
 				181C746F29BDDEB700E6D3B1 /* UserActionMenuView.swift in Sources */,
+				AC6305A629BDC60300EEEA85 /* RecentActivityView.swift in Sources */,
 				18A1AC5429BB121A0064CF37 /* DateCellView.swift in Sources */,
 				18BE7F2729BDEDBE0035DE2C /* UserHorizontalListView.swift in Sources */,
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
+				18D9713529BD7CC90064DC2A /* FriendRowView.swift in Sources */,
+				AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,
 				AC32F96B29BA38CE0005F5B9 /* ProfilePageView.swift in Sources */,
