@@ -1,0 +1,47 @@
+import SwiftUI
+
+class Event: ObservableObject, Hashable, Identifiable {
+    @Published var invitedUsers: [User]
+    @Published var attendingUsers: [User]
+    @Published var rejectedUsers: [User]
+    @Published var datetime: Date
+    @Published var location: String
+    @Published var title: String
+    @Published var description: String
+    @Published var hostUser: User
+
+    var id: UUID
+
+    init(id: UUID = UUID(),
+         title: String = "",
+         invitedUsers: [User] = [],
+         attendingUsers: [User] = [],
+         rejectedUsers: [User] = [],
+         datetime: Date = Date(),
+         location: String = "",
+         description: String = "",
+         hostUser: User) {
+        self.id = id
+        self.title = title
+        self.invitedUsers = invitedUsers
+        self.attendingUsers = attendingUsers
+        self.rejectedUsers = rejectedUsers
+        self.datetime = datetime
+        self.location = location
+        self.description = description
+        self.hostUser = hostUser
+    }
+
+    var pendingUsers: [User] {
+        let respondedUsers = attendingUsers + rejectedUsers
+        return invitedUsers.filter { !respondedUsers.contains($0) }
+    }
+
+    static func == (lhs: Event, rhs: Event) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

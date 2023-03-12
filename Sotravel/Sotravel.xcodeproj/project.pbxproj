@@ -22,6 +22,9 @@
 		18D9713529BD7CC90064DC2A /* FriendRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713429BD7CC90064DC2A /* FriendRowView.swift */; };
 		18D9713829BD84480064DC2A /* FriendProfilePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713729BD84480064DC2A /* FriendProfilePageView.swift */; };
 		18D9713A29BD86330064DC2A /* FriendsListPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713929BD86330064DC2A /* FriendsListPageView.swift */; };
+		18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713D29BD910B0064DC2A /* EventPageView.swift */; };
+		18D9714029BD91B60064DC2A /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713F29BD91B60064DC2A /* Event.swift */; };
+		18D9714229BD93F20064DC2A /* MockEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9714129BD93F20064DC2A /* MockEvents.swift */; };
 		18DEC57729B9A18500B3228A /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18DEC57329B9A18500B3228A /* Manrope-Bold.ttf */; };
 		18DEC57829B9A18500B3228A /* Manrope-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18DEC57429B9A18500B3228A /* Manrope-SemiBold.ttf */; };
 		18DEC57929B9A18500B3228A /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18DEC57529B9A18500B3228A /* Manrope-Regular.ttf */; };
@@ -60,6 +63,9 @@
 		18D9713429BD7CC90064DC2A /* FriendRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRowView.swift; sourceTree = "<group>"; };
 		18D9713729BD84480064DC2A /* FriendProfilePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfilePageView.swift; sourceTree = "<group>"; };
 		18D9713929BD86330064DC2A /* FriendsListPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListPageView.swift; sourceTree = "<group>"; };
+		18D9713D29BD910B0064DC2A /* EventPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPageView.swift; sourceTree = "<group>"; };
+		18D9713F29BD91B60064DC2A /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		18D9714129BD93F20064DC2A /* MockEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEvents.swift; sourceTree = "<group>"; };
 		18DEC57329B9A18500B3228A /* Manrope-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Bold.ttf"; sourceTree = "<group>"; };
 		18DEC57429B9A18500B3228A /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
 		18DEC57529B9A18500B3228A /* Manrope-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Regular.ttf"; sourceTree = "<group>"; };
@@ -97,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				18591C8729BD73FF00FA987D /* User.swift */,
+				18D9713F29BD91B60064DC2A /* Event.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -144,6 +151,7 @@
 		1866DE6B29B993FA005D9F59 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				18D9713C29BD90FA0064DC2A /* EventPageView */,
 				18D9713B29BD86390064DC2A /* FriendsListPageView */,
 				18D9713629BD84240064DC2A /* FriendProfilePageView */,
 				AC32F96329BA2DEE0005F5B9 /* ProfilePageView */,
@@ -160,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				18D9713229BD74B10064DC2A /* MockUsers.swift */,
+				18D9714129BD93F20064DC2A /* MockEvents.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -178,6 +187,14 @@
 				18D9713929BD86330064DC2A /* FriendsListPageView.swift */,
 			);
 			path = FriendsListPageView;
+			sourceTree = "<group>";
+		};
+		18D9713C29BD90FA0064DC2A /* EventPageView */ = {
+			isa = PBXGroup;
+			children = (
+				18D9713D29BD910B0064DC2A /* EventPageView.swift */,
+			);
+			path = EventPageView;
 			sourceTree = "<group>";
 		};
 		18DEC57C29B9A28800B3228A /* Extensions */ = {
@@ -351,14 +368,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				18DEC57E29B9A29700B3228A /* Font.swift in Sources */,
+				18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */,
 				AC75222729BCBD0A00E7C6E7 /* ProfileTextView.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
+				18D9714029BD91B60064DC2A /* Event.swift in Sources */,
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
 				18591C8829BD73FF00FA987D /* User.swift in Sources */,
 				AC32F96029BA2A930005F5B9 /* ChatPageView.swift in Sources */,
 				18D9713829BD84480064DC2A /* FriendProfilePageView.swift in Sources */,
 				18D9713A29BD86330064DC2A /* FriendsListPageView.swift in Sources */,
 				18591C8529BCDB7700FA987D /* SearchBarView.swift in Sources */,
+				18D9714229BD93F20064DC2A /* MockEvents.swift in Sources */,
 				AC32F96529BA33440005F5B9 /* ProfileHeaderView.swift in Sources */,
 				18A1AC5A29BB12CB0064CF37 /* DateFormatter.swift in Sources */,
 				AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */,

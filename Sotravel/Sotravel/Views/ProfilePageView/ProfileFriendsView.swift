@@ -9,7 +9,7 @@ struct ProfileFriendsView: View {
                 Text("Friends")
                     .font(.uiTitle3)
                 Spacer()
-            }
+            }.padding(.bottom, 10)
 
             VStack(spacing: 0) {
                 let usersShown = user.friends.prefix(3)
