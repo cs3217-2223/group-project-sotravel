@@ -3,7 +3,7 @@ import Foundation
 let mockEvent1 = Event(
     title: "Climbing at Railay",
     invitedUsers: mockFriends,
-    attendingUsers: [mockUser, mockFriends[0], mockFriends[3]],
+    attendingUsers: mockFriends,
     rejectedUsers: [mockFriends[2]],
     datetime: Date(timeIntervalSinceNow: 3600),
     location: "Railay Beach, Krabi",

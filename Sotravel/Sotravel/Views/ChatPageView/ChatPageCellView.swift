@@ -26,6 +26,7 @@ struct ChatPageCellView: View {
                 .font(Font.custom("Manrope-Regular", size: 14))
                 .clipped()
                 .padding(0)
+                .multilineTextAlignment(.leading)
             Divider().padding(.top, 8)
         }
     }

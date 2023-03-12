@@ -19,7 +19,9 @@ struct FriendsListPageView: View {
             ScrollView {
                 ForEach(filteredFriends, id: \.id) { friend in
                     NavigationLink(destination: FriendProfilePageView(friend: friend)) {
-                        FriendRowView(friend: friend)
+                        UserListItemView(user: friend) {
+                            ActionMenuButton(user: friend)
+                        }
                     }
                     Divider()
                 }

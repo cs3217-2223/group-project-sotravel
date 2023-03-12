@@ -28,7 +28,7 @@ struct EventView: View {
                         .foregroundColor(.gray)
                         .padding(.top, 4)
                         .lineLimit(1)
-                    Button(action: {}, label: {
+                    NavigationLink(destination: EventPageView(event: event)) {
                         HStack(spacing: 0) {
                             Text("\(event.attendingUsers.count) Attending")
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -49,10 +49,10 @@ struct EventView: View {
                             }.offset(x: -50)
                         }
                         .padding(.top, 1)
-                    })
+                    }
                 }
             }
-            Button(action: {}, label: {
+            NavigationLink(destination: EventPageView(event: event)) {
                 HStack(alignment: .firstTextBaseline) {
                     Text("Join")
                 }
@@ -67,7 +67,7 @@ struct EventView: View {
                         .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
                             .fill(Color.uiPrimary.opacity(0.1)))
                 }
-            })
+            }
         }
         .padding(16)
         .background(.white)

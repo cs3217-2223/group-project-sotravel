@@ -11,7 +11,7 @@ struct MapPageView: View {
     var body: some View {
         VStack {
             MapView()
-            ColoredDividerView()
+                .padding(.bottom)
         }
     }
 }

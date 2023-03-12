@@ -1,25 +1,6 @@
 import SwiftUI
 
 extension Font {
-    static let primary = Font
-        .custom("Manrope-Regular", size: UIFont.preferredFont(
-            forTextStyle: .body
-        ).pointSize)
-
-    static let primary500 = Font
-        .custom("Manrope-Medium", size: UIFont.preferredFont(
-            forTextStyle: .body
-        ).pointSize)
-
-    static let primary600 = Font
-        .custom("Manrope-Semibold", size: UIFont.preferredFont(
-            forTextStyle: .body
-        ).pointSize)
-
-    static let primary700 = Font
-        .custom("Manrope-Bold", size: UIFont.preferredFont(
-            forTextStyle: .body
-        ).pointSize)
     static let uiLargeTitle = Font.custom("Manrope-Bold",
                                           size: UIFont.preferredFont(forTextStyle: .largeTitle).pointSize)
     static let uiTitle1 = Font.custom("Manrope-Bold",
@@ -31,6 +12,7 @@ extension Font {
                                         size: UIFont.preferredFont(forTextStyle: .headline).pointSize)
     static let uiButton = Font.custom("Manrope-Bold", size: UIFont.preferredFont(forTextStyle: .body).pointSize)
     static let uiBody = Font.custom("Manrope-Regular", size: UIFont.preferredFont(forTextStyle: .body).pointSize)
+    static let uiTab = Font.custom("Manrope-Bold", size: 12)
     static let uiSubheadline = Font.custom("Manrope-Regular",
                                            size: UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
     static let uiCallout = Font.custom("Manrope-Regular", size: UIFont.preferredFont(forTextStyle: .callout).pointSize)

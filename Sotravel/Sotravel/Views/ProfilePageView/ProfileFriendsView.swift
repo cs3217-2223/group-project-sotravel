@@ -15,7 +15,9 @@ struct ProfileFriendsView: View {
                 let usersShown = user.friends.prefix(3)
                 ForEach(Array(usersShown.enumerated()), id: \.element.id) { index, friend in
                     NavigationLink(destination: FriendProfilePageView(friend: friend)) {
-                        FriendRowView(friend: friend)
+                        UserListItemView(user: friend) {
+                            ActionMenuButton(user: user)
+                        }
                     }
 
                     if index != usersShown.count - 1 {
