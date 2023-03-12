@@ -11,12 +11,21 @@ struct ChatPageView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                MessageView()
-                MessageView()
-                MessageView()
-                MessageView()
-                MessageView()
-                MessageView()
+                NavigationLink(destination: GroupChatView()) {
+                    ChatPageCellView()
+                }
+                NavigationLink(destination: GroupChatView()) {
+                    ChatPageCellView()
+                }
+                NavigationLink(destination: GroupChatView()) {
+                    ChatPageCellView()
+                }
+                NavigationLink(destination: GroupChatView()) {
+                    ChatPageCellView()
+                }
+                NavigationLink(destination: GroupChatView()) {
+                    ChatPageCellView()
+                }
             }
             .navigationTitle("Chat")
             .padding(.all)

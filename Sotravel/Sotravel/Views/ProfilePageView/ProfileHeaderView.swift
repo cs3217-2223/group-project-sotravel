@@ -12,7 +12,15 @@ struct ProfileHeaderView: View {
 
     var body: some View {
         VStack(spacing: 10) {
-            ProfileImageView(imageSrc: user.imageURL, name: user.name, width: 150, height: 150)
+            ZStack(alignment: .top) {
+                Rectangle()
+                    .foregroundColor(Color.uiPrimary)
+                     .edgesIgnoringSafeArea(.top)
+                     .frame(height: UIScreen.main.bounds.height / 10)
+                ProfileImageView(imageSrc: user.imageURL, name: user.name, width: 150, height: 150)
+                    .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                    .shadow(radius: 10)
+            }
 
             Text(user.name)
                 .font(.uiTitle2)
@@ -54,7 +62,6 @@ struct ProfileHeaderView: View {
                             .frame(width: 30, height: 30)
                     })
                 }
-
             }.padding(.vertical, 12)
         }
     }
