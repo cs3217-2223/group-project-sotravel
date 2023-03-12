@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ProfilePageView: View {
-    @EnvironmentObject var user: User
-
     var body: some View {
-        VStack {
-            ProfileHeaderView()
-            ProfileTextView()
-            FriendsView()
+        NavigationView {
+            VStack {
+                ProfileHeaderView()
+                Divider()
+                ProfileFriendsView()
+                Spacer()
+            }
         }
     }
 }

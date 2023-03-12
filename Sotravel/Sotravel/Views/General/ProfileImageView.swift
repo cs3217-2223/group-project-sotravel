@@ -16,6 +16,7 @@ struct ProfileImageView: View {
                     .frame(width: width, height: height)
             } placeholder: {
                 ProgressView()
+                    .frame(width: width, height: height)
             }
         } else {
             let initials = name

@@ -18,15 +18,15 @@ struct ProfileHeaderView: View {
                 .font(.uiTitle2)
                 .fontWeight(.bold)
 
-            Text(user.description)
+            Text(user.description ?? "")
                 .font(.uiHeadline)
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
 
             HStack(spacing: 20) {
-                if !user.telegramUsername.isEmpty {
+                if let telegramUsername = user.telegramUsername, !telegramUsername.isEmpty {
                     Button(action: {
-                        guard let url = URL(string: "https://t.me/\(user.telegramUsername)") else { return }
+                        guard let url = URL(string: "https://t.me/\(telegramUsername)") else { return }
                         UIApplication.shared.open(url)
                     }) {
                         Image("telegram")
@@ -34,10 +34,9 @@ struct ProfileHeaderView: View {
                             .frame(width: 30, height: 30)
                     }
                 }
-
-                if !user.instagramUsername.isEmpty {
+                if let instagramUsername = user.instagramUsername, !instagramUsername.isEmpty {
                     Button(action: {
-                        guard let url = URL(string: "https://www.instagram.com/\(user.instagramUsername)/") else { return }
+                        guard let url = URL(string: "https://www.instagram.com/\(instagramUsername)/") else { return }
                         UIApplication.shared.open(url)
                     }) {
                         Image("instagram")
@@ -45,10 +44,9 @@ struct ProfileHeaderView: View {
                             .frame(width: 30, height: 30)
                     }
                 }
-
-                if !user.tiktokUsername.isEmpty {
+                if let tiktokUsername = user.tiktokUsername, !tiktokUsername.isEmpty {
                     Button(action: {
-                        guard let url = URL(string: "https://www.tiktok.com/@\(user.tiktokUsername)") else { return }
+                        guard let url = URL(string: "https://www.tiktok.com/@\(tiktokUsername)") else { return }
                         UIApplication.shared.open(url)
                     }) {
                         Image("tiktok")
@@ -56,6 +54,7 @@ struct ProfileHeaderView: View {
                             .frame(width: 30, height: 30)
                     }
                 }
+
             }.padding(.vertical, 12)
         }
     }
