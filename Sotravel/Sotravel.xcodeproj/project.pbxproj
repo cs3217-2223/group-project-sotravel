@@ -20,6 +20,7 @@
 		18A1AC5629BB12940064CF37 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1AC5529BB12940064CF37 /* Calendar.swift */; };
 		18A1AC5829BB12B90064CF37 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1AC5729BB12B90064CF37 /* Date.swift */; };
 		18A1AC5A29BB12CB0064CF37 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1AC5929BB12CB0064CF37 /* DateFormatter.swift */; };
+		18B33DAF29BE06E60036B51E /* CreateInvitePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B33DAE29BE06E60036B51E /* CreateInvitePageView.swift */; };
 		18BE7F2729BDEDBE0035DE2C /* UserHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE7F2629BDEDBE0035DE2C /* UserHorizontalListView.swift */; };
 		18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713229BD74B10064DC2A /* MockUsers.swift */; };
 		18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713429BD7CC90064DC2A /* UserListItemView.swift */; };
@@ -68,6 +69,7 @@
 		18A1AC5529BB12940064CF37 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		18A1AC5729BB12B90064CF37 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		18A1AC5929BB12CB0064CF37 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		18B33DAE29BE06E60036B51E /* CreateInvitePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInvitePageView.swift; sourceTree = "<group>"; };
 		18BE7F2629BDEDBE0035DE2C /* UserHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHorizontalListView.swift; sourceTree = "<group>"; };
 		18D9713229BD74B10064DC2A /* MockUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUsers.swift; sourceTree = "<group>"; };
 		18D9713429BD7CC90064DC2A /* UserListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemView.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 		1866DE6B29B993FA005D9F59 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				18B33DAD29BE06D70036B51E /* CreateInvitePageView */,
 				18D9713C29BD90FA0064DC2A /* EventPageView */,
 				18D9713B29BD86390064DC2A /* FriendsListPageView */,
 				18D9713629BD84240064DC2A /* FriendProfilePageView */,
@@ -177,6 +180,14 @@
 				AC32F95429BA05810005F5B9 /* LoginView */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		18B33DAD29BE06D70036B51E /* CreateInvitePageView */ = {
+			isa = PBXGroup;
+			children = (
+				18B33DAE29BE06E60036B51E /* CreateInvitePageView.swift */,
+			);
+			path = CreateInvitePageView;
 			sourceTree = "<group>";
 		};
 		18D9713129BD749F0064DC2A /* Mocks */ = {
@@ -243,10 +254,9 @@
 			children = (
 				18591C8229BCDB2800FA987D /* ProfileImageView.swift */,
 				18591C8429BCDB7700FA987D /* SearchBarView.swift */,
-				18D9713429BD7CC90064DC2A /* UserListItemView.swift */,
 				181C746E29BDDEB700E6D3B1 /* UserActionMenuView.swift */,
 				18BE7F2629BDEDBE0035DE2C /* UserHorizontalListView.swift */,
-				18D9713429BD7CC90064DC2A /* FriendRowView.swift */,
+				18D9713429BD7CC90064DC2A /* UserListItemView.swift */,
 				AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */,
 			);
 			path = General;
@@ -424,7 +434,8 @@
 				18BE7F2729BDEDBE0035DE2C /* UserHorizontalListView.swift in Sources */,
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
-				18D9713529BD7CC90064DC2A /* FriendRowView.swift in Sources */,
+				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
+				18B33DAF29BE06E60036B51E /* CreateInvitePageView.swift in Sources */,
 				AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,

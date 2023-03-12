@@ -20,6 +20,11 @@ struct ContentView: View {
                     Image(systemName: "megaphone.fill")
                     Text("Invites")
                 }
+            CreateInvitePageView()
+                .tabItem {
+                    Image(systemName: "plus.circle.fill")
+                    Text("Create")
+                }
             ChatPageView()
                 .tabItem {
                     Image(systemName: "message.fill")

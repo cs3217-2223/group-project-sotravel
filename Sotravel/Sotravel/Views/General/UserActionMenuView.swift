@@ -15,9 +15,6 @@ struct ActionMenuButton: View {
         })
         .actionSheet(isPresented: $showActionSheet) {
             ActionSheet(title: Text("Options"), buttons: [
-                .default(
-                    Text("View Profile")
-                ),
                 .destructive(Text("Unfriend")),
                 .cancel()
             ])

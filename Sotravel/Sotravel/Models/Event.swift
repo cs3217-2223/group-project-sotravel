@@ -5,6 +5,7 @@ class Event: ObservableObject, Hashable, Identifiable {
     @Published var attendingUsers: [User]
     @Published var rejectedUsers: [User]
     @Published var datetime: Date
+    @Published var meetingPoint: String
     @Published var location: String
     @Published var title: String
     @Published var description: String
@@ -19,6 +20,7 @@ class Event: ObservableObject, Hashable, Identifiable {
          rejectedUsers: [User] = [],
          datetime: Date = Date(),
          location: String = "",
+         meetingPoint: String = "",
          description: String = "",
          hostUser: User) {
         self.id = id
@@ -30,6 +32,7 @@ class Event: ObservableObject, Hashable, Identifiable {
         self.location = location
         self.description = description
         self.hostUser = hostUser
+        self.meetingPoint = meetingPoint
     }
 
     var pendingUsers: [User] {
