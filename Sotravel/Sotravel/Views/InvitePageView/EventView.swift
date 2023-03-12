@@ -31,7 +31,7 @@ struct EventView: View {
                         .font(.uiHeadline)
                         .foregroundColor(.gray)
                         .padding(.top, 4)
-                    Button(action: {}){
+                    Button(action: {}, label: {
                         HStack(spacing: 0) {
                             Text("12 Attending")
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -71,10 +71,10 @@ struct EventView: View {
                             }
                         }
                         .padding(.top, 1)
-                    }
+                    })
                 }
             }
-            Button(action: { }) {
+            Button(action: {}, label: {
                 HStack(alignment: .firstTextBaseline) {
                     Text("Join")
                 }
@@ -86,9 +86,10 @@ struct EventView: View {
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .stroke(.clear.opacity(0.25), lineWidth: 0)
-                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.uiPrimary.opacity(0.1)))
+                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .fill(Color.uiPrimary.opacity(0.1)))
                 }
-            }
+            })
         }
         .padding(16)
         .background(.white)

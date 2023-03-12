@@ -16,11 +16,11 @@ extension Calendar {
         return calendar.generateDays(for: dateInterval)
     }
 
-
     func generatedDates(for dateInterval: DateInterval, matching components: DateComponents) -> [Date] {
         var dates = [dateInterval.start]
 
-        enumerateDates(startingAfter: dateInterval.start, matching: components, matchingPolicy: .nextTime) { date, _, stop in
+        enumerateDates(startingAfter: dateInterval.start,
+                       matching: components, matchingPolicy: .nextTime) { date, _, stop in
             guard let date = date else { return }
 
             guard date < dateInterval.end else {

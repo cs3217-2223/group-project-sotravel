@@ -4,13 +4,10 @@ class User: ObservableObject, Identifiable, Hashable {
     static func == (lhs: User, rhs: User) -> Bool {
         lhs.id == rhs.id
     }
-    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-    
     var id = UUID()
-    
     @Published var name: String
     @Published var description: String? // Optional
     @Published var imageURL: String? // Optional
@@ -18,7 +15,6 @@ class User: ObservableObject, Identifiable, Hashable {
     @Published var tiktokUsername: String? // Optional
     @Published var telegramUsername: String
     @Published var friends: [User]
-    
     init(
         name: String,
         description: String? = nil,
