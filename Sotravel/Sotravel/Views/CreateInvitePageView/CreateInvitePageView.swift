@@ -3,8 +3,8 @@ import SwiftUI
 struct CreateInvitePageView: View {
     @EnvironmentObject var user: User
     @State private var title: String = ""
-    @State private var date: Date = Date()
-    @State private var time: Date = Date()
+    @State private var date = Date()
+    @State private var time = Date()
     @State private var location: String = ""
     @State private var meetingPoint: String = ""
     @State private var description: String = ""
@@ -81,7 +81,6 @@ struct CreateInvitePageView: View {
                     }
                 }
 
-
                 //                Section() {
                 //                    Button(action: {
                 //                        // Create event action
@@ -96,7 +95,7 @@ struct CreateInvitePageView: View {
 
                 Button(action: {
                     // Create event action
-                }){
+                }) {
                     HStack(alignment: .firstTextBaseline) {
                         Image(systemName: "plus")
                         Text("Create Invite")
@@ -110,7 +109,8 @@ struct CreateInvitePageView: View {
                         RoundedRectangle(cornerRadius: 10, style: .continuous)
                             .stroke(.clear.opacity(0.25), lineWidth: 0)
                             .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
-                    }}
+                    }
+                }
             }
         }
     }
@@ -123,4 +123,3 @@ struct CreateEventView_Previews: PreviewProvider {
         }
     }
 }
-

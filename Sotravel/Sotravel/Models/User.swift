@@ -15,6 +15,7 @@ class User: ObservableObject, Identifiable, Hashable {
     @Published var tiktokUsername: String? // Optional
     @Published var telegramUsername: String
     @Published var friends: [User]
+
     init(
         name: String,
         description: String? = nil,

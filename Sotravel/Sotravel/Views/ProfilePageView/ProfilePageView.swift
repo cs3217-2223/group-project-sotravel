@@ -15,7 +15,7 @@ struct ProfilePageView: View {
                 Divider()
                 ProfileFriendsView()
                 Spacer()
-            }
+            }.padding(.horizontal)
         }
     }
 }

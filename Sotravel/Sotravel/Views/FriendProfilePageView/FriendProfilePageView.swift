@@ -15,14 +15,17 @@ struct FriendProfilePageView: View {
                 .multilineTextAlignment(.center)
             SocialMediaLinksView(user: friend)
             Divider()
-            RecentActivityView()
+            RecentActivityView(user: friend).padding(.top, 10)
             Spacer()
-        }.navigationBarTitle(Text(friend.name))
+        }
+        .padding(.horizontal)
     }
 }
 
 struct FriendProfilePageView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendProfilePageView(friend: mockUser)
+        NavigationStack {
+            FriendProfilePageView(friend: mockFriend2)
+        }
     }
 }

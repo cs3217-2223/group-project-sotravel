@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct AttendeesTabView: View {
+struct AttendeesView: View {
     @State var selectedTab: Int = 0
     @ObservedObject var event: Event
 
@@ -60,6 +60,6 @@ struct AttendeesTabView: View {
 
 struct AttendeesTabView_Previews: PreviewProvider {
     static var previews: some View {
-        AttendeesTabView(event: mockEvent1)
+        AttendeesView(event: mockEvent1)
     }
 }

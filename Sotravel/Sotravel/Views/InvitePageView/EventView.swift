@@ -30,7 +30,7 @@ struct EventView: View {
                         .lineLimit(1)
                     NavigationLink(destination: EventPageView(event: event)) {
                         HStack(spacing: 0) {
-                            Text("\(event.attendingUsers.count) Attending")
+                            Text("\(event.attendingUsers.count) Going")
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .clipped()
                                 .font(.uiFootnote)

@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct RecentActivityView: View {
+    @EnvironmentObject var eventsStore: EventsStore
+    var user: User
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("Going")
-                    .font(.uiTitle1)
-                    .padding(.leading)
+                Text("I'm going to 🐈")
+                    .font(.uiTitle3)
                 Spacer()
             }
+
             ScrollView {
-                EventView(event: mockEvent1)
-                EventView(event: mockEvent2)
+                ForEach(eventsStore.findAttendingEvents(for: user)) { event in
+                    NavigationLink(destination: EventPageView(event: event)) {
+                        EventView(event: event)
+                    }
+                }
             }
         }
     }
@@ -26,6 +32,8 @@ struct RecentActivityView: View {
 
 struct RecentActivityView_Previews: PreviewProvider {
     static var previews: some View {
-        RecentActivityView()
+        NavigationStack {
+            RecentActivityView(user: mockFriend3).environmentObject(EventsStore(events: mockEvents))
+        }
     }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		181C746D29BDDBEF00E6D3B1 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C746C29BDDBEF00E6D3B1 /* AttendeesView.swift */; };
 		181C746F29BDDEB700E6D3B1 /* UserActionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C746E29BDDEB700E6D3B1 /* UserActionMenuView.swift */; };
+		1855A2CF29BEF48200C8F9CA /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1855A2CE29BEF48200C8F9CA /* ChatView.swift */; };
 		18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18591C8229BCDB2800FA987D /* ProfileImageView.swift */; };
 		18591C8529BCDB7700FA987D /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18591C8429BCDB7700FA987D /* SearchBarView.swift */; };
 		18591C8829BD73FF00FA987D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18591C8729BD73FF00FA987D /* User.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		181C746C29BDDBEF00E6D3B1 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
 		181C746E29BDDEB700E6D3B1 /* UserActionMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionMenuView.swift; sourceTree = "<group>"; };
+		1855A2CE29BEF48200C8F9CA /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		18591C8229BCDB2800FA987D /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		18591C8429BCDB7700FA987D /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		18591C8729BD73FF00FA987D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				AC63059B29BDA34F00EEEA85 /* GroupChatView.swift */,
 				AC63059D29BDA43F00EEEA85 /* GroupChatHeaderView.swift */,
 				AC6305A129BDA6E600EEEA85 /* GroupChatCellView.swift */,
+				1855A2CE29BEF48200C8F9CA /* ChatView.swift */,
 			);
 			path = ChatPageView;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
 				18B33DAF29BE06E60036B51E /* CreateInvitePageView.swift in Sources */,
+				1855A2CF29BEF48200C8F9CA /* ChatView.swift in Sources */,
 				AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,

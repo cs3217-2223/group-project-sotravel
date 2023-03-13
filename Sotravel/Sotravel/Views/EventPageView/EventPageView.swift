@@ -40,7 +40,7 @@ struct EventPageView: View {
                     Spacer()
                 }
 
-                AttendeesTabView(event: event)
+                AttendeesView(event: event)
             }.padding(.top, 6)
 
             Spacer()

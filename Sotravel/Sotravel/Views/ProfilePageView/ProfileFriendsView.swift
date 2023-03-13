@@ -41,13 +41,14 @@ struct ProfileFriendsView: View {
                 }
             }
         }
-        .padding(.horizontal)
         .padding(.top, 6)
     }
 }
 
 struct ProfileFriendsView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileFriendsView().environmentObject(mockUser)
+        ProfileFriendsView()
+            .environmentObject(mockUser)
+            .environmentObject(EventsStore(events: mockEvents))
     }
 }
