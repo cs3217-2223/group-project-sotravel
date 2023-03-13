@@ -81,18 +81,6 @@ struct CreateInvitePageView: View {
                     }
                 }
 
-                //                Section() {
-                //                    Button(action: {
-                //                        // Create event action
-                //                    }) {
-                //                        Text("Create Event ✨")
-                //                            .font(.uiButton)
-                //                            .multilineTextAlignment(.center)
-                //
-                //                    }
-                //                    .disabled(title.isEmpty || date == Date() || location.isEmpty || meetingPoint.isEmpty || time == Date())
-                //                }
-
                 Button(action: {
                     // Create event action
                 }) {

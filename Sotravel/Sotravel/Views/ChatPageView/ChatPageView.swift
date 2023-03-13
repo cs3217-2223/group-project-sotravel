@@ -8,23 +8,15 @@
 import SwiftUI
 
 struct ChatPageView: View {
+    @EnvironmentObject var eventsStore: EventsStore
+
     var body: some View {
         NavigationStack {
             ScrollView {
-                NavigationLink(destination: GroupChatView()) {
-                    ChatPageCellView()
-                }
-                NavigationLink(destination: GroupChatView()) {
-                    ChatPageCellView()
-                }
-                NavigationLink(destination: GroupChatView()) {
-                    ChatPageCellView()
-                }
-                NavigationLink(destination: GroupChatView()) {
-                    ChatPageCellView()
-                }
-                NavigationLink(destination: GroupChatView()) {
-                    ChatPageCellView()
+                ForEach(self.eventsStore.events) { event in
+                    NavigationLink(destination: GroupChatView(event: event)) {
+                        ChatPageCellView(event: event, latestChatMessage: mockMessage1)
+                    }
                 }
             }
             .navigationTitle("Chat")
@@ -35,6 +27,6 @@ struct ChatPageView: View {
 
 struct ChatPageView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatPageView()
+        ChatPageView().environmentObject(EventsStore(events: mockEvents))
     }
 }

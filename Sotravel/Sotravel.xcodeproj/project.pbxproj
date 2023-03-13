@@ -17,6 +17,8 @@
 		1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866DE5F29B993E3005D9F59 /* ContentView.swift */; };
 		1866DE6229B993E5005D9F59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1866DE6129B993E5005D9F59 /* Assets.xcassets */; };
 		1866DE6529B993E5005D9F59 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1866DE6429B993E5005D9F59 /* Preview Assets.xcassets */; };
+		1893D29329BF295400B61BC9 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893D29229BF295400B61BC9 /* ChatMessage.swift */; };
+		1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893D29429BF2A4E00B61BC9 /* MockChat.swift */; };
 		18A1AC5429BB121A0064CF37 /* DateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1AC5329BB121A0064CF37 /* DateCellView.swift */; };
 		18A1AC5629BB12940064CF37 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1AC5529BB12940064CF37 /* Calendar.swift */; };
 		18A1AC5829BB12B90064CF37 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1AC5729BB12B90064CF37 /* Date.swift */; };
@@ -67,6 +69,8 @@
 		1866DE5F29B993E3005D9F59 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1866DE6129B993E5005D9F59 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1866DE6429B993E5005D9F59 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1893D29229BF295400B61BC9 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		1893D29429BF2A4E00B61BC9 /* MockChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockChat.swift; sourceTree = "<group>"; };
 		18A1AC5329BB121A0064CF37 /* DateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCellView.swift; sourceTree = "<group>"; };
 		18A1AC5529BB12940064CF37 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		18A1AC5729BB12B90064CF37 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 				18591C8729BD73FF00FA987D /* User.swift */,
 				18D9713F29BD91B60064DC2A /* Event.swift */,
 				18D9714329BD9AF80064DC2A /* EventsStore.swift */,
+				1893D29229BF295400B61BC9 /* ChatMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 			children = (
 				18D9713229BD74B10064DC2A /* MockUsers.swift */,
 				18D9714129BD93F20064DC2A /* MockEvents.swift */,
+				1893D29429BF2A4E00B61BC9 /* MockChat.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -408,6 +414,7 @@
 			files = (
 				18DEC57E29B9A29700B3228A /* Font.swift in Sources */,
 				18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */,
+				1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
 				18D9714029BD91B60064DC2A /* Event.swift in Sources */,
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
@@ -427,6 +434,7 @@
 				18F72A3829B997F40084B94A /* LoginView.swift in Sources */,
 				AC32F95329BA02700005F5B9 /* CalendarView.swift in Sources */,
 				181C746D29BDDBEF00E6D3B1 /* AttendeesView.swift in Sources */,
+				1893D29329BF295400B61BC9 /* ChatMessage.swift in Sources */,
 				AC32F96229BA2AD90005F5B9 /* ChatPageCellView.swift in Sources */,
 				18A1AC5629BB12940064CF37 /* Calendar.swift in Sources */,
 				AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */,

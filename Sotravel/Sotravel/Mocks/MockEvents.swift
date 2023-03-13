@@ -1,7 +1,7 @@
 import Foundation
 
 let mockEvent1 = Event(
-    title: "Climbing at Railay",
+    activity: "Climbing",
     invitedUsers: mockFriends,
     attendingUsers: mockFriends,
     rejectedUsers: [mockFriends[2]],
@@ -14,7 +14,7 @@ let mockEvent1 = Event(
 )
 
 let mockEvent2 = Event(
-    title: "Hike up Tiger Cave Temple",
+    activity: "Hike",
     invitedUsers: mockFriends,
     attendingUsers: [mockFriends[1], mockFriends[3]],
     rejectedUsers: [mockFriends[0]],
@@ -27,7 +27,7 @@ let mockEvent2 = Event(
 )
 
 let mockEvent3 = Event(
-    title: "Island Hopping at Phi Phi Islands",
+    activity: "Island Hopping",
     invitedUsers: mockFriends,
     attendingUsers: [mockFriends[4], mockFriends[5]],
     rejectedUsers: [],
@@ -40,7 +40,7 @@ let mockEvent3 = Event(
 )
 
 let mockEvent4 = Event(
-    title: "Skinny Dip at Emerald Pool",
+    activity: "Skinny Dip",
     invitedUsers: mockFriends,
     attendingUsers: [mockFriends[2]],
     rejectedUsers: [mockFriends[1]],
@@ -53,7 +53,7 @@ let mockEvent4 = Event(
 )
 
 let mockEvent5 = Event(
-    title: "Beach Volley Ball at Ao Nang Beach",
+    activity: "Beach Volley Ball",
     invitedUsers: mockFriends,
     attendingUsers: [mockFriends[0], mockFriends[1], mockFriends[2]],
     rejectedUsers: [mockFriends[3]],
@@ -66,7 +66,7 @@ let mockEvent5 = Event(
 )
 
 let mockEvent6 = Event(
-    title: "Kayaking at Hong Island",
+    activity: "Kayaking",
     invitedUsers: mockFriends,
     attendingUsers: [mockUser, mockFriends[3], mockFriends[4], mockFriends[5]],
     rejectedUsers: [],
@@ -79,7 +79,7 @@ let mockEvent6 = Event(
 )
 
 let mockEvent7 = Event(
-    title: "Scenic Hike at Thung Teao Forest Natural Park",
+    activity: "Scenic Hike",
     invitedUsers: mockFriends,
     attendingUsers: [mockUser, mockFriends[2], mockFriends[4]],
     rejectedUsers: [mockFriends[0]],
@@ -92,7 +92,7 @@ let mockEvent7 = Event(
 )
 
 let mockEvent8 = Event(
-    title: "Makan at Krabi Town Night Market",
+    activity: "Makan",
     invitedUsers: mockFriends,
     attendingUsers: [mockUser, mockFriends[1], mockFriends[3], mockFriends[4]],
     rejectedUsers: [mockFriends[2]],
@@ -105,7 +105,7 @@ let mockEvent8 = Event(
 )
 
 let mockEvent9 = Event(
-    title: "Unwind at Krabi Hot Springs",
+    activity: "Unwind",
     invitedUsers: mockFriends,
     attendingUsers: [mockUser, mockFriends[0], mockFriends[2], mockFriends[5]],
     rejectedUsers: [],

@@ -7,14 +7,17 @@ class Event: ObservableObject, Hashable, Identifiable {
     @Published var datetime: Date
     @Published var meetingPoint: String
     @Published var location: String
-    @Published var title: String
+    @Published var activity: String
     @Published var description: String
     @Published var hostUser: User
 
     var id: UUID
+    var title: String {
+        "\(self.activity) at \(self.location)"
+    }
 
     init(id: UUID = UUID(),
-         title: String = "",
+         activity: String = "",
          invitedUsers: [User] = [],
          attendingUsers: [User] = [],
          rejectedUsers: [User] = [],
@@ -24,7 +27,7 @@ class Event: ObservableObject, Hashable, Identifiable {
          description: String = "",
          hostUser: User) {
         self.id = id
-        self.title = title
+        self.activity = activity
         self.invitedUsers = invitedUsers
         self.attendingUsers = attendingUsers
         self.rejectedUsers = rejectedUsers

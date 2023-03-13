@@ -8,7 +8,7 @@ let mockUser = User(
     friends: mockFriends
 )
 
-let mockFriend1 = User(
+let mockUser1 = User(
     name: "Jane Doe",
     description: "I'm a beach lover and surfer!",
     // swiftlint:disable:next line_length
@@ -19,7 +19,7 @@ let mockFriend1 = User(
     friends: []
 )
 
-let mockFriend2 = User(
+let mockUser2 = User(
     name: "Micky Johnson",
     description: "I'm a history buff and love visiting ancient ruins!",
     // swiftlint:disable:next line_length
@@ -30,7 +30,7 @@ let mockFriend2 = User(
     friends: []
 )
 
-let mockFriend3 = User(
+let mockUser3 = User(
     name: "Anna Smith",
     description: "I love hiking and exploring the great outdoors!",
     // swiftlint:disable:next line_length
@@ -41,7 +41,7 @@ let mockFriend3 = User(
     friends: []
 )
 
-let mockFriend4 = User(
+let mockUser4 = User(
     name: "John Lee",
     description: "I'm a foodie and love trying new restaurants!",
     // swiftlint:disable:next line_length
@@ -52,7 +52,7 @@ let mockFriend4 = User(
     friends: []
 )
 
-let mockFriend5 = User(
+let mockUser5 = User(
     name: "Sarah Kim",
     description: "I'm a nature lover and enjoy camping and hiking!",
     // swiftlint:disable:next line_length
@@ -63,7 +63,7 @@ let mockFriend5 = User(
     friends: []
 )
 
-let mockFriend6 = User(
+let mockUser6 = User(
     name: "Danielle Chen",
     description: "I'm an art enthusiast and enjoy visiting museums and galleries!",
     // swiftlint:disable:next line_length
@@ -74,7 +74,7 @@ let mockFriend6 = User(
     friends: []
 )
 
-let mockFriend7 = User(
+let mockUser7 = User(
     name: "Lisa Wong",
     description: "I'm a fitness junkie and love trying new workout classes!",
     // swiftlint:disable:next line_length
@@ -85,7 +85,7 @@ let mockFriend7 = User(
     friends: []
 )
 
-let mockFriend8 = User(
+let mockUser8 = User(
     name: "Steph Zhang",
     description: "I'm a music lover and enjoy going to concerts and festivals!",
     // swiftlint:disable:next line_length
@@ -96,7 +96,7 @@ let mockFriend8 = User(
     friends: []
 )
 
-let mockFriend9 = User(
+let mockUser9 = User(
     name: "Grace Lee",
     description: "I'm a bookworm and love visiting libraries and bookstores!",
     // swiftlint:disable:next line_length
@@ -107,7 +107,7 @@ let mockFriend9 = User(
     friends: []
 )
 
-let mockFriend10 = User(
+let mockUser10 = User(
     name: "Eliz Johnson",
     description: "I'm a sports fanatic and love attending games and matches!",
     // swiftlint:disable:next line_length
@@ -119,14 +119,14 @@ let mockFriend10 = User(
 )
 
 let mockFriends = [
-    mockFriend1,
-    mockFriend2,
-    mockFriend3,
-    mockFriend4,
-    mockFriend5,
-    mockFriend6,
-    mockFriend7,
-    mockFriend8,
-    mockFriend9,
-    mockFriend10
+    mockUser1,
+    mockUser2,
+    mockUser3,
+    mockUser4,
+    mockUser5,
+    mockUser6,
+    mockUser7,
+    mockUser8,
+    mockUser9,
+    mockUser10
 ]

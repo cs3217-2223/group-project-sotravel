@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GroupChatView: View {
+    var event: Event
     @State private var messageText = ""
     @FocusState private var isSending: Bool
     var body: some View {
@@ -16,14 +17,14 @@ struct GroupChatView: View {
             Divider()
             ZStack {
                 ScrollView {
-                    GroupChatCellView()
-                    GroupChatCellView()
-                    GroupChatCellView()
-                    GroupChatCellView()
-                    GroupChatCellView()
-                    GroupChatCellView()
-                    GroupChatCellView()
-                    GroupChatCellView()
+                    //                    GroupChatCellView()
+                    //                    GroupChatCellView()
+                    //                    GroupChatCellView()
+                    //                    GroupChatCellView()
+                    //                    GroupChatCellView()
+                    //                    GroupChatCellView()
+                    //                    GroupChatCellView()
+                    //                    GroupChatCellView()
                 }
                 HStack {
                     TextField("Send Message...", text: $messageText)
@@ -46,7 +47,6 @@ struct GroupChatView: View {
                                   y: 565))
             }
         }
-        .navigationBarBackButtonHidden()
     }
     func sendMessage() {
         // Implement sending logic here
@@ -60,6 +60,6 @@ struct GroupChatView: View {
 
 struct GroupChatView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupChatView()
+        GroupChatView(event: mockEvent1)
     }
 }

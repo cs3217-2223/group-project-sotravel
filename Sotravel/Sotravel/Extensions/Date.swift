@@ -1,6 +1,17 @@
 import Foundation
 
 extension Date {
+    func isToday(using calendar: Calendar) -> Bool {
+        let today = Date()
+
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: self)
+        let todayDateComponents = calendar.dateComponents([.year, .month, .day], from: today)
+
+        return dateComponents.year == todayDateComponents.year &&
+            dateComponents.month == todayDateComponents.month &&
+            dateComponents.day == todayDateComponents.day
+    }
+
     func startOfMonth(using calendar: Calendar) -> Date {
         calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? self
     }

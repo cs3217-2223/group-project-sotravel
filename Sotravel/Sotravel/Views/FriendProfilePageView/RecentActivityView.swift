@@ -33,7 +33,7 @@ struct RecentActivityView: View {
 struct RecentActivityView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            RecentActivityView(user: mockFriend3).environmentObject(EventsStore(events: mockEvents))
+            RecentActivityView(user: mockUser3).environmentObject(EventsStore(events: mockEvents))
         }
     }
 }

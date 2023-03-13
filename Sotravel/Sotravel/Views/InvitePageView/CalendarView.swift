@@ -30,7 +30,7 @@ struct CalendarView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Text(calendar.isDate(Date(), inSameDayAs: selectedDate)
+            Text(selectedDate.isToday(using: calendar)
                     ? LocalizedStringKey("Today")
                     : "\(selectedDate, formatter: dateFormatter)")
                 .font(.uiTitle3)
