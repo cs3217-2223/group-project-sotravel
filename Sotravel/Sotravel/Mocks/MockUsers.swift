@@ -45,7 +45,6 @@ let mockUser4 = User(
     name: "John Lee",
     description: "I'm a foodie and love trying new restaurants!",
     // swiftlint:disable:next line_length
-    imageURL: "https://images.unsplash.com/photo-1517630800677-932d836ab680?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
     instagramUsername: "johnlee",
     tiktokUsername: "johnleetravel",
     telegramUsername: "johnleetravels",

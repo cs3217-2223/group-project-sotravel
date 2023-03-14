@@ -15,6 +15,7 @@ struct ContentView: View {
                     Image(systemName: "map.fill")
                     Text("Map")
                 }
+                .id(UUID().uuidString)
             InvitePageView()
                 .tabItem {
                     Image(systemName: "megaphone.fill")

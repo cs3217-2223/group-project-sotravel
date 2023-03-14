@@ -1,12 +1,6 @@
 import SwiftUI
 
 class User: ObservableObject, Identifiable, Hashable {
-    static func == (lhs: User, rhs: User) -> Bool {
-        lhs.id == rhs.id
-    }
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
     var id = UUID()
     @Published var name: String
     @Published var description: String? // Optional
@@ -32,5 +26,13 @@ class User: ObservableObject, Identifiable, Hashable {
         self.tiktokUsername = tiktokUsername
         self.telegramUsername = telegramUsername
         self.friends = friends
+    }
+
+    static func == (lhs: User, rhs: User) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

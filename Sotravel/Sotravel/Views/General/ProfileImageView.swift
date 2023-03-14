@@ -27,7 +27,7 @@ struct ProfileImageView: View {
                 .prefix(2)
                 .uppercased()
             Text(initials)
-                .font(.system(size: 64))
+                .font(.system(size: width / 2))
                 .foregroundColor(.gray)
                 .frame(width: width, height: height)
                 .background(Color(.systemGray5))

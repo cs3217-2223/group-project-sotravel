@@ -14,12 +14,12 @@ struct ChatPageView: View {
         NavigationStack {
             ScrollView {
                 ForEach(self.eventsStore.events) { event in
-                    NavigationLink(destination: GroupChatView(event: event)) {
+                    NavigationLink(destination: GroupChatView(event: event, chat: mockChat)) {
                         ChatPageCellView(event: event, latestChatMessage: mockMessage1)
                     }
                 }
             }
-            .navigationTitle("Chat")
+            .navigationTitle("Chats")
             .padding(.all)
         }
     }

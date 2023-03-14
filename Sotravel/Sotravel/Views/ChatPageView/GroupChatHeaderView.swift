@@ -1,44 +1,43 @@
-//
-//  GroupChatHeaderView.swift
-//  Sotravel
-//
-//  Created by Weiqiang Zhang on 12/3/23.
-//
-
 import SwiftUI
 
 struct GroupChatHeaderView: View {
+    var event: Event
+
     @Environment(\.dismiss) var dismiss
     var body: some View {
-        HStack(spacing: 35) {
+
+        HStack(spacing: 20) {
             Image(systemName: "chevron.backward")
-                .resizable()
-                .frame(width: 20, height: 30)
-                .opacity(0.5)
-                .offset(x: -10, y: -15)
+                .foregroundColor(.blue)
+                .offset(y: -21)
                 .onTapGesture {
                     withAnimation(.spring()) {
                         dismiss()
                     }
                 }
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Climb at Ao Nang Tower")
-                    .font(.uiTitle2)
-                    .bold()
-                Text("Tomorrow, 5.30pm")
-                    .font(.uiBody)
-                Button(action: {}, label: {
+            VStack(alignment: .leading, spacing: 3) {
+                Text(event.title)
+                    .font(.uiButton)
+                    .lineLimit(1)
+                Text(event.datetime.toFriendlyString())
+                    .font(.uiSubheadline)
+                    .lineLimit(1)
+                NavigationLink(destination: EventPageView(event: event)) {
                     Text("View More")
-                        .font(.uiButton)
-                })
+                        .font(.uiFootnote)
+                        .foregroundColor(.blue)
+                }
             }
-
-        }
+            Spacer()
+        }.padding(.leading, 20)
     }
+
 }
 
 struct GroupChatHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupChatHeaderView()
+        NavigationStack {
+            GroupChatHeaderView(event: mockEvent1)
+        }
     }
 }

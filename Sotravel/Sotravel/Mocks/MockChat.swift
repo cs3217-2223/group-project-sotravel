@@ -13,7 +13,7 @@ let mockMessage2 = ChatMessage(
 let mockMessage3 = ChatMessage(
     messageText: "I haven't been there yet, but I heard it's a great place for fishing!",
     timestamp: Date().addingTimeInterval(-1_800),
-    sender: mockUser3
+    sender: mockUser
 )
 let mockMessage4 = ChatMessage(
     messageText: "I'm down for a fishing trip! When are we going?",
@@ -23,7 +23,7 @@ let mockMessage4 = ChatMessage(
 let mockMessage5 = ChatMessage(
     messageText: "How about next weekend?",
     timestamp: Date().addingTimeInterval(-600),
-    sender: mockUser1
+    sender: mockUser
 )
 let mockMessage6 = ChatMessage(
     messageText: "I'm busy next weekend, can we do it the weekend after that?",

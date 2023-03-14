@@ -40,4 +40,18 @@ extension Date {
             return dateFormatter.string(from: self)
         }
     }
+
+    func toFriendlyString() -> String {
+        "\(toFriendlyDateString()) at \(toFriendlyTimeString())"
+    }
+
+    // Show just time if it's today
+    // Show date and time if it's not today
+    func toFriendlyShortString() -> String {
+        if isToday(using: Calendar(identifier: .iso8601)) {
+            return toFriendlyTimeString()
+        }
+
+        return toFriendlyString()
+    }
 }
