@@ -11,13 +11,6 @@ struct LoginView: View {
                 .clipped()
                 .overlay(alignment: .topLeading) {
                     Group {
-                        VStack(alignment: .leading, spacing: 11) {
-                            VStack(alignment: .leading, spacing: 1) {
-
-                            }
-                        }
-                        .padding()
-                        .padding(.top, 42)
                         Image("logo-circle")
                             .renderingMode(.original)
                             .resizable()
@@ -25,11 +18,6 @@ struct LoginView: View {
                             .frame(width: 70, alignment: .center)
                             .clipped()
                             .padding()
-                    }
-                }
-                .overlay(alignment: .bottom) {
-                    Group {
-
                     }
                 }
                 .mask {
