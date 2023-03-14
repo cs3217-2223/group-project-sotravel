@@ -24,21 +24,6 @@ struct InvitePageView: View {
                     }
                 }.padding(.horizontal)
             }.padding(.vertical)
-
-            // Floating action button
-            // TODO: Not sure why when I add this it screws up the layout
-            //            Button(action: {
-            //                // Add your button action here
-            //            }) {
-            //                Image(systemName: "plus")
-            //                    .font(.system(size: 24))
-            //                    .foregroundColor(.white)
-            //                    .padding()
-            //                    .background(Color.primary)
-            //                    .clipShape(Circle())
-            //                    .shadow(color: Color.black.opacity(0.3), radius: 3, x: 1, y: 2)
-            //            }
-            //            .padding(16)
         }
     }
 }

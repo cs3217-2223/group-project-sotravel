@@ -2,29 +2,30 @@ import SwiftUI
 
 struct EventView: View {
     @ObservedObject var event: Event
+    var isHideButton = false
 
     var body: some View {
         VStack {
             HStack(spacing: 47) {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(event.datetime.toFriendlyTimeString())
-                        .font(.uiTitle3)
+                        .font(.uiHeadline)
                         .foregroundColor(Color.black)
                     Text(event.datetime.toFriendlyDateString())
-                        .font(.uiBody)
+                        .font(.uiCallout)
                         .foregroundColor(Color.gray)
                 }.offset(x: 4, y: -7)
                 VStack(spacing: 7) {
                     Text(event.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .clipped()
-                        .font(.uiTitle3)
+                        .font(.uiHeadline)
                         .foregroundColor(.black)
                         .lineLimit(1)
                     Text(event.location)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .clipped()
-                        .font(.uiHeadline)
+                        .font(.uiCallout)
                         .foregroundColor(.gray)
                         .padding(.top, 4)
                         .lineLimit(1)
@@ -52,20 +53,22 @@ struct EventView: View {
                     }
                 }
             }
-            NavigationLink(destination: EventPageView(event: event)) {
-                HStack(alignment: .firstTextBaseline) {
-                    Text("Join")
-                }
-                .font(.uiButton)
-                .padding(.vertical, 14)
-                .frame(maxWidth: .infinity)
-                .clipped()
-                .foregroundColor(Color.uiPrimary)
-                .background {
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .stroke(.clear.opacity(0.25), lineWidth: 0)
-                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                        .fill(Color.uiPrimary.opacity(0.1)))
+            if !isHideButton {
+                NavigationLink(destination: EventPageView(event: event)) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("Join")
+                    }
+                    .font(.uiButton)
+                    .padding(.vertical, 14)
+                    .frame(maxWidth: .infinity)
+                    .clipped()
+                    .foregroundColor(Color.uiPrimary)
+                    .background {
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .stroke(.clear.opacity(0.25), lineWidth: 0)
+                            .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                            .fill(Color.uiPrimary.opacity(0.1)))
+                    }
                 }
             }
         }

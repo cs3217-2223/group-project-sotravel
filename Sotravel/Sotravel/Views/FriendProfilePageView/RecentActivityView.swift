@@ -14,18 +14,21 @@ struct RecentActivityView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("I'm going to 🐈")
+                Text("I'm going to")
                     .font(.uiTitle3)
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundColor(.green)
                 Spacer()
             }
 
-            ScrollView {
+            LazyVStack(spacing: 16) {
                 ForEach(eventsStore.findAttendingEvents(for: user)) { event in
                     NavigationLink(destination: EventPageView(event: event)) {
-                        EventView(event: event)
+                        EventView(event: event, isHideButton: true)
                     }
                 }
             }
+
         }
     }
 }

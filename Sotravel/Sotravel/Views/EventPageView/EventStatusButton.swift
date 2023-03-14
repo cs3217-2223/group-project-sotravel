@@ -13,10 +13,10 @@ struct EventStatusButton: View {
     var body: some View {
         Menu {
             Button(action: { eventStatus = .going }, label: {
-                Label("Going", systemImage: "checkmark.circle")
+                Label("Going", systemImage: "checkmark.circle.fill")
             })
             Button(action: { eventStatus = .notGoing }, label: {
-                Label("Not Going", systemImage: "xmark.circle")
+                Label("Not Going", systemImage: "xmark.circle.fill")
             })
             Button(action: { eventStatus = .pending }, label: {
                 Label("Pending", systemImage: "clock")
@@ -35,7 +35,7 @@ struct EventStatusButton: View {
             .foregroundColor(statusColor)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(statusColor, lineWidth: 1)
+                    .stroke(statusColor, lineWidth: 2)
             )
             .cornerRadius(10)
         }
@@ -58,7 +58,7 @@ struct EventStatusButton: View {
         case .pending:
             return Color.uiPrimary
         case .going:
-            return Color.uiPrimary
+            return Color.green
         case .notGoing:
             return Color.red
         }
