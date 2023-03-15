@@ -29,6 +29,7 @@ struct ProfilePageView: View {
                                 Text("Change Trip")
                                     .font(.uiHeadline)
                                     .foregroundColor(.blue)
+                                Image(systemName: "airplane.departure")
                             }
                             Button(action: {}) {
                                 Text("Log Out")
