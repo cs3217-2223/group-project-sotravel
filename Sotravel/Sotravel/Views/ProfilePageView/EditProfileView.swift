@@ -11,7 +11,6 @@ struct EditProfileView: View {
                     Text("Profile")
                         .font(.uiHeadline)
 
-
                     VStack(alignment: .leading, spacing: 5) {
                         Text("Name")
                             .font(.uiSubheadline)

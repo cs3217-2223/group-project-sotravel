@@ -24,13 +24,19 @@ struct ProfilePageView: View {
                             Spacer()
                         }.padding(.bottom, 20)
 
-                        VStack(spacing: 28) {
+                        VStack(spacing: 32) {
                             Button(action: {}) {
                                 Text("Change Trip")
                                     .font(.uiHeadline)
-                                    .foregroundColor(.blue)
                                 Image(systemName: "airplane.departure")
                             }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .foregroundColor(.uiPrimary)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.uiPrimary, lineWidth: 1)
+                            )
                             Button(action: {}) {
                                 Text("Log Out")
                                     .font(.uiHeadline)
