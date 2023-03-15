@@ -22,17 +22,17 @@ struct ProfilePageView: View {
                             Text("Settings")
                                 .font(.uiTitle3)
                             Spacer()
-                        }.padding(.bottom, 10)
+                        }.padding(.bottom, 20)
 
-                        VStack(spacing: 24) {
+                        VStack(spacing: 28) {
                             Button(action: {}) {
                                 Text("Change Trip")
-                                    .font(.uiButton)
+                                    .font(.uiHeadline)
                                     .foregroundColor(.blue)
                             }
                             Button(action: {}) {
                                 Text("Log Out")
-                                    .font(.uiButton)
+                                    .font(.uiHeadline)
                                     .foregroundColor(.red)
                             }
                         }
