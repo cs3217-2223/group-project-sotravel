@@ -5,20 +5,22 @@ struct TripsPageView: View {
 
     var body: some View {
         ScrollView {
-            HStack {
-                Text("My Trips")
-                    .font(.uiTitle1)
-                Spacer()
-            }
-            VStack(alignment: .leading, spacing: 16) {
-                ForEach(trips) { trip in
-                    NavigationLink(destination: TripPageView()) {
-                        TripCardView(trip: trip)
-                    }.foregroundColor(.primary)
+            VStack {
+                HStack {
+                    Text("My Trips")
+                        .font(.uiTitle1)
+                    Spacer()
+                }
+                LazyVStack(alignment: .leading, spacing: 16) {
+                    ForEach(trips) { trip in
+                        NavigationLink(destination: TripPageView()) {
+                            TripCardView(trip: trip)
+                        }.foregroundColor(.primary)
+                    }
                 }
             }
+            .padding()
         }
-        .padding()
         .navigationBarBackButtonHidden(true)
 
     }
