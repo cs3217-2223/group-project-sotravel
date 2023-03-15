@@ -18,6 +18,7 @@ struct ChatPageView: View {
                         .font(.uiTitle1)
                     Spacer()
                 }
+                .padding(.top, 24)
                 .padding(.bottom, 15)
 
                 ForEach(self.eventsStore.events) { event in
@@ -26,7 +27,7 @@ struct ChatPageView: View {
                     }
                 }
             }
-            .padding(.all)
+            .padding(.horizontal)
         }
     }
 }
