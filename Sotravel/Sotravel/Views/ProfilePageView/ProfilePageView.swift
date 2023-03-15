@@ -25,7 +25,7 @@ struct ProfilePageView: View {
                         }.padding(.bottom, 20)
 
                         VStack(spacing: 32) {
-                            Button(action: {}) {
+                            NavigationLink(destination: TripsPageView()) {
                                 Text("Change Trip")
                                     .font(.uiHeadline)
                                 Image(systemName: "airplane.departure")

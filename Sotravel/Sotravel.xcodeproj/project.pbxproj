@@ -18,6 +18,12 @@
 		1866DE6529B993E5005D9F59 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1866DE6429B993E5005D9F59 /* Preview Assets.xcassets */; };
 		188061A129C05DBE004FB831 /* EventStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188061A029C05DBE004FB831 /* EventStatusButton.swift */; };
 		188EBDAE29C183E5002735F0 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188EBDAD29C183E5002735F0 /* EditProfileView.swift */; };
+		188EBDB129C1AD3E002735F0 /* TripsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188EBDB029C1AD3E002735F0 /* TripsPageView.swift */; };
+		188EBDB329C1B053002735F0 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188EBDB229C1B053002735F0 /* Trip.swift */; };
+		188EBDB529C1B08B002735F0 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188EBDB429C1B08B002735F0 /* URLImageView.swift */; };
+		188EBDB729C1B11F002735F0 /* TripCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188EBDB629C1B11F002735F0 /* TripCardView.swift */; };
+		188EBDBB29C1B142002735F0 /* MockTrips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188EBDBA29C1B142002735F0 /* MockTrips.swift */; };
+		188EBDBE29C1B4AC002735F0 /* TripPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188EBDBD29C1B4AC002735F0 /* TripPageView.swift */; };
 		1893D29329BF295400B61BC9 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893D29229BF295400B61BC9 /* ChatMessage.swift */; };
 		1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893D29429BF2A4E00B61BC9 /* MockChat.swift */; };
 		18A1AC5429BB121A0064CF37 /* DateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1AC5329BB121A0064CF37 /* DateCellView.swift */; };
@@ -74,6 +80,12 @@
 		1866DE6429B993E5005D9F59 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		188061A029C05DBE004FB831 /* EventStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStatusButton.swift; sourceTree = "<group>"; };
 		188EBDAD29C183E5002735F0 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		188EBDB029C1AD3E002735F0 /* TripsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsPageView.swift; sourceTree = "<group>"; };
+		188EBDB229C1B053002735F0 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		188EBDB429C1B08B002735F0 /* URLImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
+		188EBDB629C1B11F002735F0 /* TripCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCardView.swift; sourceTree = "<group>"; };
+		188EBDBA29C1B142002735F0 /* MockTrips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTrips.swift; sourceTree = "<group>"; };
+		188EBDBD29C1B4AC002735F0 /* TripPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPageView.swift; sourceTree = "<group>"; };
 		1893D29229BF295400B61BC9 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		1893D29429BF2A4E00B61BC9 /* MockChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockChat.swift; sourceTree = "<group>"; };
 		18A1AC5329BB121A0064CF37 /* DateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCellView.swift; sourceTree = "<group>"; };
@@ -137,6 +149,7 @@
 				18D9714329BD9AF80064DC2A /* EventsStore.swift */,
 				1893D29229BF295400B61BC9 /* ChatMessage.swift */,
 				18C3660329C020D800AF0338 /* Chat.swift */,
+				188EBDB229C1B053002735F0 /* Trip.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -185,6 +198,8 @@
 		1866DE6B29B993FA005D9F59 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				188EBDBC29C1B49E002735F0 /* TripPageView */,
+				188EBDAF29C1AD32002735F0 /* TripsPageView */,
 				18B33DAD29BE06D70036B51E /* CreateInvitePageView */,
 				18D9713C29BD90FA0064DC2A /* EventPageView */,
 				18D9713B29BD86390064DC2A /* FriendsListPageView */,
@@ -197,6 +212,23 @@
 				AC32F95429BA05810005F5B9 /* LoginView */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		188EBDAF29C1AD32002735F0 /* TripsPageView */ = {
+			isa = PBXGroup;
+			children = (
+				188EBDB029C1AD3E002735F0 /* TripsPageView.swift */,
+				188EBDB629C1B11F002735F0 /* TripCardView.swift */,
+			);
+			path = TripsPageView;
+			sourceTree = "<group>";
+		};
+		188EBDBC29C1B49E002735F0 /* TripPageView */ = {
+			isa = PBXGroup;
+			children = (
+				188EBDBD29C1B4AC002735F0 /* TripPageView.swift */,
+			);
+			path = TripPageView;
 			sourceTree = "<group>";
 		};
 		18B33DAD29BE06D70036B51E /* CreateInvitePageView */ = {
@@ -221,6 +253,7 @@
 				18D9713229BD74B10064DC2A /* MockUsers.swift */,
 				18D9714129BD93F20064DC2A /* MockEvents.swift */,
 				1893D29429BF2A4E00B61BC9 /* MockChat.swift */,
+				188EBDBA29C1B142002735F0 /* MockTrips.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -285,6 +318,7 @@
 				18BE7F2629BDEDBE0035DE2C /* UserHorizontalListView.swift */,
 				18D9713429BD7CC90064DC2A /* UserListItemView.swift */,
 				AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */,
+				188EBDB429C1B08B002735F0 /* URLImageView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -440,6 +474,7 @@
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
 				18591C8829BD73FF00FA987D /* User.swift in Sources */,
 				AC32F96029BA2A930005F5B9 /* ChatPageView.swift in Sources */,
+				188EBDB129C1AD3E002735F0 /* TripsPageView.swift in Sources */,
 				18D9713829BD84480064DC2A /* FriendProfilePageView.swift in Sources */,
 				18D9713A29BD86330064DC2A /* FriendsListPageView.swift in Sources */,
 				18591C8529BCDB7700FA987D /* SearchBarView.swift in Sources */,
@@ -459,11 +494,16 @@
 				AC32F95329BA02700005F5B9 /* CalendarView.swift in Sources */,
 				181C746D29BDDBEF00E6D3B1 /* AttendeesView.swift in Sources */,
 				1893D29329BF295400B61BC9 /* ChatMessage.swift in Sources */,
+				188EBDB529C1B08B002735F0 /* URLImageView.swift in Sources */,
 				AC32F96229BA2AD90005F5B9 /* ChatPageCellView.swift in Sources */,
 				18A1AC5629BB12940064CF37 /* Calendar.swift in Sources */,
 				AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */,
+				188EBDBE29C1B4AC002735F0 /* TripPageView.swift in Sources */,
 				AC63059C29BDA34F00EEEA85 /* GroupChatView.swift in Sources */,
 				181C746F29BDDEB700E6D3B1 /* UserActionMenuView.swift in Sources */,
+				188EBDBB29C1B142002735F0 /* MockTrips.swift in Sources */,
+				188EBDB329C1B053002735F0 /* Trip.swift in Sources */,
+				188EBDB729C1B11F002735F0 /* TripCardView.swift in Sources */,
 				AC6305A629BDC60300EEEA85 /* RecentActivityView.swift in Sources */,
 				18A1AC5429BB121A0064CF37 /* DateCellView.swift in Sources */,
 				18BE7F2729BDEDBE0035DE2C /* UserHorizontalListView.swift in Sources */,
