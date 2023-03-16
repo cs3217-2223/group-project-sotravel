@@ -8,6 +8,6 @@
 import Foundation
 
 protocol ProfileCtx {
-    func get()
-    func update()
+    func get() async
+    func update() async
 }

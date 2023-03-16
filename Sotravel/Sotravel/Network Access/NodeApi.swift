@@ -9,10 +9,13 @@ import Foundation
 import AsyncHTTPClient
 import NIOCore
 import NIOHTTP1
+import NIOFoundationCompat
 
 class NodeApi {
-    static var client = HTTPClient(eventLoopGroupProvider: .createNew)
-    private static let baseUrl = "https://qa-api.sotravel.me/v1"
+    private static var client = HTTPClient(eventLoopGroupProvider: .createNew)
+    private static let baseScheme = "https"
+    private static let baseUrl = "qa-api.sotravel.me"
+    private static let basePathPrefix = "/v1"
     private static let default_timeout: Int64 = 30
 
     private static let pathEnumToStr: [Path: String] = [
@@ -21,22 +24,24 @@ class NodeApi {
         .invite: ""
     ]
 
-    func get(path: Path, params: [String: String]) async -> HTTPClientResponse.Body? {
-        guard let path = NodeApi.pathEnumToStr[path],
-              let queryParams = NodeApi.queryStrDictToRelativePath(params: params) else {
+    static func get(path: Path, params: [String: String]) async -> HTTPClientResponse.Body? {
+        guard let url = constructUrl(path: path, params: params)?.absoluteString else {
             return nil
         }
 
-        let request = HTTPClientRequest(url: NodeApi.baseUrl + path + queryParams)
+        let request = HTTPClientRequest(url: url)
         do {
             let response = try await NodeApi.client.execute(request, timeout: .seconds(NodeApi.default_timeout))
-            return response.body
+            let body = try await response.body.collect(upTo: 1_024 * 1_024) // 1 MB
+            print(String(buffer: body))
+            //            print(body)
+            return nil
         } catch {
             return nil
         }
     }
 
-    func post(path: Path, data: [String: Any]) async -> HTTPResponseStatus {
+    static func post(path: Path, data: [String: Any]) async -> HTTPResponseStatus {
         guard let path = NodeApi.pathEnumToStr[path] else {
             return HTTPResponseStatus.internalServerError
         }
@@ -56,12 +61,20 @@ class NodeApi {
 
     }
 
-    private static func queryStrDictToRelativePath(params: [String: String]) -> String? {
+    private static func constructUrl(path: Path, params: [String: String]) -> URL? {
+        guard let path = NodeApi.pathEnumToStr[path] else {
+            return nil
+        }
+
         var components = URLComponents()
+        components.scheme = baseScheme
+        components.host = baseUrl
+        components.path = "/v1" + path
+
         components.queryItems = params.map {
             URLQueryItem(name: $0, value: $1)
         }
-        return components.url?.formatted()
+        return components.url
     }
 }
 
