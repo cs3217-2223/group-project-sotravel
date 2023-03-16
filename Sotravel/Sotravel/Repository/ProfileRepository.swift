@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ProfileCtx {
+protocol ProfileRepository {
     func get() async
     func update() async
 }

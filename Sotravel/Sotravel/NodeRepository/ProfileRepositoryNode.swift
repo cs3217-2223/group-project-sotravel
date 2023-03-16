@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ProfileCtxNode: ProfileCtx {
+class ProfileRepositoryNode: ProfileRepository {
     func get() async {
         let resp = await NodeApi.get(path: .profile, params: ["user_id": "634b6038-6594-4473-8c23-a5539400d653"])
         print(resp)

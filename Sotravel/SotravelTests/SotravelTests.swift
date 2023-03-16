@@ -39,7 +39,7 @@ final class SotravelTests: XCTestCase {
 
     func testNothing() async {
         XCTAssertEqual(1, 1)
-        let ctx: ProfileCtx = ProfileCtxNode()
+        let ctx: ProfileRepository = ProfileRepositoryNode()
         await ctx.get()
     }
 
