@@ -9,7 +9,7 @@ import Foundation
 
 class ProfileRepositoryNode: ProfileRepository {
     func get(id: UUID) async -> Profile? {
-        let resp = await NodeApi.get(path: .profile, params: ["user_id": id.uuidString])
+        let resp = await NodeApi.get(path: .profile, params: ["user_id": "634b6038-6594-4473-8c23-a5539400d653"])
         // Deserialize the response into a Profile object
     }
 
