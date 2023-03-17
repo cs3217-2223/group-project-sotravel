@@ -63,5 +63,6 @@ let mockChat = Chat(
         mockMessage8,
         mockMessage9,
         mockMessage10
-    ]
+    ],
+    members: mockFriends
 )

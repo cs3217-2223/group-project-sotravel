@@ -85,6 +85,7 @@ struct GroupChatView: View {
         let success = delegate?.sendChatMessage(messageText: messageText, sender: user, toChat: chat) ?? false
         if !success {
             // TODO: handle message send failure
+            return
         }
         messageText = ""
         isSending = true
