@@ -24,7 +24,7 @@ class NodeApi {
         .invite: ""
     ]
 
-    static func get(path: Path, params: [String: String]) async -> HTTPClientResponse.Body? {
+    static func get(path: Path, params: [String: String]) async throws -> String? {
         guard let url = constructUrl(path: path, params: params)?.absoluteString else {
             return nil
         }
@@ -33,11 +33,9 @@ class NodeApi {
         do {
             let response = try await NodeApi.client.execute(request, timeout: .seconds(NodeApi.default_timeout))
             let body = try await response.body.collect(upTo: 1_024 * 1_024) // 1 MB
-            print(String(buffer: body))
-            //            print(body)
-            return nil
+            return String(buffer: body)
         } catch {
-            return nil
+            throw SotravelError.NetworkError("Error ocurred when running GET \(url)", error)
         }
     }
 

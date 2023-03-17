@@ -9,9 +9,16 @@ import Foundation
 
 class ProfileRepositoryNode: ProfileRepository {
     func get(id: UUID) async -> Profile? {
-        let resp = await NodeApi.get(path: .profile, params: ["user_id": "634b6038-6594-4473-8c23-a5539400d653"])
-        // Deserialize the response into a Profile object
-        return Profile()
+        let userId = "634b6038-6594-4473-8c23-a5539400d653"
+        do {
+            let resp = try await NodeApi.get(path: .profile, params: ["user_id": userId])
+            print(resp)
+            // Deserialize the response into a Profile object
+            return Profile()
+        } catch {
+            return nil
+        }
+
     }
 
     func update(profile: Profile) async -> Bool {
