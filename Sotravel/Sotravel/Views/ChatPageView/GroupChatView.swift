@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GroupChatView: View {
     var event: Event
-    @EnvironmentObject var user: User
+    @EnvironmentObject var userDataManager: UserDataManager
     @State var chat: Chat
     @State private var messageText = ""
     @State private var isSending = false
@@ -40,7 +40,7 @@ struct GroupChatView: View {
                                     .foregroundColor(.gray)
                                     .padding(.top, 10)
                             }
-                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == user).font(.body)
+                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == userDataManager.user).font(.body)
                                 .id(message.id)
                         }
                     }.onAppear {
@@ -102,6 +102,6 @@ struct GroupChatView: View {
 
 struct GroupChatView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupChatView(event: mockEvent1, chat: mockChat).environmentObject(mockUser)
+        GroupChatView(event: mockEvent1, chat: mockChat).environmentObject(UserDataManager())
     }
 }
