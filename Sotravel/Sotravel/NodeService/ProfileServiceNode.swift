@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ProfileService: ProfileServiceProtocol {
+class ProfileServiceNode: ProfileService {
     private let profileRepository: ProfileRepository
 
     init(profileRepository: ProfileRepository) {
