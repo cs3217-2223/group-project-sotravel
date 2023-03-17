@@ -15,10 +15,10 @@ class ProfileServiceNode: ProfileService {
     }
 
     func fetchProfile(id: UUID) async -> Profile? {
-        return await profileRepository.get(id: id)
+        await profileRepository.get(id: id)
     }
 
     func updateProfile(_ profile: Profile) async -> Bool {
-        return await profileRepository.update(profile: profile)
+        await profileRepository.update(profile: profile)
     }
 }
