@@ -55,6 +55,6 @@ struct ProfilePageView: View {
 
 struct ProfilePageView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePageView().environmentObject(mockUser)
+        ProfilePageView().environmentObject(UserDataManager())
     }
 }
