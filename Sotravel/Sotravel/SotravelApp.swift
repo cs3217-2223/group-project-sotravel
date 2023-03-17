@@ -9,14 +9,12 @@ import SwiftUI
 
 @main
 struct SotravelApp: App {
-    @StateObject var user = mockUser
     @StateObject var events = EventsStore(events: mockEvents)
     @StateObject var userDataManager = UserDataManager()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(user)
                 .environmentObject(events)
                 .environmentObject(userDataManager)
         }

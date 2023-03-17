@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct EventPageView: View {
-    @EnvironmentObject var user: User
+    @EnvironmentObject var userDataManager: UserDataManager
     @Environment(\.dismiss) var dismiss
     @ObservedObject var event: Event
     var chat: Chat = mockChat
@@ -72,7 +72,7 @@ struct EventPageView: View {
                     VStack {
                         // Get latest 3 messages
                         ForEach(chat.messages.sorted { $0.timestamp > $1.timestamp }.prefix(3), id: \.id) {message in
-                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == user).font(.body)
+                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == userDataManager.user).font(.body)
                                 .id(message.id)
                         }
                     }.padding(.top, 3)
@@ -110,7 +110,7 @@ struct EventPageView: View {
 struct EventPageView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            EventPageView(event: mockEvent1, chat: mockChat).environmentObject(mockUser)
+            EventPageView(event: mockEvent1, chat: mockChat).environmentObject(UserDataManager())
         }
     }
 }
