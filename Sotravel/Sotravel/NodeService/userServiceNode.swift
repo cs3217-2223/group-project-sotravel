@@ -22,3 +22,16 @@ class UserServiceNode: UserService {
         await userRepository.update(user: user)
     }
 }
+
+class UserServiceStub: UserService {
+    private let userRepository = UserRepoStub()
+
+    func fetchUser(id: UUID) async -> User? {
+        await userRepository.get(id: id)
+    }
+
+    func updateUser(_ user: User) async -> Bool {
+        await userRepository.update(user: user)
+    }
+
+}

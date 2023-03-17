@@ -35,3 +35,28 @@ class UserDataManager: ObservableObject {
         }
     }
 }
+
+class UserDataManagerStub: ObservableObject {
+    @Published private(set) var user = mockUser
+    private let userService = UserServiceStub()
+
+    func fetchUser(id: UUID) {
+        Task {
+            if let fetchedUser = await userService.fetchUser(id: id) {
+                DispatchQueue.main.async {
+                    self.user = fetchedUser
+                }
+            }
+        }
+    }
+
+    func updateUser() {
+        Task {
+            let success = await userService.updateUser(self.user)
+            if !success {
+                // Handle update failure
+            }
+        }
+    }
+
+}

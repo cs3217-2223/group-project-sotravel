@@ -50,7 +50,7 @@
 		18DEC57E29B9A29700B3228A /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEC57D29B9A29700B3228A /* Font.swift */; };
 		18DEC58029B9A3D600B3228A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEC57F29B9A3D600B3228A /* Color.swift */; };
 		18F72A3829B997F40084B94A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F72A3729B997F40084B94A /* LoginView.swift */; };
-		AC18140629C43E1A008D6944 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18140529C43E1A008D6944 /* ProfileService.swift */; };
+		AC18140629C43E1A008D6944 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18140529C43E1A008D6944 /* UserService.swift */; };
 		AC18140929C43E4C008D6944 /* userServiceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18140829C43E4C008D6944 /* userServiceNode.swift */; };
 		AC18140D29C43EAD008D6944 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18140C29C43EAD008D6944 /* UserDataManager.swift */; };
 		AC32F94929B9EB8C0005F5B9 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F94829B9EB8C0005F5B9 /* MapView.swift */; };
@@ -137,7 +137,7 @@
 		18DEC57D29B9A29700B3228A /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		18DEC57F29B9A3D600B3228A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		18F72A3729B997F40084B94A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		AC18140529C43E1A008D6944 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		AC18140529C43E1A008D6944 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		AC18140829C43E4C008D6944 /* userServiceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userServiceNode.swift; sourceTree = "<group>"; };
 		AC18140C29C43EAD008D6944 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		AC32F94829B9EB8C0005F5B9 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -359,7 +359,7 @@
 		AC18140429C43DE4008D6944 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				AC18140529C43E1A008D6944 /* ProfileService.swift */,
+				AC18140529C43E1A008D6944 /* UserService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -673,7 +673,7 @@
 				18A1AC5429BB121A0064CF37 /* DateCellView.swift in Sources */,
 				18BE7F2729BDEDBE0035DE2C /* UserHorizontalListView.swift in Sources */,
 				18D736A729C03A7C00EB7439 /* KeyboardResponder.swift in Sources */,
-				AC18140629C43E1A008D6944 /* ProfileService.swift in Sources */,
+				AC18140629C43E1A008D6944 /* UserService.swift in Sources */,
 				B4C3536C29C0A7930073931C /* UserRepositoryNode.swift in Sources */,
 				B4C3536A29C0A7460073931C /* UserRepository.swift in Sources */,
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
