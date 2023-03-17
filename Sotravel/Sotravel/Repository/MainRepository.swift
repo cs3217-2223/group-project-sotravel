@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MainRepository {
-    var profileCtx: ProfileRepository { get }
+    var profileCtx: UserRepository { get }
     var friendCtx: FriendRepository { get }
     var tripCtx: TripRepository { get }
     var eventCtx: EventRepository { get }

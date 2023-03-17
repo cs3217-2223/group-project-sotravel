@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ProfileService {
-    func fetchProfile(id: UUID) async -> Profile?
-    func updateProfile(_ profile: Profile) async -> Bool
+protocol UserService {
+    func fetchUser(id: UUID) async -> User?
+    func updateUser(_ user: User) async -> Bool
 }
