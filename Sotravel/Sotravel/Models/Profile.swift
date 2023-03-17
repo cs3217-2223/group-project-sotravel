@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+struct Profile: Identifiable, Codable {
+    let id: UUID
+    var name: String
+    var description: String
+    var imageURL: URL
+    var instagramUsername: String
+    var tiktokUsername: String
+    var friends: [Profile]
+}

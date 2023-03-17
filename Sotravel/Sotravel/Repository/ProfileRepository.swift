@@ -8,6 +8,6 @@
 import Foundation
 
 protocol ProfileRepository {
-    func get() async
-    func update() async
+    func get(id: UUID) async -> Profile?
+    func update(profile: Profile) async -> Bool
 }
