@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class ProfileViewModel: ProfileViewModelProtocol, ObservableObject {
+class ProfileViewModelNode: ProfileViewModel, ObservableObject {
     @Published private(set) var profile: Profile
     private let profileService: ProfileService
 

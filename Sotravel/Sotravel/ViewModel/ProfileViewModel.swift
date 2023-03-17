@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ProfileViewModelProtocol: ObservableObject {
+protocol ProfileViewModel: ObservableObject {
     var profile: Profile { get }
     func fetchProfile(id: UUID)
     func updateProfile()
