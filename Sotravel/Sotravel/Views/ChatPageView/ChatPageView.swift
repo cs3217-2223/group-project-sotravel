@@ -13,20 +13,29 @@ struct ChatPageView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+                HStack {
+                    Text("Chats")
+                        .font(.uiTitle1)
+                    Spacer()
+                }
+                .padding(.top, 24)
+                .padding(.bottom, 15)
+
                 ForEach(self.eventsStore.events) { event in
                     NavigationLink(destination: GroupChatView(event: event, chat: mockChat)) {
                         ChatPageCellView(event: event, latestChatMessage: mockMessage1)
                     }
                 }
             }
-            .navigationTitle("Chats")
-            .padding(.all)
+            .padding(.horizontal)
         }
     }
 }
 
 struct ChatPageView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatPageView().environmentObject(EventsStore(events: mockEvents))
+        ChatPageView()
+            .environmentObject(mockUser)
+            .environmentObject(EventsStore(events: mockEvents))
     }
 }

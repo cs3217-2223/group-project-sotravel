@@ -21,7 +21,7 @@ struct CreateInvitePageView: View {
 
                 Spacer()
             }
-            .padding(.leading, 24)
+            .padding(.leading)
             .padding(.top, 24)
 
             Form {

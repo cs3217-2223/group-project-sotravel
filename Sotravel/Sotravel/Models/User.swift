@@ -3,19 +3,19 @@ import SwiftUI
 class User: ObservableObject, Identifiable, Hashable {
     var id = UUID()
     @Published var name: String
-    @Published var description: String? // Optional
-    @Published var imageURL: String? // Optional
-    @Published var instagramUsername: String? // Optional
-    @Published var tiktokUsername: String? // Optional
+    @Published var description: String // Optional
+    @Published var imageURL: String // Optional
+    @Published var instagramUsername: String // Optional
+    @Published var tiktokUsername: String // Optional
     @Published var telegramUsername: String
     @Published var friends: [User]
 
     init(
         name: String,
-        description: String? = nil,
-        imageURL: String? = nil,
-        instagramUsername: String? = nil,
-        tiktokUsername: String? = nil,
+        description: String = "",
+        imageURL: String = "",
+        instagramUsername: String = "",
+        tiktokUsername: String = "",
         telegramUsername: String,
         friends: [User] = []
     ) {

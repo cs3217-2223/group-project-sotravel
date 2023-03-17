@@ -22,17 +22,24 @@ struct ProfilePageView: View {
                             Text("Settings")
                                 .font(.uiTitle3)
                             Spacer()
-                        }.padding(.bottom, 10)
+                        }.padding(.bottom, 20)
 
-                        VStack(spacing: 24) {
-                            Button(action: {}) {
+                        VStack(spacing: 32) {
+                            NavigationLink(destination: TripsPageView()) {
                                 Text("Change Trip")
-                                    .font(.uiButton)
-                                    .foregroundColor(.blue)
+                                    .font(.uiHeadline)
+                                Image(systemName: "airplane.departure")
                             }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .foregroundColor(.uiPrimary)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.uiPrimary, lineWidth: 1)
+                            )
                             Button(action: {}) {
                                 Text("Log Out")
-                                    .font(.uiButton)
+                                    .font(.uiHeadline)
                                     .foregroundColor(.red)
                             }
                         }

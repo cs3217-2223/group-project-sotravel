@@ -14,14 +14,24 @@ struct ProfileHeaderView: View {
         VStack(spacing: 10) {
             ProfileImageView(imageSrc: user.imageURL, name: user.name, width: 150, height: 150)
 
-            Text(user.name)
-                .font(.uiTitle2)
-                .fontWeight(.bold)
+            HStack {
+                Text(user.name)
+                    .font(.uiTitle2)
+                    .fontWeight(.bold)
+                NavigationLink(destination: EditProfileView()) {
+                    Image(systemName: "square.and.pencil")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(.blue)
+                }
+            }
 
-            Text(user.description ?? "")
-                .font(.uiHeadline)
-                .foregroundColor(.gray)
-                .multilineTextAlignment(.center)
+            if !user.description.isEmpty {
+                Text(user.description)
+                    .font(.uiHeadline)
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
+            }
 
             SocialMediaLinksView(user: user)
         }
@@ -30,6 +40,8 @@ struct ProfileHeaderView: View {
 
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileHeaderView().environmentObject(mockUser)
+        NavigationStack {
+            ProfileHeaderView().environmentObject(mockUser)
+        }
     }
 }

@@ -38,7 +38,7 @@ struct CalendarView: View {
                 ForEach(self.days, id: \.self) { date in
                     DateCellView(date: date, calendar: calendar)
                         .foregroundColor(calendar.isDate(date, inSameDayAs: selectedDate) ? .uiPrimary :
-                                            date < Date() ? .gray : .black)
+                                            date.isTodayOrAfter(using: calendar) ? .black : .gray)
                         .onTapGesture {
                             selectedDate = date
                         }

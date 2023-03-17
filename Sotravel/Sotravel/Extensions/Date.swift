@@ -12,6 +12,13 @@ extension Date {
             dateComponents.day == todayDateComponents.day
     }
 
+    func isTodayOrAfter(using calendar: Calendar) -> Bool {
+        let now = Date()
+        let startOfToday = calendar.startOfDay(for: now)
+        let startOfOtherDate = calendar.startOfDay(for: self)
+        return startOfOtherDate >= startOfToday
+    }
+
     func startOfMonth(using calendar: Calendar) -> Date {
         calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? self
     }
