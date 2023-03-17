@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupChatView: View {
     var event: Event
+    var delegate: ChatViewModelDelegate?
     @EnvironmentObject var user: User
     @State var chat: Chat
     @State private var messageText = ""
@@ -81,6 +82,10 @@ struct GroupChatView: View {
     }
 
     func sendMessage() {
+        let success = delegate?.sendChatMessage(messageText: messageText, sender: user, toChat: chat) ?? false
+        if !success {
+            // TODO: handle message send failure
+        }
         messageText = ""
         isSending = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
