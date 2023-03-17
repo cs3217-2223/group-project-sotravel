@@ -51,7 +51,7 @@
 		18DEC58029B9A3D600B3228A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEC57F29B9A3D600B3228A /* Color.swift */; };
 		18F72A3829B997F40084B94A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F72A3729B997F40084B94A /* LoginView.swift */; };
 		AC18140629C43E1A008D6944 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18140529C43E1A008D6944 /* UserService.swift */; };
-		AC18140929C43E4C008D6944 /* userServiceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18140829C43E4C008D6944 /* userServiceNode.swift */; };
+		AC18140929C43E4C008D6944 /* UserServiceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18140829C43E4C008D6944 /* UserServiceNode.swift */; };
 		AC18140D29C43EAD008D6944 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18140C29C43EAD008D6944 /* UserDataManager.swift */; };
 		AC32F94929B9EB8C0005F5B9 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F94829B9EB8C0005F5B9 /* MapView.swift */; };
 		AC32F95329BA02700005F5B9 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95229BA02700005F5B9 /* CalendarView.swift */; };
@@ -139,7 +139,7 @@
 		18DEC57F29B9A3D600B3228A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		18F72A3729B997F40084B94A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AC18140529C43E1A008D6944 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
-		AC18140829C43E4C008D6944 /* userServiceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userServiceNode.swift; sourceTree = "<group>"; };
+		AC18140829C43E4C008D6944 /* UserServiceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceNode.swift; sourceTree = "<group>"; };
 		AC18140C29C43EAD008D6944 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		AC32F94829B9EB8C0005F5B9 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		AC32F95229BA02700005F5B9 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
@@ -228,7 +228,6 @@
 				AC18140729C43E34008D6944 /* NodeService */,
 				AC18140429C43DE4008D6944 /* Service */,
 				B4E9460829C35CE2001B65EE /* Errors */,
-				18D736A529C03A6F00EB7439 /* Helper */,
 				B4C3536D29C0A8770073931C /* Network Access */,
 				B4C3536629C0A6870073931C /* NodeRepository */,
 				B44CB22929C03924007588DC /* Repository */,
@@ -371,7 +370,7 @@
 		AC18140729C43E34008D6944 /* NodeService */ = {
 			isa = PBXGroup;
 			children = (
-				AC18140829C43E4C008D6944 /* userServiceNode.swift */,
+				AC18140829C43E4C008D6944 /* UserServiceNode.swift */,
 			);
 			path = NodeService;
 			sourceTree = "<group>";
@@ -694,7 +693,7 @@
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
 				18B33DAF29BE06E60036B51E /* CreateInvitePageView.swift in Sources */,
 				AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */,
-				AC18140929C43E4C008D6944 /* userServiceNode.swift in Sources */,
+				AC18140929C43E4C008D6944 /* UserServiceNode.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,
 				AC32F96B29BA38CE0005F5B9 /* ProfilePageView.swift in Sources */,
