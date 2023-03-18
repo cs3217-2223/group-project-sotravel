@@ -8,32 +8,51 @@
 import SwiftUI
 
 struct ChatPageCellView: View {
-    var event: Event
-    var latestChatMessage: ChatMessage
+    @ObservedObject var chat: Chat
+    var latestChatMessage: ChatMessage? {
+        chat.getLatestMessage()
+    }
+    var timeStamp: String {
+        guard let latestChatMessage = latestChatMessage else {
+            return ""
+        }
+        return latestChatMessage.timestamp.isToday(using: calendar) ?
+            latestChatMessage.timestamp.toFriendlyTimeString() :
+            latestChatMessage.timestamp.toFriendlyDateString()
+    }
+    var senderName: String {
+        guard let latestChatMessage = latestChatMessage else {
+            return "No messages"
+        }
+        return "\(latestChatMessage.sender.name):"
+    }
+    var messageText: String {
+        guard let latestChatMessage = latestChatMessage else {
+            return ""
+        }
+        return latestChatMessage.messageText
+    }
     var calendar = Calendar(identifier: .iso8601)
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .center) {
-                Text(event.title)
+                Text(chat.title)
                     .font(.uiHeadline)
                     .foregroundColor(.black)
                     .clipped()
                     .lineLimit(1)
                 Spacer()
-                Text(
-                    latestChatMessage.timestamp.isToday(using: calendar) ?
-                        latestChatMessage.timestamp.toFriendlyTimeString() :
-                        latestChatMessage.timestamp.toFriendlyDateString())
+                Text(timeStamp)
                     .font(.uiCaption1)
                     .foregroundColor(.gray)
                     .lineLimit(1)
             }
             HStack {
-                Text("\(latestChatMessage.sender.name):")
+                Text(senderName)
                     .foregroundColor(.black)
                     .opacity(0.8)
-                Text(latestChatMessage.messageText)
+                Text(messageText)
                     .foregroundColor(.gray)
             }.font(Font.custom("Manrope-Regular", size: 14))
             .clipped()
@@ -48,6 +67,6 @@ struct ChatPageCellView: View {
 
 struct ChatPageCellView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatPageCellView(event: mockEvent1, latestChatMessage: mockMessage1)
+        ChatPageCellView(chat: mockChat)
     }
 }

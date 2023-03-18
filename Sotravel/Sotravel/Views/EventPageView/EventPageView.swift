@@ -78,7 +78,7 @@ struct EventPageView: View {
                     }.padding(.top, 3)
                     .padding(.bottom, 14)
 
-                    NavigationLink(destination: GroupChatView(event: event, chat: chat)) {
+                    NavigationLink(destination: ChatView(chat: chat)) {
                         HStack(alignment: .firstTextBaseline, spacing: 8) {
                             Image(systemName: "message.fill")
                                 .imageScale(.medium)

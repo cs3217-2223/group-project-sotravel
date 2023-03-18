@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct GroupChatView: View {
-    var event: Event
+struct ChatView: View {
     @EnvironmentObject var userDataManager: UserDataManager
+    @EnvironmentObject var chatViewModel: ChatViewModel
     @State var chat: Chat
     @State private var messageText = ""
     @State private var isSending = false
@@ -19,15 +19,14 @@ struct GroupChatView: View {
         messageText.isEmpty || isSending
     }
 
-    init(event: Event, chat: Chat, messageText: String = "") {
-        self.event = event
+    init(chat: Chat, messageText: String = "") {
         self.chat = chat
         self.messageText = messageText
     }
 
     var body: some View {
         VStack {
-            GroupChatHeaderView(event: event)
+            ChatHeaderView(chat: chat)
             Divider()
 
             ScrollView {
@@ -81,6 +80,11 @@ struct GroupChatView: View {
     }
 
     func sendMessage() {
+        let success = chatViewModel.sendChatMessage(messageText: messageText, sender: userDataManager.user, toChat: chat)
+        if !success {
+            // TODO: handle message send failure
+            return
+        }
         messageText = ""
         isSending = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -100,8 +104,8 @@ struct GroupChatView: View {
     }
 }
 
-struct GroupChatView_Previews: PreviewProvider {
+struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupChatView(event: mockEvent1, chat: mockChat).environmentObject(UserDataManager())
+        ChatView(chat: mockChatNoEvent).environmentObject(UserDataManager())
     }
 }

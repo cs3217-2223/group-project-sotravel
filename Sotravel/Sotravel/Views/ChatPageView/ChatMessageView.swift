@@ -29,3 +29,9 @@ struct ChatMessageView: View {
         .animation(.easeInOut(duration: 0.5), value: 1.0)
     }
 }
+
+struct ChatMessageView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChatMessageView(chatMessage: mockMessage1, isSentByMe: false).environmentObject(UserDataManager())
+    }
+}
