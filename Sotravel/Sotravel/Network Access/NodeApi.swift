@@ -10,6 +10,7 @@ import AsyncHTTPClient
 import NIOCore
 import NIOHTTP1
 import NIOFoundationCompat
+import SwiftUI
 
 class NodeApi {
     private static var client = HTTPClient(eventLoopGroupProvider: .createNew)
@@ -17,6 +18,7 @@ class NodeApi {
     private static let baseUrl = "qa-api.sotravel.me"
     private static let basePathPrefix = "/v1"
     private static let default_timeout: Int64 = 30
+    private static let authTokenKey: String = "nodeApiBearerToken"
 
     private static let pathEnumToStr: [Path: String] = [
         .telegramSignIn: "/user/telegramSignin",
@@ -24,6 +26,14 @@ class NodeApi {
         .event: "",
         .invite: ""
     ]
+
+    static func storeAuthToken(token: String) {
+        UserDefaults.standard.set(authTokenKey, forKey: token)
+    }
+
+    static func getAuthToken(token: String) -> String? {
+        UserDefaults.standard.string(forKey: authTokenKey)
+    }
 
     static func get(path: Path, params: [String: String]? = nil, data: [String: Any]? = nil)
     async throws -> (HTTPResponseStatus, String?) {
@@ -55,8 +65,8 @@ class NodeApi {
                 request.body = .bytes(ByteBuffer(data: jsonData))
                 request.setContentTypeToJson()
             }
-            // swiftlint:disable:next_line line_length
-            // request.addBearerToken(token: "some token")
+
+            request.addBearerToken(token: getAuthToken(token: authTokenKey))
 
             let response = try await NodeApi.client.execute(request, timeout: .seconds(NodeApi.default_timeout))
             let body = String(buffer: try await response.body.collect(upTo: 1_024 * 1_024)) // 1 MB
@@ -64,6 +74,35 @@ class NodeApi {
             return (response.status, body)
         } catch {
             throw SotravelError.NetworkError("Error ocurred when running \(method) \(url)", error)
+        }
+    }
+
+    // Call this upon tele login to ensure we have a bearer token
+    private static func authorize(userData: [String: Any]) async throws {
+        // Hardcoded data for now
+        let data: [String: Any] = [
+            "id": 99_032_634,
+            "first_name": "Larry",
+            "last_name": "Lee",
+            "photo_url": "https://t.me/i/userpic/320/JCRcwqd9fslCnzRK0TZfezSdbhGhW80LgpboQTpPzbs.jpg",
+            "username": "larrylee3107",
+            "auth_date": "1678697256",
+            "hash": "1beb8304831d3ff306195ecb452887c0e26638c0ba882f254f2c5b4531311a55"
+        ]
+
+        let (status, response) = try await http_request(method: .POST, path: .telegramSignIn, data: data)
+
+        guard status == HTTPResponseStatus.ok, let response = response else {
+            throw SotravelError.AuthorizationError("Unable to get bearer token", nil)
+        }
+
+        do {
+            let responseModel = try JSONDecoder().decode(TelegramSignInResponse.self, from: Data(response.utf8))
+            storeAuthToken(token: responseModel.token)
+        } catch is DecodingError {
+            throw SotravelError.message("Unable to decode authorization call API repsonse", nil)
+        } catch {
+            throw SotravelError.message("Error occurred when decoding/storing authorization token")
         }
     }
 

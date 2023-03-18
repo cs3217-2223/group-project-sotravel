@@ -9,8 +9,10 @@ import Foundation
 import AsyncHTTPClient
 
 extension HTTPClientRequest {
-    mutating func addBearerToken(token: String) {
-        self.headers.add(name: "Authorization", value: "Bearer \(token)")
+    mutating func addBearerToken(token: String?) {
+        if token != nil {
+            self.headers.add(name: "Authorization", value: "Bearer \(token)")
+        }
     }
 
     mutating func setContentTypeToJson() {

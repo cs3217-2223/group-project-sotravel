@@ -81,6 +81,7 @@
 		B4C3539429C182C50073931C /* AsyncHTTPClient in Frameworks */ = {isa = PBXBuildFile; productRef = B4C3539329C182C50073931C /* AsyncHTTPClient */; };
 		B4E9460A29C35CEF001B65EE /* SotravelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E9460929C35CEF001B65EE /* SotravelError.swift */; };
 		B4E9460E29C5A6BB001B65EE /* HTTPClientRequest+NodeAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E9460D29C5A6BB001B65EE /* HTTPClientRequest+NodeAuth.swift */; };
+		B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E9461229C5C7C6001B65EE /* TelegramSignInResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,7 @@
 		B4C3538B29C180310073931C /* SotravelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SotravelTests.swift; sourceTree = "<group>"; };
 		B4E9460929C35CEF001B65EE /* SotravelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SotravelError.swift; sourceTree = "<group>"; };
 		B4E9460D29C5A6BB001B65EE /* HTTPClientRequest+NodeAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClientRequest+NodeAuth.swift"; sourceTree = "<group>"; };
+		B4E9461229C5C7C6001B65EE /* TelegramSignInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelegramSignInResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +228,7 @@
 		1866DE5C29B993E3005D9F59 /* Sotravel */ = {
 			isa = PBXGroup;
 			children = (
+				B4E9461129C5C7B1001B65EE /* ApiModels */,
 				AC18140A29C43E8C008D6944 /* ViewModel */,
 				AC18140729C43E34008D6944 /* NodeService */,
 				AC18140429C43DE4008D6944 /* Service */,
@@ -504,6 +507,14 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		B4E9461129C5C7B1001B65EE /* ApiModels */ = {
+			isa = PBXGroup;
+			children = (
+				B4E9461229C5C7C6001B65EE /* TelegramSignInResponse.swift */,
+			);
+			path = ApiModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -642,6 +653,7 @@
 				18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */,
 				AC18140D29C43EAD008D6944 /* UserDataManager.swift in Sources */,
 				1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */,
+				B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
 				18D9714029BD91B60064DC2A /* Event.swift in Sources */,
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
