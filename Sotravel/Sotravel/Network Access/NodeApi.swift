@@ -78,7 +78,7 @@ class NodeApi {
     }
 
     // Call this upon tele login to ensure we have a bearer token
-    private static func authorize(userData: [String: Any]) async throws {
+    static func authorize(userData: [String: Any]) async throws {
         // Hardcoded data for now
         let data: [String: Any] = [
             "id": 99_032_634,
