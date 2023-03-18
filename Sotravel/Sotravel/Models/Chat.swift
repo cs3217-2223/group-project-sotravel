@@ -1,11 +1,11 @@
 import SwiftUI
 
-class Chat: Identifiable {
+class Chat: ObservableObject, Identifiable {
     var id = UUID()
-    var title: String
-    var messages: [ChatMessage]
-    var members: [User]
-    var event: Event?
+    @Published var title: String
+    @Published var messages: [ChatMessage]
+    @Published var members: [User]
+    @Published var event: Event?
 
     init(messages: [ChatMessage] = [ChatMessage](), title: String = "New Chat", members: [User]) {
         self.messages = messages

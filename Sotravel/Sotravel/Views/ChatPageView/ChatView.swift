@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ChatView: View {
-    var delegate: ChatViewModelDelegate?
     @EnvironmentObject var user: User
+    @EnvironmentObject var chatViewModel: ChatViewModel
     @State var chat: Chat
     @State private var messageText = ""
     @State private var isSending = false
@@ -80,7 +80,7 @@ struct ChatView: View {
     }
 
     func sendMessage() {
-        let success = delegate?.sendChatMessage(messageText: messageText, sender: user, toChat: chat) ?? false
+        let success = chatViewModel.sendChatMessage(messageText: messageText, sender: user, toChat: chat)
         if !success {
             // TODO: handle message send failure
             return

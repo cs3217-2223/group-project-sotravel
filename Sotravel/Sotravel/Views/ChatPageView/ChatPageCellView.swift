@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChatPageCellView: View {
-    var chat: Chat
+    @ObservedObject var chat: Chat
     var latestChatMessage: ChatMessage? {
         chat.getLatestMessage()
     }

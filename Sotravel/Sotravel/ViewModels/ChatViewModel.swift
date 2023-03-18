@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ChatViewModel: ChatViewModelDelegate {
+class ChatViewModel: ChatViewModelDelegate, ObservableObject {
     func sendChatMessage(messageText: String, sender: User, toChat chat: Chat) -> Bool {
         let newChatMessage = ChatMessage(messageText: messageText, timestamp: Date.now, sender: sender)
         chat.addChatMessage(newChatMessage)
