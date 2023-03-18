@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChatPageView: View {
-    @EnvironmentObject var eventsStore: EventsStore
+    @EnvironmentObject var chatsStore: ChatsStore
 
     var body: some View {
         NavigationStack {
@@ -21,9 +21,9 @@ struct ChatPageView: View {
                 .padding(.top, 24)
                 .padding(.bottom, 15)
 
-                ForEach(self.eventsStore.events) { event in
-                    NavigationLink(destination: ChatView(chat: mockChat)) {
-                        ChatPageCellView(event: event, latestChatMessage: mockMessage1)
+                ForEach(self.chatsStore.chats) { chat in
+                    NavigationLink(destination: ChatView(chat: chat)) {
+                        ChatPageCellView(chat: chat)
                     }
                 }
             }
@@ -36,6 +36,6 @@ struct ChatPageView_Previews: PreviewProvider {
     static var previews: some View {
         ChatPageView()
             .environmentObject(mockUser)
-            .environmentObject(EventsStore(events: mockEvents))
+            .environmentObject(ChatsStore(chats: mockChats))
     }
 }

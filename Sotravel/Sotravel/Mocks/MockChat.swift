@@ -70,17 +70,13 @@ let mockChat = Chat(
 
 let mockChatNoEvent = Chat(
     messages: [
-        mockMessage1,
-        mockMessage2,
-        mockMessage3,
-        mockMessage4,
-        mockMessage5,
         mockMessage6,
-        mockMessage7,
-        mockMessage8,
-        mockMessage9,
-        mockMessage10
+        mockMessage7
     ],
     title: "Test Title",
     members: mockFriends
 )
+
+let mockChatNoMessage = Chat(members: mockFriends, event: mockEvent3)
+
+let mockChats = [mockChat, mockChatNoEvent, mockChatNoMessage]

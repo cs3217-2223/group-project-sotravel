@@ -61,12 +61,13 @@
 		AC32F96D29BA3DBB0005F5B9 /* MapPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F96C29BA3DBB0005F5B9 /* MapPageView.swift */; };
 		AC63059C29BDA34F00EEEA85 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC63059B29BDA34F00EEEA85 /* ChatView.swift */; };
 		AC63059E29BDA43F00EEEA85 /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC63059D29BDA43F00EEEA85 /* ChatHeaderView.swift */; };
-		AC6305A229BDA6E600EEEA85 /* GroupChatCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A129BDA6E600EEEA85 /* GroupChatCellView.swift */; };
+		AC6305A229BDA6E600EEEA85 /* ChatCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A129BDA6E600EEEA85 /* ChatCellView.swift */; };
 		AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */; };
 		AC6305A629BDC60300EEEA85 /* RecentActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */; };
 		AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */; };
 		D7897AF929C45FC6004575E4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7897AF829C45FC6004575E4 /* ChatViewModel.swift */; };
 		D7897AFB29C46021004575E4 /* ChatViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7897AFA29C46021004575E4 /* ChatViewModelDelegate.swift */; };
+		D7F6A9BA29C581F3006FBD26 /* ChatsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9B929C581F2006FBD26 /* ChatsStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,12 +127,13 @@
 		AC32F96C29BA3DBB0005F5B9 /* MapPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPageView.swift; sourceTree = "<group>"; };
 		AC63059B29BDA34F00EEEA85 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		AC63059D29BDA43F00EEEA85 /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
-		AC6305A129BDA6E600EEEA85 /* GroupChatCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatCellView.swift; sourceTree = "<group>"; };
+		AC6305A129BDA6E600EEEA85 /* ChatCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellView.swift; sourceTree = "<group>"; };
 		AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksView.swift; sourceTree = "<group>"; };
 		AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentActivityView.swift; sourceTree = "<group>"; };
 		AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsView.swift; sourceTree = "<group>"; };
 		D7897AF829C45FC6004575E4 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		D7897AFA29C46021004575E4 /* ChatViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModelDelegate.swift; sourceTree = "<group>"; };
+		D7F6A9B929C581F2006FBD26 /* ChatsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 				18591C8729BD73FF00FA987D /* User.swift */,
 				18D9713F29BD91B60064DC2A /* Event.swift */,
 				18D9714329BD9AF80064DC2A /* EventsStore.swift */,
+				D7F6A9B929C581F2006FBD26 /* ChatsStore.swift */,
 				1893D29229BF295400B61BC9 /* ChatMessage.swift */,
 				18C3660329C020D800AF0338 /* Chat.swift */,
 				188EBDB229C1B053002735F0 /* Trip.swift */,
@@ -355,7 +358,7 @@
 				AC32F96129BA2AD90005F5B9 /* ChatPageCellView.swift */,
 				AC63059B29BDA34F00EEEA85 /* ChatView.swift */,
 				AC63059D29BDA43F00EEEA85 /* ChatHeaderView.swift */,
-				AC6305A129BDA6E600EEEA85 /* GroupChatCellView.swift */,
+				AC6305A129BDA6E600EEEA85 /* ChatCellView.swift */,
 				18C3660529C0227C00AF0338 /* ChatMessageView.swift */,
 			);
 			path = ChatPageView;
@@ -531,10 +534,11 @@
 				AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,
+				D7F6A9BA29C581F3006FBD26 /* ChatsStore.swift in Sources */,
 				AC32F96B29BA38CE0005F5B9 /* ProfilePageView.swift in Sources */,
 				18A1AC5829BB12B90064CF37 /* Date.swift in Sources */,
 				1866DE5E29B993E3005D9F59 /* SotravelApp.swift in Sources */,
-				AC6305A229BDA6E600EEEA85 /* GroupChatCellView.swift in Sources */,
+				AC6305A229BDA6E600EEEA85 /* ChatCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

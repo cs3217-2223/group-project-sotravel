@@ -1,6 +1,6 @@
 import SwiftUI
 
-class Chat {
+class Chat: Identifiable {
     var id = UUID()
     var title: String
     var messages: [ChatMessage]
@@ -22,5 +22,13 @@ class Chat {
 
     func addChatMessage(_ message: ChatMessage) {
         messages.append(message)
+    }
+
+    func isUserInChat(user: User) -> Bool {
+        members.contains(user)
+    }
+
+    func getLatestMessage() -> ChatMessage? {
+        messages.last
     }
 }
