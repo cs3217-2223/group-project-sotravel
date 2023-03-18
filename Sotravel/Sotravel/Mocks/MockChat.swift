@@ -64,5 +64,23 @@ let mockChat = Chat(
         mockMessage9,
         mockMessage10
     ],
+    members: mockFriends,
+    event: mockEvent1
+)
+
+let mockChatNoEvent = Chat(
+    messages: [
+        mockMessage1,
+        mockMessage2,
+        mockMessage3,
+        mockMessage4,
+        mockMessage5,
+        mockMessage6,
+        mockMessage7,
+        mockMessage8,
+        mockMessage9,
+        mockMessage10
+    ],
+    title: "Test Title",
     members: mockFriends
 )

@@ -13,9 +13,9 @@ class Chat {
         self.members = members
     }
 
-    init(messages: [ChatMessage] = [ChatMessage](), title: String = "New Chat", members: [User], event: Event) {
+    init(messages: [ChatMessage] = [ChatMessage](), members: [User], event: Event) {
         self.messages = messages
-        self.title = title
+        self.title = event.title
         self.members = members
         self.event = event
     }

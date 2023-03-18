@@ -22,7 +22,7 @@ struct ChatPageView: View {
                 .padding(.bottom, 15)
 
                 ForEach(self.eventsStore.events) { event in
-                    NavigationLink(destination: GroupChatView(event: event, chat: mockChat)) {
+                    NavigationLink(destination: ChatView(chat: mockChat)) {
                         ChatPageCellView(event: event, latestChatMessage: mockMessage1)
                     }
                 }

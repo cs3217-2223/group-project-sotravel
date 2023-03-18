@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct GroupChatView: View {
-    var event: Event
+struct ChatView: View {
     var delegate: ChatViewModelDelegate?
     @EnvironmentObject var user: User
     @State var chat: Chat
@@ -20,15 +19,14 @@ struct GroupChatView: View {
         messageText.isEmpty || isSending
     }
 
-    init(event: Event, chat: Chat, messageText: String = "") {
-        self.event = event
+    init(chat: Chat, messageText: String = "") {
         self.chat = chat
         self.messageText = messageText
     }
 
     var body: some View {
         VStack {
-            GroupChatHeaderView(event: event)
+            ChatHeaderView(chat: chat)
             Divider()
 
             ScrollView {
@@ -106,8 +104,8 @@ struct GroupChatView: View {
     }
 }
 
-struct GroupChatView_Previews: PreviewProvider {
+struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupChatView(event: mockEvent1, chat: mockChat).environmentObject(mockUser)
+        ChatView(chat: mockChatNoEvent).environmentObject(mockUser)
     }
 }
