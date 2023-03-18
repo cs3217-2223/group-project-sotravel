@@ -8,6 +8,6 @@
 import Foundation
 
 protocol UserService {
-    func fetchUser(id: UUID) async -> User?
-    func updateUser(_ user: User) async -> Bool
+    func fetchUser(id: UUID) async throws -> User?
+    func updateUser(_ user: User) async throws -> Bool
 }

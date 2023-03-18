@@ -14,12 +14,12 @@ class UserServiceNode: UserService {
         self.userRepository = userRepository
     }
 
-    func fetchUser(id: UUID) async -> User? {
-        await userRepository.get(id: id)
+    func fetchUser(id: UUID) async throws -> User? {
+        try await userRepository.get(id: id)
     }
 
-    func updateUser(_ user: User) async -> Bool {
-        await userRepository.update(user: user)
+    func updateUser(_ user: User) async throws -> Bool {
+        try await userRepository.update(user: user)
     }
 }
 

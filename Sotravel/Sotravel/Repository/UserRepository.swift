@@ -8,6 +8,6 @@
 import Foundation
 
 protocol UserRepository {
-    func get(id: UUID) async -> User?
-    func update(user: User) async -> Bool
+    func get(id: UUID) async throws -> User?
+    func update(user: User) async throws -> Bool
 }

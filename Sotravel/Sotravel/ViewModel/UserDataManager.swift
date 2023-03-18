@@ -16,9 +16,9 @@ class UserDataManager: ObservableObject {
         self.userService = userService
     }
 
-    func fetchUser(id: UUID) {
+    func fetchUser(id: UUID) throws {
         Task {
-            if let fetchedUser = await userService.fetchUser(id: id) {
+            if let fetchedUser = try await userService.fetchUser(id: id) {
                 DispatchQueue.main.async {
                     self.user = fetchedUser
                 }
@@ -26,9 +26,9 @@ class UserDataManager: ObservableObject {
         }
     }
 
-    func updateUser() {
+    func updateUser() throws {
         Task {
-            let success = await userService.updateUser(self.user)
+            let success = try await userService.updateUser(self.user)
             if !success {
                 // Handle update failure
             }
