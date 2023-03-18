@@ -35,7 +35,7 @@ struct ChatPageView: View {
 struct ChatPageView_Previews: PreviewProvider {
     static var previews: some View {
         ChatPageView()
-            .environmentObject(mockUser)
+            .environmentObject(UserDataManager())
             .environmentObject(EventsStore(events: mockEvents))
     }
 }

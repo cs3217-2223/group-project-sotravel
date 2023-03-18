@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject private var userDataManager: UserDataManager
     var body: some View {
         NavigationStack {
             VStack {
@@ -71,6 +72,9 @@ struct LoginView: View {
                 .padding(.horizontal)
                 Spacer()
             }
+        }
+        .onAppear {
+            userDataManager.fetchUser(id: UUID())
         }
     }
 }

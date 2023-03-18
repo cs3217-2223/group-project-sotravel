@@ -1,22 +1,22 @@
-import SwiftUI
+import Foundation
 
-class User: ObservableObject, Identifiable, Hashable {
+class User: Identifiable, Hashable {
     var id = UUID()
-    @Published var name: String
-    @Published var description: String // Optional
-    @Published var imageURL: String // Optional
-    @Published var instagramUsername: String // Optional
-    @Published var tiktokUsername: String // Optional
-    @Published var telegramUsername: String
-    @Published var friends: [User]
+    var name: String
+    var description: String // Optional
+    var imageURL: String // Optional
+    var instagramUsername: String // Optional
+    var tiktokUsername: String // Optional
+    var telegramUsername: String
+    var friends: [User]
 
     init(
-        name: String,
+        name: String = "",
         description: String = "",
         imageURL: String = "",
         instagramUsername: String = "",
         tiktokUsername: String = "",
-        telegramUsername: String,
+        telegramUsername: String = "",
         friends: [User] = []
     ) {
         self.name = name
@@ -27,7 +27,7 @@ class User: ObservableObject, Identifiable, Hashable {
         self.telegramUsername = telegramUsername
         self.friends = friends
     }
-    
+
     init(apiUser: NodeApiUser) {
         self.name = apiUser.firstName + apiUser.lastName
         self.description = apiUser.description

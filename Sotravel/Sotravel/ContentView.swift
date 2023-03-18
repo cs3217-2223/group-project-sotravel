@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject private var userDataManager: UserDataManager
     var body: some View {
         LoginView()
     }

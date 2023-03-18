@@ -5,32 +5,44 @@
 //  Created by Weiqiang Zhang on 17/3/23.
 //
 
-import Foundation
+import SwiftUI
+import Combine
 
 class UserDataManager: ObservableObject {
     @Published private(set) var user: User
     private let userService: UserService
 
-    init(user: User = mockUser, userService: UserService = UserServiceStub()) {
-        self.user = user
+    init(userService: UserService = UserServiceNode(userRepository: UserRepositoryNode())) {
+        self.user = User()
         self.userService = userService
     }
 
-    func fetchUser(id: UUID) throws {
+    func fetchUser(id: UUID) {
         Task {
-            if let fetchedUser = try await userService.fetchUser(id: id) {
-                DispatchQueue.main.async {
-                    self.user = fetchedUser
+            do {
+                if let fetchedUser = try await userService.fetchUser(id: id) {
+                    DispatchQueue.main.async {
+                        print("success")
+                        self.user = fetchedUser
+                    }
                 }
+            } catch {
+                print("Error fetching user:", error)
+                // Handle error as needed
             }
         }
     }
 
-    func updateUser() throws {
+    func updateUser() {
         Task {
-            let success = try await userService.updateUser(self.user)
-            if !success {
-                // Handle update failure
+            do {
+                let success = try await userService.updateUser(self.user)
+                if !success {
+                    // Handle update failure
+                }
+            } catch {
+                print("Error updating user:", error)
+                // Handle error as needed
             }
         }
     }
