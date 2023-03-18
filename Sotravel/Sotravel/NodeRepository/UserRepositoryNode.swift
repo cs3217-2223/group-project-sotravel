@@ -6,12 +6,24 @@
 //
 
 import Foundation
+import NIOHTTP1
 
 class UserRepositoryNode: UserRepository {
     func get(id: UUID) async throws -> User? {
-        let resp = try await NodeApi.get(path: .profile, params: ["user_id": "634b6038-6594-4473-8c23-a5539400d653"])
-        // Deserialize the response into a User object
-        return User(name: "", telegramUsername: "")
+        let (status, response) = try await NodeApi.get(path: .profile, params: ["user_id": "634b6038-6594-4473-8c23-a5539400d653"])
+        
+        guard status == HTTPResponseStatus.ok, let response = response else {
+            throw SotravelError.AuthorizationError("Unable to get bearer token", nil)
+        }
+        
+        do {
+            let responseModel = try JSONDecoder().decode(NodeApiUser.self, from: Data(response.utf8))
+            // Deserialize the response into a User object
+            return User(apiUser: responseModel)
+        } catch is DecodingError {
+            throw SotravelError.message("Unable to parse Get User response")
+        }
+        
     }
 
     func update(user: User) async -> Bool {
