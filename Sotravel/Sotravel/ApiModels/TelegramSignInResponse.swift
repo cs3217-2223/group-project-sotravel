@@ -14,24 +14,24 @@ struct TelegramSignInResponse: Codable {
 
 // MARK: - User
 struct NodeApiUser: Codable {
-    let id, backupID, teleUsername, teleID: String
-    let socialsTiktok, socialsInstagram: String
-    let socialsTelegram: String
+    let id, backupID, teleUsername, teleID: String?
+    let socialsTiktok, socialsInstagram: String?
+    let socialsTelegram: String?
     let socialsWhatsapp: JSONNull?
-    let firstName, lastName, country, city: String
-    let gender: String
+    let firstName, lastName, country, city: String?
+    let gender: String?
     let phoneNumber: JSONNull?
-    let email: String
-    let image: String
-    let birthday: String
+    let email: String?
+    let image: String?
+    let birthday: String?
     let cfoDesc: JSONNull?
-    let groupBookingID: String
-    let credits: Int
-    let interests: [String]
-    let description, createdat, updatedat: String
+    let groupBookingID: String?
+    let credits: Int?
+    let interests: JSONNull?
+    let description, createdat, updatedat: String?
     let currentlyOnTrip: JSONNull?
-    let coordinator: Bool
-    let socialsLinkedin: String
+    let coordinator: Bool?
+    let socialsLinkedin: String?
 
     enum CodingKeys: String, CodingKey {
         case id

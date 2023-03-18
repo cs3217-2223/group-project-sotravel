@@ -29,12 +29,12 @@ class User: Identifiable, Hashable {
     }
 
     init(apiUser: NodeApiUser) {
-        self.name = apiUser.firstName + apiUser.lastName
-        self.description = apiUser.description
-        self.imageURL = apiUser.image
-        self.instagramUsername = apiUser.socialsInstagram
-        self.tiktokUsername = apiUser.socialsTiktok
-        self.telegramUsername = apiUser.teleUsername
+        self.name = (apiUser.firstName ?? "") + (apiUser.lastName ?? "")
+        self.description = apiUser.description ?? ""
+        self.imageURL = apiUser.image ?? ""
+        self.instagramUsername = apiUser.socialsInstagram ?? ""
+        self.tiktokUsername = apiUser.socialsTiktok ?? ""
+        self.telegramUsername = apiUser.teleUsername ?? ""
         // API user does not have friends
         self.friends = []
     }
