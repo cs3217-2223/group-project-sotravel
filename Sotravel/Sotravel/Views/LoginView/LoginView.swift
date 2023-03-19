@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject private var userDataManager: UserDataManager
+    @EnvironmentObject private var userService: UserService
     var body: some View {
         NavigationStack {
             VStack {
@@ -74,7 +74,7 @@ struct LoginView: View {
             }
         }
         .onAppear {
-            userDataManager.fetchUser(id: UUID())
+            userService.fetchUser(id: UUID())
         }
     }
 }

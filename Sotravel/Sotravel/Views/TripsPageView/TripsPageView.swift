@@ -29,7 +29,7 @@ struct TripsPageView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             TripsPageView()
-                .environmentObject(UserDataManager())
+                .environmentObject(UserService())
                 .environmentObject(EventsStore(events: mockEvents))
         }
     }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @EnvironmentObject var userDataManager: UserDataManager
+    @EnvironmentObject var userService: UserService
     @Environment(\.presentationMode) var presentationMode
 
     @State private var name: String = ""
@@ -77,10 +77,10 @@ struct EditProfileView: View {
     }
 
     private func loadUserData() {
-        name = userDataManager.user.name
-        description = userDataManager.user.description
-        instagramUsername = userDataManager.user.instagramUsername
-        tiktokUsername = userDataManager.user.tiktokUsername
+        name = userService.editProfileViewModel.name
+        description = userService.editProfileViewModel.description
+        instagramUsername = userService.editProfileViewModel.instagramUsername
+        tiktokUsername = userService.editProfileViewModel.tiktokUsername
     }
 
     private func saveProfile() {
@@ -91,6 +91,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView().environmentObject(UserDataManager())
+        EditProfileView().environmentObject(UserService())
     }
 }

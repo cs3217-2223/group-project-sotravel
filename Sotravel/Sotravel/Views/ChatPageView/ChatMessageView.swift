@@ -32,6 +32,6 @@ struct ChatMessageView: View {
 
 struct ChatMessageView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatMessageView(chatMessage: mockMessage1, isSentByMe: false).environmentObject(UserDataManager())
+        ChatMessageView(chatMessage: mockMessage1, isSentByMe: false).environmentObject(UserService())
     }
 }

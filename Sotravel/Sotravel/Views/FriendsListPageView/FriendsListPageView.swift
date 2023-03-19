@@ -20,7 +20,7 @@ struct FriendsListPageView: View {
                 ForEach(filteredFriends, id: \.id) { friend in
                     NavigationLink(destination: FriendProfilePageView(friend: friend)) {
                         UserListItemView(user: friend) {
-                            ActionMenuButton(user: friend)
+                            ActionMenuButton()
                         }
                     }
                     Divider()

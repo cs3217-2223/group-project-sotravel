@@ -69,7 +69,7 @@ struct TripPageView: View {
 struct TripPageView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(UserDataManager())
+            .environmentObject(UserService())
             .environmentObject(EventsStore(events: mockEvents))
     }
 }

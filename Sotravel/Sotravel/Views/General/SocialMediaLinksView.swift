@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SocialMediaLinksView: View {
-    var user: User
+    @EnvironmentObject private var userService: UserService
     var body: some View {
         HStack(spacing: 20) {
-            if let telegramUsername = user.telegramUsername, !telegramUsername.isEmpty {
+            if let telegramUsername = userService.socialMediaLinksVM.telegramUsername, !telegramUsername.isEmpty {
                 Button(action: {
                     guard let url = URL(string: "https://t.me/\(telegramUsername)") else { return }
                     UIApplication.shared.open(url)
@@ -21,7 +21,7 @@ struct SocialMediaLinksView: View {
                         .frame(width: 30, height: 30)
                 })
             }
-            if let instagramUsername = user.instagramUsername, !instagramUsername.isEmpty {
+            if let instagramUsername = userService.socialMediaLinksVM.instagramUsername, !instagramUsername.isEmpty {
                 Button(action: {
                     guard let url = URL(string: "https://www.instagram.com/\(instagramUsername)/") else { return }
                     UIApplication.shared.open(url)
@@ -31,7 +31,7 @@ struct SocialMediaLinksView: View {
                         .frame(width: 30, height: 30)
                 })
             }
-            if let tiktokUsername = user.tiktokUsername, !tiktokUsername.isEmpty {
+            if let tiktokUsername = userService.socialMediaLinksVM.tiktokUsername, !tiktokUsername.isEmpty {
                 Button(action: {
                     guard let url = URL(string: "https://www.tiktok.com/@\(tiktokUsername)") else { return }
                     UIApplication.shared.open(url)
@@ -47,6 +47,6 @@ struct SocialMediaLinksView: View {
 
 struct SocialMediaLinksView_Previews: PreviewProvider {
     static var previews: some View {
-        SocialMediaLinksView(user: mockUser)
+        SocialMediaLinksView().environmentObject(UserService())
     }
 }
