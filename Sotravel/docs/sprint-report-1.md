@@ -40,12 +40,12 @@ communicate with each other.
 -   Bonus: User can select a desired destination and map can tell the user how
     to get to destination
 
-## Map
+### Map
 
 -   Depending on where the user is at, load the correct map. Mountain map vs
     street map.
 
-# In-app instant messaging
+### In-app instant messaging
 
 -   Provides an easy means of communication between group members or from user
     to user
