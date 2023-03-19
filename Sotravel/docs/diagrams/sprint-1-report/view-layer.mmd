@@ -5,17 +5,11 @@ classDiagram
     Service ..> Model
     Service --> ViewModel
 
-    class View {
-    }
-
-
     class Service {
-        <<Interface>>
         GetModelWithSpecificFields(): ViewModel
     }
+    class View {}
+    class ViewModel {}
+    class Model {}
 
-    class ViewModel {
-    }
-
-    class Model {
-    }
+    

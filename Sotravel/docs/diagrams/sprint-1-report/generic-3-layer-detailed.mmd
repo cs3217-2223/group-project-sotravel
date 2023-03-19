@@ -3,9 +3,8 @@ classDiagram
     View --> ViewModel: Observes
     View --> Service
     Service ..> Model
-    ServiceImpl ..|> Service
     Repository --> Model
-    Service --> ViewModel
+    Service --> ViewModel: Publishes
     DataAccess --> ApiModel
     RepositoryImpl ..|> Repository
     RepositoryImpl --> DataAccess
@@ -16,13 +15,10 @@ classDiagram
     class ViewModel {
     }
     class Service {
-        <<Interface>>
         GetModelWithSpecificFields(): ViewModel
     }
-note for Service "Uses Reposistory \nto convert Model\nto ViewModel"
+note for Service "Uses Repository \nto convert Model\nto ViewModel"
 
-    class ServiceImpl {
-    }
     class Model {
     }
     class Repository {

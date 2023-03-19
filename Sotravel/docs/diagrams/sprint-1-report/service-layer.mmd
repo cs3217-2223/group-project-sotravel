@@ -1,9 +1,9 @@
 classDiagram
     direction BT
-    ServiceImpl ..|> Service
     Repository --> Model
     Service ..> Model
-    Service --> ViewModel
+    Service --> ViewModel: Publishes
+    Service --> Repository
 
     class Repository {
         <<interface>>
@@ -11,10 +11,6 @@ classDiagram
     }
 
     class Service {
-        <<interface>>
         GetModelWithSpecificFields(): ViewModel
     }
-note for Service "Uses Reposistory \nto convert Model\nto ViewModel"
-    class ServiceImpl {
-
-    }
+note for Service "Uses Repository \nto convert Model\nto ViewModel"
