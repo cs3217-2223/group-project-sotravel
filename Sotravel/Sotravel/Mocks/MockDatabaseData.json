@@ -9,16 +9,48 @@
             "id": "F39BA902-30F1-47F9-87DC-47F4F240B552",
             "title": "Test Title",
             "lastMessage": "47F599DC-C760-4734-A6B1-0A13F935E892"
+        },
+        "EDB48892-410C-4EA8-8423-2E7168E74E5B": {
+            "id": "EDB48892-410C-4EA8-8423-2E7168E74E5B",
+            "title": "Climbing at Railay Beach, Krabi",
+            "lastMessage": ""
+        },
+        "25500CEE-CF12-47FF-B2CE-83025518DB86": {
+            "id": "25500CEE-CF12-47FF-B2CE-83025518DB86",
+            "title": "Should not be seen",
+            "lastMessage": ""
         }
     },
     "members": {
         "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A": {
             "0F118FE7-AF51-43C1-86ED-78D888A32F89": true
+            "B9D914C8-9B0E-4E3B-BAB0-7E789048C371": true
         },
         "F39BA902-30F1-47F9-87DC-47F4F240B552": {
             "0F118FE7-AF51-43C1-86ED-78D888A32F89": true
+        },
+        "EDB48892-410C-4EA8-8423-2E7168E74E5B": {
+            "0F118FE7-AF51-43C1-86ED-78D888A32F89": true
+            "473B8DF9-2DB7-40B8-9331-A09FFB487FE5": true
+        },
+        "25500CEE-CF12-47FF-B2CE-83025518DB86": {
+            "473B8DF9-2DB7-40B8-9331-A09FFB487FE5": true
         }
-    }
+    },
+    "users": {
+        "0F118FE7-AF51-43C1-86ED-78D888A32F89": {
+            "id": "0F118FE7-AF51-43C1-86ED-78D888A32F89",
+            "name": "me"
+        },
+        "B9D914C8-9B0E-4E3B-BAB0-7E789048C371": {
+            "id": "B9D914C8-9B0E-4E3B-BAB0-7E789048C371",
+            "name": "not me"
+        },
+        "473B8DF9-2DB7-40B8-9331-A09FFB487FE5": {
+            "id": "473B8DF9-2DB7-40B8-9331-A09FFB487FE5",
+            "name": "also not me"
+        }
+    },
     "messages": {
         "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A": {
             "E041EC1A-554E-49F1-8915-DC6B648C4815": {
@@ -26,7 +58,13 @@
                 "messageText": "Test Message 1",
                 "sender": "0F118FE7-AF51-43C1-86ED-78D888A32F89",
                 "timestamp": 700904508.407394
+            }, "03E4A023-2A43-4216-A4CB-EDEABFEE9964": {
+                "id": "03E4A023-2A43-4216-A4CB-EDEABFEE9964",
+                "messageText": "Test Message 4"
+                "sender": "B9D914C8-9B0E-4E3B-BAB0-7E789048C371"
+                "timestamp": 700905871.666835
             }
+            
         },
         "F39BA902-30F1-47F9-87DC-47F4F240B552": {
             "3C022F8B-7E4E-49EE-AB1A-39C50DFB43CA": {

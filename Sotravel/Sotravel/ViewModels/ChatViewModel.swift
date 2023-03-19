@@ -11,6 +11,9 @@ import FirebaseDatabase
 class ChatViewModel: ChatViewModelDelegate, ObservableObject {
     var user: User
     var databaseConnector: DatabaseConnector
+    // TODO: maintain here a list of the user's chats in the form of ChatStore
+    // TODO: place the VM into all the views so that the views no longer depend on the models
+    // TODO: VM goes through DB to get the necessary information
 
     init(user: User, databaseConnector: DatabaseConnector) {
         self.user = user
