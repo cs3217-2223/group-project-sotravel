@@ -3,14 +3,16 @@ import SwiftUI
 struct ChatMessageView: View {
     let chatMessage: ChatMessage
     let isSentByMe: Bool
+    @EnvironmentObject var chatViewModel: ChatViewModel
 
     var body: some View {
         HStack {
             if isSentByMe {
                 Spacer()
             } else {
-                NavigationLink(destination: FriendProfilePageView(friend: chatMessage.sender)) {
-                    ProfileImageView(imageSrc: chatMessage.sender.imageURL, name: chatMessage.sender.name, width: 30, height: 30)
+                NavigationLink(destination: FriendProfilePageView(friend: chatViewModel.getSenderDetails(chatMessage: chatMessage))) {
+                    ProfileImageView(imageSrc: chatViewModel.getSenderImage(chatMessage: chatMessage),
+                                     name: chatViewModel.getSenderName(chatMessage: chatMessage), width: 30, height: 30)
                 }
             }
 
