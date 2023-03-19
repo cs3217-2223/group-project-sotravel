@@ -159,3 +159,7 @@ triggers when errors are bubbled to the view layer.
 
 -   The app is not complete, so almost nothing "works" yet as most things are
     not wired up.
+
+# Tests
+
+Please see [Tests](./tests.md)
