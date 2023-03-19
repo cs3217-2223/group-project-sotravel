@@ -88,13 +88,14 @@ supporting layer.
 ![Detailed 3 layer](./diagrams/sprint-1-report/generic-3-layer-detailed.svg)
 
 We observe that each layer deals in terms of interfaces. The constructors for
-each layer (Repository, Service) take in interfaces. The main benefit of this
-approach is:
+the service layer take in interfaces to repositories. The services are injected
+directly into views, and configured as globally accessible objects on startup.
+The main benefit of this approach is:
 
--   Each implementation can easily be changed. Today we prefix many of the
+-   Each implementation can easily be changed. Today we suffix many of the
     concrete implementations with "Node" since our data source is essentially a
     Node API, but in the future the data source may change
--   Each layer's dependencies are injected into the controllers itself. This
+-   Each layer's dependencies are injected into the constructors itself. This
     ensures that propagating concrete type changes is very straightforward,
     changes only need to be made in one (or a few) places. Since we are able to
     inject key services during the app's startup, ideally we only need to make
