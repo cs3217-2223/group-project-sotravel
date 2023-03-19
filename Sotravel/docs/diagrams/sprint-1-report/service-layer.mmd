@@ -1,0 +1,20 @@
+classDiagram
+    direction BT
+    ServiceImpl ..|> Service
+    Repository --> Model
+    Service ..> Model
+    Service --> ViewModel
+
+    class Repository {
+        <<interface>>
+        get(): Model
+    }
+
+    class Service {
+        <<interface>>
+        GetModelWithSpecificFields(): ViewModel
+    }
+note for Service "Uses Reposistory \nto convert Model\nto ViewModel"
+    class ServiceImpl {
+
+    }
