@@ -2,7 +2,8 @@ classDiagram
     direction BT
     View --> ViewModel: Observes
     View --> Service
-   Service ..> Model
+    Service ..> Model
+    Service --> ViewModel
 
     class View {
     }

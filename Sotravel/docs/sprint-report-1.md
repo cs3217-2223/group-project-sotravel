@@ -82,11 +82,14 @@ The high level idea is as follows:
     view observes the viewmodel to reflect changes to the data.
     ![View](./diagrams/sprint-1-report/view-layer.svg)
 
-The 3 layers put together show how each layer contains a reference the it's
-supporting layer. ![Detailed 3
-layer](./diagrams/sprint-1-report/generic-3-layer-detailed.svg) We observe that
-each layer deals in terms of interfaces. The constructors for each layer
-(Repository, Service) take in interfaces. The main benefit of this approach is:
+The 3 layers put together show how each layer contains a reference to it's
+supporting layer.
+
+![Detailed 3 layer](./diagrams/sprint-1-report/generic-3-layer-detailed.svg)
+
+We observe that each layer deals in terms of interfaces. The constructors for
+each layer (Repository, Service) take in interfaces. The main benefit of this
+approach is:
 
 -   Each implementation can easily be changed. Today we prefix many of the
     concrete implementations with "Node" since our data source is essentially a
@@ -135,14 +138,16 @@ triggers when errors are bubbled to the view layer.
 ### What's done so far
 
 -   All views have been designed
--   General structure for the application (3 layer, MVVM) has been concretely
+-   General architecture for the application (3 layer, MVVM) has been concretely
     set up
--   Map POC
+-   Chat flow is setup and connects to realtime database
 
 ### What's next
 
 -   Wiring up the frontend to the backend for Events, Invites, Update profile
 -   Wiring up authentication to Telegram, Apple Login
+-   Refactoring chat to conform better to 3 layer architecture
+-   Map POC -> Adding users etc on the map itself
 
 ## Lessons
 
@@ -152,5 +157,5 @@ triggers when errors are bubbled to the view layer.
 
 ## Known Bugs and Limitations
 
--   The app is not complete, so almost nothing "works" yet as most things are not
-    wired up.
+-   The app is not complete, so almost nothing "works" yet as most things are
+    not wired up.
