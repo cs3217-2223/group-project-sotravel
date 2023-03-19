@@ -1,6 +1,6 @@
 import Foundation
 
-struct ChatMessage: Encodable {
+struct ChatMessage: Encodable, Identifiable {
     var id = UUID()
 
     let messageText: String

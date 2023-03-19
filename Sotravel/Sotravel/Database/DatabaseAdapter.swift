@@ -17,7 +17,7 @@ class DatabaseAdapter: DatabaseConnector {
         do {
             let data = try encoder.encode(chatMessage)
             let json = try JSONSerialization.jsonObject(with: data)
-            databasePath.childByAutoId().setValue(json)
+            databasePath.child(chatMessage.id.uuidString).setValue(json)
         } catch {
             print("An error occurred", error)
             return false

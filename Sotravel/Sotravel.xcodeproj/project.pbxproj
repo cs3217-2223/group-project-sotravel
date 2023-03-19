@@ -77,6 +77,7 @@
 		D7F6A9CB29C6CEA9006FBD26 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D7F6A9CA29C6CEA9006FBD26 /* GoogleService-Info.plist */; };
 		D7F6A9CD29C6E6BB006FBD26 /* DatabaseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9CC29C6E6BB006FBD26 /* DatabaseAdapter.swift */; };
 		D7F6A9D029C6E755006FBD26 /* DatabaseConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9CF29C6E755006FBD26 /* DatabaseConnector.swift */; };
+		D7F6A9D229C6F661006FBD26 /* MockDatabaseData.json in Resources */ = {isa = PBXBuildFile; fileRef = D7F6A9D129C6F661006FBD26 /* MockDatabaseData.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +147,7 @@
 		D7F6A9CA29C6CEA9006FBD26 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7F6A9CC29C6E6BB006FBD26 /* DatabaseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAdapter.swift; sourceTree = "<group>"; };
 		D7F6A9CF29C6E755006FBD26 /* DatabaseConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseConnector.swift; sourceTree = "<group>"; };
+		D7F6A9D129C6F661006FBD26 /* MockDatabaseData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MockDatabaseData.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +284,7 @@
 				18D9714129BD93F20064DC2A /* MockEvents.swift */,
 				1893D29429BF2A4E00B61BC9 /* MockChat.swift */,
 				188EBDBA29C1B142002735F0 /* MockTrips.swift */,
+				D7F6A9D129C6F661006FBD26 /* MockDatabaseData.json */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				18DEC57729B9A18500B3228A /* Manrope-Bold.ttf in Resources */,
 				18DEC57829B9A18500B3228A /* Manrope-SemiBold.ttf in Resources */,
 				1866DE6229B993E5005D9F59 /* Assets.xcassets in Resources */,
+				D7F6A9D229C6F661006FBD26 /* MockDatabaseData.json in Resources */,
 				D7F6A9CB29C6CEA9006FBD26 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
