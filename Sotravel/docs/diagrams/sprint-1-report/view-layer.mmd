@@ -1,0 +1,15 @@
+classDiagram
+    direction BT
+    View --> ViewModel: Observes
+    View --> Service
+    Service ..> Model
+    Service --> ViewModel
+
+    class Service {
+        GetModelWithSpecificFields(): ViewModel
+    }
+    class View {}
+    class ViewModel {}
+    class Model {}
+
+    

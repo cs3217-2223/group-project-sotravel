@@ -1,0 +1,16 @@
+classDiagram
+    direction BT
+    Repository --> Model
+    Service ..> Model
+    Service --> ViewModel: Publishes
+    Service --> Repository
+
+    class Repository {
+        <<interface>>
+        get(): Model
+    }
+
+    class Service {
+        GetModelWithSpecificFields(): ViewModel
+    }
+note for Service "Uses Repository \nto convert Model\nto ViewModel"

@@ -1,0 +1,33 @@
+classDiagram
+    direction BT
+    View --> ViewModel: Observes
+    View --> Service
+    Service ..> Model
+    Repository --> Model
+    Service --> ViewModel: Publishes
+    DataAccess --> ApiModel
+    RepositoryImpl ..|> Repository
+    RepositoryImpl --> DataAccess
+    RepositoryImpl ..> ApiModel
+
+    class View {
+    }
+    class ViewModel {
+    }
+    class Service {
+        GetModelWithSpecificFields(): ViewModel
+    }
+note for Service "Uses Repository \nto convert Model\nto ViewModel"
+
+    class Model {
+    }
+    class Repository {
+        <<interface>>
+        get(): Model
+    }
+    
+note for Repository "Uses DataAccess layer\nto convert ApiModel\nto Model"
+    class DataAccess {
+        get(): ApiModel
+    }
+    

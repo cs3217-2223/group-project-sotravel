@@ -1,0 +1,21 @@
+classDiagram
+    direction BT
+View --> ViewModel: Observes
+ViewModelPublisher --> ViewModel: Publishes
+ViewModelPublisher --> Service
+Service ..> Model
+
+    class View {
+    }
+
+
+    class Service {
+        <<Interface>>
+        GetModelWithSpecificFields(): ViewModel
+    }
+
+    class ViewModel {
+    }
+
+    class Model {
+    }
