@@ -14,7 +14,7 @@ import SwiftUI
 
 class NodeApi: RestApi {
     typealias Path = NodeApiPath
-    internal let client = HTTPClient(eventLoopGroupProvider: .createNew)
+    internal static let client = HTTPClient(eventLoopGroupProvider: .createNew)
     internal let baseScheme = "https"
     internal let baseUrl = "qa-api.sotravel.me"
     internal let basePathPrefix = "/v1"
@@ -69,7 +69,7 @@ class NodeApi: RestApi {
 
             request.addBearerToken(token: getAuthToken(token: authTokenKey))
 
-            let response = try await client.execute(request, timeout: .seconds(default_timeout))
+            let response = try await NodeApi.client.execute(request, timeout: .seconds(default_timeout))
             let body = String(buffer: try await response.body.collect(upTo: 1_024 * 1_024)) // 1 MB
 
             return (response.status, body)

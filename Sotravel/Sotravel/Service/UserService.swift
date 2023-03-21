@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Resolver
 
 class UserService: ObservableObject {
     @Published private(set) var user: User
@@ -14,15 +15,14 @@ class UserService: ObservableObject {
     @Published private(set) var profileFriendsVM: ProfileFriendsViewModel
     @Published private(set) var editProfileViewModel: EditProfileViewModel
 
-    private let userRepository: UserRepository
+    @Injected var userRepository: UserRepository
 
-    init(userRepository: UserRepository = UserRepositoryNode()) {
+    init() {
         self.user = User()
         self.profileHeaderVM = ProfileHeaderViewModel()
         self.socialMediaLinksVM = SocialMediaLinksViewModel()
         self.profileFriendsVM = ProfileFriendsViewModel()
         self.editProfileViewModel = EditProfileViewModel()
-        self.userRepository = userRepository
     }
 
     func fetchUser(id: UUID) {

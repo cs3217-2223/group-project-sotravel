@@ -74,6 +74,9 @@
 		ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */; };
 		ACA4016929C769A70076E183 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016829C769A70076E183 /* EditProfileViewModel.swift */; };
 		B43AFA5729CA06BD0029AB85 /* RestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5629CA06BD0029AB85 /* RestApi.swift */; };
+		B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */; };
+		B43AFA6B29CA0E230029AB85 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = B43AFA6A29CA0E230029AB85 /* Resolver */; };
+		B43AFA6D29CA0E9F0029AB85 /* Repositories+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */; };
 		B44CB22B29C03954007588DC /* MainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44CB22A29C03954007588DC /* MainRepository.swift */; };
 		B4C3536129C0A5BE0073931C /* FriendRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536029C0A5BE0073931C /* FriendRepository.swift */; };
 		B4C3536329C0A5D30073931C /* TripRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536229C0A5D30073931C /* TripRepository.swift */; };
@@ -99,6 +102,19 @@
 			remoteInfo = Sotravel;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B43AFA6529CA0DBD0029AB85 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		181C746C29BDDBEF00E6D3B1 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
@@ -170,6 +186,8 @@
 		ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsViewModel.swift; sourceTree = "<group>"; };
 		ACA4016829C769A70076E183 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		B43AFA5629CA06BD0029AB85 /* RestApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApi.swift; sourceTree = "<group>"; };
+		B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swif.swift"; sourceTree = "<group>"; };
+		B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repositories+Injection.swift"; sourceTree = "<group>"; };
 		B44CB22A29C03954007588DC /* MainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRepository.swift; sourceTree = "<group>"; };
 		B4C3536029C0A5BE0073931C /* FriendRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRepository.swift; sourceTree = "<group>"; };
 		B4C3536229C0A5D30073931C /* TripRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRepository.swift; sourceTree = "<group>"; };
@@ -190,6 +208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B43AFA6B29CA0E230029AB85 /* Resolver in Frameworks */,
 				B4C3537229C0AA3D0073931C /* AsyncHTTPClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,6 +275,7 @@
 				18DEC57B29B9A1F400B3228A /* Info.plist */,
 				1866DE6B29B993FA005D9F59 /* Views */,
 				1866DE5D29B993E3005D9F59 /* SotravelApp.swift */,
+				B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */,
 				1866DE5F29B993E3005D9F59 /* ContentView.swift */,
 				1866DE6129B993E5005D9F59 /* Assets.xcassets */,
 				1866DE6329B993E5005D9F59 /* Preview Content */,
@@ -480,6 +500,7 @@
 				B4C3536229C0A5D30073931C /* TripRepository.swift */,
 				B4C3536429C0A64A0073931C /* EventRepository.swift */,
 				B4C3536729C0A7160073931C /* ChatRepository.swift */,
+				B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -552,6 +573,7 @@
 			name = Sotravel;
 			packageProductDependencies = (
 				B4C3537129C0AA3D0073931C /* AsyncHTTPClient */,
+				B43AFA6A29CA0E230029AB85 /* Resolver */,
 			);
 			productName = Sotravel;
 			productReference = 1866DE5A29B993E3005D9F59 /* Sotravel.app */;
@@ -564,6 +586,7 @@
 				B4C3538529C180310073931C /* Sources */,
 				B4C3538629C180310073931C /* Frameworks */,
 				B4C3538729C180310073931C /* Resources */,
+				B43AFA6529CA0DBD0029AB85 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -608,6 +631,7 @@
 			mainGroup = 1866DE5129B993E3005D9F59;
 			packageReferences = (
 				B4C3537029C0AA3D0073931C /* XCRemoteSwiftPackageReference "async-http-client" */,
+				B43AFA6929CA0E230029AB85 /* XCRemoteSwiftPackageReference "Resolver" */,
 			);
 			productRefGroup = 1866DE5B29B993E3005D9F59 /* Products */;
 			projectDirPath = "";
@@ -677,6 +701,7 @@
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
 				18591C8829BD73FF00FA987D /* User.swift in Sources */,
 				B4C3536829C0A7160073931C /* ChatRepository.swift in Sources */,
+				B43AFA6D29CA0E9F0029AB85 /* Repositories+Injection.swift in Sources */,
 				AC32F96029BA2A930005F5B9 /* ChatPageView.swift in Sources */,
 				188EBDB129C1AD3E002735F0 /* TripsPageView.swift in Sources */,
 				18D9713829BD84480064DC2A /* FriendProfilePageView.swift in Sources */,
@@ -733,6 +758,7 @@
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
 				18B33DAF29BE06E60036B51E /* CreateInvitePageView.swift in Sources */,
+				B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */,
 				AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,
@@ -1015,6 +1041,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B43AFA6929CA0E230029AB85 /* XCRemoteSwiftPackageReference "Resolver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Resolver.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		B4C3537029C0AA3D0073931C /* XCRemoteSwiftPackageReference "async-http-client" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/swift-server/async-http-client.git";
@@ -1026,6 +1060,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B43AFA6A29CA0E230029AB85 /* Resolver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B43AFA6929CA0E230029AB85 /* XCRemoteSwiftPackageReference "Resolver" */;
+			productName = Resolver;
+		};
 		B4C3537129C0AA3D0073931C /* AsyncHTTPClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B4C3537029C0AA3D0073931C /* XCRemoteSwiftPackageReference "async-http-client" */;

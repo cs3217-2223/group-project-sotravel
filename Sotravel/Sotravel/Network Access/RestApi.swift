@@ -12,7 +12,7 @@ import NIOHTTP1
 protocol RestApi {
     associatedtype Path: Hashable
 
-    var client: HTTPClient { get }
+    static var client: HTTPClient { get }
     var baseScheme: String { get }
     var baseUrl: String { get }
     var basePathPrefix: String { get }
