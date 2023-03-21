@@ -12,46 +12,47 @@ import NIOHTTP1
 import NIOFoundationCompat
 import SwiftUI
 
-class NodeApi {
-    private static var client = HTTPClient(eventLoopGroupProvider: .createNew)
-    private static let baseScheme = "https"
-    private static let baseUrl = "qa-api.sotravel.me"
-    private static let basePathPrefix = "/v1"
-    private static let default_timeout: Int64 = 30
-    private static let authTokenKey: String = "nodeApiBearerToken"
+class NodeApi: RestApi {
+    typealias Path = NodeApiPath
+    internal let client = HTTPClient(eventLoopGroupProvider: .createNew)
+    internal let baseScheme = "https"
+    internal let baseUrl = "qa-api.sotravel.me"
+    internal let basePathPrefix = "/v1"
+    private let default_timeout: Int64 = 30
+    private let authTokenKey: String = "nodeApiBearerToken"
 
-    private static let pathEnumToStr: [Path: String] = [
+    internal let pathEnumToStr: [Path: String] = [
         .telegramSignIn: "/user/telegramSignin",
         .profile: "/user/getUser",
         .event: "",
         .invite: ""
     ]
 
-    static func storeAuthToken(token: String) {
+    func storeAuthToken(token: String) {
         UserDefaults.standard.set(authTokenKey, forKey: token)
     }
 
-    static func getAuthToken(token: String) -> String? {
+    func getAuthToken(token: String) -> String? {
         UserDefaults.standard.string(forKey: authTokenKey)
     }
 
-    static func get(path: Path, params: [String: String]? = nil, data: [String: Any]? = nil)
+    func get(path: Path, params: [String: String]? = nil, data: [String: Any]? = nil)
     async throws -> (HTTPResponseStatus, String?) {
         try await http_request(method: .GET, path: path, params: params)
     }
 
-    static func post(path: Path, params: [String: String]? = nil, data: [String: Any]? = nil)
+    func post(path: Path, params: [String: String]? = nil, data: [String: Any]? = nil)
     async throws -> (HTTPResponseStatus, String?) {
         try await http_request(method: .POST, path: path, params: params, data: data)
     }
 
-    static func put(path: Path, params: [String: String]? = nil, data: [String: Any]? = nil)
+    func put(path: Path, params: [String: String]? = nil, data: [String: Any]? = nil)
     async throws -> (HTTPResponseStatus, String?) {
         try await http_request(method: .PUT, path: path, params: params, data: data)
     }
 
-    static func http_request(method: HTTPMethod, path: Path, params: [String: String]? = nil,
-                             data: [String: Any]? = nil) async throws -> (HTTPResponseStatus, String?) {
+    func http_request(method: HTTPMethod, path: Path, params: [String: String]? = nil,
+                      data: [String: Any]? = nil) async throws -> (HTTPResponseStatus, String?) {
         guard let url = constructUrl(path: path, params: params)?.absoluteString else {
             return (HTTPResponseStatus.badRequest, nil)
         }
@@ -68,7 +69,7 @@ class NodeApi {
 
             request.addBearerToken(token: getAuthToken(token: authTokenKey))
 
-            let response = try await NodeApi.client.execute(request, timeout: .seconds(NodeApi.default_timeout))
+            let response = try await client.execute(request, timeout: .seconds(default_timeout))
             let body = String(buffer: try await response.body.collect(upTo: 1_024 * 1_024)) // 1 MB
 
             return (response.status, body)
@@ -78,7 +79,7 @@ class NodeApi {
     }
 
     // Call this upon tele login to ensure we have a bearer token
-    static func authorize(userData: [String: Any]) async throws {
+    func authorize(userData: [String: Any]) async throws {
         // Hardcoded data for now
         let data: [String: Any] = [
             "id": 99_032_634,
@@ -106,8 +107,8 @@ class NodeApi {
         }
     }
 
-    private static func constructUrl(path: Path, params: [String: String]?) -> URL? {
-        guard let path = NodeApi.pathEnumToStr[path] else {
+    private func constructUrl(path: Path, params: [String: String]?) -> URL? {
+        guard let path = pathEnumToStr[path] else {
             return nil
         }
 
@@ -125,7 +126,7 @@ class NodeApi {
         return components.url
     }
 
-    //    static func get(path: Path, params: [String: String]) async throws -> (HTTPResponseStatus, String?) {
+    //     func get(path: Path, params: [String: String]) async throws -> (HTTPResponseStatus, String?) {
     //        guard let url = constructUrl(path: path, params: params)?.absoluteString else {
     //            return (HTTPResponseStatus.badRequest, nil)
     //        }
@@ -140,7 +141,7 @@ class NodeApi {
     //        }
     //    }
 
-    //    static func post(path: Path, params: [String: String], data: [String: Any]) async throws -> (HTTPResponseStatus, String?) {
+    //     func post(path: Path, params: [String: String], data: [String: Any]) async throws -> (HTTPResponseStatus, String?) {
     //        guard let url = constructUrl(path: path, params: params)?.absoluteString else {
     //            return (HTTPResponseStatus.badRequest, nil)
     //        }
@@ -162,6 +163,6 @@ class NodeApi {
     //    }
 }
 
-enum Path {
+enum NodeApiPath {
     case telegramSignIn, profile, event, invite
 }

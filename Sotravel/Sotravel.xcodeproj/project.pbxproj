@@ -73,6 +73,7 @@
 		ACA4016529C7664D0076E183 /* SocialMediaLinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */; };
 		ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */; };
 		ACA4016929C769A70076E183 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016829C769A70076E183 /* EditProfileViewModel.swift */; };
+		B43AFA5729CA06BD0029AB85 /* RestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5629CA06BD0029AB85 /* RestApi.swift */; };
 		B44CB22B29C03954007588DC /* MainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44CB22A29C03954007588DC /* MainRepository.swift */; };
 		B4C3536129C0A5BE0073931C /* FriendRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536029C0A5BE0073931C /* FriendRepository.swift */; };
 		B4C3536329C0A5D30073931C /* TripRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536229C0A5D30073931C /* TripRepository.swift */; };
@@ -168,6 +169,7 @@
 		ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksViewModel.swift; sourceTree = "<group>"; };
 		ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsViewModel.swift; sourceTree = "<group>"; };
 		ACA4016829C769A70076E183 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		B43AFA5629CA06BD0029AB85 /* RestApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApi.swift; sourceTree = "<group>"; };
 		B44CB22A29C03954007588DC /* MainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRepository.swift; sourceTree = "<group>"; };
 		B4C3536029C0A5BE0073931C /* FriendRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRepository.swift; sourceTree = "<group>"; };
 		B4C3536229C0A5D30073931C /* TripRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRepository.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 			children = (
 				B4C3536E29C0A88F0073931C /* NodeApi.swift */,
 				B4E9460D29C5A6BB001B65EE /* HTTPClientRequest+NodeAuth.swift */,
+				B43AFA5629CA06BD0029AB85 /* RestApi.swift */,
 			);
 			path = "Network Access";
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				AC63059E29BDA43F00EEEA85 /* ChatHeaderView.swift in Sources */,
 				ACA4016929C769A70076E183 /* EditProfileViewModel.swift in Sources */,
 				188EBDAE29C183E5002735F0 /* EditProfileView.swift in Sources */,
+				B43AFA5729CA06BD0029AB85 /* RestApi.swift in Sources */,
 				188061A129C05DBE004FB831 /* EventStatusButton.swift in Sources */,
 				18C3660429C020D800AF0338 /* Chat.swift in Sources */,
 				B4C3536529C0A64A0073931C /* EventRepository.swift in Sources */,

@@ -9,8 +9,10 @@ import Foundation
 import NIOHTTP1
 
 class UserRepositoryNode: UserRepository {
+    let api = NodeApi()
+
     func get(id: UUID) async throws -> User? {
-        let (status, response) = try await NodeApi.get(path: .profile, params: ["user_id": "634b6038-6594-4473-8c23-a5539400d653"])
+        let (status, response) = try await api.get(path: .profile, params: ["user_id": "634b6038-6594-4473-8c23-a5539400d653"])
 
         guard status == HTTPResponseStatus.ok, let response = response else {
             throw SotravelError.AuthorizationError("Unable to get bearer token", nil)
