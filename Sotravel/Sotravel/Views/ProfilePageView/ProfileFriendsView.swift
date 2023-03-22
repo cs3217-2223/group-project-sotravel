@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ProfileFriendsView: View {
-    @EnvironmentObject var user: User
+    @EnvironmentObject var userService: UserService
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -10,16 +10,14 @@ struct ProfileFriendsView: View {
                     .font(.uiTitle3)
                 Spacer()
             }.padding(.bottom, 10)
-
             VStack(spacing: 0) {
-                let usersShown = user.friends.prefix(3)
+                let usersShown = userService.profileFriendsVM.friends.prefix(3)
                 ForEach(Array(usersShown.enumerated()), id: \.element.id) { index, friend in
                     NavigationLink(destination: FriendProfilePageView(friend: friend)) {
                         UserListItemView(user: friend) {
-                            ActionMenuButton(user: user)
+                            ActionMenuButton()
                         }
                     }
-
                     if index != usersShown.count - 1 {
                         Divider()
                             .padding(.top, 10)
@@ -27,9 +25,8 @@ struct ProfileFriendsView: View {
                     }
                 }
             }.padding(.trailing)
-
-            if user.friends.count > 3 {
-                NavigationLink(destination: FriendsListPageView(friends: user.friends)) {
+            if userService.profileFriendsVM.friends.count > 3 {
+                NavigationLink(destination: FriendsListPageView(friends: userService.profileFriendsVM.friends)) {
                     HStack {
                         Spacer()
                         Text("See All Friends")
@@ -48,7 +45,7 @@ struct ProfileFriendsView: View {
 struct ProfileFriendsView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileFriendsView()
-            .environmentObject(mockUser)
+            .environmentObject(UserService())
             .environmentObject(EventsStore(events: mockEvents))
     }
 }

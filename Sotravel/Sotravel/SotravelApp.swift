@@ -22,16 +22,17 @@ struct SotravelApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
-    @StateObject var user = mockUser
     @StateObject var events = EventsStore(events: mockEvents)
+    @StateObject var eventService = EventService()
+    @StateObject var userService = UserService()
     @StateObject var chats = ChatsStore(chats: mockChats)
     @StateObject var chatViewModel = ChatViewModel(user: mockUser, databaseConnector: DatabaseAdapter()) // db should be 1 obj that is passed around?
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(user)
-                .environmentObject(events)
+                .environmentObject(eventService)
+                .environmentObject(userService)
                 .environmentObject(chats)
                 .environmentObject(chatViewModel)
         }

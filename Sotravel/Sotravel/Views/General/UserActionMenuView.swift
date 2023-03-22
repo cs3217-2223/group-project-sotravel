@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct ActionMenuButton: View {
-    let user: User
 
     @State private var showActionSheet = false
 

@@ -4,7 +4,6 @@
 //
 //  Created by Neo Wei Qing on 18/3/23.
 //
-
 import Foundation
 
 class ChatsStore: ObservableObject {

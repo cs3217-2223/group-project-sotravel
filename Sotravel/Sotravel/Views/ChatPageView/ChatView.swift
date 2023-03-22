@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChatView: View {
-    @EnvironmentObject var user: User
+    @EnvironmentObject var userService: UserService
     @EnvironmentObject var chatViewModel: ChatViewModel
     @State var chat: Chat
     @State private var messageText = ""
@@ -39,7 +39,7 @@ struct ChatView: View {
                                     .foregroundColor(.gray)
                                     .padding(.top, 10)
                             }
-                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == user.id).font(.body)
+                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == userService.user.id).font(.body)
                                 .id(message.id)
                         }
                     }.onAppear {
@@ -80,7 +80,7 @@ struct ChatView: View {
     }
 
     func sendMessage() {
-        let success = chatViewModel.sendChatMessage(messageText: messageText, sender: user, toChat: chat)
+        let success = chatViewModel.sendChatMessage(messageText: messageText, sender: userService.user, toChat: chat)
         if !success {
             // TODO: handle message send failure
             return
@@ -106,6 +106,6 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView(chat: mockChatNoEvent).environmentObject(mockUser)
+        ChatView(chat: mockChatNoEvent).environmentObject(UserService())
     }
 }

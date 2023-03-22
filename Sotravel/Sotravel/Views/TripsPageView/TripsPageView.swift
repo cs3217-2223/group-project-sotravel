@@ -22,7 +22,6 @@ struct TripsPageView: View {
             .padding()
         }
         .navigationBarBackButtonHidden(true)
-
     }
 }
 
@@ -30,7 +29,7 @@ struct TripsPageView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             TripsPageView()
-                .environmentObject(mockUser)
+                .environmentObject(UserService())
                 .environmentObject(EventsStore(events: mockEvents))
         }
     }

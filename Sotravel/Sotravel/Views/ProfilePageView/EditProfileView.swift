@@ -1,8 +1,13 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @EnvironmentObject var user: User
+    @EnvironmentObject var userService: UserService
     @Environment(\.presentationMode) var presentationMode
+
+    @State private var name: String = ""
+    @State private var description: String = ""
+    @State private var instagramUsername: String = ""
+    @State private var tiktokUsername: String = ""
 
     var body: some View {
         NavigationStack {
@@ -15,7 +20,7 @@ struct EditProfileView: View {
                         Text("Name")
                             .font(.uiSubheadline)
                             .foregroundColor(.gray)
-                        TextField("Name", text: $user.name)
+                        TextField("Name", text: $name)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .font(.uiBody)
 
@@ -23,7 +28,7 @@ struct EditProfileView: View {
                             .font(.uiSubheadline)
                             .foregroundColor(.gray)
                             .padding(.top, 12)
-                        TextField("Description", text: $user.description)
+                        TextField("Description", text: $description)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .font(.uiBody)
                     }
@@ -36,7 +41,7 @@ struct EditProfileView: View {
                         Text("Instagram Username")
                             .font(.uiSubheadline)
                             .foregroundColor(.gray)
-                        TextField("Instagram Username", text: $user.instagramUsername)
+                        TextField("Instagram Username", text: $instagramUsername)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .font(.uiBody)
 
@@ -44,12 +49,15 @@ struct EditProfileView: View {
                             .font(.uiSubheadline)
                             .foregroundColor(.gray)
                             .padding(.top, 12)
-                        TextField("TikTok Username", text: $user.tiktokUsername)
+                        TextField("TikTok Username", text: $tiktokUsername)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .font(.uiBody)
                     }
                 }
                 .padding()
+            }
+            .onAppear {
+                loadUserData()
             }
             .navigationBarTitle("Edit Profile", displayMode: .inline)
             .navigationBarBackButtonHidden(true)
@@ -68,6 +76,13 @@ struct EditProfileView: View {
         }
     }
 
+    private func loadUserData() {
+        name = userService.editProfileViewModel.name
+        description = userService.editProfileViewModel.description
+        instagramUsername = userService.editProfileViewModel.instagramUsername
+        tiktokUsername = userService.editProfileViewModel.tiktokUsername
+    }
+
     private func saveProfile() {
         // Implement the save logic here, e.g., updating the user object or saving to a database.
         presentationMode.wrappedValue.dismiss()
@@ -76,6 +91,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView().environmentObject(mockUser)
+        EditProfileView().environmentObject(UserService())
     }
 }

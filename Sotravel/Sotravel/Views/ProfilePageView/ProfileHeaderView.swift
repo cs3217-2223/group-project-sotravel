@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
-    @EnvironmentObject var user: User
+    @EnvironmentObject var userService: UserService
 
     var body: some View {
         VStack(spacing: 10) {
-            ProfileImageView(imageSrc: user.imageURL, name: user.name, width: 150, height: 150)
+            ProfileImageView(imageSrc: userService.profileHeaderVM.imageURL,
+                             name: userService.profileHeaderVM.name,
+                             width: 150,
+                             height: 150)
 
             HStack {
-                Text(user.name)
+                Text(userService.profileHeaderVM.name)
                     .font(.uiTitle2)
                     .fontWeight(.bold)
                 NavigationLink(destination: EditProfileView()) {
@@ -26,14 +29,14 @@ struct ProfileHeaderView: View {
                 }
             }
 
-            if !user.description.isEmpty {
-                Text(user.description)
+            if !userService.profileHeaderVM.description.isEmpty {
+                Text(userService.profileHeaderVM.description)
                     .font(.uiHeadline)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
             }
 
-            SocialMediaLinksView(user: user)
+            SocialMediaLinksView()
         }
     }
 }
@@ -41,7 +44,7 @@ struct ProfileHeaderView: View {
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ProfileHeaderView().environmentObject(mockUser)
+            ProfileHeaderView().environmentObject(UserService())
         }
     }
 }
