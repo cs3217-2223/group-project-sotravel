@@ -50,6 +50,7 @@
 		18DEC57E29B9A29700B3228A /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEC57D29B9A29700B3228A /* Font.swift */; };
 		18DEC58029B9A3D600B3228A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEC57F29B9A3D600B3228A /* Color.swift */; };
 		18F72A3829B997F40084B94A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F72A3729B997F40084B94A /* LoginView.swift */; };
+		AC11B87E29CB0C2500ADE703 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11B87D29CB0C2500ADE703 /* EventService.swift */; };
 		AC18140629C43E1A008D6944 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18140529C43E1A008D6944 /* UserService.swift */; };
 		AC28033229C61CC500687D62 /* ChatsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28033129C61CC500687D62 /* ChatsStore.swift */; };
 		AC28033529C61D6800687D62 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28033429C61D6800687D62 /* ChatViewModel.swift */; };
@@ -172,6 +173,7 @@
 		18DEC57D29B9A29700B3228A /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		18DEC57F29B9A3D600B3228A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		18F72A3729B997F40084B94A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AC11B87D29CB0C2500ADE703 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
 		AC18140529C43E1A008D6944 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		AC28033129C61CC500687D62 /* ChatsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsStore.swift; sourceTree = "<group>"; };
 		AC28033429C61D6800687D62 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				AC18140529C43E1A008D6944 /* UserService.swift */,
+				AC11B87D29CB0C2500ADE703 /* EventService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -806,6 +809,7 @@
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,
 				AC32F96B29BA38CE0005F5B9 /* ProfilePageView.swift in Sources */,
+				AC11B87E29CB0C2500ADE703 /* EventService.swift in Sources */,
 				18A1AC5829BB12B90064CF37 /* Date.swift in Sources */,
 				1866DE5E29B993E3005D9F59 /* SotravelApp.swift in Sources */,
 				AC6305A229BDA6E600EEEA85 /* ChatCellView.swift in Sources */,

@@ -15,7 +15,7 @@ class UserService: ObservableObject {
     @Published private(set) var profileFriendsVM: ProfileFriendsViewModel
     @Published private(set) var editProfileViewModel: EditProfileViewModel
 
-    @Injected var userRepository: UserRepository
+    @Injected private var userRepository: UserRepository
 
     init() {
         self.user = User()
