@@ -72,7 +72,7 @@ struct EventPageView: View {
                     VStack {
                         // Get latest 3 messages
                         ForEach(chat.messages.sorted { $0.timestamp > $1.timestamp }.prefix(3), id: \.id) {message in
-                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == userService.user).font(.body)
+                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == userService.user.id).font(.body)
                                 .id(message.id)
                         }
                     }.padding(.top, 3)

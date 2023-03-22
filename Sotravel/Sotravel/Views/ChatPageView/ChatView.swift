@@ -39,7 +39,7 @@ struct ChatView: View {
                                     .foregroundColor(.gray)
                                     .padding(.top, 10)
                             }
-                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == userService.user).font(.body)
+                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == userService.user.id).font(.body)
                                 .id(message.id)
                         }
                     }.onAppear {

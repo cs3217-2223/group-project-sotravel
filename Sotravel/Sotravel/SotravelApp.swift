@@ -22,7 +22,6 @@ struct SotravelApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
-    @StateObject var user = mockUser
     @StateObject var events = EventsStore(events: mockEvents)
     @StateObject var eventService = EventService()
     @StateObject var userService = UserService()
