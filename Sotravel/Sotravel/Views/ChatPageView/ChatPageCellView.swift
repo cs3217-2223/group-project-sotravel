@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatPageCellView: View {
     @ObservedObject var chat: Chat
+    @EnvironmentObject var chatViewModel: ChatViewModel
     var latestChatMessage: ChatMessage? {
         chat.getLatestMessage()
     }
@@ -24,7 +25,7 @@ struct ChatPageCellView: View {
         guard let latestChatMessage = latestChatMessage else {
             return "No messages"
         }
-        return "\(latestChatMessage.sender.name):"
+        return "\(chatViewModel.getSenderName(chatMessage: latestChatMessage)):"
     }
     var messageText: String {
         guard let latestChatMessage = latestChatMessage else {

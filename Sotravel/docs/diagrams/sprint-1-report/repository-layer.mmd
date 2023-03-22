@@ -1,0 +1,19 @@
+classDiagram
+    direction BT
+    DataAccess --> ApiModel
+    RepositoryImpl --> DataAccess
+    Repository --> Model
+    RepositoryImpl ..|> Repository
+    RepositoryImpl ..> ApiModel
+    
+    
+    class Repository {
+        <<interface>>
+        get(): Model
+    }
+    note for Repository "Uses DataAccess layer\nto convert ApiModel\nto Model"
+
+    class DataAccess {
+        get(): ApiModel
+    }
+    

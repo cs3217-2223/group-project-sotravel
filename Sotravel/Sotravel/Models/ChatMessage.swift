@@ -1,9 +1,9 @@
 import Foundation
 
-struct ChatMessage {
+struct ChatMessage: Encodable, Identifiable {
     var id = UUID()
 
     let messageText: String
     let timestamp: Date
-    let sender: User
+    let sender: UUID
 }

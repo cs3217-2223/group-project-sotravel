@@ -1,0 +1,33 @@
+classDiagram
+    direction BT
+    View --> ProfileHeaderVM: Observes
+    View --> UserService
+    UserService ..> Model
+    UserRepository --> Model
+    UserService --> ProfileHeaderVM: Publishes
+    NodeApi --> ApiModel
+    UserRepositoryNode ..|> UserRepository
+    UserRepositoryNode --> NodeApi
+    UserRepositoryNode ..> ApiModel
+
+    class View {
+    }
+    class ProfileHeaderVM {
+    }
+    class UserService {
+        GetModelWithSpecificFields(): ViewModel
+    }
+note for UserService "Uses Repository \nto convert Model\nto ViewModel"
+
+    class Model {
+    }
+    class UserRepository {
+        <<interface>>
+        get(): Model
+    }
+    
+note for UserRepository "Uses NodeApi layer\nto convert ApiModel\nto Model"
+    class NodeApi {
+        get(): ApiModel
+    }
+    
