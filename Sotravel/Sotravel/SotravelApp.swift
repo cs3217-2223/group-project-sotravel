@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct SotravelApp: App {
-    @StateObject var events = EventsStore(events: mockEvents)
+    @StateObject var eventService = EventService()
     @StateObject var userService = UserService()
     @StateObject var chats = ChatsStore(chats: mockChats)
     @StateObject var chatViewModel = ChatViewModel()
@@ -17,7 +17,7 @@ struct SotravelApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(events)
+                .environmentObject(eventService)
                 .environmentObject(userService)
                 .environmentObject(chats)
                 .environmentObject(chatViewModel)

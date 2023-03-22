@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InvitePageView: View {
-    @EnvironmentObject var eventsStore: EventsStore
+    @EnvironmentObject var eventService: EventService
 
     var body: some View {
         NavigationStack {
@@ -17,7 +17,7 @@ struct InvitePageView: View {
                 ScrollView(.vertical) {
                     VStack(spacing: 20) {
                         // Shows all events, when you scroll past the current date, calendar view should auto update
-                        ForEach(eventsStore.events) { event in
+                        ForEach(eventService.events) { event in
                             EventView(event: event)
                         }
                         Spacer()
@@ -30,6 +30,6 @@ struct InvitePageView: View {
 
 struct InvitePageView_Previews: PreviewProvider {
     static var previews: some View {
-        InvitePageView().environmentObject(EventsStore(events: mockEvents))
+        InvitePageView().environmentObject(EventService())
     }
 }
