@@ -10,13 +10,13 @@ struct TripPageView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            MapPageView()
-                .tabItem {
-                    Image(systemName: "map.fill")
-                    Text("Map")
-                }
-                .id(mapPageViewID)
-                .tag(0)
+                        MapPageView()
+                            .tabItem {
+                                Image(systemName: "map.fill")
+                                Text("Map")
+                            }
+                            .id(mapPageViewID)
+                            .tag(0)
 
             InvitePageView()
                 .tabItem {

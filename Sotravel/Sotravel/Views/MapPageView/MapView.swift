@@ -1,27 +1,49 @@
-//
-//  MapView.swift
-//  Sotravel
-//
-//  Created by Weiqiang Zhang on 9/3/23.
-//
-
 import SwiftUI
 import MapKit
 
-struct MapView: View {
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 1.290270, longitude: 103.851959),
-        span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+struct MapView: UIViewRepresentable {
+    @Binding var userLocation: CLLocation?
+    @Binding var friendsLocations: [String: CLLocation]
 
-    var body: some View {
-        Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: .constant(.follow))
-            .ignoresSafeArea(.all)
-            .padding(-10)
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
     }
-}
 
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
+    func makeUIView(context: Context) -> MKMapView {
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
+        return mapView
     }
+
+    func updateUIView(_ mapView: MKMapView, context: Context) {
+        updateAnnotations(from: mapView)
+    }
+
+    private func updateAnnotations(from mapView: MKMapView) {
+        guard let userLocation = userLocation else { return }
+
+        let currentLocationAnnotation = MKPointAnnotation()
+        currentLocationAnnotation.coordinate = userLocation.coordinate
+        currentLocationAnnotation.title = "You"
+
+        mapView.addAnnotation(currentLocationAnnotation)
+        mapView.showAnnotations([currentLocationAnnotation], animated: true)
+
+        for (friend, location) in friendsLocations {
+            let friendAnnotation = MKPointAnnotation()
+            friendAnnotation.coordinate = location.coordinate
+            friendAnnotation.title = friend
+
+            mapView.addAnnotation(friendAnnotation)
+        }
+    }
+
+    class Coordinator: NSObject, MKMapViewDelegate {
+        var parent: MapView
+
+        init(_ parent: MapView) {
+            self.parent = parent
+        }
+    }
+
 }
