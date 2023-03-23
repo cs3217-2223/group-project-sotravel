@@ -11,7 +11,7 @@ import Resolver
 class EventService: ObservableObject {
     @Published var events: [Event]
 
-    @Injected private var eventRepository: EventRepository
+    //    @Injected private var eventRepository: EventRepository
 
     init(events: [Event] = mockEvents) {
         self.events = events
