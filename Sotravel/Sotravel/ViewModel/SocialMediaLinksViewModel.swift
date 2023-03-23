@@ -6,9 +6,9 @@
 //
 
 struct SocialMediaLinksViewModel {
-    private(set) var instagramUsername: String
-    private(set) var tiktokUsername: String
-    private(set) var telegramUsername: String
+    private(set) var instagramUsername: String?
+    private(set) var tiktokUsername: String?
+    private(set) var telegramUsername: String?
 
     init(instagramUsername: String = "", tiktokUsername: String = "", telegramUsername: String = "") {
         self.instagramUsername = instagramUsername

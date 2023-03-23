@@ -77,10 +77,10 @@ struct EditProfileView: View {
     }
 
     private func loadUserData() {
-        name = userService.editProfileViewModel.name
-        description = userService.editProfileViewModel.description
-        instagramUsername = userService.editProfileViewModel.instagramUsername
-        tiktokUsername = userService.editProfileViewModel.tiktokUsername
+        name = userService.editProfileViewModel.name ?? "John Doe"
+        description = userService.editProfileViewModel.description ?? ""
+        instagramUsername = userService.editProfileViewModel.instagramUsername ?? ""
+        tiktokUsername = userService.editProfileViewModel.tiktokUsername ?? ""
     }
 
     private func saveProfile() {

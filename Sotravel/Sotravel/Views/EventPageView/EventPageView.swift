@@ -72,8 +72,10 @@ struct EventPageView: View {
                     VStack {
                         // Get latest 3 messages
                         ForEach(chat.messages.sorted { $0.timestamp > $1.timestamp }.prefix(3), id: \.id) {message in
-                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == userService.user.id).font(.body)
-                                .id(message.id)
+                            if let user = userService.user {
+                                ChatMessageView(chatMessage: message, isSentByMe: message.sender == user.id).font(.body)
+                                    .id(message.id)
+                            }
                         }
                     }.padding(.top, 3)
                     .padding(.bottom, 14)

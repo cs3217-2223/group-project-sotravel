@@ -8,10 +8,10 @@ struct UserListItemView<Content: View>: View {
 
     var body: some View {
         HStack(spacing: 10) {
-            ProfileImageView(imageSrc: user.imageURL, name: user.name, width: 60, height: 60)
+            ProfileImageView(imageSrc: user.imageURL, name: user.name ?? "John Doe", width: 60, height: 60)
                 .padding(.trailing, 6)
             VStack(alignment: .leading, spacing: 6) {
-                Text(user.name)
+                Text(user.name ?? "John Doe")
                     .font(.uiHeadline)
                     .foregroundColor(.black)
 

@@ -9,7 +9,7 @@ import Foundation
 import Resolver
 
 class UserService: ObservableObject {
-    @Published private(set) var user: User
+    @Published private(set) var user: User?
     @Published private(set) var profileHeaderVM: ProfileHeaderViewModel
     @Published private(set) var socialMediaLinksVM: SocialMediaLinksViewModel
     @Published private(set) var profileFriendsVM: ProfileFriendsViewModel
@@ -18,7 +18,6 @@ class UserService: ObservableObject {
     @Injected private var userRepository: UserRepository
 
     init() {
-        self.user = User()
         self.profileHeaderVM = ProfileHeaderViewModel()
         self.socialMediaLinksVM = SocialMediaLinksViewModel()
         self.profileFriendsVM = ProfileFriendsViewModel()
@@ -31,10 +30,10 @@ class UserService: ObservableObject {
                 if let fetchedUser = try await userRepository.get(id: id) {
                     DispatchQueue.main.async {
                         self.user = fetchedUser
-                        self.profileHeaderVM.updateFrom(user: self.user)
-                        self.socialMediaLinksVM.updateFrom(user: self.user)
-                        self.profileFriendsVM.updateFrom(user: self.user)
-                        self.editProfileViewModel.updateFrom(user: self.user)
+                        self.profileHeaderVM.updateFrom(user: fetchedUser)
+                        self.socialMediaLinksVM.updateFrom(user: fetchedUser)
+                        self.profileFriendsVM.updateFrom(user: fetchedUser)
+                        self.editProfileViewModel.updateFrom(user: fetchedUser)
                     }
                 }
             } catch {
@@ -47,10 +46,14 @@ class UserService: ObservableObject {
     func updateUser() {
         Task {
             do {
-                let success = try await userRepository.update(user: self.user)
-                if !success {
-                    // Handle update failure
+                guard let user = user else {
+                    return
                 }
+                guard let updatedUser = try await userRepository.update(user: user) else {
+                    // handle update failure
+                    return
+                }
+                self.user = updatedUser
             } catch {
                 print("Error updating user:", error)
                 // Handle error as needed

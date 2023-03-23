@@ -39,8 +39,10 @@ struct ChatView: View {
                                     .foregroundColor(.gray)
                                     .padding(.top, 10)
                             }
-                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == userService.user.id).font(.body)
-                                .id(message.id)
+                            if let user = userService.user {
+                                ChatMessageView(chatMessage: message, isSentByMe: message.sender == user.id).font(.body)
+                                    .id(message.id)
+                            }
                         }
                     }.onAppear {
                         if chat.messages.isEmpty {
@@ -80,7 +82,11 @@ struct ChatView: View {
     }
 
     func sendMessage() {
-        let success = chatViewModel.sendChatMessage(messageText: messageText, sender: userService.user, toChat: chat)
+        guard let user = userService.user else {
+            // TODO: Throw a proper error here, mark this function as throws
+            return
+        }
+        let success = chatViewModel.sendChatMessage(messageText: messageText, sender: user, toChat: chat)
         if !success {
             // TODO: handle message send failure
             return

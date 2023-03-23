@@ -14,7 +14,8 @@ struct TelegramSignInResponse: Codable {
 
 // MARK: - User
 struct NodeApiUser: Codable {
-    let id, backupID, teleUsername, teleID: String?
+    let id: String
+    let backupID, teleUsername, teleID: String?
     let socialsTiktok, socialsInstagram: String?
     let socialsTelegram: String?
     let socialsWhatsapp: JSONNull?

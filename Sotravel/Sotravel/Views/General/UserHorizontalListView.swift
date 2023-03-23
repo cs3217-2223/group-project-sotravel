@@ -16,7 +16,7 @@ struct UserHorizontalListView: View {
                         NavigationLink(destination: FriendProfilePageView(friend: user)) {
                             ProfileImageView(
                                 imageSrc: user.imageURL,
-                                name: user.name,
+                                name: user.name ?? "John Doe",
                                 width: 50,
                                 height: 50
                             )

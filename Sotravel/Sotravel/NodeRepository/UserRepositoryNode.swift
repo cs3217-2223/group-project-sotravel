@@ -21,15 +21,30 @@ class UserRepositoryNode: UserRepository {
         do {
             let responseModel = try JSONDecoder().decode(NodeApiUser.self, from: Data(response.utf8))
             // Deserialize the response into a User object
-            return User(apiUser: responseModel)
+            return try User(apiUser: responseModel)
+        } catch is DecodingError {
+            throw SotravelError.message("Unable to parse Get User response")
+        } catch {
+            throw error
+        }
+    }
+
+    func update(user: User) async throws -> User? {
+        // Create the API model
+        let userToUpdate = UpdateUserApiModel(user: user)
+        // Make the API call to update the profile and return the result
+        let (status, response) = try await api.post(path: .updateProfile, data: userToUpdate.dictionary)
+
+        guard status == HTTPResponseStatus.ok, let response = response else {
+            throw SotravelError.AuthorizationError("Unable to get bearer token", nil)
+        }
+
+        do {
+            let responseModel = try JSONDecoder().decode(NodeApiUser.self, from: Data(response.utf8))
+            // Deserialize the response into a User object
+            return try User(apiUser: responseModel)
         } catch is DecodingError {
             throw SotravelError.message("Unable to parse Get User response")
         }
-
-    }
-
-    func update(user: User) async -> Bool {
-        // Make the API call to update the profile and return the result
-        return false
     }
 }

@@ -13,12 +13,12 @@ struct ProfileHeaderView: View {
     var body: some View {
         VStack(spacing: 10) {
             ProfileImageView(imageSrc: userService.profileHeaderVM.imageURL,
-                             name: userService.profileHeaderVM.name,
+                             name: userService.profileHeaderVM.name ?? "John Doe",
                              width: 150,
                              height: 150)
 
             HStack {
-                Text(userService.profileHeaderVM.name)
+                Text(userService.profileHeaderVM.name ?? "John Doe")
                     .font(.uiTitle2)
                     .fontWeight(.bold)
                 NavigationLink(destination: EditProfileView()) {
@@ -29,13 +29,12 @@ struct ProfileHeaderView: View {
                 }
             }
 
-            if !userService.profileHeaderVM.description.isEmpty {
-                Text(userService.profileHeaderVM.description)
+            if let desc = userService.profileHeaderVM.description, !desc.isEmpty {
+                Text(desc)
                     .font(.uiHeadline)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
             }
-
             SocialMediaLinksView()
         }
     }

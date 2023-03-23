@@ -33,11 +33,11 @@ class ChatViewModel: ChatViewModelDelegate, ObservableObject {
         mockFriends.first { $0.id == chatMessage.sender } ?? user
     }
 
-    func getSenderImage(chatMessage: ChatMessage) -> String {
+    func getSenderImage(chatMessage: ChatMessage) -> String? {
         getSenderDetails(chatMessage: chatMessage).imageURL
     }
 
-    func getSenderName(chatMessage: ChatMessage) -> String {
+    func getSenderName(chatMessage: ChatMessage) -> String? {
         getSenderDetails(chatMessage: chatMessage).name
     }
 }

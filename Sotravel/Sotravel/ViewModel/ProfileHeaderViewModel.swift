@@ -6,9 +6,9 @@
 //
 
 struct ProfileHeaderViewModel {
-    private(set) var name: String
-    private(set) var description: String
-    private(set) var imageURL: String
+    private(set) var name: String?
+    private(set) var description: String?
+    private(set) var imageURL: String?
 
     init(name: String = "", description: String = "", imageURL: String = "") {
         self.name = name
