@@ -60,7 +60,6 @@ struct EditProfileView: View {
                 loadUserData()
             }
             .navigationBarTitle("Edit Profile", displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
             .navigationBarItems(
                 leading: Button(action: {
                     presentationMode.wrappedValue.dismiss()
@@ -73,6 +72,7 @@ struct EditProfileView: View {
                     saveProfile()
                 }
             )
+            .navigationBarBackButtonHidden(true)
         }
     }
 

@@ -11,7 +11,7 @@ struct LabelledToggleView: View {
             HStack {
                 ZStack {
                     Circle()
-                        .fill(Color.black)
+                        .fill(Color.primary)
                         .opacity(0.1)
                         .frame(width: 40, height: 40)
 

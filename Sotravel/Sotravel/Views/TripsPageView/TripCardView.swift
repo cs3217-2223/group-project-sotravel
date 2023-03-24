@@ -36,7 +36,7 @@ struct TripCardView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-                .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 4)
+                .shadow(color: Color.primary.opacity(0.2), radius: 4, x: 0, y: 4)
         )
     }
 }

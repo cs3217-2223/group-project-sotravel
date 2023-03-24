@@ -42,7 +42,7 @@ struct EventPageView: View {
 
                 Text(event.description)
                     .font(.uiBody)
-                    .foregroundColor(.black.opacity(0.5))
+                    .foregroundColor(.primary.opacity(0.5))
                     .padding(.vertical, 8)
 
                 // Attendees status
