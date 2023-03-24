@@ -10,7 +10,7 @@ struct EventView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(event.datetime.toFriendlyTimeString())
                         .font(.uiHeadline)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(Color.primary)
                     Text(event.datetime.toFriendlyDateString())
                         .font(.uiCallout)
                         .foregroundColor(Color.gray)
@@ -20,7 +20,7 @@ struct EventView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .clipped()
                         .font(.uiHeadline)
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
                         .lineLimit(1)
                     Text(event.location)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -73,7 +73,6 @@ struct EventView: View {
             }
         }
         .padding(16)
-        .background(.white)
         .clipped()
         .mask { RoundedRectangle(cornerRadius: 20, style: .continuous) }
         .overlay(RoundedRectangle(cornerRadius: 16).stroke(.gray.opacity(0.3), lineWidth: 1))

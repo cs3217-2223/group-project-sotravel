@@ -10,7 +10,7 @@ struct ActionMenuButton: View {
         }, label: {
             Image(systemName: "ellipsis")
                 .font(.system(size: 20))
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
         })
         .actionSheet(isPresented: $showActionSheet) {
             ActionSheet(title: Text("Options"), buttons: [

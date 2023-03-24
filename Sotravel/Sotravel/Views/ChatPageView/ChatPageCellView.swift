@@ -40,7 +40,7 @@ struct ChatPageCellView: View {
             HStack(alignment: .center) {
                 Text(chat.title)
                     .font(.uiHeadline)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .clipped()
                     .lineLimit(1)
                 Spacer()
@@ -51,7 +51,7 @@ struct ChatPageCellView: View {
             }
             HStack {
                 Text(senderName)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .opacity(0.8)
                 Text(messageText)
                     .foregroundColor(.gray)

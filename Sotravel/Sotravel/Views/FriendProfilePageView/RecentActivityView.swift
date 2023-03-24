@@ -35,7 +35,7 @@ struct RecentActivityView: View {
 
 struct RecentActivityView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
+        NavigationView {
             RecentActivityView(user: mockUser3).environmentObject(EventsStore(events: mockEvents))
         }
     }

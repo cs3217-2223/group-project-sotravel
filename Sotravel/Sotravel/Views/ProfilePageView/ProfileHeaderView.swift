@@ -43,7 +43,7 @@ struct ProfileHeaderView: View {
 
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
+        NavigationView {
             ProfileHeaderView().environmentObject(UserService())
         }
     }

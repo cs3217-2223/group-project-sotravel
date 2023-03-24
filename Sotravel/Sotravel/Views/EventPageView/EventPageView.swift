@@ -42,7 +42,7 @@ struct EventPageView: View {
 
                 Text(event.description)
                     .font(.uiBody)
-                    .foregroundColor(.black.opacity(0.5))
+                    .foregroundColor(.primary.opacity(0.5))
                     .padding(.vertical, 8)
 
                 // Attendees status
@@ -72,8 +72,10 @@ struct EventPageView: View {
                     VStack {
                         // Get latest 3 messages
                         ForEach(chat.messages.sorted { $0.timestamp > $1.timestamp }.prefix(3), id: \.id) {message in
-                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == userService.user.id).font(.body)
-                                .id(message.id)
+                            ChatMessageView(
+                                chatMessage: message,
+                                isSentByMe: message.sender == userService.user.id
+                            ).font(.body).id(message.id)
                         }
                     }.padding(.top, 3)
                     .padding(.bottom, 14)
@@ -109,7 +111,7 @@ struct EventPageView: View {
 
 struct EventPageView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
+        NavigationView {
             EventPageView(event: mockEvent1, chat: mockChat).environmentObject(UserService())
         }
     }

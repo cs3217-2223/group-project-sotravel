@@ -10,7 +10,7 @@ struct EditProfileView: View {
     @State private var tiktokUsername: String = ""
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Profile")
@@ -60,7 +60,6 @@ struct EditProfileView: View {
                 loadUserData()
             }
             .navigationBarTitle("Edit Profile", displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
             .navigationBarItems(
                 leading: Button(action: {
                     presentationMode.wrappedValue.dismiss()
@@ -73,6 +72,7 @@ struct EditProfileView: View {
                     saveProfile()
                 }
             )
+            .navigationBarBackButtonHidden(true)
         }
     }
 

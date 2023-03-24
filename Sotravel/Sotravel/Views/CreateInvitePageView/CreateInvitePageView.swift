@@ -96,7 +96,7 @@ struct CreateInvitePageView: View {
                     .background {
                         RoundedRectangle(cornerRadius: 10, style: .continuous)
                             .stroke(.clear.opacity(0.25), lineWidth: 0)
-                            .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
+                            .background(RoundedRectangle(cornerRadius: 10, style: .continuous))
                     }
                 }
             }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfilePageView: View {
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 VStack {
                     ProfileHeaderView()
