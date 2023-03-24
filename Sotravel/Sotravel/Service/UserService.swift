@@ -11,12 +11,12 @@ import Combine
 
 class UserService: ObservableObject {
     var user: User?
-    @Published var profileHeaderVM: ProfileHeaderViewModel
-    @Published var socialMediaLinksVM: SocialMediaLinksViewModel
-    @Published var profileFriendsVM: ProfileFriendsViewModel
-    @Published var editProfileViewModel: EditProfileViewModel
-    @Published var createInvitePageViewModel: CreateInvitePageUserViewModel
-    @Published var eventPageViewModel: EventPageUserViewModel
+    var profileHeaderVM: ProfileHeaderViewModel
+    var socialMediaLinksVM: SocialMediaLinksViewModel
+    var profileFriendsVM: ProfileFriendsViewModel
+    var editProfileViewModel: EditProfileViewModel
+    var createInvitePageViewModel: CreateInvitePageUserViewModel
+    var eventPageViewModel: EventPageUserViewModel
 
     @Injected private var userRepository: UserRepository
 
