@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RecentActivityView: View {
+    @EnvironmentObject private var userServiice: UserService
     @EnvironmentObject var eventsStore: EventsStore
     var user: User
 
@@ -23,7 +24,7 @@ struct RecentActivityView: View {
 
             LazyVStack(spacing: 16) {
                 ForEach(eventsStore.findAttendingEvents(for: user)) { event in
-                    NavigationLink(destination: EventPageView(event: event)) {
+                    NavigationLink(destination: EventPageView(eventPageUserViewModel: $userServiice.eventPageViewModel, event: event)) {
                         EventView(event: event, isHideButton: true)
                     }
                 }

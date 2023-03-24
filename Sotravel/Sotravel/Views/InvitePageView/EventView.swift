@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct EventView: View {
+    @EnvironmentObject private var userService: UserService
     @ObservedObject var event: Event
     var isHideButton = false
 
@@ -29,7 +30,7 @@ struct EventView: View {
                         .foregroundColor(.gray)
                         .padding(.top, 4)
                         .lineLimit(1)
-                    NavigationLink(destination: EventPageView(event: event)) {
+                    NavigationLink(destination: EventPageView(eventPageUserViewModel: $userService.eventPageViewModel, event: event)) {
                         HStack(spacing: 0) {
                             Text("\(event.attendingUsers.count) Going")
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -56,7 +57,7 @@ struct EventView: View {
                 }
             }
             if !isHideButton {
-                NavigationLink(destination: EventPageView(event: event)) {
+                NavigationLink(destination: EventPageView(eventPageUserViewModel: $userService.eventPageViewModel, event: event)) {
                     HStack(alignment: .firstTextBaseline) {
                         Text("Join")
                     }
