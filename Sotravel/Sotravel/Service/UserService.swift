@@ -32,18 +32,22 @@ class UserService: ObservableObject {
         setupObservers()
     }
 
-    func fetchUser(id: UUID) {
+    func fetchUser(id: UUID, completion: @escaping (Bool) -> Void) {
         Task {
             do {
                 if let fetchedUser = try await userRepository.get(id: id) {
                     DispatchQueue.main.async {
                         self.user = fetchedUser
                         self.updateUserObservers()
+                        completion(true)
                     }
+                } else {
+                    completion(false)
                 }
             } catch {
                 print("Error fetching user:", error)
                 // Handle error as needed
+                completion(false)
             }
         }
     }

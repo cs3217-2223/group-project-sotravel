@@ -27,13 +27,20 @@ class EventService: ObservableObject {
             self.eventViewModels.append(viewModel)
             self.eventToViewModels[event] = viewModel
         }
-
         setupObservers()
     }
 
     func findAttendingEvents(for user: User) -> [EventViewModel] {
         let attendingEvents = events.filter { $0.attendingUsers.contains(user) }
         return attendingEvents.compactMap { eventToViewModels[$0] }
+    }
+
+    func fetchEvents() {
+
+    }
+
+    func updateEvents() {
+
     }
 
     private func setupObservers() {
