@@ -9,7 +9,7 @@ import Foundation
 import FirebaseDatabase
 import CoreLocation
 
-class DatabaseAdapter: DatabaseConnector, MapRepository {
+class DatabaseAdapter: DatabaseConnector {
     private let databaseRef = Database.database().reference()
     private let encoder = JSONEncoder()
 
@@ -24,31 +24,5 @@ class DatabaseAdapter: DatabaseConnector, MapRepository {
             return false
         }
         return true
-    }
-
-    func listenForFriendsLocations(completion: @escaping ([String: CLLocation]) -> Void) {
-        databaseRef.child("locations").observe(.value, with: { snapshot in
-            var newLocations: [String: CLLocation] = [:]
-
-            for child in snapshot.children {
-                if let childSnapshot = child as? DataSnapshot,
-                   let locationData = childSnapshot.value as? [String: Any],
-                   let latitude = locationData["latitude"] as? CLLocationDegrees,
-                   let longitude = locationData["longitude"] as? CLLocationDegrees {
-                    let location = CLLocation(latitude: latitude, longitude: longitude)
-                    newLocations[childSnapshot.key] = location
-                }
-            }
-
-            completion(newLocations)
-        })
-    }
-
-    func updateCurrentUserLocation(_ location: CLLocation, userId: String) {
-        let userData: [String: Any] = [
-            "latitude": location.coordinate.latitude,
-            "longitude": location.coordinate.longitude
-        ]
-        databaseRef.child("locations/\(userId)").setValue(userData)
     }
 }
