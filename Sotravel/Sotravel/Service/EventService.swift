@@ -10,33 +10,30 @@ import Resolver
 import Combine
 
 class EventService: ObservableObject {
-    @Published var events: [Event]
-    private var eventToViewModels: [Event: [EventServiceViewModel]]
+    @Published var eventViewModels: [EventViewModel]
 
-    //    @Injected private var eventRepository: EventRepository
-
+    private var events: [Event]
+    private var eventToViewModels: [Event: EventViewModel]
     private var cancellables: Set<AnyCancellable> = []
 
     init(events: [Event] = mockEvents) {
         self.events = events
+        self.eventViewModels = []
         self.eventToViewModels = [:]
+
+        // Initialize event view models and map each event to its view model
         for event in events {
-            eventToViewModels[event] = [EventViewModel(event: event)]
+            let viewModel = EventViewModel(event: event)
+            self.eventViewModels.append(viewModel)
+            self.eventToViewModels[event] = viewModel
         }
 
         setupObservers()
     }
 
-    func fetchEvent(id: UUID) {
-        // setupObservers()
-    }
-
-    func updateEvent() {
-
-    }
-
-    func findAttendingEvents(for user: User) -> [Event] {
-        events.filter { $0.attendingUsers.contains(user) }
+    func findAttendingEvents(for user: User) -> [EventViewModel] {
+        let attendingEvents = events.filter { $0.attendingUsers.contains(user) }
+        return attendingEvents.compactMap { eventToViewModels[$0] }
     }
 
     private func setupObservers() {
@@ -47,15 +44,10 @@ class EventService: ObservableObject {
         }
     }
 
-    private func updateUserObservers() {
-        cancellables.removeAll()
-        setupObservers()
-    }
-
     private func handleEventPropertyChange(for event: Event) {
-        guard let viewModels = eventToViewModels[event] else { return }
-        for viewModel in viewModels {
-
+        guard let viewModel = eventToViewModels[event] else {
+            return
         }
+        viewModel.updateFrom(event: event)
     }
 }

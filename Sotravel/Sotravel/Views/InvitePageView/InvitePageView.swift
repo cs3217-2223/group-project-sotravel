@@ -17,8 +17,8 @@ struct InvitePageView: View {
                 ScrollView(.vertical) {
                     VStack(spacing: 20) {
                         // Shows all events, when you scroll past the current date, calendar view should auto update
-                        ForEach(eventService.events) { event in
-                            EventView(event: event)
+                        ForEach(eventService.eventViewModels, id: \.id) { eventViewModel in
+                            EventView(eventViewModel: eventViewModel)
                         }
                         Spacer()
                     }

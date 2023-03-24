@@ -3,7 +3,7 @@ import SwiftUI
 struct EventPageView: View {
     @Binding var eventPageUserViewModel: EventPageUserViewModel
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var event: Event
+    @ObservedObject var eventViewModel: EventViewModel
     var chat: Chat = mockChat
     @State private var selectedTab = 0
     @State private var eventStatus = EventStatus.pending
@@ -20,7 +20,7 @@ struct EventPageView: View {
                             }
                         }
                         .padding(.trailing, 4)
-                    Text(event.title)
+                    Text(eventViewModel.title)
                         .font(.uiTitle2)
                         .lineLimit(1)
                     Spacer()
@@ -29,18 +29,18 @@ struct EventPageView: View {
                     Image(systemName: "calendar")
                         .imageScale(.medium)
                         .symbolRenderingMode(.monochrome)
-                    Text(event.datetime.formattedDateAndTime())
+                    Text(eventViewModel.datetime.formattedDateAndTime())
                         .font(.uiCallout)
                 }
                 HStack {
                     Image(systemName: "location.fill")
                         .imageScale(.medium)
                         .symbolRenderingMode(.monochrome)
-                    Text(event.location)
+                    Text(eventViewModel.location)
                         .font(.uiCallout)
                 }
 
-                Text(event.description)
+                Text(eventViewModel.description)
                     .font(.uiBody)
                     .foregroundColor(.black.opacity(0.5))
                     .padding(.vertical, 8)
@@ -53,7 +53,7 @@ struct EventPageView: View {
                         Spacer()
                     }
 
-                    AttendeesView(event: event)
+                    AttendeesView(eventViewModel: eventViewModel)
 
                 }.padding(.top, 6)
 
@@ -111,7 +111,7 @@ struct EventPageView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             EventPageView(eventPageUserViewModel: .constant(EventPageUserViewModel()),
-                          event: mockEvent1,
+                          eventViewModel: EventViewModel(),
                           chat: mockChat)
                 .environmentObject(UserService())
         }

@@ -5,6 +5,8 @@
 //  Created by Weiqiang Zhang on 24/3/23.
 //
 
+import Foundation
+
 protocol EventServiceViewModel {
-    mutating func updateFrom(event: Event)
+    func updateFrom(event: Event)
 }
