@@ -6,20 +6,34 @@
 //
 
 struct EditProfileViewModel {
-    private(set) var name: String?
-    private(set) var description: String?
-    private(set) var instagramUsername: String?
-    private(set) var tiktokUsername: String?
+    var firstName: String?
+    var lastName: String?
+    var description: String?
+    var instagramUsername: String?
+    var tiktokUsername: String?
+    var name: String? {
+        if firstName == nil && firstName == nil {
+            return nil
+        } else {
+            return (firstName ?? "") + (firstName ?? "")
+        }
+    }
 
-    init(name: String = "", description: String = "", instagramUsername: String = "", tiktokUsername: String = "") {
-        self.name = name
+    init(firstName: String = "",
+         lastName: String = "",
+         description: String = "",
+         instagramUsername: String = "",
+         tiktokUsername: String = "") {
+        self.firstName = firstName
+        self.lastName = lastName
         self.description = description
         self.instagramUsername = instagramUsername
         self.tiktokUsername = tiktokUsername
     }
 
     mutating func updateFrom(user: User) {
-        self.name = user.name
+        self.firstName = user.firstName
+        self.lastName = user.lastName
         self.description = user.description
         self.instagramUsername = user.instagramUsername
         self.tiktokUsername = user.tiktokUsername

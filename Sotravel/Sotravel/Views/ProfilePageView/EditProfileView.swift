@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @EnvironmentObject var userService: UserService
+    @Binding var viewModel: EditProfileViewModel
     @Environment(\.presentationMode) var presentationMode
 
     @State private var name: String = ""
@@ -77,10 +77,10 @@ struct EditProfileView: View {
     }
 
     private func loadUserData() {
-        name = userService.editProfileViewModel.name ?? "John Doe"
-        description = userService.editProfileViewModel.description ?? ""
-        instagramUsername = userService.editProfileViewModel.instagramUsername ?? ""
-        tiktokUsername = userService.editProfileViewModel.tiktokUsername ?? ""
+        name = viewModel.name ?? "John Doe"
+        description = viewModel.description ?? ""
+        instagramUsername = viewModel.instagramUsername ?? ""
+        tiktokUsername = viewModel.tiktokUsername ?? ""
     }
 
     private func saveProfile() {
@@ -91,6 +91,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView().environmentObject(UserService())
+        EditProfileView(viewModel: .constant(EditProfileViewModel())).environmentObject(UserService())
     }
 }

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct FriendProfilePageView: View {
+    @EnvironmentObject private var userService: UserService
     let friend: User
 
     var body: some View {
@@ -14,7 +15,7 @@ struct FriendProfilePageView: View {
                     .font(.uiHeadline)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
-                SocialMediaLinksView()
+                SocialMediaLinksView(viewModel: $userService.socialMediaLinksVM)
                 Divider().padding(.bottom, 20)
                 RecentActivityView(user: friend)
                 Spacer()

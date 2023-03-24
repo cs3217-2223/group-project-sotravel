@@ -1,16 +1,16 @@
 import Foundation
 
-class User: Identifiable, Hashable {
-    var id = UUID()
-    var firstName: String?
-    var lastName: String?
-    var description: String? // Optional
-    var imageURL: String? // Optional
-    var instagramUsername: String? // Optional
-    var tiktokUsername: String? // Optional
-    var telegramUsername: String?
-    var email: String?
-    var friends: [User]
+class User: Identifiable, Hashable, ObservableObject {
+    @Published var id = UUID()
+    @Published var firstName: String?
+    @Published var lastName: String?
+    @Published var description: String? // Optional
+    @Published var imageURL: String? // Optional
+    @Published var instagramUsername: String? // Optional
+    @Published var tiktokUsername: String? // Optional
+    @Published var telegramUsername: String?
+    @Published var email: String?
+    @Published var friends: [User]
     var name: String? {
         if firstName == nil && firstName == nil {
             return nil

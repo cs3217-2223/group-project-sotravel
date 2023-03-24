@@ -1,11 +1,11 @@
 //
-//  ProfileFriendsViewModel.swift
+//  CreateInvitePageViewModel.swift
 //  Sotravel
 //
-//  Created by Weiqiang Zhang on 19/3/23.
+//  Created by Weiqiang Zhang on 24/3/23.
 //
 
-struct ProfileFriendsViewModel {
+struct CreateInvitePageUserViewModel {
     var friends: [User]
 
     init(friends: [User] = []) {

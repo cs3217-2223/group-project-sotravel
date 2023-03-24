@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TripPageView: View {
+    @EnvironmentObject private var userService: UserService
     @State private var selectedTab: Int = 0
     @State private var mapPageViewID = UUID().uuidString
     @State private var invitePageViewID = UUID().uuidString
@@ -26,7 +27,7 @@ struct TripPageView: View {
                 .id(invitePageViewID)
                 .tag(1)
 
-            CreateInvitePageView()
+            CreateInvitePageView(createInvitePageUserViewModel: $userService.createInvitePageViewModel)
                 .tabItem {
                     Image(systemName: "plus.circle.fill")
                     Text("Create")

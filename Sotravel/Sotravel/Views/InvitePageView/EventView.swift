@@ -39,16 +39,16 @@ struct EventView: View {
                             ZStack {
                                 let renderedUsers = event.attendingUsers.prefix(3)
                                 // TODO: Fix this, compiler can't type check it
-    //                            ForEach(Array(renderedUsers.prefix(3).reversed().enumerated()), id: \.1.id)
-    //                            { index, user in
-    //                                ProfileImageView(
-    //                                    imageSrc: user.imageURL,
-    //                                    name: user.name,
-    //                                    width: 30,
-    //                                    height: 30
-    //                                )
-    //                                .offset(x: CGFloat(22 * (renderedUsers.count - index - 1)))
-    //                            }
+                                //                            ForEach(Array(renderedUsers.prefix(3).reversed().enumerated()), id: \.1.id)
+                                //                            { index, user in
+                                //                                ProfileImageView(
+                                //                                    imageSrc: user.imageURL,
+                                //                                    name: user.name,
+                                //                                    width: 30,
+                                //                                    height: 30
+                                //                                )
+                                //                                .offset(x: CGFloat(22 * (renderedUsers.count - index - 1)))
+                                //                            }
                             }.offset(x: -50)
                         }
                         .padding(.top, 1)

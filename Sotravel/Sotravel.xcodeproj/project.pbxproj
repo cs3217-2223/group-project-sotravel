@@ -74,6 +74,8 @@
 		ACA4016529C7664D0076E183 /* SocialMediaLinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */; };
 		ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */; };
 		ACA4016929C769A70076E183 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016829C769A70076E183 /* EditProfileViewModel.swift */; };
+		ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */; };
+		ACF2B20329CD8BAA0017A9F0 /* EventPageUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */; };
 		B43AFA5729CA06BD0029AB85 /* RestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5629CA06BD0029AB85 /* RestApi.swift */; };
 		B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */; };
 		B43AFA6B29CA0E230029AB85 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = B43AFA6A29CA0E230029AB85 /* Resolver */; };
@@ -205,6 +207,8 @@
 		ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksViewModel.swift; sourceTree = "<group>"; };
 		ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsViewModel.swift; sourceTree = "<group>"; };
 		ACA4016829C769A70076E183 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInvitePageUserViewModel.swift; sourceTree = "<group>"; };
+		ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPageUserViewModel.swift; sourceTree = "<group>"; };
 		B43AFA5629CA06BD0029AB85 /* RestApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApi.swift; sourceTree = "<group>"; };
 		B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swif.swift"; sourceTree = "<group>"; };
 		B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repositories+Injection.swift"; sourceTree = "<group>"; };
@@ -454,6 +458,8 @@
 				ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */,
 				ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */,
 				ACA4016829C769A70076E183 /* EditProfileViewModel.swift */,
+				ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */,
+				ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -756,9 +762,11 @@
 				18DEC57E29B9A29700B3228A /* Font.swift in Sources */,
 				D7F6A9CD29C6E6BB006FBD26 /* DatabaseAdapter.swift in Sources */,
 				18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */,
+				ACF2B20329CD8BAA0017A9F0 /* EventPageUserViewModel.swift in Sources */,
 				AC28033229C61CC500687D62 /* ChatsStore.swift in Sources */,
 				1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */,
 				B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */,
+				ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
 				18D9714029BD91B60064DC2A /* Event.swift in Sources */,
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
