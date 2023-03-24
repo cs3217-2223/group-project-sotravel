@@ -12,6 +12,7 @@ class EditProfileViewModel: ObservableObject {
     @Published var description: String?
     @Published var instagramUsername: String?
     @Published var tiktokUsername: String?
+    @Published var updateError = false
     var name: String? {
         if firstName == nil && firstName == nil {
             return nil
@@ -35,7 +36,7 @@ class EditProfileViewModel: ObservableObject {
     func updateFrom(user: User) {
         self.firstName = user.firstName
         self.lastName = user.lastName
-        self.description = user.description
+        self.description = user.desc
         self.instagramUsername = user.instagramUsername
         self.tiktokUsername = user.tiktokUsername
     }

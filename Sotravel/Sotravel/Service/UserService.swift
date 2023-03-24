@@ -20,8 +20,6 @@ class UserService: ObservableObject {
 
     @Injected private var userRepository: UserRepository
 
-    private var cancellables: Set<AnyCancellable> = []
-
     init() {
         self.profileHeaderVM = ProfileHeaderViewModel()
         self.socialMediaLinksVM = SocialMediaLinksViewModel()
@@ -29,7 +27,6 @@ class UserService: ObservableObject {
         self.editProfileViewModel = EditProfileViewModel()
         self.createInvitePageViewModel = CreateInvitePageUserViewModel()
         self.eventPageViewModel = EventPageUserViewModel()
-        setupObservers()
     }
 
     func fetchUser(id: UUID, completion: @escaping (Bool) -> Void) {
@@ -38,10 +35,12 @@ class UserService: ObservableObject {
                 if let fetchedUser = try await userRepository.get(id: id) {
                     DispatchQueue.main.async {
                         self.user = fetchedUser
-                        self.updateUserObservers()
+                        self.handleUserPropertyChange()
+                        print("success")
                         completion(true)
                     }
                 } else {
+                    print("fail")
                     completion(false)
                 }
             } catch {
@@ -63,25 +62,33 @@ class UserService: ObservableObject {
                     return
                 }
                 self.user = updatedUser
+                self.handleUserPropertyChange()
             } catch {
                 print("Error updating user:", error)
                 // Handle error as needed
+                alertEditProfileView()
             }
         }
     }
 
-    private func setupObservers() {
-        guard let user = user else {
-            return
-        }
-        user.objectWillChange.sink { [weak self] _ in
-            self?.handleUserPropertyChange()
-        }.store(in: &cancellables)
+    func editUser(firstName: String,
+                  lastName: String,
+                  description: String,
+                  instagramUsername: String,
+                  tiktokUsername: String) {
+        self.user?.updateFirstName(firstName)
+        self.user?.updateLastName(lastName)
+        self.user?.updateDesc(description)
+        self.user?.updateInstagramUsername(instagramUsername)
+        self.user?.updateTiktokUsername(tiktokUsername)
     }
 
-    private func updateUserObservers() {
-        cancellables.removeAll()
-        setupObservers()
+    func toggleEditProfileViewAlert() {
+        // editProfileViewModel.updateError.toggle()
+    }
+
+    private func alertEditProfileView() {
+        // editProfileViewModel.updateError = true
     }
 
     private func handleUserPropertyChange() {
