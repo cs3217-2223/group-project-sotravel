@@ -11,7 +11,7 @@ struct ChatPageView: View {
     @EnvironmentObject var chatsStore: ChatsStore
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 HStack {
                     Text("Chats")

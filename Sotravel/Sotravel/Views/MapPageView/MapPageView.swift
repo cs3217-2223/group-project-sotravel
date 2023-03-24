@@ -1,14 +1,7 @@
-//
-//  MapPageView.swift
-//  Sotravel
-//
-//  Created by Weiqiang Zhang on 10/3/23.
-//
-
 import SwiftUI
 
 struct MapPageView: View {
-    @StateObject var locationManager = LocationManager()
+    @StateObject var locationManager = LocationManagerService()
     @StateObject var viewModel = FriendsLocationViewModel()
     @State private var isSharingLocation = true
 
@@ -18,11 +11,12 @@ struct MapPageView: View {
                     friendsLocations: $viewModel.friendsLocations)
                 .edgesIgnoringSafeArea(.all)
 
-            Toggle("Share My Location", isOn: $isSharingLocation)
-                .padding()
+            LabelledToggleView(icon: "antenna.radiowaves.left.and.right",
+                               title: "Find Me",
+                               subtitle: "Share Location with Friends",
+                               isOn: $isSharingLocation)
                 .onChange(of: isSharingLocation, perform: { _ in
                     if let userLocation = locationManager.userLocation {
-                        // Replace "yourUserId" with the actual user ID from your authentication system.
                         viewModel.updateCurrentUserLocation(userLocation, userId: "yourUserId")
                     }
                 })

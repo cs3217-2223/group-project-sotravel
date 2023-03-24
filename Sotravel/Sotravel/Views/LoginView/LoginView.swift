@@ -3,7 +3,7 @@ import SwiftUI
 struct LoginView: View {
     @EnvironmentObject private var userService: UserService
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack {
                 Image("snowman")
                     .renderingMode(.original)

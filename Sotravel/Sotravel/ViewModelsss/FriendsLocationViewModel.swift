@@ -3,7 +3,7 @@ import CoreLocation
 
 class FriendsLocationViewModel: ObservableObject {
     @Published var friendsLocations: [String: CLLocation] = [:]
-    private var databaseAdapter: DatabaseConnector = DatabaseAdapter()
+    private var databaseAdapter: MapRepository = DatabaseAdapter()
 
     init() {
         listenForFriendsLocations()

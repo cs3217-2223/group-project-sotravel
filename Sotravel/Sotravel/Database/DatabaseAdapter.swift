@@ -9,7 +9,7 @@ import Foundation
 import FirebaseDatabase
 import CoreLocation
 
-class DatabaseAdapter: DatabaseConnector {
+class DatabaseAdapter: DatabaseConnector, MapRepository {
     private let databaseRef = Database.database().reference()
     private let encoder = JSONEncoder()
 

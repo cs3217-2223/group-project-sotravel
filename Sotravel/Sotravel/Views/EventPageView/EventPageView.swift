@@ -109,7 +109,7 @@ struct EventPageView: View {
 
 struct EventPageView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
+        NavigationView {
             EventPageView(event: mockEvent1, chat: mockChat).environmentObject(UserService())
         }
     }

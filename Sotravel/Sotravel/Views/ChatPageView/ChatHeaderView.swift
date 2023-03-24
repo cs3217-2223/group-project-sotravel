@@ -36,7 +36,7 @@ struct ChatHeaderView: View {
 
 struct ChatHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
+        NavigationView {
             ChatHeaderView(chat: mockChatNoEvent)
         }
     }
