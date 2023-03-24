@@ -9,19 +9,20 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
     @EnvironmentObject var userService: UserService
+    @ObservedObject var viewModel: ProfileHeaderViewModel
 
     var body: some View {
         VStack(spacing: 10) {
-            ProfileImageView(imageSrc: userService.profileHeaderVM.imageURL,
-                             name: userService.profileHeaderVM.name ?? "John Doe",
+            ProfileImageView(imageSrc: viewModel.imageURL,
+                             name: viewModel.name ?? "John Doe",
                              width: 150,
                              height: 150)
 
             HStack {
-                Text(userService.profileHeaderVM.name ?? "John Doe")
+                Text(viewModel.name ?? "John Doe")
                     .font(.uiTitle2)
                     .fontWeight(.bold)
-                NavigationLink(destination: EditProfileView()) {
+                NavigationLink(destination: EditProfileView(viewModel: userService.editProfileViewModel)) {
                     Image(systemName: "square.and.pencil")
                         .resizable()
                         .frame(width: 20, height: 20)
@@ -29,13 +30,13 @@ struct ProfileHeaderView: View {
                 }
             }
 
-            if let desc = userService.profileHeaderVM.description, !desc.isEmpty {
+            if let desc = viewModel.description, !desc.isEmpty {
                 Text(desc)
                     .font(.uiHeadline)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
             }
-            SocialMediaLinksView()
+            SocialMediaLinksView(viewModel: userService.socialMediaLinksVM)
         }
     }
 }
@@ -43,7 +44,7 @@ struct ProfileHeaderView: View {
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ProfileHeaderView().environmentObject(UserService())
+            ProfileHeaderView(viewModel: ProfileHeaderViewModel()).environmentObject(UserService())
         }
     }
 }

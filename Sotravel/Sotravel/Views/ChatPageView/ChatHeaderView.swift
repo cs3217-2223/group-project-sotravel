@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ChatHeaderView: View {
+    @EnvironmentObject private var userService: UserService
+
     var chat: Chat
 
     @Environment(\.dismiss) var dismiss
@@ -22,7 +24,8 @@ struct ChatHeaderView: View {
                     Text(event.datetime.toFriendlyString())
                         .font(.uiSubheadline)
                         .lineLimit(1)
-                    NavigationLink(destination: EventPageView(event: event)) {
+                    NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
+                                                              eventViewModel: EventViewModel())) {
                         Text("View More")
                             .font(.uiFootnote)
                             .foregroundColor(.blue)
