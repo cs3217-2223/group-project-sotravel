@@ -77,7 +77,6 @@
 		ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */; };
 		ACF2B20329CD8BAA0017A9F0 /* EventPageUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */; };
 		ACF2B20529CDB4DB0017A9F0 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */; };
-		ACF2B20729CDB6B40017A9F0 /* EventServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20629CDB6B40017A9F0 /* EventServiceViewModel.swift */; };
 		B43AFA5729CA06BD0029AB85 /* RestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5629CA06BD0029AB85 /* RestApi.swift */; };
 		B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */; };
 		B43AFA6B29CA0E230029AB85 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = B43AFA6A29CA0E230029AB85 /* Resolver */; };
@@ -212,7 +211,6 @@
 		ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInvitePageUserViewModel.swift; sourceTree = "<group>"; };
 		ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPageUserViewModel.swift; sourceTree = "<group>"; };
 		ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
-		ACF2B20629CDB6B40017A9F0 /* EventServiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventServiceViewModel.swift; sourceTree = "<group>"; };
 		B43AFA5629CA06BD0029AB85 /* RestApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApi.swift; sourceTree = "<group>"; };
 		B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swif.swift"; sourceTree = "<group>"; };
 		B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repositories+Injection.swift"; sourceTree = "<group>"; };
@@ -465,7 +463,6 @@
 				ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */,
 				ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */,
 				ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */,
-				ACF2B20629CDB6B40017A9F0 /* EventServiceViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -770,7 +767,6 @@
 				18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */,
 				ACF2B20329CD8BAA0017A9F0 /* EventPageUserViewModel.swift in Sources */,
 				AC28033229C61CC500687D62 /* ChatsStore.swift in Sources */,
-				ACF2B20729CDB6B40017A9F0 /* EventServiceViewModel.swift in Sources */,
 				1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */,
 				B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */,
 				ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EventViewModel: EventServiceViewModel, ObservableObject {
+class EventViewModel: ObservableObject {
     @Published var invitedUsers: [User]
     @Published var attendingUsers: [User]
     @Published var rejectedUsers: [User]
