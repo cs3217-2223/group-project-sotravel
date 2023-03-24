@@ -304,7 +304,7 @@
 			children = (
 				AC28033329C61CE600687D62 /* ViewModelss */,
 				B4E9461129C5C7B1001B65EE /* ApiModels */,
-				AC18140A29C43E8C008D6944 /* ViewModel */,
+				AC18140A29C43E8C008D6944 /* ViewModels */,
 				AC18140429C43DE4008D6944 /* Service */,
 				B4E9460829C35CE2001B65EE /* Errors */,
 				B4C3536D29C0A8770073931C /* Network Access */,
@@ -451,7 +451,7 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		AC18140A29C43E8C008D6944 /* ViewModel */ = {
+		AC18140A29C43E8C008D6944 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				ACA4016229C765DC0076E183 /* ProfileHeaderViewModel.swift */,
@@ -461,7 +461,7 @@
 				ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */,
 				ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */,
 			);
-			path = ViewModel;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		AC28033329C61CE600687D62 /* ViewModelss */ = {
