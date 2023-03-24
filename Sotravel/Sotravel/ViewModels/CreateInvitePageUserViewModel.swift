@@ -4,15 +4,16 @@
 //
 //  Created by Weiqiang Zhang on 24/3/23.
 //
+import Foundation
 
-struct CreateInvitePageUserViewModel {
-    var friends: [User]
+class CreateInvitePageUserViewModel: ObservableObject {
+    @Published var friends: [User]
 
     init(friends: [User] = []) {
         self.friends = friends
     }
 
-    mutating func updateFrom(user: User) {
+    func updateFrom(user: User) {
         self.friends = user.friends
     }
 }

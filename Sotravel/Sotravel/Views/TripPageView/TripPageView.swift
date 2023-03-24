@@ -27,7 +27,7 @@ struct TripPageView: View {
                 .id(invitePageViewID)
                 .tag(1)
 
-            CreateInvitePageView(createInvitePageUserViewModel: $userService.createInvitePageViewModel)
+            CreateInvitePageView(createInvitePageUserViewModel: userService.createInvitePageViewModel)
                 .tabItem {
                     Image(systemName: "plus.circle.fill")
                     Text("Create")

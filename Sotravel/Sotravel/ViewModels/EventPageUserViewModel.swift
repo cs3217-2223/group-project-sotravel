@@ -7,15 +7,14 @@
 
 import Foundation
 
-struct EventPageUserViewModel {
-
-    var userId: UUID
+class EventPageUserViewModel: ObservableObject {
+    @Published var userId: UUID
 
     init(userId: UUID = UUID()) {
         self.userId = userId
     }
 
-    mutating func updateFrom(user: User) {
+    func updateFrom(user: User) {
         self.userId = user.id
     }
 }

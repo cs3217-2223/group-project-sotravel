@@ -15,7 +15,7 @@ struct FriendProfilePageView: View {
                     .font(.uiHeadline)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
-                SocialMediaLinksView(viewModel: $userService.socialMediaLinksVM)
+                SocialMediaLinksView(viewModel: userService.socialMediaLinksVM)
                 Divider().padding(.bottom, 20)
                 RecentActivityView(user: friend)
                 Spacer()

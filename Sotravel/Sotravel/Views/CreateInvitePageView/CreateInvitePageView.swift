@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CreateInvitePageView: View {
-    @Binding var createInvitePageUserViewModel: CreateInvitePageUserViewModel
+    @ObservedObject var createInvitePageUserViewModel: CreateInvitePageUserViewModel
     @State private var title: String = ""
     @State private var date = Date()
     @State private var time = Date()
@@ -107,7 +107,7 @@ struct CreateInvitePageView: View {
 struct CreateEventView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CreateInvitePageView(createInvitePageUserViewModel: .constant(CreateInvitePageUserViewModel())).environmentObject(UserService())
+            CreateInvitePageView(createInvitePageUserViewModel: CreateInvitePageUserViewModel()).environmentObject(UserService())
         }
     }
 }

@@ -30,7 +30,7 @@ struct EventView: View {
                         .foregroundColor(.gray)
                         .padding(.top, 4)
                         .lineLimit(1)
-                    NavigationLink(destination: EventPageView(eventPageUserViewModel: $userService.eventPageViewModel,
+                    NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
                                                               eventViewModel: eventViewModel)) {
                         HStack(spacing: 0) {
                             Text("\(eventViewModel.attendingUsers.count) Going")
@@ -58,7 +58,7 @@ struct EventView: View {
                 }
             }
             if !isHideButton {
-                NavigationLink(destination: EventPageView(eventPageUserViewModel: $userService.eventPageViewModel, eventViewModel: eventViewModel)) {
+                NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel, eventViewModel: eventViewModel)) {
                     HStack(alignment: .firstTextBaseline) {
                         Text("Join")
                     }

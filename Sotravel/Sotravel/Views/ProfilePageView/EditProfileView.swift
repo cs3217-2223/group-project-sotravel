@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @Binding var viewModel: EditProfileViewModel
+    @ObservedObject var viewModel: EditProfileViewModel
     @Environment(\.presentationMode) var presentationMode
 
     @State private var name: String = ""
@@ -91,6 +91,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView(viewModel: .constant(EditProfileViewModel())).environmentObject(UserService())
+        EditProfileView(viewModel: EditProfileViewModel()).environmentObject(UserService())
     }
 }

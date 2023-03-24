@@ -4,13 +4,14 @@
 //
 //  Created by Weiqiang Zhang on 20/3/23.
 //
+import Foundation
 
-struct EditProfileViewModel {
-    var firstName: String?
-    var lastName: String?
-    var description: String?
-    var instagramUsername: String?
-    var tiktokUsername: String?
+class EditProfileViewModel: ObservableObject {
+    @Published var firstName: String?
+    @Published var lastName: String?
+    @Published var description: String?
+    @Published var instagramUsername: String?
+    @Published var tiktokUsername: String?
     var name: String? {
         if firstName == nil && firstName == nil {
             return nil
@@ -31,7 +32,7 @@ struct EditProfileViewModel {
         self.tiktokUsername = tiktokUsername
     }
 
-    mutating func updateFrom(user: User) {
+    func updateFrom(user: User) {
         self.firstName = user.firstName
         self.lastName = user.lastName
         self.description = user.description

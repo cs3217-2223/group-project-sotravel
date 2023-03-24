@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SocialMediaLinksView: View {
-    @Binding var viewModel: SocialMediaLinksViewModel
+    @ObservedObject var viewModel: SocialMediaLinksViewModel
     var body: some View {
         HStack(spacing: 20) {
             if let telegramUsername = viewModel.telegramUsername, !telegramUsername.isEmpty {
@@ -47,6 +47,6 @@ struct SocialMediaLinksView: View {
 
 struct SocialMediaLinksView_Previews: PreviewProvider {
     static var previews: some View {
-        SocialMediaLinksView(viewModel: .constant(SocialMediaLinksViewModel())).environmentObject(UserService())
+        SocialMediaLinksView(viewModel: SocialMediaLinksViewModel()).environmentObject(UserService())
     }
 }

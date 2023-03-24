@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
     @EnvironmentObject var userService: UserService
-    @Binding var viewModel: ProfileHeaderViewModel
+    @ObservedObject var viewModel: ProfileHeaderViewModel
 
     var body: some View {
         VStack(spacing: 10) {
@@ -22,7 +22,7 @@ struct ProfileHeaderView: View {
                 Text(viewModel.name ?? "John Doe")
                     .font(.uiTitle2)
                     .fontWeight(.bold)
-                NavigationLink(destination: EditProfileView(viewModel: $userService.editProfileViewModel)) {
+                NavigationLink(destination: EditProfileView(viewModel: userService.editProfileViewModel)) {
                     Image(systemName: "square.and.pencil")
                         .resizable()
                         .frame(width: 20, height: 20)
@@ -36,7 +36,7 @@ struct ProfileHeaderView: View {
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
             }
-            SocialMediaLinksView(viewModel: $userService.socialMediaLinksVM)
+            SocialMediaLinksView(viewModel: userService.socialMediaLinksVM)
         }
     }
 }
@@ -44,7 +44,7 @@ struct ProfileHeaderView: View {
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ProfileHeaderView(viewModel: .constant(ProfileHeaderViewModel())).environmentObject(UserService())
+            ProfileHeaderView(viewModel: ProfileHeaderViewModel()).environmentObject(UserService())
         }
     }
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ProfileFriendsView: View {
-    @Binding var viewModel: ProfileFriendsViewModel
+    @ObservedObject var viewModel: ProfileFriendsViewModel
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -44,7 +44,7 @@ struct ProfileFriendsView: View {
 
 struct ProfileFriendsView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileFriendsView(viewModel: .constant(ProfileFriendsViewModel()))
+        ProfileFriendsView(viewModel: ProfileFriendsViewModel())
             .environmentObject(UserService())
             .environmentObject(EventsStore(events: mockEvents))
     }

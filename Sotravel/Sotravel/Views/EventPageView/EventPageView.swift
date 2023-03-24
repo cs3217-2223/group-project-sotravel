@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct EventPageView: View {
-    @Binding var eventPageUserViewModel: EventPageUserViewModel
+    @ObservedObject var eventPageUserViewModel: EventPageUserViewModel
     @Environment(\.dismiss) var dismiss
     @ObservedObject var eventViewModel: EventViewModel
     var chat: Chat = mockChat
@@ -110,7 +110,7 @@ struct EventPageView: View {
 struct EventPageView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            EventPageView(eventPageUserViewModel: .constant(EventPageUserViewModel()),
+            EventPageView(eventPageUserViewModel: EventPageUserViewModel(),
                           eventViewModel: EventViewModel(),
                           chat: mockChat)
                 .environmentObject(UserService())

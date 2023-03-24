@@ -24,7 +24,7 @@ struct ChatHeaderView: View {
                     Text(event.datetime.toFriendlyString())
                         .font(.uiSubheadline)
                         .lineLimit(1)
-                    NavigationLink(destination: EventPageView(eventPageUserViewModel: $userService.eventPageViewModel,
+                    NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
                                                               eventViewModel: EventViewModel())) {
                         Text("View More")
                             .font(.uiFootnote)
