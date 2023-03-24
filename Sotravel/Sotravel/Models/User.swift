@@ -4,7 +4,7 @@ class User: Identifiable, Hashable {
     var id = UUID()
     var firstName: String?
     var lastName: String?
-    var description: String? // Optional
+    var desc: String? // Optional
     var imageURL: String? // Optional
     var instagramUsername: String? // Optional
     var tiktokUsername: String? // Optional
@@ -15,7 +15,7 @@ class User: Identifiable, Hashable {
         if firstName == nil && firstName == nil {
             return nil
         } else {
-            return (firstName ?? "") + (firstName ?? "")
+            return (firstName ?? "") + (lastName ?? "")
         }
     }
 
@@ -35,7 +35,7 @@ class User: Identifiable, Hashable {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
-        self.description = description
+        self.desc = description
         self.imageURL = imageURL
         self.instagramUsername = instagramUsername
         self.tiktokUsername = tiktokUsername
@@ -50,7 +50,8 @@ class User: Identifiable, Hashable {
         self.id = id
         self.firstName = apiUser.firstName
         self.lastName = apiUser.lastName
-        self.description = apiUser.description
+        self.email = apiUser.email
+        self.desc = apiUser.description
         self.imageURL = apiUser.image
         self.instagramUsername = apiUser.socialsInstagram
         self.tiktokUsername = apiUser.socialsTiktok
@@ -66,4 +67,5 @@ class User: Identifiable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+    var description: String { "User: \(self.id)" }
 }

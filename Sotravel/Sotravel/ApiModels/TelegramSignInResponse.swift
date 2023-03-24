@@ -28,7 +28,7 @@ struct NodeApiUser: Codable {
     let cfoDesc: JSONNull?
     let groupBookingID: String?
     let credits: Int?
-    let interests: JSONNull?
+    let interests: [String]?
     let description, createdat, updatedat: String?
     let currentlyOnTrip: JSONNull?
     let coordinator: Bool?

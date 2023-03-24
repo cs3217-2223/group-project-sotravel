@@ -23,6 +23,6 @@ struct UpdateUserApiModel: Encodable {
         self.first_name = user.name
         self.email = user.email
         self.image = user.imageURL
-        self.description = user.description
+        self.description = user.desc
     }
 }

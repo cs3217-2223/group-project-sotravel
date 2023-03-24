@@ -9,13 +9,13 @@ import Foundation
 import NIOHTTP1
 
 class UserRepositoryNode: UserRepository {
-    let api = NodeApi()
+    private static var api = NodeApi()
 
     func get(id: UUID) async throws -> User? {
-        let (status, response) = try await api.get(path: .profile, params: ["user_id": "634b6038-6594-4473-8c23-a5539400d653"])
+        let (status, response) = try await UserRepositoryNode.api.get(path: .profile, params: ["user_id": "003c8b4a-f831-43c8-9895-bf37da40fa95"])
 
         guard status == HTTPResponseStatus.ok, let response = response else {
-            throw SotravelError.AuthorizationError("Unable to get bearer token", nil)
+            throw SotravelError.AuthorizationError("Response from get user in repository is not HTTP 200", nil)
         }
 
         do {
@@ -33,10 +33,10 @@ class UserRepositoryNode: UserRepository {
         // Create the API model
         let userToUpdate = UpdateUserApiModel(user: user)
         // Make the API call to update the profile and return the result
-        let (status, response) = try await api.post(path: .updateProfile, data: userToUpdate.dictionary)
+        let (status, response) = try await UserRepositoryNode.api.post(path: .updateProfile, data: userToUpdate.dictionary)
 
         guard status == HTTPResponseStatus.ok, let response = response else {
-            throw SotravelError.AuthorizationError("Unable to get bearer token", nil)
+            throw SotravelError.AuthorizationError("Response from update user in repository is not HTTP 200", nil)
         }
 
         do {
@@ -44,7 +44,7 @@ class UserRepositoryNode: UserRepository {
             // Deserialize the response into a User object
             return try User(apiUser: responseModel)
         } catch is DecodingError {
-            throw SotravelError.message("Unable to parse Get User response")
+            throw SotravelError.message("Unable to parse Update User response")
         }
     }
 }

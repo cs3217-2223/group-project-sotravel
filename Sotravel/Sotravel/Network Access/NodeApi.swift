@@ -30,7 +30,7 @@ class NodeApi: RestApi {
     ]
 
     func storeAuthToken(token: String) {
-        UserDefaults.standard.set(authTokenKey, forKey: token)
+        UserDefaults.standard.set(token, forKey: authTokenKey)
     }
 
     func getAuthToken(token: String) -> String? {

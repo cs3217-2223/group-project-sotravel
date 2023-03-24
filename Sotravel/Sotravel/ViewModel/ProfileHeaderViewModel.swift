@@ -18,7 +18,7 @@ struct ProfileHeaderViewModel {
 
     mutating func updateFrom(user: User) {
         self.name = user.name
-        self.description = user.description
+        self.description = user.desc
         self.imageURL = user.imageURL
     }
 }

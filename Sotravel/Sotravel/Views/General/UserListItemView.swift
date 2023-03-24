@@ -15,7 +15,7 @@ struct UserListItemView<Content: View>: View {
                     .font(.uiHeadline)
                     .foregroundColor(.black)
 
-                if let description = user.description {
+                if let description = user.desc {
                     Text(description)
                         .font(.uiSubheadline)
                         .foregroundColor(.gray)

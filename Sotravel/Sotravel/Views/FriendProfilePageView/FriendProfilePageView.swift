@@ -10,7 +10,7 @@ struct FriendProfilePageView: View {
                 Text(friend.name ?? "John Doe")
                     .font(.uiTitle2)
                     .fontWeight(.bold)
-                Text(friend.description ?? "")
+                Text(friend.desc ?? "")
                     .font(.uiHeadline)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
