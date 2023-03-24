@@ -25,6 +25,7 @@
 		1866DE6229B993E5005D9F59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1866DE6129B993E5005D9F59 /* Assets.xcassets */; };
 		1866DE6529B993E5005D9F59 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1866DE6429B993E5005D9F59 /* Preview Assets.xcassets */; };
 		188061A129C05DBE004FB831 /* EventStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188061A029C05DBE004FB831 /* EventStatusButton.swift */; };
+		18898CAD29CC41BF00FFD991 /* UserAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18898CAC29CC41BF00FFD991 /* UserAnnotationView.swift */; };
 		188EBDAE29C183E5002735F0 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188EBDAD29C183E5002735F0 /* EditProfileView.swift */; };
 		188EBDB129C1AD3E002735F0 /* TripsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188EBDB029C1AD3E002735F0 /* TripsPageView.swift */; };
 		188EBDB329C1B053002735F0 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188EBDB229C1B053002735F0 /* Trip.swift */; };
@@ -149,6 +150,7 @@
 		1866DE6129B993E5005D9F59 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1866DE6429B993E5005D9F59 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		188061A029C05DBE004FB831 /* EventStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStatusButton.swift; sourceTree = "<group>"; };
+		18898CAC29CC41BF00FFD991 /* UserAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnnotationView.swift; sourceTree = "<group>"; };
 		188EBDAD29C183E5002735F0 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		188EBDB029C1AD3E002735F0 /* TripsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsPageView.swift; sourceTree = "<group>"; };
 		188EBDB229C1B053002735F0 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 			children = (
 				AC32F94829B9EB8C0005F5B9 /* MapView.swift */,
 				AC32F96C29BA3DBB0005F5B9 /* MapPageView.swift */,
+				18898CAC29CC41BF00FFD991 /* UserAnnotationView.swift */,
 			);
 			path = MapPageView;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				B4C3536A29C0A7460073931C /* UserRepository.swift in Sources */,
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
+				18898CAD29CC41BF00FFD991 /* UserAnnotationView.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
 				18B33DAF29BE06E60036B51E /* CreateInvitePageView.swift in Sources */,
 				B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */,

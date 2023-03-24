@@ -10,7 +10,7 @@ import SwiftUI
 struct MapPageView: View {
     @StateObject var locationManager = LocationManager()
     @StateObject var viewModel = FriendsLocationViewModel()
-    @State private var isSharingLocation = false
+    @State private var isSharingLocation = true
 
     var body: some View {
         VStack {
