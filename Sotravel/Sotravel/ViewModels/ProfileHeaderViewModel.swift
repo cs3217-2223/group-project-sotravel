@@ -18,8 +18,10 @@ class ProfileHeaderViewModel: ObservableObject {
     }
 
     func updateFrom(user: User) {
-        self.name = user.name
-        self.description = user.desc
-        self.imageURL = user.imageURL
+        DispatchQueue.main.async {
+            self.name = user.name
+            self.description = user.desc
+            self.imageURL = user.imageURL
+        }
     }
 }

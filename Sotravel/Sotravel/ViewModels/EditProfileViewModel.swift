@@ -34,10 +34,12 @@ class EditProfileViewModel: ObservableObject {
     }
 
     func updateFrom(user: User) {
-        self.firstName = user.firstName
-        self.lastName = user.lastName
-        self.description = user.desc
-        self.instagramUsername = user.instagramUsername
-        self.tiktokUsername = user.tiktokUsername
+        DispatchQueue.main.async {
+            self.firstName = user.firstName
+            self.lastName = user.lastName
+            self.description = user.desc
+            self.instagramUsername = user.instagramUsername
+            self.tiktokUsername = user.tiktokUsername
+        }
     }
 }
