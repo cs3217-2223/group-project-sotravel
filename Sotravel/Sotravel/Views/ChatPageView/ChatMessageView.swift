@@ -10,9 +10,12 @@ struct ChatMessageView: View {
             if isSentByMe {
                 Spacer()
             } else {
-                NavigationLink(destination: FriendProfilePageView(friend: chatViewModel.getSenderDetails(chatMessage: chatMessage))) {
-                    ProfileImageView(imageSrc: chatViewModel.getSenderImage(chatMessage: chatMessage),
-                                     name: chatViewModel.getSenderName(chatMessage: chatMessage) ?? "John Doe", width: 30, height: 30)
+                let friend = chatViewModel.getSenderDetails(chatMessage: chatMessage)
+                let destination = FriendProfilePageView(friend: friend)
+                NavigationLink(destination: destination) {
+                    let senderImage = chatViewModel.getSenderImage(chatMessage: chatMessage)
+                    let senderName = chatViewModel.getSenderName(chatMessage: chatMessage) ?? "John Doe"
+                    ProfileImageView(imageSrc: senderImage, name: senderName, width: 30, height: 30)
                 }
             }
 

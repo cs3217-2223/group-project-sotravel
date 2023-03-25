@@ -110,9 +110,10 @@ struct EventPageView: View {
 
 struct EventPageView_Previews: PreviewProvider {
     static var previews: some View {
+        let eventVM = EventViewModel(title: "Test event VM", datetime: Date(), location: "COM1", meetingPoint: "COM1")
         NavigationView {
             EventPageView(eventPageUserViewModel: EventPageUserViewModel(),
-                          eventViewModel: EventViewModel(title: "Test event VM", datetime: Date(), location: "COM1", meetingPoint: "COM1"),
+                          eventViewModel: eventVM,
                           chat: mockChat)
                 .environmentObject(UserService())
         }

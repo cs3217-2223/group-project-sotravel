@@ -13,7 +13,9 @@ struct SocialMediaLinksView: View {
         HStack(spacing: 20) {
             if let telegramUsername = viewModel.telegramUsername, !telegramUsername.isEmpty {
                 Button(action: {
-                    guard let url = URL(string: "https://t.me/\(telegramUsername)") else { return }
+                    guard let url = URL(string: "https://t.me/\(telegramUsername)") else {
+                        return
+                    }
                     UIApplication.shared.open(url)
                 }, label: {
                     Image("telegram")
@@ -23,7 +25,9 @@ struct SocialMediaLinksView: View {
             }
             if let instagramUsername = viewModel.instagramUsername, !instagramUsername.isEmpty {
                 Button(action: {
-                    guard let url = URL(string: "https://www.instagram.com/\(instagramUsername)/") else { return }
+                    guard let url = URL(string: "https://www.instagram.com/\(instagramUsername)/") else {
+                        return
+                    }
                     UIApplication.shared.open(url)
                 }, label: {
                     Image("instagram")
@@ -33,7 +37,9 @@ struct SocialMediaLinksView: View {
             }
             if let tiktokUsername = viewModel.tiktokUsername, !tiktokUsername.isEmpty {
                 Button(action: {
-                    guard let url = URL(string: "https://www.tiktok.com/@\(tiktokUsername)") else { return }
+                    guard let url = URL(string: "https://www.tiktok.com/@\(tiktokUsername)") else {
+                        return
+                    }
                     UIApplication.shared.open(url)
                 }, label: {
                     Image("tiktok")

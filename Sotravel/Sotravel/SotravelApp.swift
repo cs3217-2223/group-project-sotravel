@@ -10,7 +10,8 @@ import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil)
+    -> Bool {
         FirebaseApp.configure()
 
         return true
@@ -25,7 +26,8 @@ struct SotravelApp: App {
     @StateObject var eventService = EventService()
     @StateObject var userService = UserService()
     @StateObject var chats = ChatsStore(chats: mockChats)
-    @StateObject var chatViewModel = ChatViewModel(user: mockUser, databaseConnector: DatabaseAdapter()) // db should be 1 obj that is passed around?
+    // db should be 1 obj that is passed around?
+    @StateObject var chatViewModel = ChatViewModel(user: mockUser, databaseConnector: DatabaseAdapter())
 
     var body: some Scene {
         WindowGroup {

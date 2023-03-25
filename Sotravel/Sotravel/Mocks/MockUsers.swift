@@ -56,7 +56,6 @@ let mockUser4 = User(
     firstName: "John",
     lastName: "Lee",
     description: "I'm a foodie and love trying new restaurants!",
-    // swiftlint:disable:next line_length
     instagramUsername: "johnlee",
     tiktokUsername: "johnleetravel",
     telegramUsername: "johnleetravels",

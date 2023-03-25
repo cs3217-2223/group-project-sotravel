@@ -85,6 +85,7 @@ struct EventView: View {
 
 struct EventView_Previews: PreviewProvider {
     static var previews: some View {
-        EventView(eventViewModel: EventViewModel(title: "Test event VM", datetime: Date(), location: "COM1", meetingPoint: "COM1"))
+        let eventVM = EventViewModel(title: "Test event VM", datetime: Date(), location: "COM1", meetingPoint: "COM1")
+        EventView(eventViewModel: eventVM)
     }
 }

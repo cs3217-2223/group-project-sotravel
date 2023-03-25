@@ -25,7 +25,9 @@ struct MapView: UIViewRepresentable {
         updateAnnotations(from: mapView)
 
         if initialMapLoad, let userLocation = userLocation {
-            let region = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+            let region = MKCoordinateRegion(center: userLocation.coordinate,
+                                            latitudinalMeters: 500,
+                                            longitudinalMeters: 500)
             mapView.setRegion(region, animated: true)
             initialMapLoad = false
         }
@@ -34,7 +36,9 @@ struct MapView: UIViewRepresentable {
     private func updateAnnotations(from mapView: MKMapView) {
         mapView.removeAnnotations(mapView.annotations)
 
-        guard let userLocation = userLocation else { return }
+        guard let userLocation = userLocation else {
+            return
+        }
 
         let currentLocationAnnotation = MKPointAnnotation()
         currentLocationAnnotation.coordinate = userLocation.coordinate

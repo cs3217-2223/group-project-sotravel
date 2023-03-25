@@ -9,7 +9,9 @@ struct FriendsListPageView: View {
             return friends
         } else {
             return friends.filter {
-                guard let name = $0.name else {return false}
+                guard let name = $0.name else {
+                    return false
+                }
                 return name.localizedCaseInsensitiveContains(searchText)
             }
         }
