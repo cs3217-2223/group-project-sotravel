@@ -13,7 +13,7 @@ struct UserListItemView<Content: View>: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text(user.name ?? "John Doe")
                     .font(.uiHeadline)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
 
                 if let description = user.desc {
                     Text(description)

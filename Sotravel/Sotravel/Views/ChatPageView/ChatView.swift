@@ -39,10 +39,15 @@ struct ChatView: View {
                                     .foregroundColor(.gray)
                                     .padding(.top, 10)
                             }
-                            if let user = userService.user {
-                                ChatMessageView(chatMessage: message, isSentByMe: message.sender == user.id).font(.body)
-                                    .id(message.id)
-                            }
+                            ChatMessageView(
+                                chatMessage: message,
+                                // TODO: Keeping this line makes the compiler say that it can't type check the expression
+                                // idk why also
+                                // isSentByMe: message.sender == userService.user.id
+                                isSentByMe: true
+                            )
+                            .font(.body)
+                            .id(message.id)
                         }
                     }.onAppear {
                         if chat.messages.isEmpty {

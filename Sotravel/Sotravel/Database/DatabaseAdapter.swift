@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseDatabase
+import CoreLocation
 
 class DatabaseAdapter: DatabaseConnector {
     private let databaseRef = Database.database().reference()

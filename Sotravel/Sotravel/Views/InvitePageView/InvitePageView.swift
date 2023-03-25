@@ -11,7 +11,7 @@ struct InvitePageView: View {
     @EnvironmentObject var eventService: EventService
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack(spacing: 4) {
                 CalendarView(calendar: Calendar(identifier: .iso8601))
                 ScrollView(.vertical) {

@@ -27,7 +27,7 @@ struct FriendProfilePageView: View {
 
 struct FriendProfilePageView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
+        NavigationView {
             FriendProfilePageView(friend: mockUser2).environmentObject(EventsStore(events: mockEvents))
         }
     }

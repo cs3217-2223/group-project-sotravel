@@ -42,7 +42,7 @@ struct EventPageView: View {
 
                 Text(eventViewModel.description)
                     .font(.uiBody)
-                    .foregroundColor(.black.opacity(0.5))
+                    .foregroundColor(.primary.opacity(0.5))
                     .padding(.vertical, 8)
 
                 // Attendees status
@@ -109,7 +109,7 @@ struct EventPageView: View {
 
 struct EventPageView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
+        NavigationView {
             EventPageView(eventPageUserViewModel: EventPageUserViewModel(),
                           eventViewModel: EventViewModel(),
                           chat: mockChat)

@@ -1,17 +1,25 @@
-//
-//  MapPageView.swift
-//  Sotravel
-//
-//  Created by Weiqiang Zhang on 10/3/23.
-//
-
 import SwiftUI
 
 struct MapPageView: View {
+    @StateObject var locationManager = LocationManagerService()
+    @StateObject var viewModel = FriendsLocationViewModel()
+    @State private var isSharingLocation = true
+
     var body: some View {
         VStack {
-            MapView()
-                .padding(.bottom)
+            MapView(userLocation: $locationManager.userLocation,
+                    friendsLocations: $viewModel.friendsLocations)
+                .edgesIgnoringSafeArea(.all)
+
+            LabelledToggleView(icon: "antenna.radiowaves.left.and.right",
+                               title: "Find Me",
+                               subtitle: "Share Location with Friends",
+                               isOn: $isSharingLocation)
+                .onChange(of: isSharingLocation, perform: { _ in
+                    if let userLocation = locationManager.userLocation {
+                        viewModel.updateCurrentUserLocation(userLocation, userId: "yourUserId")
+                    }
+                })
         }
     }
 }

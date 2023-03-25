@@ -5,7 +5,7 @@ struct LoginView: View {
     @State private var isNavigationActive = false
     @State private var isLoading = false
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack {
                 Image("snowman")
                     .renderingMode(.original)
@@ -29,7 +29,7 @@ struct LoginView: View {
                     }
                     .padding()
                     .padding(.top, 40)
-                    .shadow(color: .black.opacity(0.15), radius: 18, x: 0, y: 14)
+                    .shadow(color: .primary.opacity(0.15), radius: 18, x: 0, y: 14)
                 VStack(spacing: 10) {
                     //                    HStack(alignment: .firstTextBaseline, spacing: 8) {
                     //                        Image(systemName: "envelope.fill")

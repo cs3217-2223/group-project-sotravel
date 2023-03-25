@@ -15,6 +15,7 @@ class EventService: ObservableObject {
     private var events: [Event]
     private var eventToViewModels: [Event: EventViewModel]
     private var cancellables: Set<AnyCancellable> = []
+    //    @Injected private var eventRepository: EventRepository
 
     init(events: [Event] = mockEvents) {
         self.events = events

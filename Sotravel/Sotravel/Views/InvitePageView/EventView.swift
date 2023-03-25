@@ -21,7 +21,7 @@ struct EventView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .clipped()
                         .font(.uiHeadline)
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
                         .lineLimit(1)
                     Text(eventViewModel.location)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -77,7 +77,6 @@ struct EventView: View {
             }
         }
         .padding(16)
-        .background(.white)
         .clipped()
         .mask { RoundedRectangle(cornerRadius: 20, style: .continuous) }
         .overlay(RoundedRectangle(cornerRadius: 16).stroke(.gray.opacity(0.3), lineWidth: 1))

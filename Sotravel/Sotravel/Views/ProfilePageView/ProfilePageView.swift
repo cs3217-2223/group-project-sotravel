@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfilePageView: View {
     @EnvironmentObject private var userService: UserService
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 VStack {
                     ProfileHeaderView(viewModel: userService.profileHeaderVM)
