@@ -56,8 +56,15 @@ final class SotravelTests: XCTestCase {
             "hash": "1beb8304831d3ff306195ecb452887c0e26638c0ba882f254f2c5b4531311a55"
         ]
 
-        let resp = try await NodeApi.post(path: .telegramSignIn, data: data)
-        print(resp)
+        //        let resp = try await NodeApi.post(path: .telegramSignIn, data: data)
+        //        print(resp)
+    }
+
+    func testNothing3() async throws {
+        let repo: UserRepository = UserRepositoryNode()
+        var user = try await repo.get(id: UUID(uuidString: "003c8b4a-f831-43c8-9895-bf37da40fa95")!)
+        user?.firstName = "merry"
+        try await repo.update(user: user!)
     }
 
 }

@@ -1,10 +1,12 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @EnvironmentObject var userService: UserService
+    @EnvironmentObject private var userService: UserService
+    @ObservedObject var viewModel: EditProfileViewModel
     @Environment(\.presentationMode) var presentationMode
 
-    @State private var name: String = ""
+    @State private var firstName: String = ""
+    @State private var lastName: String = ""
     @State private var description: String = ""
     @State private var instagramUsername: String = ""
     @State private var tiktokUsername: String = ""
@@ -17,10 +19,17 @@ struct EditProfileView: View {
                         .font(.uiHeadline)
 
                     VStack(alignment: .leading, spacing: 5) {
-                        Text("Name")
+                        Text("First Name")
                             .font(.uiSubheadline)
                             .foregroundColor(.gray)
-                        TextField("Name", text: $name)
+                        TextField("First Name", text: $firstName)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .font(.uiBody)
+
+                        Text("Last Name")
+                            .font(.uiSubheadline)
+                            .foregroundColor(.gray)
+                        TextField("Last Name", text: $lastName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .font(.uiBody)
 
@@ -74,23 +83,35 @@ struct EditProfileView: View {
             )
             .navigationBarBackButtonHidden(true)
         }
+        .alert("Error in updating profile",
+               isPresented: $viewModel.updateError) {
+            Button("ok") {
+                userService.toggleEditProfileViewAlert()
+            }
+        }
     }
 
     private func loadUserData() {
-        name = userService.editProfileViewModel.name
-        description = userService.editProfileViewModel.description
-        instagramUsername = userService.editProfileViewModel.instagramUsername
-        tiktokUsername = userService.editProfileViewModel.tiktokUsername
+        firstName = viewModel.firstName ?? ""
+        lastName = viewModel.lastName ?? ""
+        description = viewModel.description ?? ""
+        instagramUsername = viewModel.instagramUsername ?? ""
+        tiktokUsername = viewModel.tiktokUsername ?? ""
     }
 
     private func saveProfile() {
-        // Implement the save logic here, e.g., updating the user object or saving to a database.
+        userService.editUser(firstName: firstName,
+                             lastName: lastName,
+                             description: description,
+                             instagramUsername: instagramUsername,
+                             tiktokUsername: tiktokUsername)
+        userService.updateUser()
         presentationMode.wrappedValue.dismiss()
     }
 }
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView().environmentObject(UserService())
+        EditProfileView(viewModel: EditProfileViewModel()).environmentObject(UserService())
     }
 }

@@ -11,7 +11,8 @@ import AsyncHTTPClient
 extension HTTPClientRequest {
     mutating func addBearerToken(token: String?) {
         if token != nil {
-            self.headers.add(name: "Authorization", value: "Bearer \(token)")
+            let header = "Bearer \(token!)"
+            self.headers.add(name: "Authorization", value: header)
         }
     }
 

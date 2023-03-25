@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ProfilePageView: View {
+    @EnvironmentObject private var userService: UserService
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    ProfileHeaderView()
+                    ProfileHeaderView(viewModel: userService.profileHeaderVM)
                     Divider()
-                    ProfileFriendsView()
+                    ProfileFriendsView(viewModel: userService.profileFriendsVM)
                     Spacer()
                     Divider()
                     VStack {

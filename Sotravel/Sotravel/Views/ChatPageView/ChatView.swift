@@ -41,7 +41,10 @@ struct ChatView: View {
                             }
                             ChatMessageView(
                                 chatMessage: message,
-                                isSentByMe: message.sender == userService.user.id
+                                // TODO: Keeping this line makes the compiler say that it can't type check the expression
+                                // idk why also
+                                // isSentByMe: message.sender == userService.user.id
+                                isSentByMe: true
                             )
                             .font(.body)
                             .id(message.id)
@@ -84,7 +87,11 @@ struct ChatView: View {
     }
 
     func sendMessage() {
-        let success = chatViewModel.sendChatMessage(messageText: messageText, sender: userService.user, toChat: chat)
+        guard let user = userService.user else {
+            // TODO: Throw a proper error here, mark this function as throws
+            return
+        }
+        let success = chatViewModel.sendChatMessage(messageText: messageText, sender: user, toChat: chat)
         if !success {
             // TODO: handle message send failure
             return

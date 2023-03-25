@@ -2,6 +2,8 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject private var userService: UserService
+    @State private var isNavigationActive = false
+    @State private var isLoading = false
     var body: some View {
         NavigationView {
             VStack {
@@ -49,32 +51,46 @@ struct LoginView: View {
                     NavigationLink(
                         destination: TripsPageView()
                             .navigationBarBackButtonHidden(true)
-                            .navigationBarTitle("", displayMode: .inline)) {
-                        HStack(alignment: .firstTextBaseline, spacing: 8) {
-                            Image(systemName: "paperplane.fill")
-                                .imageScale(.medium)
-                                .symbolRenderingMode(.monochrome)
-                                .foregroundColor(.white)
-                            Text("Continue with Telegram")
-                                .foregroundColor(.white).font(.uiButton)
-                        }
-                        .font(.uiBody.weight(.medium))
-                        .padding(.vertical, 16)
-                        .frame(maxWidth: .infinity)
-                        .clipped()
-                        .foregroundColor(Color(.systemBackground))
-                        .background {
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .fill(Color.uiPrimary)
+                            .navigationBarTitle("", displayMode: .inline),
+                        isActive: $isNavigationActive) {
+                        EmptyView()
+                    }
+                    if isLoading {
+                        ProgressView()
+                    } else {
+                        Button(action: {
+                            isLoading = true
+                            userService.fetchUser(id: UUID()) { success in
+                                if success {
+                                    isNavigationActive = true
+                                } else {
+                                    isLoading = false
+                                }
+                            }
+                        }) {
+                            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                                Image(systemName: "paperplane.fill")
+                                    .imageScale(.medium)
+                                    .symbolRenderingMode(.monochrome)
+                                    .foregroundColor(.white)
+                                Text("Continue with Telegram")
+                                    .foregroundColor(.white).font(.uiButton)
+                            }
+                            .font(.uiBody.weight(.medium))
+                            .padding(.vertical, 16)
+                            .frame(maxWidth: .infinity)
+                            .clipped()
+                            .foregroundColor(Color(.systemBackground))
+                            .background {
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .fill(Color.uiPrimary)
+                            }
                         }
                     }
                 }
                 .padding(.horizontal)
                 Spacer()
             }
-        }
-        .onAppear {
-            userService.fetchUser(id: UUID())
         }
     }
 }

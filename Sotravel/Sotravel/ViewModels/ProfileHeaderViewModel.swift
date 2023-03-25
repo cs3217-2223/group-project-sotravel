@@ -4,11 +4,12 @@
 //
 //  Created by Weiqiang Zhang on 19/3/23.
 //
+import Foundation
 
-struct ProfileHeaderViewModel {
-    private(set) var name: String
-    private(set) var description: String
-    private(set) var imageURL: String
+class ProfileHeaderViewModel: ObservableObject {
+    @Published var name: String?
+    @Published var description: String?
+    @Published var imageURL: String?
 
     init(name: String = "", description: String = "", imageURL: String = "") {
         self.name = name
@@ -16,9 +17,9 @@ struct ProfileHeaderViewModel {
         self.imageURL = imageURL
     }
 
-    mutating func updateFrom(user: User) {
+    func updateFrom(user: User) {
         self.name = user.name
-        self.description = user.description
+        self.description = user.desc
         self.imageURL = user.imageURL
     }
 }

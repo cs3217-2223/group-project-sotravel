@@ -1,52 +1,56 @@
 import SwiftUI
 
 struct EventView: View {
-    @ObservedObject var event: Event
+    @EnvironmentObject private var userService: UserService
+    @ObservedObject var eventViewModel: EventViewModel
     var isHideButton = false
 
     var body: some View {
         VStack {
             HStack(spacing: 47) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(event.datetime.toFriendlyTimeString())
+                    Text(eventViewModel.datetime.toFriendlyTimeString())
                         .font(.uiHeadline)
-                        .foregroundColor(Color.primary)
-                    Text(event.datetime.toFriendlyDateString())
+                        .foregroundColor(Color.black)
+                    Text(eventViewModel.datetime.toFriendlyDateString())
                         .font(.uiCallout)
                         .foregroundColor(Color.gray)
                 }.offset(x: 4, y: -7)
                 VStack(spacing: 7) {
-                    Text(event.title)
+                    Text(eventViewModel.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .clipped()
                         .font(.uiHeadline)
                         .foregroundColor(.primary)
                         .lineLimit(1)
-                    Text(event.location)
+                    Text(eventViewModel.location)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .clipped()
                         .font(.uiCallout)
                         .foregroundColor(.gray)
                         .padding(.top, 4)
                         .lineLimit(1)
-                    NavigationLink(destination: EventPageView(event: event)) {
+                    NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
+                                                              eventViewModel: eventViewModel)) {
                         HStack(spacing: 0) {
-                            Text("\(event.attendingUsers.count) Going")
+                            Text("\(eventViewModel.attendingUsers.count) Going")
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .clipped()
                                 .font(.uiFootnote)
                                 .foregroundColor(.blue.opacity(0.8))
                             ZStack {
-                                let renderedUsers = event.attendingUsers.prefix(3)
-                                ForEach(Array(renderedUsers.prefix(3).reversed().enumerated()), id: \.1.id) { index, user in
-                                    ProfileImageView(
-                                        imageSrc: user.imageURL,
-                                        name: user.name,
-                                        width: 30,
-                                        height: 30
-                                    )
-                                    .offset(x: CGFloat(22 * (renderedUsers.count - index - 1)))
-                                }
+                                let renderedUsers = eventViewModel.attendingUsers.prefix(3)
+                                // TODO: Fix this, compiler can't type check it
+                                //                            ForEach(Array(renderedUsers.prefix(3).reversed().enumerated()), id: \.1.id)
+                                //                            { index, user in
+                                //                                ProfileImageView(
+                                //                                    imageSrc: user.imageURL,
+                                //                                    name: user.name,
+                                //                                    width: 30,
+                                //                                    height: 30
+                                //                                )
+                                //                                .offset(x: CGFloat(22 * (renderedUsers.count - index - 1)))
+                                //                            }
                             }.offset(x: -50)
                         }
                         .padding(.top, 1)
@@ -54,7 +58,7 @@ struct EventView: View {
                 }
             }
             if !isHideButton {
-                NavigationLink(destination: EventPageView(event: event)) {
+                NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel, eventViewModel: eventViewModel)) {
                     HStack(alignment: .firstTextBaseline) {
                         Text("Join")
                     }
@@ -81,6 +85,6 @@ struct EventView: View {
 
 struct EventView_Previews: PreviewProvider {
     static var previews: some View {
-        EventView(event: mockEvent1)
+        EventView(eventViewModel: EventViewModel())
     }
 }

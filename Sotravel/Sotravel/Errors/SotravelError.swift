@@ -10,6 +10,7 @@ import Foundation
 enum SotravelError: Error, CustomStringConvertible {
     case NetworkError(String, Error? = nil)
     case AuthorizationError(String, Error? = nil)
+    case DecodingError(String, Error? = nil)
 
     // These are generic cases for errors that don't need special treatment
     case message(String, Error? = nil)
@@ -36,7 +37,8 @@ enum SotravelError: Error, CustomStringConvertible {
         switch self {
         // All application-specific errors should be caught here
         case let .NetworkError(message, error),
-             let .AuthorizationError(message, error):
+             let .AuthorizationError(message, error),
+             let .DecodingError(message, error):
             return """
                 Error messge: \(message)
                 Underlying error: \(String(describing: error))

@@ -12,7 +12,7 @@ struct ChatMessageView: View {
             } else {
                 NavigationLink(destination: FriendProfilePageView(friend: chatViewModel.getSenderDetails(chatMessage: chatMessage))) {
                     ProfileImageView(imageSrc: chatViewModel.getSenderImage(chatMessage: chatMessage),
-                                     name: chatViewModel.getSenderName(chatMessage: chatMessage), width: 30, height: 30)
+                                     name: chatViewModel.getSenderName(chatMessage: chatMessage) ?? "John Doe", width: 30, height: 30)
                 }
             }
 
