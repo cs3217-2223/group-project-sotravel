@@ -69,16 +69,19 @@ struct EventPageView: View {
                         Spacer()
                     }
 
-                    VStack {
-                        // Get latest 3 messages
-                        ForEach(chat.messages.sorted { $0.timestamp > $1.timestamp }.prefix(3), id: \.id) {message in
-                            ChatMessageView(chatMessage: message, isSentByMe: message.sender == eventPageUserViewModel.userId).font(.body)
-                                .id(message.id)
-                        }
-                    }.padding(.top, 3)
-                    .padding(.bottom, 14)
+                    // TODO: latest messages
+                    /*
+                     VStack {
+                     // Get latest 3 messages
+                     ForEach(chat.messages.sorted { $0.timestamp > $1.timestamp }.prefix(3), id: \.id) {message in
+                     ChatMessageView(chatMessage: message, isSentByMe: message.sender == eventPageUserViewModel.userId).font(.body)
+                     .id(message.id)
+                     }
+                     }.padding(.top, 3)
+                     .padding(.bottom, 14)
+                     */
 
-                    NavigationLink(destination: ChatView(chat: chat)) {
+                    NavigationLink(destination: ChatView()) {
                         HStack(alignment: .firstTextBaseline, spacing: 8) {
                             Image(systemName: "message.fill")
                                 .imageScale(.medium)
@@ -96,7 +99,9 @@ struct EventPageView: View {
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                 .fill(Color.uiPrimary)
                         }
-                    }
+                    }.simultaneousGesture(TapGesture().onEnded {
+                        print(chat.title) // TODO: the fetch chat action here
+                    })
                 }.padding(.top, 18)
 
                 Spacer()

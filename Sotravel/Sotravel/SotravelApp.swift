@@ -24,16 +24,14 @@ struct SotravelApp: App {
 
     @StateObject var eventService = EventService()
     @StateObject var userService = UserService()
-    @StateObject var chats = ChatsStore(chats: mockChats)
-    @StateObject var chatViewModel = ChatViewModel(user: mockUser, databaseConnector: DatabaseAdapter()) // db should be 1 obj that is passed around?
+    @StateObject var chatService = ChatService()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(eventService)
                 .environmentObject(userService)
-                .environmentObject(chats)
-                .environmentObject(chatViewModel)
+                .environmentObject(chatService)
         }
     }
 }

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct TripsPageView: View {
     let trips: [Trip] = mockTrips
+    @EnvironmentObject var chatService: ChatService
 
     var body: some View {
         ScrollView {
@@ -16,6 +17,9 @@ struct TripsPageView: View {
                         NavigationLink(destination: TripPageView()) {
                             TripCardView(trip: trip)
                         }.foregroundColor(.primary)
+                        .simultaneousGesture(TapGesture().onEnded {
+                            self.chatService.fetchChatPageCells()
+                        })
                     }
                 }
             }

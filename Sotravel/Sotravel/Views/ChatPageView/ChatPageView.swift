@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChatPageView: View {
-    @EnvironmentObject var chatsStore: ChatsStore
+    @EnvironmentObject var chatService: ChatService
 
     var body: some View {
         NavigationView {
@@ -21,10 +21,12 @@ struct ChatPageView: View {
                 .padding(.top, 24)
                 .padding(.bottom, 15)
 
-                ForEach(self.chatsStore.chats) { chat in
-                    NavigationLink(destination: ChatView(chat: chat)) {
-                        ChatPageCellView(chat: chat)
-                    }
+                ForEach(self.chatService.chatPageCellVMs) { chatPageCell in
+                    NavigationLink(destination: ChatView()) {
+                        ChatPageCellView(chatPageCellVM: chatPageCell)
+                    }.simultaneousGesture(TapGesture().onEnded {
+                        self.chatService.fetchChat(id: chatPageCell.id)
+                    })
                 }
             }
             .padding(.horizontal)
@@ -35,8 +37,6 @@ struct ChatPageView: View {
 struct ChatPageView_Previews: PreviewProvider {
     static var previews: some View {
         ChatPageView()
-            .environmentObject(UserService())
-            .environmentObject(EventsStore(events: mockEvents))
-            .environmentObject(ChatsStore(chats: mockChats))
+            .environmentObject(ChatService())
     }
 }
