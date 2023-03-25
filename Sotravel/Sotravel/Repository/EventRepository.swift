@@ -8,5 +8,8 @@
 import Foundation
 
 protocol EventRepository {
-
+    func get(id: Int) async throws
+    func get() async throws
+    func create()
+    func cancelEvent(id: Int) async throws
 }
