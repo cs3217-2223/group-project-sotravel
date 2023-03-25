@@ -39,11 +39,12 @@ struct EventPageView: View {
                     Text(eventViewModel.location)
                         .font(.uiCallout)
                 }
-
-                Text(eventViewModel.description)
-                    .font(.uiBody)
-                    .foregroundColor(.primary.opacity(0.5))
-                    .padding(.vertical, 8)
+                if let eventDetails = eventViewModel.details {
+                    Text(eventDetails)
+                        .font(.uiBody)
+                        .foregroundColor(.primary.opacity(0.5))
+                        .padding(.vertical, 8)
+                }
 
                 // Attendees status
                 VStack {
@@ -111,7 +112,7 @@ struct EventPageView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             EventPageView(eventPageUserViewModel: EventPageUserViewModel(),
-                          eventViewModel: EventViewModel(),
+                          eventViewModel: EventViewModel(title: "Test event VM", datetime: Date(), location: "COM1", meetingPoint: "COM1"),
                           chat: mockChat)
                 .environmentObject(UserService())
         }

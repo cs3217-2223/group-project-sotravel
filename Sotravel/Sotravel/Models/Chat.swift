@@ -15,7 +15,7 @@ class Chat: ObservableObject, Identifiable {
 
     init(messages: [ChatMessage] = [ChatMessage](), members: [User], event: Event) {
         self.messages = messages
-        self.title = event.title
+        self.title = event.title ?? ""
         self.members = members
         self.event = event
     }

@@ -24,8 +24,12 @@ struct ChatHeaderView: View {
                     Text(event.datetime.toFriendlyString())
                         .font(.uiSubheadline)
                         .lineLimit(1)
-                    NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
-                                                              eventViewModel: EventViewModel())) {
+                    NavigationLink(destination:
+                                    EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
+                                                  eventViewModel: EventViewModel(title: "Test event VM",
+                                                                                 datetime: Date(),
+                                                                                 location: "COM1",
+                                                                                 meetingPoint: "Bus stop"))) {
                         Text("View More")
                             .font(.uiFootnote)
                             .foregroundColor(.blue)

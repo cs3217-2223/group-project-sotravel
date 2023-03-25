@@ -60,6 +60,6 @@ struct AttendeesView: View {
 
 struct AttendeesTabView_Previews: PreviewProvider {
     static var previews: some View {
-        AttendeesView(eventViewModel: EventViewModel())
+        AttendeesView(eventViewModel: EventViewModel(title: "Test event VM", datetime: Date(), location: "COM1", meetingPoint: "COM1"))
     }
 }

@@ -1,41 +1,45 @@
 import SwiftUI
 
 class Event: ObservableObject, Hashable, Identifiable {
-    @Published var invitedUsers: [User]
-    @Published var attendingUsers: [User]
-    @Published var rejectedUsers: [User]
+    var id: UUID
+    @Published var title: String
+    @Published var details: String?
+    @Published var status: String
     @Published var datetime: Date
     @Published var meetingPoint: String
     @Published var location: String
-    @Published var activity: String
-    @Published var description: String
     @Published var hostUser: User
+    @Published var invitedUsers: [User]
+    @Published var attendingUsers: [User]
+    @Published var rejectedUsers: [User]
 
-    var id: UUID
-    var title: String {
-        "\(self.activity) at \(self.location)"
+    var description: String {
+        "\(title) at \(location)"
     }
 
     init(id: UUID = UUID(),
-         activity: String = "",
+         title: String,
+         details: String?,
+         status: String,
+         datetime: Date,
+         meetingPoint: String,
+         location: String,
+         hostUser: User,
          invitedUsers: [User] = [],
          attendingUsers: [User] = [],
-         rejectedUsers: [User] = [],
-         datetime: Date = Date(),
-         location: String = "",
-         meetingPoint: String = "",
-         description: String = "",
-         hostUser: User) {
+         rejectedUsers: [User] = []) {
+
         self.id = id
-        self.activity = activity
+        self.title = title
+        self.details = details
+        self.status = status
+        self.datetime = datetime
+        self.meetingPoint = meetingPoint
+        self.location = location
+        self.hostUser = hostUser
         self.invitedUsers = invitedUsers
         self.attendingUsers = attendingUsers
         self.rejectedUsers = rejectedUsers
-        self.datetime = datetime
-        self.location = location
-        self.description = description
-        self.hostUser = hostUser
-        self.meetingPoint = meetingPoint
     }
 
     var pendingUsers: [User] {
