@@ -59,14 +59,16 @@ class EventViewModel: ObservableObject {
     }
 
     func updateFrom(event: Event) {
-        self.id = event.id
-        self.activity = event.activity
-        self.invitedUsers = event.invitedUsers
-        self.attendingUsers = event.attendingUsers
-        self.rejectedUsers = event.rejectedUsers
-        self.datetime = event.datetime
-        self.location = event.location
-        self.description = event.description
-        self.meetingPoint = event.meetingPoint
+        DispatchQueue.main.async {
+            self.id = event.id
+            self.activity = event.activity
+            self.invitedUsers = event.invitedUsers
+            self.attendingUsers = event.attendingUsers
+            self.rejectedUsers = event.rejectedUsers
+            self.datetime = event.datetime
+            self.location = event.location
+            self.description = event.description
+            self.meetingPoint = event.meetingPoint
+        }
     }
 }

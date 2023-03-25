@@ -15,6 +15,8 @@ class EventPageUserViewModel: ObservableObject {
     }
 
     func updateFrom(user: User) {
-        self.userId = user.id
+        DispatchQueue.main.async {
+            self.userId = user.id
+        }
     }
 }
