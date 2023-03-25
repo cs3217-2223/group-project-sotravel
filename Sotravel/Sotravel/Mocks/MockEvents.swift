@@ -120,6 +120,7 @@ let mockEvent3 = Event(
 //    hostUser: mockUser
 // )
 
-// swiftlint:disable:next line_length
-let mockEvents = [mockEvent1, mockEvent2, mockEvent3]
+let mockEvents = [mockEvent1,
+                  mockEvent2,
+                  mockEvent3]
 // mockEvent4, mockEvent5, mockEvent6, mockEvent7, mockEvent8, mockEvent9]
