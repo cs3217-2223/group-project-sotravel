@@ -14,7 +14,6 @@ class EventService: ObservableObject {
 
     private var events: [Event]
     private var eventToViewModels: [Event: EventViewModel]
-    private var cancellables: Set<AnyCancellable> = []
     //    @Injected private var eventRepository: EventRepository
 
     init(events: [Event] = mockEvents) {
@@ -28,28 +27,11 @@ class EventService: ObservableObject {
             self.eventViewModels.append(viewModel)
             self.eventToViewModels[event] = viewModel
         }
-        setupObservers()
     }
 
     func findAttendingEvents(for user: User) -> [EventViewModel] {
         let attendingEvents = events.filter { $0.attendingUsers.contains(user) }
         return attendingEvents.compactMap { eventToViewModels[$0] }
-    }
-
-    func fetchEvents() {
-
-    }
-
-    func updateEvents() {
-
-    }
-
-    private func setupObservers() {
-        for event in events {
-            event.objectWillChange.sink { [weak self] _ in
-                self?.handleEventPropertyChange(for: event)
-            }.store(in: &cancellables)
-        }
     }
 
     private func handleEventPropertyChange(for event: Event) {

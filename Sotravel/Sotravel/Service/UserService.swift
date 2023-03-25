@@ -84,11 +84,11 @@ class UserService: ObservableObject {
     }
 
     func toggleEditProfileViewAlert() {
-        // editProfileViewModel.updateError.toggle()
+        editProfileViewModel.updateError.toggle()
     }
 
     private func alertEditProfileView() {
-        // editProfileViewModel.updateError = true
+        editProfileViewModel.updateError = true
     }
 
     private func handleUserPropertyChange() {

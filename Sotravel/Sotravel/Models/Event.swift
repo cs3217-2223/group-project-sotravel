@@ -1,17 +1,17 @@
-import SwiftUI
+import Foundation
 
-class Event: ObservableObject, Hashable, Identifiable {
+class Event: Hashable, Identifiable {
     var id: UUID
-    @Published var title: String
-    @Published var details: String?
-    @Published var status: String
-    @Published var datetime: Date
-    @Published var meetingPoint: String
-    @Published var location: String
-    @Published var hostUser: User
-    @Published var invitedUsers: [User]
-    @Published var attendingUsers: [User]
-    @Published var rejectedUsers: [User]
+    var title: String
+    var details: String?
+    var status: String
+    var datetime: Date
+    var meetingPoint: String
+    var location: String
+    var hostUser: User
+    var invitedUsers: [User]
+    var attendingUsers: [User]
+    var rejectedUsers: [User]
 
     var description: String {
         "\(title) at \(location)"
@@ -28,7 +28,6 @@ class Event: ObservableObject, Hashable, Identifiable {
          invitedUsers: [User] = [],
          attendingUsers: [User] = [],
          rejectedUsers: [User] = []) {
-
         self.id = id
         self.title = title
         self.details = details

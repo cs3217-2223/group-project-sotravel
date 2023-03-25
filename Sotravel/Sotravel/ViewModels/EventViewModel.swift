@@ -28,11 +28,11 @@ class EventViewModel: ObservableObject {
     }
 
     init(id: UUID = UUID(),
-         title: String,
+         title: String = "",
          details: String? = nil,
-         datetime: Date,
-         location: String,
-         meetingPoint: String,
+         datetime: Date = Date(),
+         location: String = "",
+         meetingPoint: String = "",
          invitedUsers: [User] = [],
          attendingUsers: [User] = [],
          rejectedUsers: [User] = []) {
