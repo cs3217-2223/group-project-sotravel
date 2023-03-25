@@ -294,14 +294,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		185CBD0C29CC0FD1008C3B79 /* ViewModelsss */ = {
-			isa = PBXGroup;
-			children = (
-				185CBD0D29CC0FE6008C3B79 /* FriendsLocationViewModel.swift */,
-			);
-			path = ViewModelsss;
-			sourceTree = "<group>";
-		};
 		1866DE5129B993E3005D9F59 = {
 			isa = PBXGroup;
 			children = (
@@ -324,8 +316,6 @@
 		1866DE5C29B993E3005D9F59 /* Sotravel */ = {
 			isa = PBXGroup;
 			children = (
-				185CBD0C29CC0FD1008C3B79 /* ViewModelsss */,
-				AC28033329C61CE600687D62 /* ViewModelss */,
 				B4E9461129C5C7B1001B65EE /* ApiModels */,
 				AC18140A29C43E8C008D6944 /* ViewModels */,
 				AC18140429C43DE4008D6944 /* Service */,
@@ -479,6 +469,9 @@
 			isa = PBXGroup;
 			children = (
 				ACA4016229C765DC0076E183 /* ProfileHeaderViewModel.swift */,
+				AC28033429C61D6800687D62 /* ChatViewModel.swift */,
+				185CBD0D29CC0FE6008C3B79 /* FriendsLocationViewModel.swift */,
+				AC28033629C61D7D00687D62 /* ChatViewModelDelegate.swift */,
 				ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */,
 				ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */,
 				ACA4016829C769A70076E183 /* EditProfileViewModel.swift */,
@@ -488,15 +481,6 @@
 				B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		AC28033329C61CE600687D62 /* ViewModelss */ = {
-			isa = PBXGroup;
-			children = (
-				AC28033429C61D6800687D62 /* ChatViewModel.swift */,
-				AC28033629C61D7D00687D62 /* ChatViewModelDelegate.swift */,
-			);
-			path = ViewModelss;
 			sourceTree = "<group>";
 		};
 		AC32F95429BA05810005F5B9 /* LoginView */ = {
