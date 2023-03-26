@@ -8,6 +8,6 @@
 import Foundation
 
 protocol InviteRepository {
-    func getUserInvites() async throws
+    func getUserInvites(id: UUID) async throws -> [Invite]
     func updateInviteStatus() async throws
 }

@@ -26,7 +26,7 @@ class NodeApi: RestApi {
         .profile: "/user/getUser",
         .updateProfile: "/user/updateUser",
         .event: "",
-        .invite: ""
+        .userInvites: "/invites/getUserInvites"
     ]
 
     func storeAuthToken(token: String) {
@@ -169,5 +169,5 @@ enum NodeApiPath {
          profile,
          updateProfile,
          event,
-         invite
+         userInvites
 }
