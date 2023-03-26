@@ -75,7 +75,7 @@ class EventRepositoryNode: EventRepository {
         let body = [
             "user_id": userId.uuidString,
             "invite_id": String(eventId),
-            "status": status == .yes ? "yes" : "no"
+            "status": status == .yes ? "going" : "no"
         ]
         let (status, response) = try await EventRepositoryNode.api.put(path: .updateInvite, data: body)
         let functionName = "RSVP to event"
