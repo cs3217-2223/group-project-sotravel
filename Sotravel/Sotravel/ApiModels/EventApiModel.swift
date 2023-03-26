@@ -7,10 +7,8 @@
 
 import Foundation
 
-struct UserInviteApiModel: Codable {
+struct EventApiModel: Codable {
     let id: Int
-    let userID: String
-    let inviteID: Int
     let createdAt: String
     let status: String?
     let details, date, time, location: String
@@ -19,8 +17,6 @@ struct UserInviteApiModel: Codable {
 
     enum CodingKeys: String, CodingKey {
         case id
-        case userID = "user_id"
-        case inviteID = "invite_id"
         case createdAt = "created_at"
         case status, details, date, time, location
         case meetingPoint = "meeting_point"

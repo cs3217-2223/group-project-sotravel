@@ -67,4 +67,28 @@ final class SotravelTests: XCTestCase {
         try await repo.update(user: user!)
     }
 
+    func testNothing4() async throws {
+        let repo = EventRepositoryNode()
+        do {
+            var invites = try await repo.getUserEvents(userId: UUID(uuidString: "003c8b4a-f831-43c8-9895-bf37da40fa95")!)
+            print("hihi")
+        } catch {
+            print(error)
+        }
+
+        print("hello!")
+    }
+
+    func testNothing5() async throws {
+        let repo = EventRepositoryNode()
+        do {
+            var invites = try await repo.get(id: 1)
+            print("hihi")
+        } catch {
+            print(error)
+        }
+
+        print("hello!")
+    }
+
 }

@@ -97,7 +97,8 @@
 		B46B0A7129CCB148006F2BA2 /* Encodable+Subscriptable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46B0A7029CCB148006F2BA2 /* Encodable+Subscriptable.swift */; };
 		B46B0A8129CEC6B4006F2BA2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */; };
 		B485A8E129CEF76900786A34 /* EventRepositoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8E029CEF76900786A34 /* EventRepositoryNode.swift */; };
-		B485A8E929CF628F00786A34 /* UserInviteApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8E829CF628F00786A34 /* UserInviteApiModel.swift */; };
+		B485A8E929CF628F00786A34 /* EventApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8E829CF628F00786A34 /* EventApiModel.swift */; };
+		B485A8F129D04ADE00786A34 /* UserCreateEventApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8F029D04ADE00786A34 /* UserCreateEventApiModel.swift */; };
 		B4C3536129C0A5BE0073931C /* FriendRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536029C0A5BE0073931C /* FriendRepository.swift */; };
 		B4C3536329C0A5D30073931C /* TripRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536229C0A5D30073931C /* TripRepository.swift */; };
 		B4C3536529C0A64A0073931C /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536429C0A64A0073931C /* EventRepository.swift */; };
@@ -232,7 +233,8 @@
 		B46B0A7029CCB148006F2BA2 /* Encodable+Subscriptable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Subscriptable.swift"; sourceTree = "<group>"; };
 		B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		B485A8E029CEF76900786A34 /* EventRepositoryNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryNode.swift; sourceTree = "<group>"; };
-		B485A8E829CF628F00786A34 /* UserInviteApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInviteApiModel.swift; sourceTree = "<group>"; };
+		B485A8E829CF628F00786A34 /* EventApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventApiModel.swift; sourceTree = "<group>"; };
+		B485A8F029D04ADE00786A34 /* UserCreateEventApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCreateEventApiModel.swift; sourceTree = "<group>"; };
 		B4C3536029C0A5BE0073931C /* FriendRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRepository.swift; sourceTree = "<group>"; };
 		B4C3536229C0A5D30073931C /* TripRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRepository.swift; sourceTree = "<group>"; };
 		B4C3536429C0A64A0073931C /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
@@ -618,7 +620,8 @@
 				B4E9461229C5C7C6001B65EE /* TelegramSignInResponse.swift */,
 				B46B0A6E29CCA9A2006F2BA2 /* UpdateUserApiModel.swift */,
 				B46B0A7029CCB148006F2BA2 /* Encodable+Subscriptable.swift */,
-				B485A8E829CF628F00786A34 /* UserInviteApiModel.swift */,
+				B485A8E829CF628F00786A34 /* EventApiModel.swift */,
+				B485A8F029D04ADE00786A34 /* UserCreateEventApiModel.swift */,
 			);
 			path = ApiModels;
 			sourceTree = "<group>";
@@ -806,6 +809,7 @@
 				188C147529CDA3A600531F9F /* LabelledToggleView.swift in Sources */,
 				18C3660629C0227C00AF0338 /* ChatMessageView.swift in Sources */,
 				18D9714429BD9AF80064DC2A /* EventsStore.swift in Sources */,
+				B485A8F129D04ADE00786A34 /* UserCreateEventApiModel.swift in Sources */,
 				AC28033729C61D7D00687D62 /* ChatViewModelDelegate.swift in Sources */,
 				AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */,
 				AC63059E29BDA43F00EEEA85 /* ChatHeaderView.swift in Sources */,
@@ -862,7 +866,7 @@
 				AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				B46B0A8129CEC6B4006F2BA2 /* MapViewModel.swift in Sources */,
-				B485A8E929CF628F00786A34 /* UserInviteApiModel.swift in Sources */,
+				B485A8E929CF628F00786A34 /* EventApiModel.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,
 				AC32F96B29BA38CE0005F5B9 /* ProfilePageView.swift in Sources */,
 				AC11B87E29CB0C2500ADE703 /* EventService.swift in Sources */,

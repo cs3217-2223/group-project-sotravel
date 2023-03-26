@@ -12,7 +12,7 @@ class UserRepositoryNode: UserRepository {
     private static var api = NodeApi()
 
     func get(id: UUID) async throws -> User? {
-        let params = ["user_id": "003c8b4a-f831-43c8-9895-bf37da40fa95"]
+        let params = ["user_id": id.uuidString]
         let (status, response) = try await UserRepositoryNode.api.get(path: .profile,
                                                                       params: params)
 

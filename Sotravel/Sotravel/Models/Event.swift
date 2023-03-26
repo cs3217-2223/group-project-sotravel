@@ -41,11 +41,11 @@ class Event: Hashable, Identifiable {
         self.rejectedUsers = rejectedUsers
     }
 
-    init(apiModel: UserInviteApiModel) {
-        self.id = apiModel.inviteID
+    init(apiModel: EventApiModel) {
+        self.id = apiModel.id
         self.title = apiModel.activity
         // TODO: Don't do this
-        self.hostUser = UUID(uuidString: apiModel.userID) ?? UUID()
+        self.hostUser = UUID(uuidString: apiModel.host) ?? UUID()
         self.status = apiModel.status
         self.details = apiModel.details
 

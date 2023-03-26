@@ -25,8 +25,8 @@ class NodeApi: RestApi {
         .telegramSignIn: "/user/telegramSignin",
         .profile: "/user/getUser",
         .updateProfile: "/user/updateUser",
-        .event: "",
-        .userInvites: "/invites/getUserInvites"
+        .userInvites: "/invites/getUserInvites",
+        .inviteById: "/invites/getInviteById"
     ]
 
     func storeAuthToken(token: String) {
@@ -168,6 +168,6 @@ enum NodeApiPath {
     case telegramSignIn,
          profile,
          updateProfile,
-         event,
-         userInvites
+         userInvites,
+         inviteById
 }
