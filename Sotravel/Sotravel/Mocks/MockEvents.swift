@@ -33,7 +33,7 @@ let mockEvent3 = Event(
     // swiftlint:disable:next line_length
     details: "Join me for a day of island hopping at the stunning Phi Phi Islands. We'll visit several beautiful beaches and snorkel in the crystal-clear waters. Lunch will be provided on the boat, and we'll end the day with a beautiful sunset view.",
     status: "Idk?",
-    datetime: Date(timeIntervalSinceNow: 10_800),
+    datetime: Calendar.current.date(byAdding: DateComponents(day: -1), to: Date()) ?? Date(), // Set the event date to yesterday
     meetingPoint: "Coffee Shop beside Hostel",
     location: "Phi Phi Islands, Krabi",
     hostUser: mockFriends[4],
@@ -41,6 +41,7 @@ let mockEvent3 = Event(
     attendingUsers: [mockFriends[4], mockFriends[5]],
     rejectedUsers: []
 )
+
 //
 // let mockEvent4 = Event(
 //    activity: "Skinny Dip",

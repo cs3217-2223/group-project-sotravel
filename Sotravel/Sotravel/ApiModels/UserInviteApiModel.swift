@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct InviteApiModel: Codable {
+struct UserInviteApiModel: Codable {
     let id: Int
     let userID: String
     let inviteID: Int
     let createdAt: String
-    let status, title: JSONNull?
+    let status: String?
     let details, date, time, location: String
     let meetingPoint, host, activity: String
 
@@ -21,7 +21,7 @@ struct InviteApiModel: Codable {
         case userID = "user_id"
         case inviteID = "invite_id"
         case createdAt = "created_at"
-        case status, title, details, date, time, location
+        case status, details, date, time, location
         case meetingPoint = "meeting_point"
         case host, activity
     }

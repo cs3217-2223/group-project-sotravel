@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CalendarView: View {
-    @State private var selectedDate = Self.now
+    @Binding private var selectedDate: Date
     @State var dragOffset = CGSize.zero
     @State var finalOffset: CGFloat = 0
 
@@ -20,9 +20,10 @@ struct CalendarView: View {
 
     let dateFormatter: DateFormatter
 
-    init(calendar: Calendar) {
+    init(calendar: Calendar, selectedDate: Binding<Date>) {
         self.calendar = calendar
         self.days = calendar.makeDays()
+        self._selectedDate = selectedDate
 
         dateFormatter = DateFormatter(dateFormat: "EEE, dd MMM", calendar: calendar)
         dateFormatter.locale = .autoupdatingCurrent
@@ -78,6 +79,6 @@ struct CalendarView: View {
 
 struct CalenderView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarView(calendar: Calendar(identifier: .iso8601))
+        CalendarView(calendar: Calendar(identifier: .iso8601), selectedDate: .constant(Date()))
     }
 }
