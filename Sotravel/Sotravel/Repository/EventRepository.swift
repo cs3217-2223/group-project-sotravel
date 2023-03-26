@@ -12,7 +12,7 @@ protocol EventRepository {
     func getUserEvents(userId: UUID) async throws -> [Event]
     func create(event: Event) async throws -> Event
     func cancelEvent(id: Int) async throws
-    func rsvpToEvent(id: Int, status: EventRsvpStatus) async throws
+    func rsvpToEvent(eventId: Int, userId: UUID, status: EventRsvpStatus) async throws
 }
 
 enum EventRsvpStatus {
