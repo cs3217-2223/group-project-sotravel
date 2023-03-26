@@ -68,7 +68,13 @@ class EventRepositoryNode: EventRepository {
     }
 
     func cancelEvent(id: Int) async throws {
+        let body = [
+            "id": String(id),
+        ]
+        let (status, _) = try await EventRepositoryNode.api.post(path: .cancelInvite, data: body)
+        let functionName = "Cancel event"
 
+        try handleError(location: functionName, status: status)
     }
 
     func rsvpToEvent(eventId: Int, userId: UUID, status: EventRsvpStatus) async throws {
@@ -77,7 +83,7 @@ class EventRepositoryNode: EventRepository {
             "invite_id": String(eventId),
             "status": status == .yes ? "going" : "no"
         ]
-        let (status, response) = try await EventRepositoryNode.api.put(path: .updateInvite, data: body)
+        let (status, _) = try await EventRepositoryNode.api.put(path: .updateInvite, data: body)
         let functionName = "RSVP to event"
 
         try handleError(location: functionName, status: status)
