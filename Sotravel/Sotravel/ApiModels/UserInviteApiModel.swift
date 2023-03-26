@@ -15,6 +15,7 @@ struct UserInviteApiModel: Codable {
     let status: String?
     let details, date, time, location: String
     let meetingPoint, host, activity: String
+    let participants: Participants
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -23,6 +24,10 @@ struct UserInviteApiModel: Codable {
         case createdAt = "created_at"
         case status, details, date, time, location
         case meetingPoint = "meeting_point"
-        case host, activity
+        case host, activity, participants
     }
+}
+
+struct Participants: Codable {
+    let going, no, pending: [String]
 }

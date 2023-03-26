@@ -8,10 +8,10 @@ let mockEvent1 = Event(
     datetime: Date(timeIntervalSinceNow: 3_600),
     meetingPoint: "Hotel Lobby",
     location: "Railay Beach, Krabi",
-    hostUser: mockUser,
-    invitedUsers: mockFriends,
-    attendingUsers: mockFriends,
-    rejectedUsers: [mockFriends[2]]
+    hostUser: mockUser.id,
+    invitedUsers: mockFriends.map { $0.id },
+    attendingUsers: mockFriends.map { $0.id },
+    rejectedUsers: [mockFriends[2]].map { $0.id }
 )
 
 let mockEvent2 = Event(
@@ -22,10 +22,10 @@ let mockEvent2 = Event(
     datetime: Date(timeIntervalSinceNow: 7_200),
     meetingPoint: "Taxi Stand beside Hostel",
     location: "Tiger Cave Temple, Krabi",
-    hostUser: mockFriends[1],
-    invitedUsers: mockFriends,
-    attendingUsers: [mockFriends[1], mockFriends[3]],
-    rejectedUsers: [mockFriends[0]]
+    hostUser: mockFriends[1].id,
+    invitedUsers: mockFriends.map { $0.id },
+    attendingUsers: [mockFriends[1], mockFriends[3]].map { $0.id },
+    rejectedUsers: [mockFriends[0]].map { $0.id }
 )
 
 let mockEvent3 = Event(
@@ -36,9 +36,9 @@ let mockEvent3 = Event(
     datetime: Calendar.current.date(byAdding: DateComponents(day: -1), to: Date()) ?? Date(), // Set the event date to yesterday
     meetingPoint: "Coffee Shop beside Hostel",
     location: "Phi Phi Islands, Krabi",
-    hostUser: mockFriends[4],
-    invitedUsers: mockFriends,
-    attendingUsers: [mockFriends[4], mockFriends[5]],
+    hostUser: mockFriends[4].id,
+    invitedUsers: mockFriends.map { $0.id },
+    attendingUsers: [mockFriends[4], mockFriends[5]].map { $0.id },
     rejectedUsers: []
 )
 

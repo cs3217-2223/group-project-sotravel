@@ -46,14 +46,14 @@ struct AttendeesView: View {
                 Spacer()
             }
             .padding(.bottom, 10)
-
-            if selectedTab == 0 {
-                UserHorizontalListView(users: eventViewModel.attendingUsers)
-            } else if selectedTab == 1 {
-                UserHorizontalListView(users: eventViewModel.rejectedUsers)
-            } else if selectedTab == 2 {
-                UserHorizontalListView(users: eventViewModel.pendingUsers)
-            }
+            // TODO: Change this to resolve user id to user
+            //            if selectedTab == 0 {
+            //                UserHorizontalListView(users: eventViewModel.attendingUsers)
+            //            } else if selectedTab == 1 {
+            //                UserHorizontalListView(users: eventViewModel.rejectedUsers)
+            //            } else if selectedTab == 2 {
+            //                UserHorizontalListView(users: eventViewModel.pendingUsers)
+            //            }
         }
     }
 }

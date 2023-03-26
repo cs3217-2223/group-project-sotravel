@@ -8,34 +8,29 @@
 import Foundation
 
 class EventViewModel: ObservableObject {
-    var id: UUID
+    var id: Int
     @Published var title: String
     @Published var details: String?
     @Published var datetime: Date
     @Published var meetingPoint: String
     @Published var location: String
-    @Published var invitedUsers: [User]
-    @Published var attendingUsers: [User]
-    @Published var rejectedUsers: [User]
+    @Published var invitedUsers: [UUID]
+    @Published var attendingUsers: [UUID]
+    @Published var rejectedUsers: [UUID]
 
     var description: String {
         "\(title) at \(location)"
     }
 
-    var pendingUsers: [User] {
-        let respondedUsers = attendingUsers + rejectedUsers
-        return invitedUsers.filter { !respondedUsers.contains($0) }
-    }
-
-    init(id: UUID = UUID(),
+    init(id: Int = -1,
          title: String = "",
          details: String? = nil,
          datetime: Date = Date(),
          location: String = "",
          meetingPoint: String = "",
-         invitedUsers: [User] = [],
-         attendingUsers: [User] = [],
-         rejectedUsers: [User] = []) {
+         invitedUsers: [UUID] = [],
+         attendingUsers: [UUID] = [],
+         rejectedUsers: [UUID] = []) {
         self.id = id
         self.title = title
         self.details = details

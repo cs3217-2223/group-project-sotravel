@@ -30,7 +30,7 @@ class EventService: ObservableObject {
     }
 
     func findAttendingEvents(for user: User) -> [EventViewModel] {
-        let attendingEvents = events.filter { $0.attendingUsers.contains(user) }
+        let attendingEvents = events.filter { $0.attendingUsers.contains(user.id) }
         return attendingEvents.compactMap { eventToViewModels[$0] }
     }
 
