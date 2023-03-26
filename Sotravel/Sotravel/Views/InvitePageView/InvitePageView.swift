@@ -9,11 +9,12 @@ import SwiftUI
 
 struct InvitePageView: View {
     @EnvironmentObject var eventService: EventService
+    @State private var selectedDate = Date()
 
     var body: some View {
         NavigationView {
             VStack(spacing: 4) {
-                CalendarView(calendar: Calendar(identifier: .iso8601))
+                CalendarView(calendar: Calendar(identifier: .iso8601), selectedDate: $selectedDate)
                 ScrollView(.vertical) {
                     VStack(spacing: 20) {
                         // Shows all events, when you scroll past the current date, calendar view should auto update

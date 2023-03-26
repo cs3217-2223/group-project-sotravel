@@ -36,11 +36,9 @@ class UserService: ObservableObject {
                     DispatchQueue.main.async {
                         self.user = fetchedUser
                         self.handleUserPropertyChange()
-                        print("success")
                         completion(true)
                     }
                 } else {
-                    print("fail")
                     completion(false)
                 }
             } catch {
