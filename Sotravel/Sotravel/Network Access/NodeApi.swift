@@ -29,7 +29,8 @@ class NodeApi: RestApi {
         .inviteById: "/invites/getInviteById",
         .createInvite: "/invites/createInvite",
         .updateInvite: "/invites/updateUserInvitation",
-        .cancelInvite: "/invites/cancelInvitation"
+        .cancelInvite: "/invites/cancelInvitation",
+        .friends: "/friends/getAllFriends"
     ]
 
     func storeAuthToken(token: String) {
@@ -175,5 +176,6 @@ enum NodeApiPath {
          createInvite,
          inviteById,
          updateInvite,
-    cancelInvite
+         cancelInvite,
+         friends
 }

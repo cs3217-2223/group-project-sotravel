@@ -15,14 +15,14 @@ class UserRepositoryNode: UserRepository {
         let params = ["user_id": id.uuidString]
         let (status, response) = try await UserRepositoryNode.api.get(path: .profile,
                                                                       params: params)
+        let functionName = "Get User"
 
-        guard status == HTTPResponseStatus.ok, let response = response else {
-            throw SotravelError.AuthorizationError("Response from get user in repository is not HTTP 200", nil)
-        }
+        try ApiErrorHelper.handleError(location: functionName, status: status)
+        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
 
         do {
-            let responseModel = try JSONDecoder().decode(NodeApiUser.self, from: Data(response.utf8))
-            // Deserialize the response into a User object
+            let responseModel = try JSONDecoder().decode(NodeApiUser.self, from: Data(data.utf8))
+
             return try User(apiUser: responseModel)
         } catch is DecodingError {
             throw SotravelError.message("Unable to parse Get User response")
@@ -37,17 +37,38 @@ class UserRepositoryNode: UserRepository {
         // Make the API call to update the profile and return the result
         let (status, response) = try await UserRepositoryNode.api.post(path: .updateProfile,
                                                                        data: userToUpdate.dictionary)
+        let functionName = "Update User"
 
-        guard status == HTTPResponseStatus.ok, let response = response else {
-            throw SotravelError.AuthorizationError("Response from update user in repository is not HTTP 200", nil)
-        }
+        try ApiErrorHelper.handleError(location: functionName, status: status)
+        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
 
         do {
-            let responseModel = try JSONDecoder().decode(NodeApiUser.self, from: Data(response.utf8))
-            // Deserialize the response into a User object
+            let responseModel = try JSONDecoder().decode(NodeApiUser.self, from: Data(data.utf8))
+
             return try User(apiUser: responseModel)
         } catch is DecodingError {
-            throw SotravelError.message("Unable to parse Update User response")
+            throw SotravelError.DecodingError("Unable to parse Update User response")
+        }
+    }
+
+    func getAllFriends(id: UUID) async throws -> [Friend] {
+        let params = ["user_id": id.uuidString]
+        let (status, response) = try await UserRepositoryNode.api.get(path: .friends,
+                                                                      params: params)
+        let functionName = "Get Friends"
+
+        try ApiErrorHelper.handleError(location: functionName, status: status)
+        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
+
+        do {
+            let responseModel = try JSONDecoder().decode([UserFriendApiModel].self, from: Data(data.utf8))
+
+            let friends = responseModel.map { Friend(from: $0) }
+            return friends
+        } catch is DecodingError {
+            throw SotravelError.DecodingError("Unable to parse Get Friends response")
+        } catch {
+            throw error
         }
     }
 }

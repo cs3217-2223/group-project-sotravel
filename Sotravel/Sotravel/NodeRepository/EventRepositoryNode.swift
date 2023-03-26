@@ -14,15 +14,16 @@ class EventRepositoryNode: EventRepository {
     func get(id: Int) async throws -> Event {
         let params = ["invite_id": String(id)]
         let (status, response) = try await EventRepositoryNode.api.get(path: .inviteById, params: params)
+        let functionName = "Get event"
 
-        try handleError(location: "Get event", status: status)
-        let data = try handleNilResponse(location: "Get event", data: response)
+        try ApiErrorHelper.handleError(location: functionName, status: status)
+        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
 
         do {
             let responseModel = try JSONDecoder().decode(EventApiModel.self, from: Data(data.utf8))
             return Event(apiModel: responseModel)
         } catch is DecodingError {
-            throw SotravelError.message("Unable to parse Get Invite response")
+            throw SotravelError.DecodingError("Unable to parse Get Invite response")
         } catch {
             throw error
         }
@@ -31,19 +32,17 @@ class EventRepositoryNode: EventRepository {
     func getUserEvents(userId: UUID) async throws -> [Event] {
         let params = ["user_id": userId.uuidString]
         let (status, response) = try await EventRepositoryNode.api.get(path: .userInvites, params: params)
-        let functionName = "Get event"
+        let functionName = "Get User events"
 
-        try handleError(location: functionName, status: status)
-        let data = try handleNilResponse(location: functionName, data: response)
+        try ApiErrorHelper.handleError(location: functionName, status: status)
+        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
 
         do {
             let responseModel = try JSONDecoder().decode([EventApiModel].self, from: Data(data.utf8))
-            let events = responseModel.map {apiInvite in
-                Event(apiModel: apiInvite)
-            }
+            let events = responseModel.map { Event(apiModel: $0) }
             return events
         } catch is DecodingError {
-            throw SotravelError.message("Unable to parse Get User Invites response")
+            throw SotravelError.DecodingError("Unable to parse Get User Invites response")
         } catch {
             throw error
         }
@@ -54,14 +53,14 @@ class EventRepositoryNode: EventRepository {
         let (status, response) = try await EventRepositoryNode.api.post(path: .createInvite, data: apiModel.dictionary)
         let functionName = "Create event"
 
-        try handleError(location: functionName, status: status)
-        let data = try handleNilResponse(location: functionName, data: response)
+        try ApiErrorHelper.handleError(location: functionName, status: status)
+        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
 
         do {
             let responseModel = try JSONDecoder().decode(EventApiModel.self, from: Data(data.utf8))
             return Event(apiModel: responseModel)
         } catch is DecodingError {
-            throw SotravelError.message("Unable to parse Create Invites response")
+            throw SotravelError.DecodingError("Unable to parse Create Invites response")
         } catch {
             throw error
         }
@@ -69,12 +68,12 @@ class EventRepositoryNode: EventRepository {
 
     func cancelEvent(id: Int) async throws {
         let body = [
-            "id": String(id),
+            "id": String(id)
         ]
         let (status, _) = try await EventRepositoryNode.api.post(path: .cancelInvite, data: body)
         let functionName = "Cancel event"
 
-        try handleError(location: functionName, status: status)
+        try ApiErrorHelper.handleError(location: functionName, status: status)
     }
 
     func rsvpToEvent(eventId: Int, userId: UUID, status: EventRsvpStatus) async throws {
@@ -86,24 +85,6 @@ class EventRepositoryNode: EventRepository {
         let (status, _) = try await EventRepositoryNode.api.put(path: .updateInvite, data: body)
         let functionName = "RSVP to event"
 
-        try handleError(location: functionName, status: status)
+        try ApiErrorHelper.handleError(location: functionName, status: status)
     }
-
-    func handleError(location: String, status: HTTPResponseStatus) throws {
-        if status == HTTPResponseStatus.unauthorized {
-            throw SotravelError.AuthorizationError("[\(location)]: Call was unauthorized", nil)
-        }
-        if status != HTTPResponseStatus.ok {
-            throw SotravelError.NetworkError("[\(location)]: Call failed", nil)
-        }
-    }
-
-    func handleNilResponse(location: String, data: String?) throws -> String {
-        if data == nil {
-            throw SotravelError.NetworkError("[\(location)]: Call replied with nil data", nil)
-        } else {
-            return data!
-        }
-    }
-
 }
