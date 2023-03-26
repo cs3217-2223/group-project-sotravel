@@ -27,7 +27,7 @@ struct ChatView: View {
                     LazyVStack {
                         ForEach(chatService.chatMessageVMs) { chatMessageVM in
                             // Show the timestamp above the message for the first message in a group
-                            if shouldShowTimestampAboveMessage(for: chatMessageVM) {
+                            if chatService.shouldShowTimestampAboveMessage(for: chatMessageVM) {
                                 Text(chatMessageVM.messageTimestamp.toFriendlyShortString()).font(.caption)
                                     .foregroundColor(.gray)
                                     .padding(.top, 10)
@@ -73,37 +73,13 @@ struct ChatView: View {
     }
 
     func sendMessage() {
-        // TODO: send over to service
-        print("sending")
-        /*
-         guard let user = userService.user else {
-         // TODO: Throw a proper error here, mark this function as throws
-         return
-         }
-         let success = chatViewModel.sendChatMessage(messageText: messageText, sender: user, toChat: chat)
-         if !success {
-         // TODO: handle message send failure
-         return
-         }
-         messageText = ""
-         isSending = true
-         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-         isSending = false
-         }
-         */
-    }
-
-    func shouldShowTimestampAboveMessage(for chatMessageVM: ChatMessageViewModel) -> Bool {
-        // TODO: shift this logic to service
-        return true
-        //        guard let index = chat.messages.firstIndex(where: { $0.id == message.id }) else {
-        //            return false
-        //        }
-        //        if index == 0 {
-        //            return true
-        //        }
-        //        let previousMessage = chat.messages[index - 1]
-        //        return message.timestamp.timeIntervalSince(previousMessage.timestamp) > 60
+        isSending = true
+        let success = chatService.sendChatMessage(messageText: messageText)
+        if !success {
+            return
+        }
+        messageText = ""
+        isSending = false
     }
 }
 
