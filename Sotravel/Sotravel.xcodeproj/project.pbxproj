@@ -99,6 +99,8 @@
 		B485A8E129CEF76900786A34 /* EventRepositoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8E029CEF76900786A34 /* EventRepositoryNode.swift */; };
 		B485A8E329CEF83600786A34 /* InviteRepositoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8E229CEF83600786A34 /* InviteRepositoryNode.swift */; };
 		B485A8E529CF0C1600786A34 /* InviteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8E429CF0C1600786A34 /* InviteRepository.swift */; };
+		B485A8E729CF5CD000786A34 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8E629CF5CD000786A34 /* Invite.swift */; };
+		B485A8E929CF628F00786A34 /* UserInviteApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8E829CF628F00786A34 /* UserInviteApiModel.swift */; };
 		B4C3536129C0A5BE0073931C /* FriendRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536029C0A5BE0073931C /* FriendRepository.swift */; };
 		B4C3536329C0A5D30073931C /* TripRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536229C0A5D30073931C /* TripRepository.swift */; };
 		B4C3536529C0A64A0073931C /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536429C0A64A0073931C /* EventRepository.swift */; };
@@ -235,6 +237,8 @@
 		B485A8E029CEF76900786A34 /* EventRepositoryNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryNode.swift; sourceTree = "<group>"; };
 		B485A8E229CEF83600786A34 /* InviteRepositoryNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteRepositoryNode.swift; sourceTree = "<group>"; };
 		B485A8E429CF0C1600786A34 /* InviteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteRepository.swift; sourceTree = "<group>"; };
+		B485A8E629CF5CD000786A34 /* Invite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
+		B485A8E829CF628F00786A34 /* UserInviteApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInviteApiModel.swift; sourceTree = "<group>"; };
 		B4C3536029C0A5BE0073931C /* FriendRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRepository.swift; sourceTree = "<group>"; };
 		B4C3536229C0A5D30073931C /* TripRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRepository.swift; sourceTree = "<group>"; };
 		B4C3536429C0A64A0073931C /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
@@ -296,6 +300,7 @@
 				18C3660329C020D800AF0338 /* Chat.swift */,
 				188EBDB229C1B053002735F0 /* Trip.swift */,
 				AC28033129C61CC500687D62 /* ChatsStore.swift */,
+				B485A8E629CF5CD000786A34 /* Invite.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -622,6 +627,7 @@
 				B4E9461229C5C7C6001B65EE /* TelegramSignInResponse.swift */,
 				B46B0A6E29CCA9A2006F2BA2 /* UpdateUserApiModel.swift */,
 				B46B0A7029CCB148006F2BA2 /* Encodable+Subscriptable.swift */,
+				B485A8E829CF628F00786A34 /* UserInviteApiModel.swift */,
 			);
 			path = ApiModels;
 			sourceTree = "<group>";
@@ -864,9 +870,11 @@
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
 				18B33DAF29BE06E60036B51E /* CreateInvitePageView.swift in Sources */,
 				B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */,
+				B485A8E729CF5CD000786A34 /* Invite.swift in Sources */,
 				AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				B46B0A8129CEC6B4006F2BA2 /* MapViewModel.swift in Sources */,
+				B485A8E929CF628F00786A34 /* UserInviteApiModel.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,
 				AC32F96B29BA38CE0005F5B9 /* ProfilePageView.swift in Sources */,
 				AC11B87E29CB0C2500ADE703 /* EventService.swift in Sources */,
