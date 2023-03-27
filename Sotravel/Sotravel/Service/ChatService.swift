@@ -6,15 +6,17 @@
 //
 
 import Foundation
-// import Resolver
-import Combine
+import Resolver
+// import Combine
 
 class ChatService: ObservableObject {
+    var userId: UUID?
+    var chatId: UUID?
     @Published var chatPageCellVMs: [ChatPageCellViewModel]
     @Published var chatHeaderVM: ChatHeaderViewModel
     @Published var chatMessageVMs: [ChatMessageViewModel]
 
-    //    @Injected private var chatRepository: ChatRepository
+    @Injected private var chatRepository: ChatRepository
 
     init() {
         self.chatPageCellVMs = []
@@ -22,27 +24,76 @@ class ChatService: ObservableObject {
         self.chatMessageVMs = []
     }
 
+    func setUserId(user: User?) {
+        guard let user = user else {
+            return
+        }
+        userId = user.id
+    }
+
     func fetchChatPageCells() {
-        // TODO: call repository
-        let chatPageCell1 = ChatPageCellViewModel(chatTitle: "Title 1", lastMessageText: "Text 1",
-                                                  lastMessageSender: "Sender 1", lastMessageDate: Date.now,
-                                                  id: UUID(uuidString: "1B2BA24E-A86E-4383-B1AA-D1D7D51BD24A") ?? UUID())
-        let chatPageCell2 = ChatPageCellViewModel(chatTitle: "Title 2", lastMessageText: "Text 2",
-                                                  lastMessageSender: "Sender 2", lastMessageDate: Date.now,
-                                                  id: UUID(uuidString: "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A") ?? UUID())
-        let chatPageCell3 = ChatPageCellViewModel(chatTitle: "Title 3", lastMessageText: "Text 3",
-                                                  lastMessageSender: "Sender 3", lastMessageDate: Date.now,
-                                                  id: UUID(uuidString: "3B2BA24E-A86E-4383-B1AA-D1D7D51BD24A") ?? UUID())
-        chatPageCellVMs = [chatPageCell1, chatPageCell2, chatPageCell3]
+        guard let id = userId else {
+            return
+        }
+
+        let basicChats = chatRepository.getBasicInfoChats(userId: id)
+
+        // TODO: convert sender uuid to name (through user service?)
+        let mappedChatVMs = basicChats.map {
+            ChatPageCellViewModel(chatTitle: $0.title,
+                                  lastMessageText: $0.messages.last?.messageText ?? "",
+                                  lastMessageSender: $0.messages.last?.sender.uuidString ?? "",
+                                  lastMessageDate: $0.messages.last?.timestamp,
+                                  id: $0.id)
+        }
+        chatPageCellVMs = mappedChatVMs
     }
 
     func fetchChat(id: UUID) {
-        // TODO: call repository
-        let chatHeaderVM = ChatHeaderViewModel(chatTitle: "Title")
-        let chatMessage1 = ChatMessageViewModel(messageText: "Message 1", senderName: "Me", isSentByMe: true)
-        let chatMessage2 = ChatMessageViewModel(messageText: "Message 2", senderName: "Not Me", isSentByMe: false)
-        let chatMessage3 = ChatMessageViewModel(messageText: "Message 3", senderName: "Me", isSentByMe: true)
-        self.chatHeaderVM = chatHeaderVM
-        chatMessageVMs = [chatMessage1, chatMessage2, chatMessage3]
+        guard let userId = userId else {
+            return
+        }
+        chatId = id
+
+        let chat = chatRepository.getChat(chatId: id)
+
+        if let event = chat.event {
+            chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title, eventDatetime: event.datetime)
+        } else {
+            chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title)
+        }
+
+        // TODO: convert sender uuid to image src and name (through user service?)
+        chatMessageVMs = chat.messages.map {
+            ChatMessageViewModel(messageText: $0.messageText,
+                                 messageTimestamp: $0.timestamp,
+                                 senderImageSrc: $0.sender.uuidString,
+                                 senderName: $0.sender.uuidString,
+                                 isSentByMe: $0.sender == userId,
+                                 id: $0.id)
+        }
+    }
+
+    // to check the realtime update thingy
+    func sendChatMessage(messageText: String) -> Bool {
+        guard let userId = userId, let chatId = chatId else {
+            return false
+        }
+
+        let chatMessage = ChatMessage(messageText: messageText, timestamp: Date.now, sender: userId)
+        return chatRepository.sendChatMessage(chatMessage: chatMessage, chatId: chatId)
+    }
+
+    func shouldShowTimestampAboveMessage(for message: ChatMessageViewModel) -> Bool {
+        guard let index = chatMessageVMs.firstIndex(where: { $0.id == message.id }) else {
+            return false
+        }
+
+        if index == 0 {
+            return true
+        }
+
+        let previousMessage = chatMessageVMs[index - 1]
+        return message.messageTimestamp.timeIntervalSince(previousMessage.messageTimestamp) > 60
     }
 }

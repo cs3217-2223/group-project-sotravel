@@ -7,41 +7,35 @@
 
 import Foundation
 
-/*
- var user: User
- var databaseConnector: DatabaseConnector
- // TODO: maintain here a list of the user's chats in the form of ChatStore
- // TODO: place the VM into all the views so that the views no longer depend on the models
- // TODO: VM goes through DB to get the necessary information
+class ChatRepositoryFirebase: ChatRepository {
+    func getBasicInfoChats(userId: UUID) -> [Chat] {
+        // TODO: actual implementation - get api model from db, convert to model
+        let chat1message = ChatMessage(messageText: "c1m4", timestamp: Date.now, sender: mockNotMe.id)
+        let chat1 = Chat(messages: [chat1message], title: "chat1", members: [])
+        chat1.id = UUID(uuidString: "1B2BA24E-A86E-4383-B1AA-D1D7D51BD24A") ?? UUID()
+        let chat2message = ChatMessage(messageText: "c2m1", timestamp: Date.now, sender: mockMe.id)
+        let chat2 = Chat(messages: [chat2message], title: "chat2", members: [])
+        chat2.id = UUID(uuidString: "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A") ?? UUID()
+        let chat3message = ChatMessage(messageText: "c3m1", timestamp: Date.now, sender: mockMe.id)
+        let chat3 = Chat(messages: [chat3message], title: "chat3", members: [])
+        chat3.id = UUID(uuidString: "3B2BA24E-A86E-4383-B1AA-D1D7D51BD24A") ?? UUID()
+        return [chat1, chat2, chat3]
+    }
 
- init(user: User, databaseConnector: DatabaseConnector) {
- self.user = user
- self.databaseConnector = databaseConnector
- }
+    func getChat(chatId: UUID) -> Chat {
+        // TODO: actual implementation - get api model from db, convert to model
+        let message1 = ChatMessage(messageText: "c1m1", timestamp: Date.now, sender: mockMe.id)
+        let message2 = ChatMessage(messageText: "c1m2", timestamp: Date.now, sender: mockNotMe.id)
+        let message3 = ChatMessage(messageText: "c1m3", timestamp: Date.now, sender: mockMe.id)
+        let message4 = ChatMessage(messageText: "c1m4", timestamp: Date.now, sender: mockNotMe.id)
+        let chat = Chat(messages: [message1, message2, message3, message4],
+                        members: [mockMe, mockNotMe],
+                        event: mockEvent1)
+        return chat
+    }
 
- func sendChatMessage(messageText: String, sender: User, toChat chat: Chat) -> Bool {
- let newChatMessage = ChatMessage(messageText: messageText, timestamp: Date.now, sender: sender.id)
- let success = databaseConnector.sendChatMessage(chatMessage: newChatMessage, chat: chat)
- if success {
- chat.addChatMessage(newChatMessage) // is this needed?
- }
- return success
- }
-
- func getSenderDetails(chatMessage: ChatMessage) -> User {
- // TODO: get from a method in the User model
- mockFriends.first { $0.id == chatMessage.sender } ?? user
- }
-
- func getSenderImage(chatMessage: ChatMessage) -> String? {
- getSenderDetails(chatMessage: chatMessage).imageURL
- }
-
- func getSenderName(chatMessage: ChatMessage) -> String? {
- getSenderDetails(chatMessage: chatMessage).name
- }
-
- func test() {
- print("set chat")
- }
- */
+    func sendChatMessage(chatMessage: ChatMessage, chatId: UUID) -> Bool {
+        // TODO: actual implementation - convert to api model and send to db for storage
+        return true
+    }
+}

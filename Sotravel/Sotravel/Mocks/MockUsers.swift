@@ -140,6 +140,31 @@ let mockUser10 = User(
     friends: []
 )
 
+let mockMe = User(
+    id: UUID(uuidString: "003C8B4A-F831-43C8-9895-BF37DA40FA95") ?? UUID(),
+    firstName: "Me",
+    lastName: "Me",
+    description: "I am a snowboarding Junkie.",
+    imageURL: "https://sotravel-uploads.s3.amazonaws.com/1678271403175_blob.jpeg",
+    instagramUsername: "sotravel_sg",
+    tiktokUsername: "sotravel.me",
+    telegramUsername: "sotravel_sg",
+    friends: mockFriends
+)
+
+let mockNotMe = User(
+    id: UUID(uuidString: "103C8B4A-F831-43C8-9895-BF37DA40FA95") ?? UUID(),
+    firstName: "Not Me",
+    lastName: "Not Me",
+    description: "I am a snowboarding Junkie.",
+    // swiftlint:disable:next line_length
+    imageURL: "https://images.unsplash.com/photo-1505033575518-a36ea2ef75ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDB8fGZhY2UlMjBpbWFnZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+    instagramUsername: "gracelee",
+    tiktokUsername: "graceleetravel",
+    telegramUsername: "graceleetravels",
+    friends: [mockMe]
+)
+
 let mockFriends = [
     mockUser1,
     mockUser2,

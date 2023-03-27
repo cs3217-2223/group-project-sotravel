@@ -8,5 +8,7 @@
 import Foundation
 
 protocol ChatRepository {
-
+    func getBasicInfoChats(userId: UUID) -> [Chat]
+    func getChat(chatId: UUID) -> Chat
+    func sendChatMessage(chatMessage: ChatMessage, chatId: UUID) -> Bool
 }

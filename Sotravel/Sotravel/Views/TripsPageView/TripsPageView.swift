@@ -3,6 +3,7 @@ import SwiftUI
 struct TripsPageView: View {
     let trips: [Trip] = mockTrips
     @EnvironmentObject var chatService: ChatService
+    @EnvironmentObject var userService: UserService
 
     var body: some View {
         ScrollView {
@@ -18,6 +19,8 @@ struct TripsPageView: View {
                             TripCardView(trip: trip)
                         }.foregroundColor(.primary)
                         .simultaneousGesture(TapGesture().onEnded {
+                            // makes sense to just set it once i think...
+                            self.chatService.setUserId(user: self.userService.user)
                             self.chatService.fetchChatPageCells()
                         })
                     }
@@ -34,6 +37,7 @@ struct TripsPageView_Previews: PreviewProvider {
         NavigationView {
             TripsPageView()
                 .environmentObject(UserService())
+                .environmentObject(ChatService())
                 .environmentObject(EventsStore(events: mockEvents))
         }
     }
