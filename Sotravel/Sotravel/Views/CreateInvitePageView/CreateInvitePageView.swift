@@ -8,7 +8,7 @@ struct CreateInvitePageView: View {
     @State private var location: String = ""
     @State private var meetingPoint: String = ""
     @State private var description: String = ""
-    @State private var selectedAttendees: [User] = []
+    @State private var selectedAttendees: [UUID] = []
     @State private var selectedAttendeesOption: Int = 0
 
     let attendeesOptions = ["All Friends", "Selected friends"]
@@ -66,12 +66,12 @@ struct CreateInvitePageView: View {
                     } else {
                         ForEach(createInvitePageUserViewModel.friends, id: \.id) { friend in
                             Toggle(isOn: Binding(
-                                get: { self.selectedAttendees.contains(friend) },
+                                get: { self.selectedAttendees.contains(friend.id) },
                                 set: { selected in
                                     if selected {
-                                        self.selectedAttendees.append(friend)
+                                        self.selectedAttendees.append(friend.id)
                                     } else {
-                                        self.selectedAttendees.removeAll(where: { $0 == friend })
+                                        self.selectedAttendees.removeAll(where: { $0 == friend.id })
                                     }
                                 }
                             )) {

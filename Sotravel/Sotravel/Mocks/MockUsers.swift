@@ -140,7 +140,7 @@ let mockUser10 = User(
     friends: []
 )
 
-let mockFriends = [
+var mockFriends = [
     mockUser1,
     mockUser2,
     mockUser3,

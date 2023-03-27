@@ -10,7 +10,7 @@ import FirebaseDatabase
 import CoreLocation
 
 class DatabaseAdapter: DatabaseConnector {
-    //    private let databaseRef = Database.database().reference()
+    private let databaseRef = Database.database().reference()
     private let encoder = JSONEncoder()
 
     func sendChatMessage(chatMessage: ChatMessage, chat: Chat) -> Bool {

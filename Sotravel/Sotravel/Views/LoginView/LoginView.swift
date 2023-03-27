@@ -62,6 +62,9 @@ struct LoginView: View {
                             isLoading = true
                             userService.fetchUser(id: UUID()) { success in
                                 if success {
+                                    userService.fetchAllFriends(id: UUID()) { _ in
+                                        // empty for now
+                                    }
                                     isNavigationActive = true
                                 } else {
                                     isLoading = false

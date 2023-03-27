@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ProfileFriendsView: View {
+    @EnvironmentObject private var userService: UserService
     @ObservedObject var viewModel: ProfileFriendsViewModel
 
     var body: some View {
@@ -13,9 +14,15 @@ struct ProfileFriendsView: View {
             VStack(spacing: 0) {
                 let usersShown = viewModel.friends.prefix(3)
                 ForEach(Array(usersShown.enumerated()), id: \.element.id) { index, friend in
-                    NavigationLink(destination: FriendProfilePageView(friend: friend)) {
-                        UserListItemView(user: friend) {
+                    let user = userService.getUser(for: friend)
+                    NavigationLink(destination: FriendProfilePageView(friend: user)) {
+                        UserListItemView(user: user) {
                             ActionMenuButton()
+                        }
+                    }
+                    .onAppear {
+                        Task {
+                            await userService.fetchUserIfNeeded(for: friend)
                         }
                     }
                     if index != usersShown.count - 1 {

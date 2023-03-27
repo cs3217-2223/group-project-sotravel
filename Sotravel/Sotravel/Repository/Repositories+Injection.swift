@@ -10,6 +10,7 @@ import Resolver
 
 extension Resolver {
     public static func registerRepositories() {
-        register { UserRepositoryNode() }.implements(UserRepository.self)
+        register { UserRepositoryStub() }.implements(UserRepository.self)
+        register { EventRepositoryStub() }.implements(EventRepository.self)
     }
 }

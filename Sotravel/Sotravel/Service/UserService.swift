@@ -11,6 +11,7 @@ import Combine
 
 class UserService: ObservableObject {
     var user: User?
+    private var userCache: [UUID: User] = [:]
     @Published var profileHeaderVM: ProfileHeaderViewModel
     @Published var socialMediaLinksVM: SocialMediaLinksViewModel
     @Published var profileFriendsVM: ProfileFriendsViewModel
@@ -27,6 +28,25 @@ class UserService: ObservableObject {
         self.editProfileViewModel = EditProfileViewModel()
         self.createInvitePageViewModel = CreateInvitePageUserViewModel()
         self.eventPageViewModel = EventPageUserViewModel()
+    }
+
+    func getUser(for friend: Friend) -> User? {
+        userCache[friend.id]
+    }
+
+    func fetchUserIfNeeded(for friend: Friend) async {
+        if userCache[friend.id] == nil {
+            do {
+                if let fetchedUser = try await userRepository.get(id: friend.id) {
+                    DispatchQueue.main.async {
+                        self.userCache[friend.id] = fetchedUser
+                        self.objectWillChange.send()
+                    }
+                }
+            } catch {
+                print("Error fetching user:", error)
+            }
+        }
     }
 
     func fetchUser(id: UUID, completion: @escaping (Bool) -> Void) {
@@ -69,6 +89,22 @@ class UserService: ObservableObject {
         }
     }
 
+    func fetchAllFriends(id: UUID, completion: @escaping (Bool) -> Void) {
+        Task {
+            do {
+                let fetchedFriends = try await userRepository.getAllFriends(id: id)
+                DispatchQueue.main.async {
+                    self.profileFriendsVM.updateFrom(friends: fetchedFriends)
+                    self.createInvitePageViewModel.updateFrom(friends: fetchedFriends)
+                    completion(true)
+                }
+            } catch {
+                print("Error fetching friends:", error)
+                completion(false)
+            }
+        }
+    }
+
     func editUser(firstName: String,
                   lastName: String,
                   description: String,
@@ -95,9 +131,7 @@ class UserService: ObservableObject {
         }
         self.profileHeaderVM.updateFrom(user: user)
         self.socialMediaLinksVM.updateFrom(user: user)
-        self.profileFriendsVM.updateFrom(user: user)
         self.editProfileViewModel.updateFrom(user: user)
-        self.createInvitePageViewModel.updateFrom(user: user)
         self.eventPageViewModel.updateFrom(user: user)
     }
 }
