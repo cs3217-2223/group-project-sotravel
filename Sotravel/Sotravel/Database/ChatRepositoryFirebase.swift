@@ -14,67 +14,90 @@ class ChatRepositoryFirebase: ChatRepository {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 
-    func getBasicInfoChats(userId: UUID) -> [Chat] {
-        // TODO: get chat ids for the user
-        let chatIds = getChatIds(userId: userId)
-
-        // TODO: for each chat id, get the chat's basic info
-        var chatBasicInfoAMs: [ChatBasicInfoApiModel] = []
-        for chatId in chatIds {
-            guard let chatBasicInfoAM = getBasicInfo(of: chatId) else {
-                continue
-            }
-            chatBasicInfoAMs.append(chatBasicInfoAM)
-        }
-
-        // TODO: convert api model to model
-        let basicInfoChats: [Chat] = []
-        let databasePath = databaseRef.child("chats")
-        databasePath.getData(completion: { error, snapshot in
-            guard error == nil else {
-                print(error!.localizedDescription)
+    func getBasicInfoChats(userId: UUID, completion: @escaping ((Chat) -> Void)) {
+        getChatBasicInfoWithMessageAMs(userId: userId, completion: { chatBasicInfoWithMessageAM in
+            guard let lastMessage: ChatMessageApiModel = chatBasicInfoWithMessageAM.lastMessage else {
+                let chat = Chat(id: UUID(uuidString: chatBasicInfoWithMessageAM.id ?? "") ?? UUID(),
+                                messages: [],
+                                title: chatBasicInfoWithMessageAM.title ?? "",
+                                members: [])
+                completion(chat)
                 return
             }
-            guard let jsons = snapshot?.value as? [String: Any] else {
+            let message = ChatMessage(id: UUID(uuidString: lastMessage.id ?? "") ?? UUID(),
+                                      messageText: lastMessage.messageText ?? "",
+                                      timestamp: Date(timeIntervalSinceReferenceDate: lastMessage.timestamp),
+                                      sender: UUID(uuidString: lastMessage.sender ?? "") ?? UUID())
+
+            let chat = Chat(id: UUID(uuidString: chatBasicInfoWithMessageAM.id ?? "") ?? UUID(),
+                            messages: [message],
+                            title: chatBasicInfoWithMessageAM.title ?? "",
+                            members: [])
+            completion(chat)
+        })
+    }
+
+    private func getChatBasicInfoWithMessageAMs(userId: UUID,
+                                                completion: @escaping ((ChatBasicInfoWithMessageApiModel) -> Void)) {
+        getBasicInfoChatAMs(userId: userId, completion: { chatBasicInfoAM in
+            guard let chatId = chatBasicInfoAM.id, let messageId = chatBasicInfoAM.lastMessage else {
                 return
             }
-            for json in jsons {
-                let data = json.value
+            if messageId.isEmpty {
+                let chatBasicInfoWithMessageAM = ChatBasicInfoWithMessageApiModel(id: chatBasicInfoAM.id,
+                                                                                  title: chatBasicInfoAM.title,
+                                                                                  lastMessage: nil)
+                completion(chatBasicInfoWithMessageAM)
+                return
+            }
+
+            let databasePath = self.databaseRef.child("messages/\(chatId)/\(messageId)")
+            databasePath.getData(completion: { error, snapshot in
+                guard error == nil else {
+                    print(error!.localizedDescription)
+                    return
+                }
+                guard let json = snapshot?.value as? [String: Any] else {
+                    return
+                }
                 do {
-                    let chatBasicInfoData = try JSONSerialization.data(withJSONObject: data)
-                    let chatBasicInfo = try self.decoder.decode(ChatBasicInfoApiModel.self, from: chatBasicInfoData)
-                    // print(chatBasicInfo.title)
-                    // TODO: api model to model
+                    let chatMessageAMData = try JSONSerialization.data(withJSONObject: json)
+                    let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
+                    let chatBasicInfoWithMessageAM = ChatBasicInfoWithMessageApiModel(id: chatBasicInfoAM.id,
+                                                                                      title: chatBasicInfoAM.title,
+                                                                                      lastMessage: chatMessageAM)
+                    completion(chatBasicInfoWithMessageAM)
                 } catch {
                     print("An error occurred", error)
                 }
-            }
+            })
         })
-
-        return basicInfoChats
     }
 
-    private func getBasicInfo(of chatId: String) -> ChatBasicInfoApiModel? {
-        let databasePath = databaseRef.child("chats/\(chatId)")
-        let chatBasicInfoAM: ChatBasicInfoApiModel? = nil
-        databasePath.getData(completion: { error, snapshot in
-            guard error == nil else {
-                print(error!.localizedDescription)
-                return
-            }
-            guard let json = snapshot?.value as? [String: Any] else {
-                return
-            }
-            print(json)
+    private func getBasicInfoChatAMs(userId: UUID, completion: @escaping ((ChatBasicInfoApiModel) -> Void)) {
+        getChatIds(userId: userId, completion: { chatId in
+            let databasePath = self.databaseRef.child("chats/\(chatId)")
+            databasePath.getData(completion: { error, snapshot in
+                guard error == nil else {
+                    print(error!.localizedDescription)
+                    return
+                }
+                guard let json = snapshot?.value as? [String: Any] else {
+                    return
+                }
+                do {
+                    let chatBasicInfoAMData = try JSONSerialization.data(withJSONObject: json)
+                    let chatBasicInfoAM = try self.decoder.decode(ChatBasicInfoApiModel.self, from: chatBasicInfoAMData)
+                    completion(chatBasicInfoAM)
+                } catch {
+                    print("An error occurred", error)
+                }
+            })
         })
-
-        return chatBasicInfoAM
     }
 
-    private func getChatIds(userId: UUID) -> [String] {
-        let databasePath = databaseRef.child("userChats/\(userId.uuidString)")
-        var chatIds: [String] = []
-
+    private func getChatIds(userId: UUID, completion: @escaping ((String) -> Void)) {
+        let databasePath = self.databaseRef.child("userChats/\(userId.uuidString)")
         databasePath.getData(completion: { error, snapshot in
             guard error == nil else {
                 print(error!.localizedDescription)
@@ -84,11 +107,10 @@ class ChatRepositoryFirebase: ChatRepository {
                 return
             }
             for json in jsons {
-                chatIds.append(json.value)
+                let chatId = json.value
+                completion(chatId)
             }
         })
-
-        return chatIds
     }
 
     func getChat(chatId: UUID) -> Chat {

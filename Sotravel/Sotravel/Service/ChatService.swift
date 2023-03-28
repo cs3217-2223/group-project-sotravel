@@ -36,17 +36,14 @@ class ChatService: ObservableObject {
             return
         }
 
-        let basicChats = chatRepository.getBasicInfoChats(userId: id)
-
-        // TODO: convert sender uuid to name (through user service?)
-        let mappedChatVMs = basicChats.map {
-            ChatPageCellViewModel(chatTitle: $0.title,
-                                  lastMessageText: $0.messages.last?.messageText ?? "",
-                                  lastMessageSender: $0.messages.last?.sender.uuidString ?? "",
-                                  lastMessageDate: $0.messages.last?.timestamp,
-                                  id: $0.id)
-        }
-        chatPageCellVMs = mappedChatVMs
+        chatRepository.getBasicInfoChats(userId: id, completion: { basicChat in
+            let mappedChatVM = ChatPageCellViewModel(chatTitle: basicChat.title,
+                                                     lastMessageText: basicChat.messages.last?.messageText,
+                                                     lastMessageSender: basicChat.messages.last?.sender.uuidString,
+                                                     lastMessageDate: basicChat.messages.last?.timestamp,
+                                                     id: basicChat.id)
+            self.chatPageCellVMs.append(mappedChatVM) // TODO: sort?
+        })
     }
 
     func fetchChat(id: UUID) {

@@ -14,7 +14,7 @@ class ChatPageCellViewModel: ObservableObject, Identifiable {
     @Published var lastMessageTimestamp: String?
     var id: UUID
 
-    init(chatTitle: String = "", lastMessageText: String = "", lastMessageSender: String = "", lastMessageDate: Date? = nil, id: UUID = UUID()) {
+    init(chatTitle: String = "", lastMessageText: String? = nil, lastMessageSender: String? = nil, lastMessageDate: Date? = nil, id: UUID = UUID()) {
         self.chatTitle = chatTitle
         self.lastMessageText = lastMessageText
         self.lastMessageSender = lastMessageSender
