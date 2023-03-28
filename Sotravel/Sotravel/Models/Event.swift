@@ -2,6 +2,7 @@ import Foundation
 
 class Event: Hashable, Identifiable {
     var id: Int
+    var tripId: Int
     var title: String
     var details: String?
     var status: String?
@@ -18,6 +19,7 @@ class Event: Hashable, Identifiable {
     }
 
     init(id: Int = -1,
+         tripId: Int,
          title: String,
          details: String?,
          status: String?,
@@ -29,6 +31,7 @@ class Event: Hashable, Identifiable {
          attendingUsers: [UUID] = [],
          rejectedUsers: [UUID] = []) {
         self.id = id
+        self.tripId = tripId
         self.title = title
         self.details = details
         self.status = status
@@ -43,6 +46,7 @@ class Event: Hashable, Identifiable {
 
     init(apiModel: EventApiModel) {
         self.id = apiModel.id
+        self.tripId = apiModel.tripId
         self.title = apiModel.activity
         // TODO: Don't do this
         self.hostUser = UUID(uuidString: apiModel.host) ?? UUID()

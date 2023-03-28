@@ -18,7 +18,7 @@ class NodeApi: RestApi {
     internal let baseScheme = "https"
     internal let baseUrl = "qa-api.sotravel.me"
     internal let basePathPrefix = "/v1"
-    private let default_timeout: Int64 = 30
+    private let default_timeout: Int64 = 60
     private let authTokenKey: String = "nodeApiBearerToken"
 
     internal let pathEnumToStr: [Path: String] = [

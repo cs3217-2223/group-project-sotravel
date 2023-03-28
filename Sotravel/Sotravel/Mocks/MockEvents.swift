@@ -1,6 +1,8 @@
 import Foundation
 
 let mockEvent1 = Event(
+    id: 1,
+    tripId: 1,
     title: "Climbing",
     // swiftlint:disable:next line_length
     details: "Join me for a fun day of rock climbing at Railay Beach, one of the most beautiful spots in Krabi. We'll explore the limestone cliffs and try some challenging routes, all while enjoying the stunning views of the ocean. No prior climbing experience necessary!",
@@ -15,6 +17,8 @@ let mockEvent1 = Event(
 )
 
 let mockEvent2 = Event(
+    id: 2,
+    tripId: 1,
     title: "Hike",
     // swiftlint:disable:next line_length
     details: "Let's hike up to the Tiger Cave Temple, a beautiful and peaceful Buddhist temple located at the top of a hill. The climb is steep, but the views from the top are breathtaking. Don't forget to bring your camera!",
@@ -29,6 +33,8 @@ let mockEvent2 = Event(
 )
 
 let mockEvent3 = Event(
+    id: 3,
+    tripId: 1,
     title: "Island Hopping",
     // swiftlint:disable:next line_length
     details: "Join me for a day of island hopping at the stunning Phi Phi Islands. We'll visit several beautiful beaches and snorkel in the crystal-clear waters. Lunch will be provided on the boat, and we'll end the day with a beautiful sunset view.",
@@ -43,6 +49,8 @@ let mockEvent3 = Event(
 )
 
 let mockEvent4 = Event(
+    id: 4,
+    tripId: 1,
     title: "Skinny Dip",
     // swiftlint:disable:next line_length
     details: "Let's take a dip in the beautiful Emerald Pool, a natural swimming pool surrounded by lush jungle. We'll hike through the forest and enjoy the serene surroundings before cooling off in the refreshing water.",
@@ -57,6 +65,8 @@ let mockEvent4 = Event(
 )
 
 let mockEvent5 = Event(
+    id: 5,
+    tripId: 1,
     title: "Kayaking",
     // swiftlint:disable:next line_length
     details: "Let's spend the day kayaking in the stunning mangrove forests of Ao Thalane. We'll paddle through the winding waterways, stopping to admire the wildlife and soak up the beautiful surroundings.",
@@ -71,6 +81,8 @@ let mockEvent5 = Event(
 )
 
 let mockEvent6 = Event(
+    id: 6,
+    tripId: 1,
     title: "Beach Volleyball",
     // swiftlint:disable:next line_length
     details: "Join me for a friendly game of beach volleyball at Ao Nang Beach. All skill levels welcome, let's just have some fun in the sun!",
@@ -85,6 +97,8 @@ let mockEvent6 = Event(
 )
 
 let mockEvent7 = Event(
+    id: 7,
+    tripId: 1,
     title: "Thai Cooking Class",
     // swiftlint:disable:next line_length
     details: "Let's learn how to cook some classic Thai dishes together! We'll start by shopping for ingredients at the local market, then head back to the kitchen to prepare a delicious meal. No prior cooking experience necessary!",
@@ -99,6 +113,8 @@ let mockEvent7 = Event(
 )
 
 let mockEvent8 = Event(
+    id: 8,
+    tripId: 1,
     title: "Muay Thai Class",
     // swiftlint:disable:next line_length
     details: "Join me for a high-energy workout at the local Muay Thai gym. We'll learn some basic techniques and get a great cardio workout at the same time. No prior experience necessary!",
@@ -128,6 +144,7 @@ let mockEventss: [Event] = (0..<35).map { index in
     let meetingPoint = ["Hotel Lobby", "Hostel Reception", "Coffee Shop", "Train Station"].randomElement()!
     let details = "This is a mock event"
     return Event(id: index,
+                 tripId: 1,
                  title: title,
                  details: details,
                  status: "",

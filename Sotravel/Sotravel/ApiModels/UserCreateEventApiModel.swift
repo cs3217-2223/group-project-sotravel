@@ -8,6 +8,7 @@
 import Foundation
 
 struct UserCreateEventApiModel: Codable {
+    let tripId: Int
     let details: String?
     let activity, date, time: String
     let location, meetingPoint: String
@@ -15,11 +16,13 @@ struct UserCreateEventApiModel: Codable {
 
     enum CodingKeys: String, CodingKey {
         case activity, details, date, time, location
+        case tripId = "trip_id"
         case meetingPoint = "meeting_point"
         case sendToUserIDS = "send_to_user_ids"
     }
 
     init(from event: Event) {
+        self.tripId = event.tripId
         self.activity = event.title
         self.details = event.details
         let dateFormatter = DateFormatter()
