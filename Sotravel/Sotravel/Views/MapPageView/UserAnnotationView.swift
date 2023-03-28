@@ -1,20 +1,15 @@
-import MapKit
+import SwiftUI
 
-class UserAnnotationView: MKAnnotationView {
-    static let identifier = "UserAnnotationView"
+struct UserAnnotationView: View {
+    var user: User
 
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        setupView()
-    }
+    var body: some View {
+        ZStack {
+            Circle()
+                .frame(width: 40, height: 40)
+                .foregroundColor(.white)
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupView()
-    }
-
-    private func setupView() {
-        canShowCallout = true
-        image = UIImage(named: "default_user_image") // Replace with the default user image name
+            ProfileImageView(imageSrc: user.imageURL, name: user.name, width: 36, height: 36)
+        }
     }
 }
