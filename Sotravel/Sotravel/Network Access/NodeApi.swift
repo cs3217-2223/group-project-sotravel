@@ -32,7 +32,7 @@ class NodeApi: RestApi {
         // Trips
         .userTrips: "/trip/getUserTrips",
         // Events/Invites
-        .userInvites: "/invites/getUserInvites",
+        .userInvites: "/invites/getUserInvitesForTrip",
         .inviteById: "/invites/getInviteById",
         .createInvite: "/invites/createInvite",
         .updateInvite: "/invites/updateUserInvitation",

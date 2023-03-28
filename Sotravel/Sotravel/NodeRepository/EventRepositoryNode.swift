@@ -29,8 +29,9 @@ class EventRepositoryNode: EventRepository {
         }
     }
 
-    func getUserEvents(userId: UUID) async throws -> [Event] {
-        let params = ["user_id": userId.uuidString]
+    func getUserEvents(userId: UUID, tripId: Int) async throws -> [Event] {
+        let params = ["user_id": userId.uuidString,
+                      "trip_id": String(tripId)]
         let (status, response) = try await EventRepositoryNode.api.get(path: .userInvites, params: params)
         let functionName = "Get User events"
 

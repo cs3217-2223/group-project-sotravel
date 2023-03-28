@@ -66,7 +66,8 @@ struct LoginView: View {
                                     userService.fetchAllFriends(tripId: 1) { _ in
                                         // empty for now
                                     }
-                                    eventService.loadUserEvents()
+                                    // TODO: Remove hardcoded trip id
+                                    eventService.loadUserEvents(forTrip: 1)
                                     isNavigationActive = true
                                 } else {
                                     isLoading = false

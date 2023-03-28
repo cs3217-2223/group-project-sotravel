@@ -23,11 +23,11 @@ class EventService: ObservableObject {
         self.eventToViewModels = [:]
     }
 
-    func loadUserEvents() {
+    func loadUserEvents(forTrip tripId: Int) {
         let userId = mockUser.id // Replace this with the actual user ID
         Task {
             do {
-                let events = try await eventRepository.getUserEvents(userId: userId)
+                let events = try await eventRepository.getUserEvents(userId: userId, tripId: tripId)
                 DispatchQueue.main.async {
                     self.events = events
                     self.createEventViewModels(from: events)

@@ -9,7 +9,7 @@ import Foundation
 
 protocol EventRepository {
     func get(id: Int) async throws -> Event
-    func getUserEvents(userId: UUID) async throws -> [Event]
+    func getUserEvents(userId: UUID, tripId: Int) async throws -> [Event]
     func create(event: Event) async throws -> Event
     func cancelEvent(id: Int) async throws
     func rsvpToEvent(eventId: Int, userId: UUID, status: EventRsvpStatus) async throws
@@ -29,9 +29,10 @@ class EventRepositoryStub: EventRepository {
         return mockEvent1
     }
 
-    func getUserEvents(userId: UUID) async throws -> [Event] {
+    func getUserEvents(userId: UUID, tripId: Int) async throws -> [Event] {
         var events: [Event] = []
-        for event in dataBase where event.hostUser == userId || event.invitedUsers.contains(userId) {
+        for event in dataBase where (event.tripId == tripId
+                                        && (event.hostUser == userId || event.invitedUsers.contains(userId))) {
             events.append(event)
         }
         print(events.count)
