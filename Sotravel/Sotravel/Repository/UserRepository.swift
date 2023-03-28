@@ -9,7 +9,7 @@ import Foundation
 
 protocol UserRepository {
     func get(id: UUID) async throws -> User?
-    func getAllFriends(id: UUID) async throws -> [Friend]
+    func getAllFriendsOnTrip(tripId: Int) async throws -> [User]
     func update(user: User) async throws -> User?
 }
 
@@ -27,8 +27,8 @@ class UserRepositoryStub: UserRepository {
         return mockUser
     }
 
-    func getAllFriends(id: UUID) async throws -> [Friend] {
-        mockFriendss
+    func getAllFriendsOnTrip(tripId: Int) async throws -> [User] {
+        mockFriends
     }
 
     func update(user: User) async throws -> User? {

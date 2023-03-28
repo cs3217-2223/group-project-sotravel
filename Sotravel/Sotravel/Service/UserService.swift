@@ -30,11 +30,11 @@ class UserService: ObservableObject {
         self.eventPageViewModel = EventPageUserViewModel()
     }
 
-    func getUser(for friend: Friend) -> User? {
+    func getUser(for friend: User) -> User? {
         userCache[friend.id]
     }
 
-    func fetchUserIfNeeded(for friend: Friend) async {
+    func fetchUserIfNeeded(for friend: User) async {
         if userCache[friend.id] == nil {
             do {
                 if let fetchedUser = try await userRepository.get(id: friend.id) {
@@ -104,10 +104,10 @@ class UserService: ObservableObject {
         }
     }
 
-    func fetchAllFriends(id: UUID, completion: @escaping (Bool) -> Void) {
+    func fetchAllFriends(tripId: Int, completion: @escaping (Bool) -> Void) {
         Task {
             do {
-                let fetchedFriends = try await userRepository.getAllFriends(id: id)
+                let fetchedFriends = try await userRepository.getAllFriendsOnTrip(tripId: tripId)
                 DispatchQueue.main.async {
                     self.profileFriendsVM.updateFrom(friends: fetchedFriends)
                     self.createInvitePageViewModel.updateFrom(friends: fetchedFriends)

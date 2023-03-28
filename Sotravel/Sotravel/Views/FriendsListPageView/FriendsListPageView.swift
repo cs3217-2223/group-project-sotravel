@@ -4,8 +4,8 @@ struct FriendsListPageView: View {
     @EnvironmentObject private var userService: UserService
     @State private var searchText = ""
 
-    var friends: [Friend]
-    var filteredFriends: [Friend] {
+    var friends: [User]
+    var filteredFriends: [User] {
         if searchText.isEmpty {
             return friends
         } else {
@@ -49,6 +49,6 @@ struct FriendsListPageView: View {
 
 struct FriendsListPageView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendsListPageView(friends: mockFriendss)
+        FriendsListPageView(friends: mockFriends)
     }
 }

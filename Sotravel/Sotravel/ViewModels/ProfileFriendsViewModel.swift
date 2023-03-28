@@ -7,13 +7,13 @@
 import Foundation
 
 class ProfileFriendsViewModel: ObservableObject {
-    @Published var friends: [Friend]
+    @Published var friends: [User]
 
-    init(friends: [Friend] = []) {
+    init(friends: [User] = []) {
         self.friends = friends
     }
 
-    func updateFrom(friends: [Friend]) {
+    func updateFrom(friends: [User]) {
         DispatchQueue.main.async {
             self.friends = friends
         }

@@ -63,7 +63,7 @@ struct LoginView: View {
                             isLoading = true
                             userService.fetchUser(id: UUID()) { success in
                                 if success {
-                                    userService.fetchAllFriends(id: UUID()) { _ in
+                                    userService.fetchAllFriends(tripId: 1) { _ in
                                         // empty for now
                                     }
                                     eventService.loadUserEvents()

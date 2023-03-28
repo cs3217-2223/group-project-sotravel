@@ -28,7 +28,7 @@ class NodeApi: RestApi {
         .profile: "/user/getUser",
         .updateProfile: "/user/updateUser",
         // Friends
-        .friends: "/friends/getAllFriends",
+        .friends: "/trip/getUsersOnTrips",
         // Trips
         .userTrips: "/trip/getUserTrips",
         // Events/Invites
@@ -36,8 +36,7 @@ class NodeApi: RestApi {
         .inviteById: "/invites/getInviteById",
         .createInvite: "/invites/createInvite",
         .updateInvite: "/invites/updateUserInvitation",
-        .cancelInvite: "/invites/cancelInvitation",
-        
+        .cancelInvite: "/invites/cancelInvitation"
     ]
 
     func storeAuthToken(token: String) {
@@ -120,14 +119,19 @@ class NodeApi: RestApi {
     }
 
     private func constructUrl(path: Path, params: [String: String]?) -> URL? {
-        guard let path = pathEnumToStr[path] else {
+        guard let pathStr = pathEnumToStr[path] else {
             return nil
         }
 
         var components = URLComponents()
         components.scheme = baseScheme
         components.host = baseUrl
-        components.path = basePathPrefix + path
+
+        if path == .friends {
+            components.path = "/v2" + pathStr
+        } else {
+            components.path = basePathPrefix + pathStr
+        }
 
         if let params = params {
             components.queryItems = params.map {
