@@ -90,6 +90,8 @@
 		B43AFA6B29CA0E230029AB85 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = B43AFA6A29CA0E230029AB85 /* Resolver */; };
 		B43AFA6D29CA0E9F0029AB85 /* Repositories+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */; };
 		B44CB22B29C03954007588DC /* MainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44CB22A29C03954007588DC /* MainRepository.swift */; };
+		B4671ED529D2077F00266871 /* TripRepositoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4671ED429D2077F00266871 /* TripRepositoryNode.swift */; };
+		B4671ED729D2DB4600266871 /* GetAllTripsApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4671ED629D2DB4600266871 /* GetAllTripsApiModel.swift */; };
 		B46B0A6F29CCA9A2006F2BA2 /* UpdateUserApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46B0A6E29CCA9A2006F2BA2 /* UpdateUserApiModel.swift */; };
 		B46B0A7129CCB148006F2BA2 /* Encodable+Subscriptable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46B0A7029CCB148006F2BA2 /* Encodable+Subscriptable.swift */; };
 		B46B0A8129CEC6B4006F2BA2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */; };
@@ -231,6 +233,8 @@
 		B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swif.swift"; sourceTree = "<group>"; };
 		B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repositories+Injection.swift"; sourceTree = "<group>"; };
 		B44CB22A29C03954007588DC /* MainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRepository.swift; sourceTree = "<group>"; };
+		B4671ED429D2077F00266871 /* TripRepositoryNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRepositoryNode.swift; sourceTree = "<group>"; };
+		B4671ED629D2DB4600266871 /* GetAllTripsApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllTripsApiModel.swift; sourceTree = "<group>"; };
 		B46B0A6E29CCA9A2006F2BA2 /* UpdateUserApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserApiModel.swift; sourceTree = "<group>"; };
 		B46B0A7029CCB148006F2BA2 /* Encodable+Subscriptable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Subscriptable.swift"; sourceTree = "<group>"; };
 		B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -590,6 +594,7 @@
 				B4C3536B29C0A7930073931C /* UserRepositoryNode.swift */,
 				B485A8E029CEF76900786A34 /* EventRepositoryNode.swift */,
 				B485A8F629D0709300786A34 /* ApiErrorHelper.swift */,
+				B4671ED429D2077F00266871 /* TripRepositoryNode.swift */,
 			);
 			path = NodeRepository;
 			sourceTree = "<group>";
@@ -636,6 +641,7 @@
 				B485A8E829CF628F00786A34 /* EventApiModel.swift */,
 				B485A8F029D04ADE00786A34 /* UserCreateEventApiModel.swift */,
 				B485A8F429D06F3200786A34 /* UserFriendApiModel.swift */,
+				B4671ED629D2DB4600266871 /* GetAllTripsApiModel.swift */,
 			);
 			path = ApiModels;
 			sourceTree = "<group>";
@@ -810,6 +816,7 @@
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
 				18591C8829BD73FF00FA987D /* User.swift in Sources */,
 				B4C3536829C0A7160073931C /* ChatRepository.swift in Sources */,
+				B4671ED729D2DB4600266871 /* GetAllTripsApiModel.swift in Sources */,
 				188C147729CDC13500531F9F /* LocationManagerService.swift in Sources */,
 				B43AFA6D29CA0E9F0029AB85 /* Repositories+Injection.swift in Sources */,
 				AC32F96029BA2A930005F5B9 /* ChatPageView.swift in Sources */,
@@ -829,7 +836,6 @@
 				18C3660629C0227C00AF0338 /* ChatMessageView.swift in Sources */,
 				18D9714429BD9AF80064DC2A /* EventsStore.swift in Sources */,
 				B485A8F129D04ADE00786A34 /* UserCreateEventApiModel.swift in Sources */,
-				AC28033729C61D7D00687D62 /* ChatViewModelDelegate.swift in Sources */,
 				B485A8F729D0709300786A34 /* ApiErrorHelper.swift in Sources */,
 				AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */,
 				AC63059E29BDA43F00EEEA85 /* ChatHeaderView.swift in Sources */,
@@ -851,6 +857,7 @@
 				ACA4016329C765DC0076E183 /* ProfileHeaderViewModel.swift in Sources */,
 				1893D29329BF295400B61BC9 /* ChatMessage.swift in Sources */,
 				188EBDB529C1B08B002735F0 /* URLImageView.swift in Sources */,
+				B4671ED529D2077F00266871 /* TripRepositoryNode.swift in Sources */,
 				AC32F96229BA2AD90005F5B9 /* ChatPageCellView.swift in Sources */,
 				185CBD0E29CC0FE6008C3B79 /* FriendsLocationViewModel.swift in Sources */,
 				18A1AC5629BB12940064CF37 /* Calendar.swift in Sources */,

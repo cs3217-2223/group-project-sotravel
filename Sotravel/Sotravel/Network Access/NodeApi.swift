@@ -22,15 +22,22 @@ class NodeApi: RestApi {
     private let authTokenKey: String = "nodeApiBearerToken"
 
     internal let pathEnumToStr: [Path: String] = [
+        // Login
         .telegramSignIn: "/user/telegramSignin",
+        // Profile
         .profile: "/user/getUser",
         .updateProfile: "/user/updateUser",
+        // Friends
+        .friends: "/friends/getAllFriends",
+        // Trips
+        .userTrips: "/trip/getUserTrips",
+        // Events/Invites
         .userInvites: "/invites/getUserInvites",
         .inviteById: "/invites/getInviteById",
         .createInvite: "/invites/createInvite",
         .updateInvite: "/invites/updateUserInvitation",
         .cancelInvite: "/invites/cancelInvitation",
-        .friends: "/friends/getAllFriends"
+        
     ]
 
     func storeAuthToken(token: String) {
@@ -177,5 +184,6 @@ enum NodeApiPath {
          inviteById,
          updateInvite,
          cancelInvite,
-         friends
+         friends,
+         userTrips
 }
