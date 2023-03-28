@@ -21,19 +21,17 @@ class EventService: ObservableObject {
         self.events = []
         self.eventViewModels = []
         self.eventToViewModels = [:]
-
-        // loadUserEvents()
     }
 
-    private func loadUserEvents() {
-        let userId = UUID() // Replace this with the actual user ID
+    func loadUserEvents() {
+        let userId = mockUser.id // Replace this with the actual user ID
         Task {
             do {
                 let events = try await eventRepository.getUserEvents(userId: userId)
                 DispatchQueue.main.async {
                     self.events = events
                     self.createEventViewModels(from: events)
-                    self.handleEventsPropertyChange()
+                    self.objectWillChange.send()
                 }
             } catch {
                 print("Error loading user events:", error)

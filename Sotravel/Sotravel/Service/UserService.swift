@@ -11,7 +11,7 @@ import Combine
 
 class UserService: ObservableObject {
     var user: User?
-    private var userCache: [UUID: User] = [:]
+    @Published var userCache: [UUID: User] = [:]
     @Published var profileHeaderVM: ProfileHeaderViewModel
     @Published var socialMediaLinksVM: SocialMediaLinksViewModel
     @Published var profileFriendsVM: ProfileFriendsViewModel
@@ -40,6 +40,21 @@ class UserService: ObservableObject {
                 if let fetchedUser = try await userRepository.get(id: friend.id) {
                     DispatchQueue.main.async {
                         self.userCache[friend.id] = fetchedUser
+                        self.objectWillChange.send()
+                    }
+                }
+            } catch {
+                print("Error fetching user:", error)
+            }
+        }
+    }
+
+    func fetchUserIfNeededFrom(id: UUID) async {
+        if userCache[id] == nil {
+            do {
+                if let fetchedUser = try await userRepository.get(id: id) {
+                    DispatchQueue.main.async {
+                        self.userCache[id] = fetchedUser
                         self.objectWillChange.send()
                     }
                 }

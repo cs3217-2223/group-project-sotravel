@@ -9,8 +9,8 @@ let mockEvent1 = Event(
     meetingPoint: "Hotel Lobby",
     location: "Railay Beach, Krabi",
     hostUser: mockUser.id,
-    invitedUsers: mockFriendss.map { $0.id },
-    attendingUsers: mockFriendss.map { $0.id },
+    invitedUsers: mockFriendss.map { $0.id } + [mockUser.id],
+    attendingUsers: [mockFriendss[1]].map { $0.id } + [mockUser.id],
     rejectedUsers: [mockFriendss[2]].map { $0.id }
 )
 
@@ -23,7 +23,7 @@ let mockEvent2 = Event(
     meetingPoint: "Taxi Stand beside Hostel",
     location: "Tiger Cave Temple, Krabi",
     hostUser: mockFriendss[1].id,
-    invitedUsers: mockFriendss.map { $0.id } + [mockUser.id],
+    invitedUsers: mockFriendss.map { $0.id },
     attendingUsers: [mockFriendss[1], mockFriendss[3]].map { $0.id },
     rejectedUsers: [mockFriendss[0]].map { $0.id }
 )
@@ -37,8 +37,22 @@ let mockEvent3 = Event(
     meetingPoint: "Coffee Shop beside Hostel",
     location: "Phi Phi Islands, Krabi",
     hostUser: mockFriendss[4].id,
-    invitedUsers: mockFriendss.map { $0.id },
+    invitedUsers: mockFriendss.map { $0.id } + [mockUser.id],
     attendingUsers: [mockFriendss[4], mockFriendss[5]].map { $0.id },
+    rejectedUsers: []
+)
+
+let mockEvent4 = Event(
+    title: "Skinny Dip",
+    // swiftlint:disable:next line_length
+    details: "Let's take a dip in the beautiful Emerald Pool, a natural swimming pool surrounded by lush jungle. We'll hike through the forest and enjoy the serene surroundings before cooling off in the refreshing water.",
+    status: "Idk?",
+    datetime: Calendar.current.date(byAdding: DateComponents(day: +1), to: Date()) ?? Date(), // Set the event date to tomorrow
+    meetingPoint: "Room 6B in Hostel",
+    location: "Emerald Pool, Krabi",
+    hostUser: mockFriendss[2].id,
+    invitedUsers: mockFriendss.map { $0.id } + [mockUser.id],
+    attendingUsers: [mockFriendss[2]].map { $0.id },
     rejectedUsers: []
 )
 
@@ -123,5 +137,6 @@ let mockEvent3 = Event(
 
 let mockEvents = [mockEvent1,
                   mockEvent2,
-                  mockEvent3]
+                  mockEvent3,
+                  mockEvent4]
 // mockEvent4, mockEvent5, mockEvent6, mockEvent7, mockEvent8, mockEvent9]
