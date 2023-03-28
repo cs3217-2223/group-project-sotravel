@@ -81,8 +81,8 @@ struct EditProfileView: View {
                     saveProfile()
                 }
             )
-            .navigationBarBackButtonHidden(true)
         }
+        .navigationBarBackButtonHidden(true)
         .alert("Error in updating profile",
                isPresented: $viewModel.updateError) {
             Button("ok") {

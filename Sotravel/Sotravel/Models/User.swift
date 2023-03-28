@@ -15,7 +15,7 @@ class User: Identifiable, Hashable {
         if firstName == nil && lastName == nil {
             return nil
         } else {
-            return (firstName ?? "") + (lastName ?? "")
+            return (firstName ?? "") + " " + (lastName ?? "")
         }
     }
 
