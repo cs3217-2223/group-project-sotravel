@@ -126,12 +126,7 @@ class NodeApi: RestApi {
         var components = URLComponents()
         components.scheme = baseScheme
         components.host = baseUrl
-
-        if path == .friends {
-            components.path = "/v2" + pathStr
-        } else {
-            components.path = basePathPrefix + pathStr
-        }
+        components.path = basePathPrefix + pathStr
 
         if let params = params {
             components.queryItems = params.map {
