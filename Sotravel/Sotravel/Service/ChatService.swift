@@ -52,23 +52,23 @@ class ChatService: ObservableObject {
         }
         chatId = id
 
-        let chat = chatRepository.getChat(chatId: id)
+        chatRepository.getChat(chatId: id, completion: { chat in
+            if let event = chat.event {
+                self.chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title, eventDatetime: event.datetime)
+            } else {
+                self.chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title)
+            }
 
-        if let event = chat.event {
-            chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title, eventDatetime: event.datetime)
-        } else {
-            chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title)
-        }
-
-        // TODO: convert sender uuid to image src and name (through user service?)
-        chatMessageVMs = chat.messages.map {
-            ChatMessageViewModel(messageText: $0.messageText,
-                                 messageTimestamp: $0.timestamp,
-                                 senderImageSrc: $0.sender.uuidString,
-                                 senderName: $0.sender.uuidString,
-                                 isSentByMe: $0.sender == userId,
-                                 id: $0.id)
-        }
+            // TODO: convert sender uuid to image src and name (through user service?)
+            self.chatMessageVMs = chat.messages.map {
+                ChatMessageViewModel(messageText: $0.messageText,
+                                     messageTimestamp: $0.timestamp,
+                                     senderImageSrc: $0.sender.uuidString,
+                                     senderName: $0.sender.uuidString,
+                                     isSentByMe: $0.sender == userId,
+                                     id: $0.id)
+            }
+        })
     }
 
     // to check the realtime update thingy
