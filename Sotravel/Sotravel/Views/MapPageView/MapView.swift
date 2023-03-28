@@ -4,7 +4,7 @@ import MapKit
 struct MapView: UIViewRepresentable {
     @Binding var userLocation: CLLocation?
     @Binding var friendsLocations: [String: CLLocation]
-
+    @EnvironmentObject var userService: UserService
     @State private var initialMapLoad = true
 
     func makeCoordinator() -> Coordinator {
@@ -14,9 +14,6 @@ struct MapView: UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
-
-        // Set the map type to satellite 3D
-        mapView.mapType = .satelliteFlyover
 
         return mapView
     }
@@ -36,27 +33,38 @@ struct MapView: UIViewRepresentable {
 
         guard let userLocation = userLocation else { return }
 
-        let currentLocationAnnotation = MKPointAnnotation()
-        currentLocationAnnotation.coordinate = userLocation.coordinate
-        currentLocationAnnotation.title = "You"
+        guard let user = userService.user else { return }
+
+        let currentLocationAnnotation = CustomPointAnnotation(
+            userId: user.id,
+            coordinate: userLocation.coordinate,
+            title: user.name,
+            imageURL: user.imageURL
+        )
 
         mapView.addAnnotation(currentLocationAnnotation)
 
-        for (friend, location) in friendsLocations {
-            let friendAnnotation = MKPointAnnotation()
-            friendAnnotation.coordinate = location.coordinate
-            friendAnnotation.title = friend
+        for (friendId, friendLocation) in friendsLocations {
+            let friendService = UserService()
+
+            guard let id = UUID(uuidString: friendId) else {
+                continue
+            }
+
+            friendService.fetchUser(id: id, completion: { _ in })
+
+            guard let friend = friendService.user else {
+                continue
+            }
+
+            let friendAnnotation = CustomPointAnnotation(
+                userId: friend.id,
+                coordinate: friendLocation.coordinate,
+                title: friend.name,
+                imageURL: friend.imageURL
+            )
 
             mapView.addAnnotation(friendAnnotation)
         }
     }
-
-    class Coordinator: NSObject, MKMapViewDelegate {
-        var parent: MapView
-
-        init(_ parent: MapView) {
-            self.parent = parent
-        }
-    }
-
 }

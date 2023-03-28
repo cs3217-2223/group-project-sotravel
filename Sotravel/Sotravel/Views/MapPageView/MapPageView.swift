@@ -1,31 +1,49 @@
 import SwiftUI
 
 struct MapPageView: View {
-    @StateObject var locationManager = LocationManagerService()
-    @StateObject var viewModel = FriendsLocationViewModel()
+    @StateObject var locationManagerService = LocationManagerService()
+    @StateObject var mapStorageService = MapStorageService(mapRepository: FirebaseMapRepository())
+    @EnvironmentObject var userService: UserService
     @State private var isSharingLocation = true
 
     var body: some View {
-        VStack {
-            MapView(userLocation: $locationManager.userLocation,
-                    friendsLocations: $viewModel.friendsLocations)
-                .edgesIgnoringSafeArea(.all)
+        NavigationView {
+            VStack {
+                MapView(userLocation: $locationManagerService.userLocation,
+                        friendsLocations: $mapStorageService.friendsLocations)
+                    .edgesIgnoringSafeArea(.all)
 
-            LabelledToggleView(icon: "antenna.radiowaves.left.and.right",
-                               title: "Find Me",
-                               subtitle: "Share Location with Friends",
-                               isOn: $isSharingLocation)
-                .onChange(of: isSharingLocation, perform: { _ in
-                    if let userLocation = locationManager.userLocation {
-                        viewModel.updateCurrentUserLocation(userLocation, userId: "yourUserId")
-                    }
-                })
+                HStack {
+                    LabelledToggleView(icon: "antenna.radiowaves.left.and.right",
+                                       title: "Find Me",
+                                       subtitle: "Share Location with Friends",
+                                       isOn: $isSharingLocation)
+                        .onChange(of: isSharingLocation, perform: { _ in
+                            guard let user = userService.user else {
+                                return
+                            }
+
+                            if isSharingLocation, let userLocation = locationManagerService.userLocation {
+                                mapStorageService
+                                    .updateCurrentUserLocation(
+                                        userLocation,
+                                        userId: user.id.uuidString
+                                    )
+
+                            } else {
+                                mapStorageService.removeCurrentUserLocation(userId: user.id.uuidString)
+                            }
+                        })
+                    Spacer()
+                }
+            }
         }
     }
 }
 
 struct MapPageView_Previews: PreviewProvider {
     static var previews: some View {
-        MapPageView()
+        let meUser = UserService()
+        MapPageView().environmentObject(meUser)
     }
 }
