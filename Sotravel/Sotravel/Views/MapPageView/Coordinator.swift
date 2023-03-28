@@ -64,7 +64,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if let customAnnotation = view.annotation as? CustomPointAnnotation {
-            parent.userService.fetchUser(id: customAnnotation.userId)
+//            parent.userService.fetchUser(id: customAnnotation.userId)
             // Navigate to the user's profile page
         }
     }
