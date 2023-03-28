@@ -6,20 +6,89 @@
 //
 
 import Foundation
+import FirebaseDatabase
+import CoreLocation
 
 class ChatRepositoryFirebase: ChatRepository {
+    private let databaseRef = Database.database().reference()
+    private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
+
     func getBasicInfoChats(userId: UUID) -> [Chat] {
-        // TODO: actual implementation - get api model from db, convert to model
-        let chat1message = ChatMessage(messageText: "c1m4", timestamp: Date.now, sender: mockNotMe.id)
-        let chat1 = Chat(messages: [chat1message], title: "chat1", members: [])
-        chat1.id = UUID(uuidString: "1B2BA24E-A86E-4383-B1AA-D1D7D51BD24A") ?? UUID()
-        let chat2message = ChatMessage(messageText: "c2m1", timestamp: Date.now, sender: mockMe.id)
-        let chat2 = Chat(messages: [chat2message], title: "chat2", members: [])
-        chat2.id = UUID(uuidString: "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A") ?? UUID()
-        let chat3message = ChatMessage(messageText: "c3m1", timestamp: Date.now, sender: mockMe.id)
-        let chat3 = Chat(messages: [chat3message], title: "chat3", members: [])
-        chat3.id = UUID(uuidString: "3B2BA24E-A86E-4383-B1AA-D1D7D51BD24A") ?? UUID()
-        return [chat1, chat2, chat3]
+        // TODO: get chat ids for the user
+        let chatIds = getChatIds(userId: userId)
+
+        // TODO: for each chat id, get the chat's basic info
+        var chatBasicInfoAMs: [ChatBasicInfoApiModel] = []
+        for chatId in chatIds {
+            guard let chatBasicInfoAM = getBasicInfo(of: chatId) else {
+                continue
+            }
+            chatBasicInfoAMs.append(chatBasicInfoAM)
+        }
+
+        // TODO: convert api model to model
+        let basicInfoChats: [Chat] = []
+        let databasePath = databaseRef.child("chats")
+        databasePath.getData(completion: { error, snapshot in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let jsons = snapshot?.value as? [String: Any] else {
+                return
+            }
+            for json in jsons {
+                let data = json.value
+                do {
+                    let chatBasicInfoData = try JSONSerialization.data(withJSONObject: data)
+                    let chatBasicInfo = try self.decoder.decode(ChatBasicInfoApiModel.self, from: chatBasicInfoData)
+                    // print(chatBasicInfo.title)
+                    // TODO: api model to model
+                } catch {
+                    print("An error occurred", error)
+                }
+            }
+        })
+
+        return basicInfoChats
+    }
+
+    private func getBasicInfo(of chatId: String) -> ChatBasicInfoApiModel? {
+        let databasePath = databaseRef.child("chats/\(chatId)")
+        let chatBasicInfoAM: ChatBasicInfoApiModel? = nil
+        databasePath.getData(completion: { error, snapshot in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let json = snapshot?.value as? [String: Any] else {
+                return
+            }
+            print(json)
+        })
+
+        return chatBasicInfoAM
+    }
+
+    private func getChatIds(userId: UUID) -> [String] {
+        let databasePath = databaseRef.child("userChats/\(userId.uuidString)")
+        var chatIds: [String] = []
+
+        databasePath.getData(completion: { error, snapshot in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let jsons = snapshot?.value as? [String: String] else {
+                return
+            }
+            for json in jsons {
+                chatIds.append(json.value)
+            }
+        })
+
+        return chatIds
     }
 
     func getChat(chatId: UUID) -> Chat {
