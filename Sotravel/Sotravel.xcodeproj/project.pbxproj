@@ -128,6 +128,9 @@
 		D7F6A9E629CF8E23006FBD26 /* ChatHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9E529CF8E23006FBD26 /* ChatHeaderViewModel.swift */; };
 		D7F6A9E829CF8E2D006FBD26 /* ChatMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9E729CF8E2D006FBD26 /* ChatMessageViewModel.swift */; };
 		D7F6A9EA29CFA253006FBD26 /* ChatRepositoryFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9E929CFA253006FBD26 /* ChatRepositoryFirebase.swift */; };
+		D7F6A9EC29D1B7EF006FBD26 /* ChatBasicInfoApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9EB29D1B7EF006FBD26 /* ChatBasicInfoApiModel.swift */; };
+		D7F6A9EE29D1B85A006FBD26 /* ChatMemberApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9ED29D1B859006FBD26 /* ChatMemberApiModel.swift */; };
+		D7F6A9F029D1B87C006FBD26 /* ChatMessageApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9EF29D1B87C006FBD26 /* ChatMessageApiModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +266,9 @@
 		D7F6A9E529CF8E23006FBD26 /* ChatHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderViewModel.swift; sourceTree = "<group>"; };
 		D7F6A9E729CF8E2D006FBD26 /* ChatMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageViewModel.swift; sourceTree = "<group>"; };
 		D7F6A9E929CFA253006FBD26 /* ChatRepositoryFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRepositoryFirebase.swift; sourceTree = "<group>"; };
+		D7F6A9EB29D1B7EF006FBD26 /* ChatBasicInfoApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBasicInfoApiModel.swift; sourceTree = "<group>"; };
+		D7F6A9ED29D1B859006FBD26 /* ChatMemberApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMemberApiModel.swift; sourceTree = "<group>"; };
+		D7F6A9EF29D1B87C006FBD26 /* ChatMessageApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageApiModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -636,6 +642,9 @@
 			isa = PBXGroup;
 			children = (
 				B4E9461229C5C7C6001B65EE /* TelegramSignInResponse.swift */,
+				D7F6A9EB29D1B7EF006FBD26 /* ChatBasicInfoApiModel.swift */,
+				D7F6A9ED29D1B859006FBD26 /* ChatMemberApiModel.swift */,
+				D7F6A9EF29D1B87C006FBD26 /* ChatMessageApiModel.swift */,
 				B46B0A6E29CCA9A2006F2BA2 /* UpdateUserApiModel.swift */,
 				B46B0A7029CCB148006F2BA2 /* Encodable+Subscriptable.swift */,
 			);
@@ -807,6 +816,7 @@
 				1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */,
 				B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */,
 				ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */,
+				D7F6A9EE29D1B85A006FBD26 /* ChatMemberApiModel.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
 				183F435829D02FF900F4DFEE /* CustomPointAnnotation.swift in Sources */,
 				18D9714029BD91B60064DC2A /* Event.swift in Sources */,
@@ -875,6 +885,7 @@
 				18D736A729C03A7C00EB7439 /* KeyboardResponder.swift in Sources */,
 				AC18140629C43E1A008D6944 /* UserService.swift in Sources */,
 				B4C3536C29C0A7930073931C /* UserRepositoryNode.swift in Sources */,
+				D7F6A9EC29D1B7EF006FBD26 /* ChatBasicInfoApiModel.swift in Sources */,
 				B4C3536A29C0A7460073931C /* UserRepository.swift in Sources */,
 				183F435A29D0344500F4DFEE /* Coordinator.swift in Sources */,
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
@@ -892,6 +903,7 @@
 				AC32F96B29BA38CE0005F5B9 /* ProfilePageView.swift in Sources */,
 				AC11B87E29CB0C2500ADE703 /* EventService.swift in Sources */,
 				18A1AC5829BB12B90064CF37 /* Date.swift in Sources */,
+				D7F6A9F029D1B87C006FBD26 /* ChatMessageApiModel.swift in Sources */,
 				1866DE5E29B993E3005D9F59 /* SotravelApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
