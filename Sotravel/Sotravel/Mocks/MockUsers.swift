@@ -165,7 +165,7 @@ let mockNotMe = User(
     friends: [mockMe]
 )
 
-let mockFriends = [
+var mockFriends = [
     mockUser1,
     mockUser2,
     mockUser3,

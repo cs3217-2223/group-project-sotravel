@@ -89,6 +89,7 @@ struct EditProfileView: View {
                 userService.toggleEditProfileViewAlert()
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 
     private func loadUserData() {

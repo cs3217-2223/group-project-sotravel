@@ -12,7 +12,7 @@ class User: Identifiable, Hashable {
     var email: String?
     var friends: [User]
     var name: String? {
-        if firstName == nil && firstName == nil {
+        if firstName == nil && lastName == nil {
             return nil
         } else {
             return (firstName ?? "") + (lastName ?? "")
