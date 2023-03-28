@@ -22,6 +22,11 @@ class EventViewModel: ObservableObject {
         "\(title) at \(location)"
     }
 
+    var pendingUsers: [UUID] {
+        let respondedUsers = attendingUsers + rejectedUsers
+        return invitedUsers.filter { !respondedUsers.contains($0) }
+    }
+
     init(id: Int = -1,
          title: String = "",
          details: String? = nil,

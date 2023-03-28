@@ -20,22 +20,21 @@ enum EventRsvpStatus {
 }
 
 class EventRepositoryStub: EventRepository {
-    var dataBase = mockEvents
+    var dataBase = mockEventss
 
     func get(id: Int) async throws -> Event {
         for event in dataBase where event.id == id {
             return event
         }
-        return mockEvent3
+        return mockEvent1
     }
 
     func getUserEvents(userId: UUID) async throws -> [Event] {
         var events: [Event] = []
-        for event in dataBase {
-            for id in event.invitedUsers where id == userId {
-                events.append(event)
-            }
+        for event in dataBase where event.hostUser == userId || event.invitedUsers.contains(userId) {
+            events.append(event)
         }
+        print(events.count)
         return events
     }
 

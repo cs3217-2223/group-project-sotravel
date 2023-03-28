@@ -9,7 +9,7 @@ let mockEvent1 = Event(
     meetingPoint: "Hotel Lobby",
     location: "Railay Beach, Krabi",
     hostUser: mockUser.id,
-    invitedUsers: mockFriendss.map { $0.id } + [mockUser.id],
+    invitedUsers: mockFriendss.map { $0.id }.filter { $0 != mockUser.id },
     attendingUsers: [mockFriendss[1]].map { $0.id } + [mockUser.id],
     rejectedUsers: [mockFriendss[2]].map { $0.id }
 )
@@ -23,7 +23,7 @@ let mockEvent2 = Event(
     meetingPoint: "Taxi Stand beside Hostel",
     location: "Tiger Cave Temple, Krabi",
     hostUser: mockFriendss[1].id,
-    invitedUsers: mockFriendss.map { $0.id },
+    invitedUsers: mockFriendss.map { $0.id }.filter { $0 != mockFriendss[1].id },
     attendingUsers: [mockFriendss[1], mockFriendss[3]].map { $0.id },
     rejectedUsers: [mockFriendss[0]].map { $0.id }
 )
@@ -37,7 +37,7 @@ let mockEvent3 = Event(
     meetingPoint: "Coffee Shop beside Hostel",
     location: "Phi Phi Islands, Krabi",
     hostUser: mockFriendss[4].id,
-    invitedUsers: mockFriendss.map { $0.id } + [mockUser.id],
+    invitedUsers: mockFriendss.map { $0.id }.filter { $0 != mockFriendss[4].id } + [mockUser.id],
     attendingUsers: [mockFriendss[4], mockFriendss[5]].map { $0.id },
     rejectedUsers: []
 )
@@ -51,10 +51,94 @@ let mockEvent4 = Event(
     meetingPoint: "Room 6B in Hostel",
     location: "Emerald Pool, Krabi",
     hostUser: mockFriendss[2].id,
-    invitedUsers: mockFriendss.map { $0.id } + [mockUser.id],
+    invitedUsers: mockFriendss.map { $0.id }.filter { $0 != mockFriendss[2].id } + [mockUser.id],
     attendingUsers: [mockFriendss[2]].map { $0.id },
     rejectedUsers: []
 )
+
+let mockEvent5 = Event(
+    title: "Kayaking",
+    // swiftlint:disable:next line_length
+    details: "Let's spend the day kayaking in the stunning mangrove forests of Ao Thalane. We'll paddle through the winding waterways, stopping to admire the wildlife and soak up the beautiful surroundings.",
+    status: "Idk?",
+    datetime: Calendar.current.date(byAdding: DateComponents(day: 2), to: Date()) ?? Date(), // Set the event date to 2 days from now
+    meetingPoint: "Ao Thalane Pier",
+    location: "Ao Thalane, Krabi",
+    hostUser: mockUser.id,
+    invitedUsers: [mockFriendss[1].id, mockFriendss[2].id, mockFriendss[3].id],
+    attendingUsers: [mockUser.id],
+    rejectedUsers: []
+)
+
+let mockEvent6 = Event(
+    title: "Beach Volleyball",
+    // swiftlint:disable:next line_length
+    details: "Join me for a friendly game of beach volleyball at Ao Nang Beach. All skill levels welcome, let's just have some fun in the sun!",
+    status: "Idk?",
+    datetime: Calendar.current.date(byAdding: DateComponents(day: 3), to: Date()) ?? Date(), // Set the event date to 3 days from now
+    meetingPoint: "Ao Nang Beach",
+    location: "Ao Nang, Krabi",
+    hostUser: mockFriendss[1].id,
+    invitedUsers: [mockFriendss[2].id, mockFriendss[3].id, mockFriendss[4].id, mockUser.id],
+    attendingUsers: [mockUser.id, mockFriendss[1].id],
+    rejectedUsers: []
+)
+
+let mockEvent7 = Event(
+    title: "Thai Cooking Class",
+    // swiftlint:disable:next line_length
+    details: "Let's learn how to cook some classic Thai dishes together! We'll start by shopping for ingredients at the local market, then head back to the kitchen to prepare a delicious meal. No prior cooking experience necessary!",
+    status: "Idk?",
+    datetime: Calendar.current.date(byAdding: DateComponents(day: 4), to: Date()) ?? Date(), // Set the event date to 4 days from now
+    meetingPoint: "Krabi Town Market",
+    location: "Krabi Town",
+    hostUser: mockUser.id,
+    invitedUsers: [mockFriendss[1].id, mockFriendss[3].id, mockFriendss[4].id],
+    attendingUsers: [mockUser.id],
+    rejectedUsers: []
+)
+
+let mockEvent8 = Event(
+    title: "Muay Thai Class",
+    // swiftlint:disable:next line_length
+    details: "Join me for a high-energy workout at the local Muay Thai gym. We'll learn some basic techniques and get a great cardio workout at the same time. No prior experience necessary!",
+    status: "Idk?",
+    datetime: Calendar.current.date(byAdding: DateComponents(day: 5), to: Date()) ?? Date(), // Set the event date to 5 days from now
+    meetingPoint: "Krabi Muay Thai Gym",
+    location: "Ao Nang, Krabi",
+    hostUser: mockUser.id,
+    invitedUsers: [mockFriendss[1].id, mockFriendss[2].id, mockFriendss[3].id],
+    attendingUsers: [mockUser.id, mockFriendss[3].id ],
+    rejectedUsers: []
+)
+
+let mockEventDates = (0...6).map { Date().addingTimeInterval(TimeInterval($0 * 24 * 60 * 60)) }
+let mockEventss: [Event] = (0..<35).map { index in
+    let isHost = Bool.random()
+    let hostUser = isHost ? mockUser.id : mockFriendss.randomElement()!.id
+    let invitedUsers = (0..<4).map { _ in
+        [mockUser.id, hostUser, mockFriendss.randomElement()!.id].randomElement()!
+    }.filter { $0 != hostUser }
+    let attendingUsers = [hostUser] + invitedUsers
+    let title = ["Hiking", "Beach Party", "BBQ", "Yoga", "Movie Night", "Game Night"].randomElement()!
+    let eventDate = mockEventDates.randomElement()!
+    let eventTime = TimeInterval.random(in: 0..<60 * 60 * 24)
+    let datetime = Calendar.current.date(byAdding: .second, value: Int(eventTime), to: eventDate)!
+    let location = ["Beach", "Mountain", "Park", "Cafe", "Restaurant"].randomElement()!
+    let meetingPoint = ["Hotel Lobby", "Hostel Reception", "Coffee Shop", "Train Station"].randomElement()!
+    let details = "This is a mock event"
+    return Event(id: index,
+                 title: title,
+                 details: details,
+                 status: "",
+                 datetime: datetime,
+                 meetingPoint: meetingPoint,
+                 location: location,
+                 hostUser: hostUser,
+                 invitedUsers: invitedUsers,
+                 attendingUsers: attendingUsers,
+                 rejectedUsers: [])
+}
 
 //
 // let mockEvent4 = Event(
@@ -138,5 +222,9 @@ let mockEvent4 = Event(
 let mockEvents = [mockEvent1,
                   mockEvent2,
                   mockEvent3,
-                  mockEvent4]
+                  mockEvent4,
+                  mockEvent5,
+                  mockEvent6,
+                  mockEvent7,
+                  mockEvent8]
 // mockEvent4, mockEvent5, mockEvent6, mockEvent7, mockEvent8, mockEvent9]
