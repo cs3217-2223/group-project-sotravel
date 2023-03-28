@@ -9,5 +9,5 @@ import Foundation
 
 protocol UserRepository {
     func get(id: UUID) async throws -> User?
-    func update(user: User) async throws -> Bool
+    func update(user: User) async throws -> User?
 }

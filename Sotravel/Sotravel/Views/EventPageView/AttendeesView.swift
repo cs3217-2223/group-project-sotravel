@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AttendeesView: View {
     @State var selectedTab: Int = 0
-    @ObservedObject var event: Event
+    @ObservedObject var eventViewModel: EventViewModel
 
     var body: some View {
         VStack {
@@ -48,11 +48,11 @@ struct AttendeesView: View {
             .padding(.bottom, 10)
 
             if selectedTab == 0 {
-                UserHorizontalListView(users: event.attendingUsers)
+                UserHorizontalListView(users: eventViewModel.attendingUsers)
             } else if selectedTab == 1 {
-                UserHorizontalListView(users: event.rejectedUsers)
+                UserHorizontalListView(users: eventViewModel.rejectedUsers)
             } else if selectedTab == 2 {
-                UserHorizontalListView(users: event.pendingUsers)
+                UserHorizontalListView(users: eventViewModel.pendingUsers)
             }
         }
     }
@@ -60,6 +60,6 @@ struct AttendeesView: View {
 
 struct AttendeesTabView_Previews: PreviewProvider {
     static var previews: some View {
-        AttendeesView(event: mockEvent1)
+        AttendeesView(eventViewModel: EventViewModel())
     }
 }

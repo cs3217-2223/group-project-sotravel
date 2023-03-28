@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct EventPageView: View {
-    @EnvironmentObject var userService: UserService
+    @ObservedObject var eventPageUserViewModel: EventPageUserViewModel
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var event: Event
+    @ObservedObject var eventViewModel: EventViewModel
     var chat: Chat = mockChat
     @State private var selectedTab = 0
     @State private var eventStatus = EventStatus.pending
@@ -20,7 +20,7 @@ struct EventPageView: View {
                             }
                         }
                         .padding(.trailing, 4)
-                    Text(event.title)
+                    Text(eventViewModel.title)
                         .font(.uiTitle2)
                         .lineLimit(1)
                     Spacer()
@@ -29,18 +29,18 @@ struct EventPageView: View {
                     Image(systemName: "calendar")
                         .imageScale(.medium)
                         .symbolRenderingMode(.monochrome)
-                    Text(event.datetime.formattedDateAndTime())
+                    Text(eventViewModel.datetime.formattedDateAndTime())
                         .font(.uiCallout)
                 }
                 HStack {
                     Image(systemName: "location.fill")
                         .imageScale(.medium)
                         .symbolRenderingMode(.monochrome)
-                    Text(event.location)
+                    Text(eventViewModel.location)
                         .font(.uiCallout)
                 }
 
-                Text(event.description)
+                Text(eventViewModel.description)
                     .font(.uiBody)
                     .foregroundColor(.primary.opacity(0.5))
                     .padding(.vertical, 8)
@@ -53,7 +53,7 @@ struct EventPageView: View {
                         Spacer()
                     }
 
-                    AttendeesView(event: event)
+                    AttendeesView(eventViewModel: eventViewModel)
 
                 }.padding(.top, 6)
 
@@ -69,18 +69,19 @@ struct EventPageView: View {
                         Spacer()
                     }
 
-                    VStack {
-                        // Get latest 3 messages
-                        ForEach(chat.messages.sorted { $0.timestamp > $1.timestamp }.prefix(3), id: \.id) {message in
-                            ChatMessageView(
-                                chatMessage: message,
-                                isSentByMe: message.sender == userService.user.id
-                            ).font(.body).id(message.id)
-                        }
-                    }.padding(.top, 3)
-                    .padding(.bottom, 14)
+                    // TODO: latest messages
+                    /*
+                     VStack {
+                     // Get latest 3 messages
+                     ForEach(chat.messages.sorted { $0.timestamp > $1.timestamp }.prefix(3), id: \.id) {message in
+                     ChatMessageView(chatMessage: message, isSentByMe: message.sender == eventPageUserViewModel.userId).font(.body)
+                     .id(message.id)
+                     }
+                     }.padding(.top, 3)
+                     .padding(.bottom, 14)
+                     */
 
-                    NavigationLink(destination: ChatView(chat: chat)) {
+                    NavigationLink(destination: ChatView()) {
                         HStack(alignment: .firstTextBaseline, spacing: 8) {
                             Image(systemName: "message.fill")
                                 .imageScale(.medium)
@@ -98,7 +99,9 @@ struct EventPageView: View {
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                 .fill(Color.uiPrimary)
                         }
-                    }
+                    }.simultaneousGesture(TapGesture().onEnded {
+                        print(chat.title) // TODO: the fetch chat action here
+                    })
                 }.padding(.top, 18)
 
                 Spacer()
@@ -112,7 +115,10 @@ struct EventPageView: View {
 struct EventPageView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EventPageView(event: mockEvent1, chat: mockChat).environmentObject(UserService())
+            EventPageView(eventPageUserViewModel: EventPageUserViewModel(),
+                          eventViewModel: EventViewModel(),
+                          chat: mockChat)
+                .environmentObject(UserService())
         }
     }
 }

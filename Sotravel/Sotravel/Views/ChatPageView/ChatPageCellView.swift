@@ -8,66 +8,47 @@
 import SwiftUI
 
 struct ChatPageCellView: View {
-    @ObservedObject var chat: Chat
-    @EnvironmentObject var chatViewModel: ChatViewModel
-    var latestChatMessage: ChatMessage? {
-        chat.getLatestMessage()
-    }
-    var timeStamp: String {
-        guard let latestChatMessage = latestChatMessage else {
-            return ""
-        }
-        return latestChatMessage.timestamp.isToday(using: calendar) ?
-            latestChatMessage.timestamp.toFriendlyTimeString() :
-            latestChatMessage.timestamp.toFriendlyDateString()
-    }
-    var senderName: String {
-        guard let latestChatMessage = latestChatMessage else {
-            return "No messages"
-        }
-        return "\(chatViewModel.getSenderName(chatMessage: latestChatMessage)):"
-    }
-    var messageText: String {
-        guard let latestChatMessage = latestChatMessage else {
-            return ""
-        }
-        return latestChatMessage.messageText
-    }
-    var calendar = Calendar(identifier: .iso8601)
+    @ObservedObject var chatPageCellVM: ChatPageCellViewModel
+    @EnvironmentObject var chatService: ChatService
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .center) {
-                Text(chat.title)
+                Text(chatPageCellVM.chatTitle ?? "No Title")
                     .font(.uiHeadline)
                     .foregroundColor(.primary)
                     .clipped()
                     .lineLimit(1)
                 Spacer()
-                Text(timeStamp)
+                Text(chatPageCellVM.lastMessageTimestamp ?? "")
                     .font(.uiCaption1)
                     .foregroundColor(.gray)
                     .lineLimit(1)
             }
             HStack {
-                Text(senderName)
-                    .foregroundColor(.primary)
-                    .opacity(0.8)
-                Text(messageText)
+                if let senderName = chatPageCellVM.lastMessageSender {
+                    Text("\(senderName):")
+                        .foregroundColor(.primary)
+                        .opacity(0.8)
+                } else {
+                    Text("No Messages")
+                        .foregroundColor(.primary)
+                        .opacity(0.8)
+                }
+                Text(chatPageCellVM.lastMessageText ?? "")
                     .foregroundColor(.gray)
             }.font(Font.custom("Manrope-Regular", size: 14))
             .clipped()
             .padding(.top, 3)
             .lineLimit(1)
-            // Show latest message by
 
             Divider().padding(.top, 8)
         }
     }
 }
 
-struct ChatPageCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatPageCellView(chat: mockChat)
-    }
-}
+// struct ChatPageCellView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ChatPageCellView(chat: mockChat)
+//    }
+// }

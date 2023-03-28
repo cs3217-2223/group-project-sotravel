@@ -11,5 +11,6 @@ import Resolver
 extension Resolver {
     public static func registerRepositories() {
         register { UserRepositoryNode() }.implements(UserRepository.self)
+        register { ChatRepositoryFirebase() }.implements(ChatRepository.self)
     }
 }

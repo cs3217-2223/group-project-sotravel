@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CreateInvitePageView: View {
-    @EnvironmentObject var userService: UserService
+    @ObservedObject var createInvitePageUserViewModel: CreateInvitePageUserViewModel
     @State private var title: String = ""
     @State private var date = Date()
     @State private var time = Date()
@@ -64,7 +64,7 @@ struct CreateInvitePageView: View {
                     if selectedAttendeesOption == 0 {
                         Text("This invite will be send to all your friends in the same city.").font(.uiBody)
                     } else {
-                        ForEach(userService.user.friends, id: \.id) { friend in
+                        ForEach(createInvitePageUserViewModel.friends, id: \.id) { friend in
                             Toggle(isOn: Binding(
                                 get: { self.selectedAttendees.contains(friend) },
                                 set: { selected in
@@ -75,7 +75,7 @@ struct CreateInvitePageView: View {
                                     }
                                 }
                             )) {
-                                Text(friend.name)
+                                Text(friend.name ?? "John Doe")
                             }
                         }
                     }
@@ -107,7 +107,7 @@ struct CreateInvitePageView: View {
 struct CreateEventView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CreateInvitePageView().environmentObject(UserService())
+            CreateInvitePageView(createInvitePageUserViewModel: CreateInvitePageUserViewModel()).environmentObject(UserService())
         }
     }
 }

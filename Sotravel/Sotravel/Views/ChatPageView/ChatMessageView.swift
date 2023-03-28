@@ -1,29 +1,33 @@
 import SwiftUI
 
 struct ChatMessageView: View {
-    let chatMessage: ChatMessage
-    let isSentByMe: Bool
-    @EnvironmentObject var chatViewModel: ChatViewModel
+    @EnvironmentObject var chatService: ChatService
+    @ObservedObject var chatMessageVM: ChatMessageViewModel
 
     var body: some View {
         HStack {
-            if isSentByMe {
+            if chatMessageVM.isSentByMe ?? false {
                 Spacer()
             } else {
-                NavigationLink(destination: FriendProfilePageView(friend: chatViewModel.getSenderDetails(chatMessage: chatMessage))) {
-                    ProfileImageView(imageSrc: chatViewModel.getSenderImage(chatMessage: chatMessage),
-                                     name: chatViewModel.getSenderName(chatMessage: chatMessage), width: 30, height: 30)
-                }
+                ProfileImageView(imageSrc: chatMessageVM.senderImageSrc,
+                                 name: chatMessageVM.senderName ?? "John Doe", width: 30, height: 30)
+                // TODO: link to friend profile
+                /*
+                 NavigationLink(destination: FriendProfilePageView(friend: chatViewModel.getSenderDetails(chatMessage: chatMessage))) {
+                 ProfileImageView(imageSrc: chatViewModel.getSenderImage(chatMessage: chatMessage),
+                 name: chatViewModel.getSenderName(chatMessage: chatMessage) ?? "John Doe", width: 30, height: 30)
+                 }
+                 */
             }
 
-            Text(chatMessage.messageText)
+            Text(chatMessageVM.messageText ?? "")
                 .padding(10)
-                .background(isSentByMe ? Color.blue : Color(.systemGray5))
-                .foregroundColor(isSentByMe ? .white : .primary)
+                .background((chatMessageVM.isSentByMe ?? false) ? Color.blue : Color(.systemGray5))
+                .foregroundColor((chatMessageVM.isSentByMe ?? false) ? .white : .primary)
                 .cornerRadius(20)
                 .padding(.horizontal, 5)
 
-            if !isSentByMe {
+            if !(chatMessageVM.isSentByMe ?? false) {
                 Spacer()
             }
         }
@@ -32,8 +36,8 @@ struct ChatMessageView: View {
     }
 }
 
-struct ChatMessageView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatMessageView(chatMessage: mockMessage1, isSentByMe: false).environmentObject(UserService())
-    }
-}
+// struct ChatMessageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ChatMessageView(chatMessage: mockMessage1, isSentByMe: false).environmentObject(UserService())
+//    }
+// }
