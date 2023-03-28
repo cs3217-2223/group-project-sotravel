@@ -19,12 +19,19 @@ struct MapPageView: View {
                                        subtitle: "Share Location with Friends",
                                        isOn: $isSharingLocation)
                         .onChange(of: isSharingLocation, perform: { _ in
-                            if isSharingLocation {
-                                if let userLocation = locationManagerService.userLocation {
-                                    mapStorageService.updateCurrentUserLocation(userLocation, userId: userService.user.id.uuidString)
-                                }
+                            guard let user = userService.user else {
+                                return
+                            }
+
+                            if isSharingLocation, let userLocation = locationManagerService.userLocation {
+                                mapStorageService
+                                    .updateCurrentUserLocation(
+                                        userLocation,
+                                        userId: user.id.uuidString
+                                    )
+
                             } else {
-                                mapStorageService.removeCurrentUserLocation(userId: userService.user.id.uuidString)
+                                mapStorageService.removeCurrentUserLocation(userId: user.id.uuidString)
                             }
                         })
                     Spacer()

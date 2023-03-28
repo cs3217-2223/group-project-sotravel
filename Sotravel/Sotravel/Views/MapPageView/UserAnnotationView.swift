@@ -9,7 +9,7 @@ struct UserAnnotationView: View {
                 .frame(width: 40, height: 40)
                 .foregroundColor(.white)
 
-            ProfileImageView(imageSrc: user.imageURL, name: user.name, width: 36, height: 36)
+            ProfileImageView(imageSrc: user.imageURL, name: user.name ?? "", width: 36, height: 36)
         }
     }
 }

@@ -33,29 +33,38 @@ struct MapView: UIViewRepresentable {
 
         guard let userLocation = userLocation else { return }
 
+        guard let user = userService.user else { return }
+
         let currentLocationAnnotation = CustomPointAnnotation(
-            userId: userService.user.id,
+            userId: user.id,
             coordinate: userLocation.coordinate,
-            title: userService.user.name,
-            imageURL: userService.user.imageURL
+            title: user.name,
+            imageURL: user.imageURL
         )
 
         mapView.addAnnotation(currentLocationAnnotation)
 
         for (friendId, friendLocation) in friendsLocations {
             let friendService = UserService()
-            if let id = UUID(uuidString: friendId) {
-                friendService.fetchUser(id: id)
 
-                let friendAnnotation = CustomPointAnnotation(
-                    userId: friendService.user.id,
-                    coordinate: friendLocation.coordinate,
-                    title: friendService.user.name,
-                    imageURL: friendService.user.imageURL
-                )
-
-                mapView.addAnnotation(friendAnnotation)
+            guard let id = UUID(uuidString: friendId) else {
+                continue
             }
+
+            friendService.fetchUser(id: id, completion: { _ in })
+
+            guard let friend = friendService.user else {
+                continue
+            }
+
+            let friendAnnotation = CustomPointAnnotation(
+                userId: friend.id,
+                coordinate: friendLocation.coordinate,
+                title: friend.name,
+                imageURL: friend.imageURL
+            )
+
+            mapView.addAnnotation(friendAnnotation)
         }
     }
 }
