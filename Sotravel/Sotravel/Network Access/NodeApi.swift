@@ -19,7 +19,7 @@ class NodeApi: RestApi {
     internal let baseUrl = "qa-api.sotravel.me"
     internal let basePathPrefix = "/v1"
     private let default_timeout: Int64 = 60
-    private let authTokenKey: String = "nodeApiBearerToken"
+    private static let authTokenKey: String = "nodeApiBearerToken"
 
     internal let pathEnumToStr: [Path: String] = [
         // Login
@@ -39,12 +39,12 @@ class NodeApi: RestApi {
         .cancelInvite: "/invites/cancelInvitation"
     ]
 
-    func storeAuthToken(token: String) {
+    static func storeAuthToken(token: String) {
         UserDefaults.standard.set(token, forKey: authTokenKey)
     }
 
     func getAuthToken(token: String) -> String? {
-        UserDefaults.standard.string(forKey: authTokenKey)
+        UserDefaults.standard.string(forKey: NodeApi.authTokenKey)
     }
 
     func get(path: Path, params: [String: String]? = nil, data: [String: Any]? = nil)
@@ -78,7 +78,7 @@ class NodeApi: RestApi {
                 request.setContentTypeToJson()
             }
 
-            request.addBearerToken(token: getAuthToken(token: authTokenKey))
+            request.addBearerToken(token: getAuthToken(token: NodeApi.authTokenKey))
 
             let response = try await NodeApi.client.execute(request, timeout: .seconds(default_timeout))
             let body = String(buffer: try await response.body.collect(upTo: 1_024 * 1_024)) // 1 MB
@@ -110,7 +110,7 @@ class NodeApi: RestApi {
 
         do {
             let responseModel = try JSONDecoder().decode(TelegramSignInResponse.self, from: Data(response.utf8))
-            storeAuthToken(token: responseModel.token)
+            NodeApi.storeAuthToken(token: responseModel.token)
         } catch is DecodingError {
             throw SotravelError.message("Unable to decode authorization call API repsonse", nil)
         } catch {
@@ -136,42 +136,6 @@ class NodeApi: RestApi {
 
         return components.url
     }
-
-    //     func get(path: Path, params: [String: String]) async throws -> (HTTPResponseStatus, String?) {
-    //        guard let url = constructUrl(path: path, params: params)?.absoluteString else {
-    //            return (HTTPResponseStatus.badRequest, nil)
-    //        }
-    //
-    //        let request = HTTPClientRequest(url: url)
-    //        do {
-    //            let response = try await NodeApi.client.execute(request, timeout: .seconds(NodeApi.default_timeout))
-    //            let body = String(buffer: try await response.body.collect(upTo: 1_024 * 1_024)) // 1 MB
-    //            return (response.status, body)
-    //        } catch {
-    //            throw SotravelError.NetworkError("Error ocurred when running GET \(url)", error)
-    //        }
-    //    }
-
-    //     func post(path: Path, params: [String: String], data: [String: Any]) async throws -> (HTTPResponseStatus, String?) {
-    //        guard let url = constructUrl(path: path, params: params)?.absoluteString else {
-    //            return (HTTPResponseStatus.badRequest, nil)
-    //        }
-    //
-    //        var request = HTTPClientRequest(url: url)
-    //        request.method = .POST
-    //
-    //        do {
-    //            let jsonData = try JSONSerialization.data(withJSONObject: data)
-    //            request.body = .bytes(ByteBuffer(data: jsonData))
-    //
-    //            let response = try await NodeApi.client.execute(request, timeout: .seconds(NodeApi.default_timeout))
-    //            let body = String(buffer: try await response.body.collect(upTo: 1_024 * 1_024)) // 1 MB
-    //
-    //            return (response.status, body)
-    //        } catch {
-    //            throw SotravelError.NetworkError("Error ocurred when running POST \(url)", error)
-    //        }
-    //    }
 }
 
 enum NodeApiPath {

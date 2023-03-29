@@ -6,6 +6,7 @@ struct LoginView: View {
     @State private var isNavigationActive = false
     @State private var isLoading = false
     var body: some View {
+        // swiftlint:disable closure_body_length
         NavigationView {
             VStack {
                 Image("snowman")
@@ -60,26 +61,15 @@ struct LoginView: View {
                         ProgressView()
                     } else {
                         Button(action: {
-                            isLoading = true
-                            userService.fetchUser(id: UUID()) { success in
-                                if success {
-                                    userService.fetchAllFriends(tripId: 1) { _ in
-                                        // empty for now
-                                    }
-                                    // TODO: Remove hardcoded trip id and user id
-                                    eventService.loadUserEvents(forTrip: 1, userId: mockUser.id)
-                                    isNavigationActive = true
-                                } else {
-                                    isLoading = false
-                                }
-                            }
+
                         }) {
                             HStack(alignment: .firstTextBaseline, spacing: 8) {
                                 Image(systemName: "paperplane.fill")
                                     .imageScale(.medium)
                                     .symbolRenderingMode(.monochrome)
                                     .foregroundColor(.white)
-                                Text("Continue with Telegram")
+                                Link("Continue with Telegram",
+                                     destination: URL(string: "https://sotravel.me/app-login")!)
                                     .foregroundColor(.white).font(.uiButton)
                             }
                             .font(.uiBody.weight(.medium))
@@ -95,6 +85,42 @@ struct LoginView: View {
                     }
                 }
                 .padding(.horizontal)
+                .onOpenURL(perform: { url in
+                    isLoading = true
+
+                    if url.host != "app-login-success" {
+                        return
+                    }
+
+                    // Ensure query params are present
+                    guard let res = url.queryParameters else {
+                        return
+                    }
+
+                    guard let idStr = res["user_id"], let token = res["token"] else {
+                        isLoading = false
+                        return
+                    }
+
+                    guard let id = UUID(uuidString: idStr) else {
+                        return
+                    }
+
+                    userService.fetchUser(id: id) { success in
+                        if success {
+                            // TODO: Move this into some separate token storage class
+                            NodeApi.storeAuthToken(token: token)
+                            userService.fetchAllFriends(tripId: 1) { _ in
+                                // empty for now
+                            }
+                            // TODO: Remove hardcoded trip id and user id
+                            eventService.loadUserEvents(forTrip: 1, userId: mockUser.id)
+                            isNavigationActive = true
+                        } else {
+                            isLoading = false
+                        }
+                    }
+                })
                 Spacer()
             }
         }
