@@ -11,7 +11,7 @@ struct EventView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(eventViewModel.datetime.toFriendlyTimeString())
                         .font(.uiHeadline)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(Color.primary)
                     Text(eventViewModel.datetime.toFriendlyDateString())
                         .font(.uiCallout)
                         .foregroundColor(Color.gray)

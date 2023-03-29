@@ -1,16 +1,20 @@
 import MapKit
 import SwiftUI
 
+// Displays the user coordinate on the map view
 class Coordinator: NSObject, MKMapViewDelegate {
     var parent: MapView
     var imageCache: [UUID: UIImage] = [:]
+    let bubbleSize: CGFloat = 32
 
     init(_ parent: MapView) {
         self.parent = parent
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let customAnnotation = annotation as? CustomPointAnnotation else { return nil }
+        guard let customAnnotation = annotation as? CustomPointAnnotation else { return nil
+
+        }
 
         let identifier = "userAnnotationView"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
@@ -35,7 +39,10 @@ class Coordinator: NSObject, MKMapViewDelegate {
                 DispatchQueue.main.async {
                     if let image = UIImage(data: data) {
                         // Resize the image to a larger size if needed.
-                        self.imageCache[customAnnotation.userId] = self.resizeImage(image: image, fixedWidth: 48)
+                        self.imageCache[customAnnotation.userId] = self.resizeImage(
+                            image: image, fixedWidth: self.bubbleSize,
+                            fixedHeight: self.bubbleSize
+                        )
                         annotationView?.image = self.imageCache[customAnnotation.userId]
                     }
                 }
@@ -43,17 +50,17 @@ class Coordinator: NSObject, MKMapViewDelegate {
             task.resume()
         }
 
-        // Add user's name below the image and add shadow to the image
-        let nameLabel = UILabel()
-        nameLabel.text = customAnnotation.title
-        nameLabel.textColor = .black
-        nameLabel.font = UIFont.systemFont(ofSize: 14)
-        nameLabel.sizeToFit()
+        // If is user then have higher display priority
+        if customAnnotation.isUser {
+            annotationView?.displayPriority = .required
+            annotationView?.layer.zPosition = 10
+            annotationView?.layer.cornerRadius = bubbleSize / 2
+            annotationView?.layer.borderColor = UIColor.systemBlue.cgColor
+            annotationView?.layer.borderWidth = 2
+        } else {
+            annotationView?.layer.zPosition = 1
+        }
 
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: nameLabel.frame.width, height: nameLabel.frame.height))
-        customView.addSubview(nameLabel)
-
-        annotationView?.leftCalloutAccessoryView = customView
         annotationView?.layer.shadowColor = UIColor.black.cgColor
         annotationView?.layer.shadowOpacity = 0.5
         annotationView?.layer.shadowOffset = CGSize(width: 2, height: 2)
@@ -62,16 +69,17 @@ class Coordinator: NSObject, MKMapViewDelegate {
         return annotationView
     }
 
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if let customAnnotation = view.annotation as? CustomPointAnnotation {
-            //            parent.userService.fetchUser(id: customAnnotation.userId)
-            // Navigate to the user's profile page
+    // Redirects to friend page on click
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let customAnnotation = view.annotation as? CustomPointAnnotation, !customAnnotation.isUser {
+            // let friend = fetchFriend(customAnnotation.userId)
+            // TODO: fetch actual user
+            parent.selectedFriend = mockUser3
         }
     }
 
-    func resizeImage(image: UIImage, fixedWidth: CGFloat) -> UIImage? {
-        let aspectRatio = image.size.height / image.size.width
-        let newSize = CGSize(width: fixedWidth, height: fixedWidth * aspectRatio)
+    func resizeImage(image: UIImage, fixedWidth: CGFloat, fixedHeight: CGFloat) -> UIImage? {
+        let newSize = CGSize(width: fixedWidth, height: fixedHeight)
 
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
 

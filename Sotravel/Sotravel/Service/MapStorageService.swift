@@ -13,19 +13,24 @@ class MapStorageService: ObservableObject {
         fetchFriendsLocations()
     }
 
+    func startUserLocationUpdate(locationManager: LocationManagerService, userId: String) {
+        locationManager.locationUpdateHandler = {
+            location in
+            self.mapRepository.updateCurrentUserLocation(location, userId: userId)
+        }
+    }
+
+    func stopUserLocationUpdate(locationManager: LocationManagerService, userId: String) {
+        locationManager.locationUpdateHandler = nil
+        mapRepository.removeCurrentUserLocation(userId: userId)
+    }
+
     private func fetchFriendsLocations() {
         mapRepository.listenForFriendsLocations { [weak self] locations in
+            print("Fetch friends locations", locations)
             DispatchQueue.main.async {
                 self?.friendsLocations = locations
             }
         }
-    }
-
-    func updateCurrentUserLocation(_ location: CLLocation, userId: String) {
-        mapRepository.updateCurrentUserLocation(location, userId: userId)
-    }
-
-    func removeCurrentUserLocation(userId: String) {
-        mapRepository.removeCurrentUserLocation(userId: userId)
     }
 }

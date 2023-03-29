@@ -10,7 +10,6 @@
 		181C746D29BDDBEF00E6D3B1 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C746C29BDDBEF00E6D3B1 /* AttendeesView.swift */; };
 		181C746F29BDDEB700E6D3B1 /* UserActionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C746E29BDDEB700E6D3B1 /* UserActionMenuView.swift */; };
 		183F435229D02CDF00F4DFEE /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F435129D02CDF00F4DFEE /* MapView.swift */; };
-		183F435429D02D0A00F4DFEE /* UserAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F435329D02D0A00F4DFEE /* UserAnnotationView.swift */; };
 		183F435629D02D1D00F4DFEE /* MapPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F435529D02D1D00F4DFEE /* MapPageView.swift */; };
 		183F435829D02FF900F4DFEE /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F435729D02FF900F4DFEE /* CustomPointAnnotation.swift */; };
 		183F435A29D0344500F4DFEE /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F435929D0344500F4DFEE /* Coordinator.swift */; };
@@ -30,7 +29,6 @@
 		1866DE6229B993E5005D9F59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1866DE6129B993E5005D9F59 /* Assets.xcassets */; };
 		1866DE6529B993E5005D9F59 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1866DE6429B993E5005D9F59 /* Preview Assets.xcassets */; };
 		188061A129C05DBE004FB831 /* EventStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188061A029C05DBE004FB831 /* EventStatusButton.swift */; };
-		18898CAD29CC41BF00FFD991 /* UserAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18898CAC29CC41BF00FFD991 /* UserAnnotationView.swift */; };
 		188C147529CDA3A600531F9F /* LabelledToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C147429CDA3A600531F9F /* LabelledToggleView.swift */; };
 		188C147729CDC13500531F9F /* LocationManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C147629CDC13500531F9F /* LocationManagerService.swift */; };
 		188C147929CDC31100531F9F /* MapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C147829CDC31100531F9F /* MapRepository.swift */; };
@@ -70,9 +68,6 @@
 		AC11B87E29CB0C2500ADE703 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11B87D29CB0C2500ADE703 /* EventService.swift */; };
 		AC18140629C43E1A008D6944 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18140529C43E1A008D6944 /* UserService.swift */; };
 		AC28033229C61CC500687D62 /* ChatsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28033129C61CC500687D62 /* ChatsStore.swift */; };
-		AC28033529C61D6800687D62 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28033429C61D6800687D62 /* ChatViewModel.swift */; };
-		AC28033729C61D7D00687D62 /* ChatViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28033629C61D7D00687D62 /* ChatViewModelDelegate.swift */; };
-		AC32F94929B9EB8C0005F5B9 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F94829B9EB8C0005F5B9 /* MapView.swift */; };
 		AC32F95329BA02700005F5B9 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95229BA02700005F5B9 /* CalendarView.swift */; };
 		AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95A29BA11B20005F5B9 /* EventView.swift */; };
 		AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32F95C29BA1A260005F5B9 /* InvitePageView.swift */; };
@@ -160,7 +155,6 @@
 		181C746C29BDDBEF00E6D3B1 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
 		181C746E29BDDEB700E6D3B1 /* UserActionMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionMenuView.swift; sourceTree = "<group>"; };
 		183F435129D02CDF00F4DFEE /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		183F435329D02D0A00F4DFEE /* UserAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnnotationView.swift; sourceTree = "<group>"; };
 		183F435529D02D1D00F4DFEE /* MapPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPageView.swift; sourceTree = "<group>"; };
 		183F435729D02FF900F4DFEE /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
 		183F435929D0344500F4DFEE /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -175,7 +169,6 @@
 		1866DE6129B993E5005D9F59 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1866DE6429B993E5005D9F59 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		188061A029C05DBE004FB831 /* EventStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStatusButton.swift; sourceTree = "<group>"; };
-		18898CAC29CC41BF00FFD991 /* UserAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnnotationView.swift; sourceTree = "<group>"; };
 		188C147429CDA3A600531F9F /* LabelledToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelledToggleView.swift; sourceTree = "<group>"; };
 		188C147629CDC13500531F9F /* LocationManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerService.swift; sourceTree = "<group>"; };
 		188C147829CDC31100531F9F /* MapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRepository.swift; sourceTree = "<group>"; };
@@ -216,9 +209,6 @@
 		AC11B87D29CB0C2500ADE703 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
 		AC18140529C43E1A008D6944 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		AC28033129C61CC500687D62 /* ChatsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsStore.swift; sourceTree = "<group>"; };
-		AC28033429C61D6800687D62 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
-		AC28033629C61D7D00687D62 /* ChatViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModelDelegate.swift; sourceTree = "<group>"; };
-		AC32F94829B9EB8C0005F5B9 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		AC32F95229BA02700005F5B9 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		AC32F95A29BA11B20005F5B9 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		AC32F95C29BA1A260005F5B9 /* InvitePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitePageView.swift; sourceTree = "<group>"; };
@@ -340,7 +330,6 @@
 		1866DE5C29B993E3005D9F59 /* Sotravel */ = {
 			isa = PBXGroup;
 			children = (
-				AC28033329C61CE600687D62 /* ViewModelss */,
 				B4E9461129C5C7B1001B65EE /* ApiModels */,
 				AC18140A29C43E8C008D6944 /* ViewModels */,
 				AC18140429C43DE4008D6944 /* Service */,
@@ -496,7 +485,6 @@
 			isa = PBXGroup;
 			children = (
 				ACA4016229C765DC0076E183 /* ProfileHeaderViewModel.swift */,
-				185CBD0D29CC0FE6008C3B79 /* FriendsLocationViewModel.swift */,
 				ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */,
 				D7F6A9E329CF8E17006FBD26 /* ChatPageCellViewModel.swift */,
 				D7F6A9E529CF8E23006FBD26 /* ChatHeaderViewModel.swift */,
@@ -537,9 +525,7 @@
 		AC32F95629BA05A50005F5B9 /* MapPageView */ = {
 			isa = PBXGroup;
 			children = (
-				18898CAC29CC41BF00FFD991 /* UserAnnotationView.swift */,
 				183F435129D02CDF00F4DFEE /* MapView.swift */,
-				183F435329D02D0A00F4DFEE /* UserAnnotationView.swift */,
 				183F435529D02D1D00F4DFEE /* MapPageView.swift */,
 				183F435729D02FF900F4DFEE /* CustomPointAnnotation.swift */,
 				183F435929D0344500F4DFEE /* Coordinator.swift */,
@@ -870,7 +856,6 @@
 				181C746F29BDDEB700E6D3B1 /* UserActionMenuView.swift in Sources */,
 				183F435629D02D1D00F4DFEE /* MapPageView.swift in Sources */,
 				B4E9460A29C35CEF001B65EE /* SotravelError.swift in Sources */,
-				183F435429D02D0A00F4DFEE /* UserAnnotationView.swift in Sources */,
 				B4C3536329C0A5D30073931C /* TripRepository.swift in Sources */,
 				188EBDBB29C1B142002735F0 /* MockTrips.swift in Sources */,
 				1848F8FD29D0162800A70989 /* FirebaseMapRepository.swift in Sources */,
@@ -891,7 +876,6 @@
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
 				B46B0A7129CCB148006F2BA2 /* Encodable+Subscriptable.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
-				18898CAD29CC41BF00FFD991 /* UserAnnotationView.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
 				18B33DAF29BE06E60036B51E /* CreateInvitePageView.swift in Sources */,
 				B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */,
