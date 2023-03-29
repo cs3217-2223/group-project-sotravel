@@ -11,16 +11,16 @@ import Combine
 
 class EventService: ObservableObject {
     @Published var eventViewModels: [EventViewModel]
+    @Published var eventCache: [Int: Event]
 
-    private var events: [Event]
     private var eventToViewModels: [Event: EventViewModel]
 
     @Injected private var eventRepository: EventRepository
 
     init() {
-        self.events = []
         self.eventViewModels = []
         self.eventToViewModels = [:]
+        self.eventCache = [:]
     }
 
     func loadUserEvents(forTrip tripId: Int, userId: UUID) {
@@ -28,7 +28,7 @@ class EventService: ObservableObject {
             do {
                 let events = try await eventRepository.getUserEvents(userId: userId, tripId: tripId)
                 DispatchQueue.main.async {
-                    self.events = events
+                    self.initCache(from: events)
                     self.createEventViewModels(from: events)
                     self.objectWillChange.send()
                 }
@@ -43,7 +43,7 @@ class EventService: ObservableObject {
             do {
                 let newEvent = try await eventRepository.create(event: event)
                 DispatchQueue.main.async {
-                    self.events.append(newEvent)
+                    self.eventCache[newEvent.id] = newEvent
                     let viewModel = EventViewModel(event: newEvent)
                     self.eventViewModels.append(viewModel)
                     self.eventToViewModels[newEvent] = viewModel
@@ -61,7 +61,7 @@ class EventService: ObservableObject {
             do {
                 try await eventRepository.cancelEvent(id: id)
                 DispatchQueue.main.async {
-                    self.events.removeAll { $0.id == id }
+                    self.eventCache[id] = nil
                     self.eventViewModels.removeAll { $0.id == id }
                 }
             } catch {
@@ -75,12 +75,10 @@ class EventService: ObservableObject {
             do {
                 try await eventRepository.rsvpToEvent(eventId: eventId, userId: userId, status: status)
 
-                guard let eventIndex = events.firstIndex(where: { $0.id == eventId }) else {
+                guard let event = eventCache[eventId] else {
                     print("Error: Event for RSVP not found")
                     return
                 }
-
-                let event = events[eventIndex]
 
                 event.attendingUsers.removeAll { $0 == userId }
                 event.rejectedUsers.removeAll { $0 == userId }
@@ -99,8 +97,25 @@ class EventService: ObservableObject {
         }
     }
 
+    func fetchEventIfNeededFrom(id: Int) async {
+        if eventCache[id] == nil {
+            do {
+                let fetchedEvent = try await eventRepository.get(id: id)
+                DispatchQueue.main.async {
+                    self.eventCache[id] = fetchedEvent
+                    let viewModel = EventViewModel(event: fetchedEvent)
+                    self.eventViewModels.append(viewModel)
+                    self.eventToViewModels[fetchedEvent] = viewModel
+                    self.objectWillChange.send()
+                }
+            } catch {
+                print("Error fetching event:", error)
+            }
+        }
+    }
+
     func findAttendingEvents(for user: User) -> [EventViewModel] {
-        let attendingEvents = events.filter { event in
+        let attendingEvents = eventCache.values.filter { event in
             event.attendingUsers.contains(user.id) || event.hostUser == user.id
         }
         return attendingEvents.compactMap { eventToViewModels[$0] }
@@ -114,18 +129,16 @@ class EventService: ObservableObject {
         }
     }
 
+    private func initCache(from events: [Event]) {
+        for event in events {
+            self.eventCache[event.id] = event
+        }
+    }
+
     private func handleEventPropertyChange(for event: Event) {
         guard let viewModel = eventToViewModels[event] else {
             return
         }
         viewModel.updateFrom(event: event)
-    }
-
-    private func handleEventsPropertyChange() {
-        for event in events {
-            let viewModel = eventToViewModels[event]
-            viewModel?.updateFrom(event: event)
-        }
-
     }
 }
