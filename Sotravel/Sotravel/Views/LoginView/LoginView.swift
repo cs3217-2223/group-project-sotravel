@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var eventService: EventService
     @State private var isNavigationActive = false
     @State private var isLoading = false
     var body: some View {
@@ -62,6 +63,11 @@ struct LoginView: View {
                             isLoading = true
                             userService.fetchUser(id: UUID()) { success in
                                 if success {
+                                    userService.fetchAllFriends(tripId: 1) { _ in
+                                        // empty for now
+                                    }
+                                    // TODO: Remove hardcoded trip id and user id
+                                    eventService.loadUserEvents(forTrip: 1, userId: mockUser.id)
                                     isNavigationActive = true
                                 } else {
                                     isLoading = false

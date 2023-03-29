@@ -11,6 +11,7 @@ import Combine
 
 class UserService: ObservableObject {
     var user: User?
+    @Published var userCache: [UUID: User] = [:]
     @Published var profileHeaderVM: ProfileHeaderViewModel
     @Published var socialMediaLinksVM: SocialMediaLinksViewModel
     @Published var profileFriendsVM: ProfileFriendsViewModel
@@ -29,6 +30,21 @@ class UserService: ObservableObject {
         self.eventPageViewModel = EventPageUserViewModel()
     }
 
+    func fetchUserIfNeededFrom(id: UUID) async {
+        if userCache[id] == nil {
+            do {
+                if let fetchedUser = try await userRepository.get(id: id) {
+                    DispatchQueue.main.async {
+                        self.userCache[id] = fetchedUser
+                        self.objectWillChange.send()
+                    }
+                }
+            } catch {
+                print("Error fetching user:", error)
+            }
+        }
+    }
+
     func fetchUser(id: UUID, completion: @escaping (Bool) -> Void) {
         Task {
             do {
@@ -36,11 +52,9 @@ class UserService: ObservableObject {
                     DispatchQueue.main.async {
                         self.user = fetchedUser
                         self.handleUserPropertyChange()
-                        print("success")
                         completion(true)
                     }
                 } else {
-                    print("fail")
                     completion(false)
                 }
             } catch {
@@ -71,6 +85,23 @@ class UserService: ObservableObject {
         }
     }
 
+    func fetchAllFriends(tripId: Int, completion: @escaping (Bool) -> Void) {
+        Task {
+            do {
+                let fetchedFriends = try await userRepository.getAllFriendsOnTrip(tripId: tripId)
+                DispatchQueue.main.async {
+                    self.profileFriendsVM.updateFrom(friends: fetchedFriends)
+                    self.createInvitePageViewModel.updateFrom(friends: fetchedFriends)
+                    self.initCache(users: fetchedFriends)
+                    completion(true)
+                }
+            } catch {
+                print("Error fetching friends:", error)
+                completion(false)
+            }
+        }
+    }
+
     func editUser(firstName: String,
                   lastName: String,
                   description: String,
@@ -84,11 +115,17 @@ class UserService: ObservableObject {
     }
 
     func toggleEditProfileViewAlert() {
-        // editProfileViewModel.updateError.toggle()
+        editProfileViewModel.updateError.toggle()
+    }
+
+    private func initCache(users: [User]) {
+        for user in users {
+            userCache[user.id] = user
+        }
     }
 
     private func alertEditProfileView() {
-        // editProfileViewModel.updateError = true
+        editProfileViewModel.updateError = true
     }
 
     private func handleUserPropertyChange() {
@@ -97,9 +134,8 @@ class UserService: ObservableObject {
         }
         self.profileHeaderVM.updateFrom(user: user)
         self.socialMediaLinksVM.updateFrom(user: user)
-        self.profileFriendsVM.updateFrom(user: user)
         self.editProfileViewModel.updateFrom(user: user)
-        self.createInvitePageViewModel.updateFrom(user: user)
         self.eventPageViewModel.updateFrom(user: user)
+        self.createInvitePageViewModel.updateFrom(user: user)
     }
 }

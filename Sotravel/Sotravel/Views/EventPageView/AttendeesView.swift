@@ -46,7 +46,6 @@ struct AttendeesView: View {
                 Spacer()
             }
             .padding(.bottom, 10)
-
             if selectedTab == 0 {
                 UserHorizontalListView(users: eventViewModel.attendingUsers)
             } else if selectedTab == 1 {
@@ -60,6 +59,9 @@ struct AttendeesView: View {
 
 struct AttendeesTabView_Previews: PreviewProvider {
     static var previews: some View {
-        AttendeesView(eventViewModel: EventViewModel())
+        AttendeesView(eventViewModel: EventViewModel(title: "Test event VM",
+                                                     datetime: Date(),
+                                                     location: "COM1",
+                                                     meetingPoint: "COM1"))
     }
 }

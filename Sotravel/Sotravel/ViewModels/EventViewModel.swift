@@ -8,65 +8,73 @@
 import Foundation
 
 class EventViewModel: ObservableObject {
-    @Published var invitedUsers: [User]
-    @Published var attendingUsers: [User]
-    @Published var rejectedUsers: [User]
+    var id: Int
+    @Published var title: String
+    @Published var details: String?
     @Published var datetime: Date
     @Published var meetingPoint: String
     @Published var location: String
-    @Published var activity: String
-    @Published var description: String
+    @Published var invitedUsers: [UUID]
+    @Published var attendingUsers: [UUID]
+    @Published var rejectedUsers: [UUID]
+    @Published var hostUser: UUID
 
-    var id: UUID
-    var title: String {
-        "\(self.activity) at \(self.location)"
+    var description: String {
+        "\(title) at \(location)"
     }
-    var pendingUsers: [User] {
+
+    var pendingUsers: [UUID] {
         let respondedUsers = attendingUsers + rejectedUsers
         return invitedUsers.filter { !respondedUsers.contains($0) }
     }
 
-    init(id: UUID = UUID(),
-         activity: String = "",
-         invitedUsers: [User] = [],
-         attendingUsers: [User] = [],
-         rejectedUsers: [User] = [],
+    init(id: Int = -1,
+         title: String = "",
+         details: String? = nil,
          datetime: Date = Date(),
          location: String = "",
          meetingPoint: String = "",
-         description: String = "") {
+         invitedUsers: [UUID] = [],
+         attendingUsers: [UUID] = [],
+         rejectedUsers: [UUID] = [],
+         hostUser: UUID = UUID()) {
         self.id = id
-        self.activity = activity
+        self.title = title
+        self.details = details
+        self.datetime = datetime
+        self.location = location
+        self.meetingPoint = meetingPoint
         self.invitedUsers = invitedUsers
         self.attendingUsers = attendingUsers
         self.rejectedUsers = rejectedUsers
-        self.datetime = datetime
-        self.location = location
-        self.description = description
-        self.meetingPoint = meetingPoint
+        self.hostUser = hostUser
     }
 
     init(event: Event) {
         self.id = event.id
-        self.activity = event.activity
+        self.title = event.title
         self.invitedUsers = event.invitedUsers
         self.attendingUsers = event.attendingUsers
         self.rejectedUsers = event.rejectedUsers
         self.datetime = event.datetime
         self.location = event.location
-        self.description = event.description
+        self.details = event.details
         self.meetingPoint = event.meetingPoint
+        self.hostUser = event.hostUser
     }
 
     func updateFrom(event: Event) {
-        self.id = event.id
-        self.activity = event.activity
-        self.invitedUsers = event.invitedUsers
-        self.attendingUsers = event.attendingUsers
-        self.rejectedUsers = event.rejectedUsers
-        self.datetime = event.datetime
-        self.location = event.location
-        self.description = event.description
-        self.meetingPoint = event.meetingPoint
+        DispatchQueue.main.async {
+            self.id = event.id
+            self.title = event.title
+            self.datetime = event.datetime
+            self.location = event.location
+            self.details = event.details
+            self.meetingPoint = event.meetingPoint
+            self.invitedUsers = event.invitedUsers
+            self.attendingUsers = event.attendingUsers
+            self.rejectedUsers = event.rejectedUsers
+            self.hostUser = event.hostUser
+        }
     }
 }

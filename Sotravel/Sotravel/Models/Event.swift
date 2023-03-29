@@ -1,44 +1,72 @@
-import SwiftUI
+import Foundation
 
-class Event: ObservableObject, Hashable, Identifiable {
-    @Published var invitedUsers: [User]
-    @Published var attendingUsers: [User]
-    @Published var rejectedUsers: [User]
-    @Published var datetime: Date
-    @Published var meetingPoint: String
-    @Published var location: String
-    @Published var activity: String
-    @Published var description: String
-    @Published var hostUser: User
+class Event: Hashable, Identifiable {
+    var id: Int
+    var tripId: Int
+    var title: String
+    var details: String?
+    var status: String?
+    var datetime: Date
+    var meetingPoint: String
+    var location: String
+    var hostUser: UUID
+    var invitedUsers: [UUID]
+    var attendingUsers: [UUID]
+    var rejectedUsers: [UUID]
 
-    var id: UUID
-    var title: String {
-        "\(self.activity) at \(self.location)"
+    var description: String {
+        "\(title) at \(location)"
     }
 
-    init(id: UUID = UUID(),
-         activity: String = "",
-         invitedUsers: [User] = [],
-         attendingUsers: [User] = [],
-         rejectedUsers: [User] = [],
-         datetime: Date = Date(),
-         location: String = "",
-         meetingPoint: String = "",
-         description: String = "",
-         hostUser: User) {
+    init(id: Int = -1,
+         tripId: Int,
+         title: String,
+         details: String?,
+         status: String?,
+         datetime: Date,
+         meetingPoint: String,
+         location: String,
+         hostUser: UUID,
+         invitedUsers: [UUID] = [],
+         attendingUsers: [UUID] = [],
+         rejectedUsers: [UUID] = []) {
         self.id = id
-        self.activity = activity
+        self.tripId = tripId
+        self.title = title
+        self.details = details
+        self.status = status
+        self.datetime = datetime
+        self.meetingPoint = meetingPoint
+        self.location = location
+        self.hostUser = hostUser
         self.invitedUsers = invitedUsers
         self.attendingUsers = attendingUsers
         self.rejectedUsers = rejectedUsers
-        self.datetime = datetime
-        self.location = location
-        self.description = description
-        self.hostUser = hostUser
-        self.meetingPoint = meetingPoint
     }
 
-    var pendingUsers: [User] {
+    init(apiModel: EventApiModel) {
+        self.id = apiModel.id
+        self.tripId = apiModel.tripId
+        self.title = apiModel.activity
+        // TODO: Don't do this
+        self.hostUser = UUID(uuidString: apiModel.host) ?? UUID()
+        self.status = apiModel.status
+        self.details = apiModel.details
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd h:mm a"
+        let dateTimeStr = "\(apiModel.date) \(apiModel.time)"
+        self.datetime = dateFormatter.date(from: dateTimeStr) ?? Date()
+
+        self.location = apiModel.location
+        self.meetingPoint = apiModel.meetingPoint
+        // Map UUID strings to UUID, if its nil compactmap will ignore the value
+        self.invitedUsers = apiModel.participants.pending.compactMap { UUID(uuidString: $0) }
+        self.attendingUsers = apiModel.participants.going.compactMap { UUID(uuidString: $0) }
+        self.rejectedUsers = apiModel.participants.no.compactMap { UUID(uuidString: $0) }
+    }
+
+    var pendingUsers: [UUID] {
         let respondedUsers = attendingUsers + rejectedUsers
         return invitedUsers.filter { !respondedUsers.contains($0) }
     }

@@ -18,15 +18,25 @@ class NodeApi: RestApi {
     internal let baseScheme = "https"
     internal let baseUrl = "qa-api.sotravel.me"
     internal let basePathPrefix = "/v1"
-    private let default_timeout: Int64 = 30
+    private let default_timeout: Int64 = 60
     private let authTokenKey: String = "nodeApiBearerToken"
 
     internal let pathEnumToStr: [Path: String] = [
+        // Login
         .telegramSignIn: "/user/telegramSignin",
+        // Profile
         .profile: "/user/getUser",
         .updateProfile: "/user/updateUser",
-        .event: "",
-        .invite: ""
+        // Friends
+        .friends: "/trip/getUsersOnTrips",
+        // Trips
+        .userTrips: "/trip/getUserTrips",
+        // Events/Invites
+        .userInvites: "/invites/getUserInvitesForTrip",
+        .inviteById: "/invites/getInviteById",
+        .createInvite: "/invites/createInvite",
+        .updateInvite: "/invites/updateUserInvitation",
+        .cancelInvite: "/invites/cancelInvitation"
     ]
 
     func storeAuthToken(token: String) {
@@ -109,14 +119,14 @@ class NodeApi: RestApi {
     }
 
     private func constructUrl(path: Path, params: [String: String]?) -> URL? {
-        guard let path = pathEnumToStr[path] else {
+        guard let pathStr = pathEnumToStr[path] else {
             return nil
         }
 
         var components = URLComponents()
         components.scheme = baseScheme
         components.host = baseUrl
-        components.path = basePathPrefix + path
+        components.path = basePathPrefix + pathStr
 
         if let params = params {
             components.queryItems = params.map {
@@ -168,6 +178,11 @@ enum NodeApiPath {
     case telegramSignIn,
          profile,
          updateProfile,
-         event,
-         invite
+         userInvites,
+         createInvite,
+         inviteById,
+         updateInvite,
+         cancelInvite,
+         friends,
+         userTrips
 }

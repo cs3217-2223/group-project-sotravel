@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct FriendsListPageView: View {
+    @EnvironmentObject private var userService: UserService
     @State private var searchText = ""
 
     var friends: [User]
@@ -9,7 +10,9 @@ struct FriendsListPageView: View {
             return friends
         } else {
             return friends.filter {
-                guard let name = $0.name else {return false}
+                guard let name = $0.name else {
+                    return false
+                }
                 return name.localizedCaseInsensitiveContains(searchText)
             }
         }
@@ -21,9 +24,15 @@ struct FriendsListPageView: View {
                 .padding()
             ScrollView {
                 ForEach(filteredFriends, id: \.id) { friend in
-                    NavigationLink(destination: FriendProfilePageView(friend: friend)) {
-                        UserListItemView(user: friend) {
+                    let user = userService.userCache[friend.id]
+                    NavigationLink(destination: FriendProfilePageView(friend: user)) {
+                        UserListItemView(user: user) {
                             ActionMenuButton()
+                        }
+                    }
+                    .onAppear {
+                        Task {
+                            await userService.fetchUserIfNeededFrom(id: friend.id)
                         }
                     }
                     Divider()

@@ -8,5 +8,5 @@
 import Foundation
 
 protocol TripRepository {
-
+    func getTrips(userId: UUID) async throws -> [Trip]
 }

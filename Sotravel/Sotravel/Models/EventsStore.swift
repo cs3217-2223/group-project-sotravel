@@ -8,6 +8,6 @@ class EventsStore: ObservableObject {
     }
 
     func findAttendingEvents(for user: User) -> [Event] {
-        events.filter { $0.attendingUsers.contains(user) }
+        events.filter { $0.attendingUsers.contains(user.id) }
     }
 }

@@ -13,7 +13,9 @@ class ProfileFriendsViewModel: ObservableObject {
         self.friends = friends
     }
 
-    func updateFrom(user: User) {
-        self.friends = user.friends
+    func updateFrom(friends: [User]) {
+        DispatchQueue.main.async {
+            self.friends = friends
+        }
     }
 }

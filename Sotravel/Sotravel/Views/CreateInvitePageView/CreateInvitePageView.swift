@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct CreateInvitePageView: View {
+    @EnvironmentObject private var eventService: EventService
     @ObservedObject var createInvitePageUserViewModel: CreateInvitePageUserViewModel
     @State private var title: String = ""
     @State private var date = Date()
@@ -8,7 +9,7 @@ struct CreateInvitePageView: View {
     @State private var location: String = ""
     @State private var meetingPoint: String = ""
     @State private var description: String = ""
-    @State private var selectedAttendees: [User] = []
+    @State private var selectedAttendees: [UUID] = []
     @State private var selectedAttendeesOption: Int = 0
 
     let attendeesOptions = ["All Friends", "Selected friends"]
@@ -66,12 +67,12 @@ struct CreateInvitePageView: View {
                     } else {
                         ForEach(createInvitePageUserViewModel.friends, id: \.id) { friend in
                             Toggle(isOn: Binding(
-                                get: { self.selectedAttendees.contains(friend) },
+                                get: { self.selectedAttendees.contains(friend.id) },
                                 set: { selected in
                                     if selected {
-                                        self.selectedAttendees.append(friend)
+                                        self.selectedAttendees.append(friend.id)
                                     } else {
-                                        self.selectedAttendees.removeAll(where: { $0 == friend })
+                                        self.selectedAttendees.removeAll(where: { $0 == friend.id })
                                     }
                                 }
                             )) {
@@ -82,7 +83,7 @@ struct CreateInvitePageView: View {
                 }
 
                 Button(action: {
-                    // Create event action
+                    createEvent()
                 }) {
                     HStack(alignment: .firstTextBaseline) {
                         Image(systemName: "plus")
@@ -93,21 +94,87 @@ struct CreateInvitePageView: View {
                     .frame(maxWidth: .infinity)
                     .clipped()
                     .foregroundColor(.blue)
-                    .background {
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .stroke(.clear.opacity(0.25), lineWidth: 0)
-                            .background(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                    }
+                    .background(Color.white) // add background color
+                    .cornerRadius(10) // add corner radius
                 }
             }
         }
+    }
+
+    private func createEvent() {
+        // TODO: Validate inputs
+        guard !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            showAlert(message: "Please enter a title for your invite.")
+            return
+        }
+        guard !location.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            showAlert(message: "Please enter a location for your invite.")
+            return
+        }
+        guard !meetingPoint.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            showAlert(message: "Please enter a meeting point for your invite.")
+            return
+        }
+
+        let selected = selectedAttendeesOption == 0
+            ? createInvitePageUserViewModel.friends.map { $0.id }
+            : self.selectedAttendees
+
+        let event = Event(
+            tripId: 1,
+            title: title,
+            details: description.isEmpty ? nil : description,
+            status: nil,
+            datetime: combineDateAndTime(date: date, time: time),
+            meetingPoint: meetingPoint,
+            location: location,
+            hostUser: createInvitePageUserViewModel.userId,
+            invitedUsers: selected,
+            attendingUsers: [],
+            rejectedUsers: []
+        )
+        // Call event service to create event
+        eventService.createEvent(event: event) { result in
+            switch result {
+            case .success:
+                // Show success message and reset input fields
+                showAlert(message: "Invite created successfully!")
+                title = ""
+                location = ""
+                meetingPoint = ""
+                description = ""
+                selectedAttendees = []
+                selectedAttendeesOption = 0
+            case .failure(let error):
+                // Show error message
+                showAlert(message: "Failed to create invite: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func combineDateAndTime(date: Date, time: Date) -> Date {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+        let timeComponents = calendar.dateComponents([.hour, .minute], from: time)
+        let combinedDateComponents = DateComponents(year: dateComponents.year,
+                                                    month: dateComponents.month,
+                                                    day: dateComponents.day,
+                                                    hour: timeComponents.hour,
+                                                    minute: timeComponents.minute)
+        return calendar.date(from: combinedDateComponents)!
+    }
+
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 }
 
 struct CreateEventView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CreateInvitePageView(createInvitePageUserViewModel: CreateInvitePageUserViewModel()).environmentObject(UserService())
+            CreateInvitePageView(createInvitePageUserViewModel: CreateInvitePageUserViewModel()).environmentObject(EventService())
         }
     }
 }

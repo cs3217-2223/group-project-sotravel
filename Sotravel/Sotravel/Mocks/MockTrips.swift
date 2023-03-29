@@ -2,6 +2,7 @@ import Foundation
 
 let mockTrips = [
     Trip(
+        id: 1,
         title: "Beach Vacation",
         startDate: Date(),
         endDate: Date().addingTimeInterval(86_400 * 7),
@@ -11,6 +12,7 @@ let mockTrips = [
                         "auto=format&fit=crop&w=800&q=60")!
     ),
     Trip(
+        id: 2,
         title: "Mountain Retreat",
         startDate: Date().addingTimeInterval(86_400 * 8),
         endDate: Date().addingTimeInterval(86_400 * 14),
@@ -20,6 +22,7 @@ let mockTrips = [
                         "auto=format&fit=crop&w=2342&q=80")!
     ),
     Trip(
+        id: 3,
         title: "Great Singapore Ski Trip",
         startDate: Date().addingTimeInterval(86_400 * 15),
         endDate: Date().addingTimeInterval(86_400 * 21),

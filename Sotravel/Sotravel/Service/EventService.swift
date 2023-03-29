@@ -14,41 +14,103 @@ class EventService: ObservableObject {
 
     private var events: [Event]
     private var eventToViewModels: [Event: EventViewModel]
-    private var cancellables: Set<AnyCancellable> = []
-    //    @Injected private var eventRepository: EventRepository
 
-    init(events: [Event] = mockEvents) {
-        self.events = events
+    @Injected private var eventRepository: EventRepository
+
+    init() {
+        self.events = []
         self.eventViewModels = []
         self.eventToViewModels = [:]
+    }
 
-        // Initialize event view models and map each event to its view model
+    func loadUserEvents(forTrip tripId: Int, userId: UUID) {
+        Task {
+            do {
+                let events = try await eventRepository.getUserEvents(userId: userId, tripId: tripId)
+                DispatchQueue.main.async {
+                    self.events = events
+                    self.createEventViewModels(from: events)
+                    self.objectWillChange.send()
+                }
+            } catch {
+                print("Error loading user events:", error)
+            }
+        }
+    }
+
+    func createEvent(event: Event, completion: @escaping (Result<Event, Error>) -> Void) {
+        Task {
+            do {
+                let newEvent = try await eventRepository.create(event: event)
+                DispatchQueue.main.async {
+                    self.events.append(newEvent)
+                    let viewModel = EventViewModel(event: newEvent)
+                    self.eventViewModels.append(viewModel)
+                    self.eventToViewModels[newEvent] = viewModel
+                    completion(.success(newEvent))
+                }
+            } catch {
+                print("Error creating event:", error)
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func cancelEvent(id: Int) {
+        Task {
+            do {
+                try await eventRepository.cancelEvent(id: id)
+                DispatchQueue.main.async {
+                    self.events.removeAll { $0.id == id }
+                    self.eventViewModels.removeAll { $0.id == id }
+                }
+            } catch {
+                print("Error canceling event:", error)
+            }
+        }
+    }
+
+    func rsvpToEvent(eventId: Int, userId: UUID, status: EventRsvpStatus) {
+        Task {
+            do {
+                try await eventRepository.rsvpToEvent(eventId: eventId, userId: userId, status: status)
+
+                guard let eventIndex = events.firstIndex(where: { $0.id == eventId }) else {
+                    print("Error: Event for RSVP not found")
+                    return
+                }
+
+                let event = events[eventIndex]
+
+                event.attendingUsers.removeAll { $0 == userId }
+                event.rejectedUsers.removeAll { $0 == userId }
+
+                switch status {
+                case .yes:
+                    event.attendingUsers.append(userId)
+                case .no:
+                    event.rejectedUsers.append(userId)
+                }
+
+                self.handleEventPropertyChange(for: event)
+            } catch {
+                print("Error RSVPing to event:", error)
+            }
+        }
+    }
+
+    func findAttendingEvents(for user: User) -> [EventViewModel] {
+        let attendingEvents = events.filter { event in
+            event.attendingUsers.contains(user.id) || event.hostUser == user.id
+        }
+        return attendingEvents.compactMap { eventToViewModels[$0] }
+    }
+
+    private func createEventViewModels(from events: [Event]) {
         for event in events {
             let viewModel = EventViewModel(event: event)
             self.eventViewModels.append(viewModel)
             self.eventToViewModels[event] = viewModel
-        }
-        setupObservers()
-    }
-
-    func findAttendingEvents(for user: User) -> [EventViewModel] {
-        let attendingEvents = events.filter { $0.attendingUsers.contains(user) }
-        return attendingEvents.compactMap { eventToViewModels[$0] }
-    }
-
-    func fetchEvents() {
-
-    }
-
-    func updateEvents() {
-
-    }
-
-    private func setupObservers() {
-        for event in events {
-            event.objectWillChange.sink { [weak self] _ in
-                self?.handleEventPropertyChange(for: event)
-            }.store(in: &cancellables)
         }
     }
 
@@ -57,5 +119,13 @@ class EventService: ObservableObject {
             return
         }
         viewModel.updateFrom(event: event)
+    }
+
+    private func handleEventsPropertyChange() {
+        for event in events {
+            let viewModel = eventToViewModels[event]
+            viewModel?.updateFrom(event: event)
+        }
+
     }
 }

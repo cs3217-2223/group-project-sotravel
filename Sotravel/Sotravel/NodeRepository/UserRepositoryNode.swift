@@ -12,15 +12,17 @@ class UserRepositoryNode: UserRepository {
     private static var api = NodeApi()
 
     func get(id: UUID) async throws -> User? {
-        let (status, response) = try await UserRepositoryNode.api.get(path: .profile, params: ["user_id": "003c8b4a-f831-43c8-9895-bf37da40fa95"])
+        let params = ["user_id": id.uuidString]
+        let (status, response) = try await UserRepositoryNode.api.get(path: .profile,
+                                                                      params: params)
+        let functionName = "Get User"
 
-        guard status == HTTPResponseStatus.ok, let response = response else {
-            throw SotravelError.AuthorizationError("Response from get user in repository is not HTTP 200", nil)
-        }
+        try ApiErrorHelper.handleError(location: functionName, status: status)
+        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
 
         do {
-            let responseModel = try JSONDecoder().decode(NodeApiUser.self, from: Data(response.utf8))
-            // Deserialize the response into a User object
+            let responseModel = try JSONDecoder().decode(NodeApiUser.self, from: Data(data.utf8))
+
             return try User(apiUser: responseModel)
         } catch is DecodingError {
             throw SotravelError.message("Unable to parse Get User response")
@@ -33,18 +35,53 @@ class UserRepositoryNode: UserRepository {
         // Create the API model
         let userToUpdate = UpdateUserApiModel(user: user)
         // Make the API call to update the profile and return the result
-        let (status, response) = try await UserRepositoryNode.api.post(path: .updateProfile, data: userToUpdate.dictionary)
+        let (status, response) = try await UserRepositoryNode.api.post(path: .updateProfile,
+                                                                       data: userToUpdate.dictionary)
+        let functionName = "Update User"
 
-        guard status == HTTPResponseStatus.ok, let response = response else {
-            throw SotravelError.AuthorizationError("Response from update user in repository is not HTTP 200", nil)
-        }
+        try ApiErrorHelper.handleError(location: functionName, status: status)
+        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
 
         do {
-            let responseModel = try JSONDecoder().decode(NodeApiUser.self, from: Data(response.utf8))
-            // Deserialize the response into a User object
+            let responseModel = try JSONDecoder().decode(NodeApiUser.self, from: Data(data.utf8))
+
             return try User(apiUser: responseModel)
         } catch is DecodingError {
-            throw SotravelError.message("Unable to parse Update User response")
+            throw SotravelError.DecodingError("Unable to parse Update User response")
+        }
+    }
+
+    func getAllFriendsOnTrip(tripId: Int) async throws -> [User] {
+        let params = ["trip_id": String(tripId)]
+        let (status, response) = try await UserRepositoryNode.api.get(path: .friends,
+                                                                      params: params)
+        let functionName = "Get Friends"
+
+        try ApiErrorHelper.handleError(location: functionName, status: status)
+        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
+
+        do {
+            let friendIds = try JSONDecoder().decode([String].self, from: Data(data.utf8))
+            var results: [User] = []
+
+            return try await withThrowingTaskGroup(of: (User?).self) {group in
+                for id in friendIds {
+                    guard let idAsUUID = UUID(uuidString: id) else {
+                        continue
+                    }
+                    group.addTask { try await self.get(id: idAsUUID) }
+                }
+
+                return try await group.reduce(into: results) {acc, curr in
+                    if let curr = curr {
+                        acc.append(curr)
+                    }
+                }
+            }
+        } catch is DecodingError {
+            throw SotravelError.DecodingError("Unable to parse Get Friends response")
+        } catch {
+            throw error
         }
     }
 }

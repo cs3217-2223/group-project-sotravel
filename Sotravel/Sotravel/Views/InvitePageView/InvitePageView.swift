@@ -9,15 +9,19 @@ import SwiftUI
 
 struct InvitePageView: View {
     @EnvironmentObject var eventService: EventService
+    @State private var selectedDate = Date()
 
     var body: some View {
         NavigationView {
             VStack(spacing: 4) {
-                CalendarView(calendar: Calendar(identifier: .iso8601))
+                CalendarView(calendar: Calendar(identifier: .iso8601), selectedDate: $selectedDate)
                 ScrollView(.vertical) {
                     VStack(spacing: 20) {
-                        // Shows all events, when you scroll past the current date, calendar view should auto update
-                        ForEach(eventService.eventViewModels, id: \.id) { eventViewModel in
+                        // Shows events only on the same date as the selected date
+                        ForEach(eventService.eventViewModels.filter { eventViewModel in
+                            let calendar = Calendar.current
+                            return calendar.isDate(eventViewModel.datetime, equalTo: selectedDate, toGranularity: .day)
+                        }, id: \.id) { eventViewModel in
                             EventView(eventViewModel: eventViewModel)
                         }
                         Spacer()

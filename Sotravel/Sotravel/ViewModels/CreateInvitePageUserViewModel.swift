@@ -7,13 +7,23 @@
 import Foundation
 
 class CreateInvitePageUserViewModel: ObservableObject {
+    @Published var userId: UUID
     @Published var friends: [User]
 
-    init(friends: [User] = []) {
+    init(friends: [User] = [], userId: UUID = UUID()) {
         self.friends = friends
+        self.userId = userId
+    }
+
+    func updateFrom(friends: [User]) {
+        DispatchQueue.main.async {
+            self.friends = friends
+        }
     }
 
     func updateFrom(user: User) {
-        self.friends = user.friends
+        DispatchQueue.main.async {
+            self.userId = user.id
+        }
     }
 }

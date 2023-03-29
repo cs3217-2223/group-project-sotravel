@@ -18,8 +18,10 @@ class SocialMediaLinksViewModel: ObservableObject {
     }
 
     func updateFrom(user: User) {
-        self.instagramUsername = user.instagramUsername
-        self.tiktokUsername = user.tiktokUsername
-        self.telegramUsername = user.telegramUsername
+        DispatchQueue.main.async {
+            self.instagramUsername = user.instagramUsername
+            self.tiktokUsername = user.tiktokUsername
+            self.telegramUsername = user.telegramUsername
+        }
     }
 }

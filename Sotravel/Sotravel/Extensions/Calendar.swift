@@ -21,7 +21,9 @@ extension Calendar {
 
         enumerateDates(startingAfter: dateInterval.start,
                        matching: components, matchingPolicy: .nextTime) { date, _, stop in
-            guard let date = date else { return }
+            guard let date = date else {
+                return
+            }
 
             guard date < dateInterval.end else {
                 stop = true

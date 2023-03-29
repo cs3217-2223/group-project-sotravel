@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		181C746D29BDDBEF00E6D3B1 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C746C29BDDBEF00E6D3B1 /* AttendeesView.swift */; };
-		181C746F29BDDEB700E6D3B1 /* UserActionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C746E29BDDEB700E6D3B1 /* UserActionMenuView.swift */; };
+		181C746F29BDDEB700E6D3B1 /* ActionMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C746E29BDDEB700E6D3B1 /* ActionMenuButton.swift */; };
 		183F435229D02CDF00F4DFEE /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F435129D02CDF00F4DFEE /* MapView.swift */; };
 		183F435629D02D1D00F4DFEE /* MapPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F435529D02D1D00F4DFEE /* MapPageView.swift */; };
 		183F435829D02FF900F4DFEE /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F435729D02FF900F4DFEE /* CustomPointAnnotation.swift */; };
@@ -80,6 +80,7 @@
 		AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */; };
 		AC6305A629BDC60300EEEA85 /* RecentActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */; };
 		AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */; };
+		AC832C9729D1F97200B3D52D /* MockFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC832C9629D1F97200B3D52D /* MockFriends.swift */; };
 		ACA4016329C765DC0076E183 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016229C765DC0076E183 /* ProfileHeaderViewModel.swift */; };
 		ACA4016529C7664D0076E183 /* SocialMediaLinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */; };
 		ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */; };
@@ -92,9 +93,17 @@
 		B43AFA6B29CA0E230029AB85 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = B43AFA6A29CA0E230029AB85 /* Resolver */; };
 		B43AFA6D29CA0E9F0029AB85 /* Repositories+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */; };
 		B44CB22B29C03954007588DC /* MainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44CB22A29C03954007588DC /* MainRepository.swift */; };
+		B4671ED529D2077F00266871 /* TripRepositoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4671ED429D2077F00266871 /* TripRepositoryNode.swift */; };
+		B4671ED729D2DB4600266871 /* GetAllTripsApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4671ED629D2DB4600266871 /* GetAllTripsApiModel.swift */; };
 		B46B0A6F29CCA9A2006F2BA2 /* UpdateUserApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46B0A6E29CCA9A2006F2BA2 /* UpdateUserApiModel.swift */; };
 		B46B0A7129CCB148006F2BA2 /* Encodable+Subscriptable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46B0A7029CCB148006F2BA2 /* Encodable+Subscriptable.swift */; };
 		B46B0A8129CEC6B4006F2BA2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */; };
+		B485A8E129CEF76900786A34 /* EventRepositoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8E029CEF76900786A34 /* EventRepositoryNode.swift */; };
+		B485A8E929CF628F00786A34 /* EventApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8E829CF628F00786A34 /* EventApiModel.swift */; };
+		B485A8F129D04ADE00786A34 /* UserCreateEventApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8F029D04ADE00786A34 /* UserCreateEventApiModel.swift */; };
+		B485A8F329D06ECB00786A34 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8F229D06ECB00786A34 /* Friend.swift */; };
+		B485A8F529D06F3200786A34 /* UserFriendApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8F429D06F3200786A34 /* UserFriendApiModel.swift */; };
+		B485A8F729D0709300786A34 /* ApiErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8F629D0709300786A34 /* ApiErrorHelper.swift */; };
 		B4C3536129C0A5BE0073931C /* FriendRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536029C0A5BE0073931C /* FriendRepository.swift */; };
 		B4C3536329C0A5D30073931C /* TripRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536229C0A5D30073931C /* TripRepository.swift */; };
 		B4C3536529C0A64A0073931C /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536429C0A64A0073931C /* EventRepository.swift */; };
@@ -154,7 +163,7 @@
 
 /* Begin PBXFileReference section */
 		181C746C29BDDBEF00E6D3B1 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
-		181C746E29BDDEB700E6D3B1 /* UserActionMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionMenuView.swift; sourceTree = "<group>"; };
+		181C746E29BDDEB700E6D3B1 /* ActionMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuButton.swift; sourceTree = "<group>"; };
 		183F435129D02CDF00F4DFEE /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		183F435529D02D1D00F4DFEE /* MapPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPageView.swift; sourceTree = "<group>"; };
 		183F435729D02FF900F4DFEE /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
@@ -222,6 +231,7 @@
 		AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksView.swift; sourceTree = "<group>"; };
 		AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentActivityView.swift; sourceTree = "<group>"; };
 		AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsView.swift; sourceTree = "<group>"; };
+		AC832C9629D1F97200B3D52D /* MockFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFriends.swift; sourceTree = "<group>"; };
 		ACA4016229C765DC0076E183 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksViewModel.swift; sourceTree = "<group>"; };
 		ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsViewModel.swift; sourceTree = "<group>"; };
@@ -233,9 +243,17 @@
 		B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swif.swift"; sourceTree = "<group>"; };
 		B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repositories+Injection.swift"; sourceTree = "<group>"; };
 		B44CB22A29C03954007588DC /* MainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRepository.swift; sourceTree = "<group>"; };
+		B4671ED429D2077F00266871 /* TripRepositoryNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRepositoryNode.swift; sourceTree = "<group>"; };
+		B4671ED629D2DB4600266871 /* GetAllTripsApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllTripsApiModel.swift; sourceTree = "<group>"; };
 		B46B0A6E29CCA9A2006F2BA2 /* UpdateUserApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserApiModel.swift; sourceTree = "<group>"; };
 		B46B0A7029CCB148006F2BA2 /* Encodable+Subscriptable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Subscriptable.swift"; sourceTree = "<group>"; };
 		B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		B485A8E029CEF76900786A34 /* EventRepositoryNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryNode.swift; sourceTree = "<group>"; };
+		B485A8E829CF628F00786A34 /* EventApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventApiModel.swift; sourceTree = "<group>"; };
+		B485A8F029D04ADE00786A34 /* UserCreateEventApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCreateEventApiModel.swift; sourceTree = "<group>"; };
+		B485A8F229D06ECB00786A34 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		B485A8F429D06F3200786A34 /* UserFriendApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendApiModel.swift; sourceTree = "<group>"; };
+		B485A8F629D0709300786A34 /* ApiErrorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiErrorHelper.swift; sourceTree = "<group>"; };
 		B4C3536029C0A5BE0073931C /* FriendRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRepository.swift; sourceTree = "<group>"; };
 		B4C3536229C0A5D30073931C /* TripRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRepository.swift; sourceTree = "<group>"; };
 		B4C3536429C0A64A0073931C /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
@@ -306,6 +324,7 @@
 				18C3660329C020D800AF0338 /* Chat.swift */,
 				188EBDB229C1B053002735F0 /* Trip.swift */,
 				AC28033129C61CC500687D62 /* ChatsStore.swift */,
+				B485A8F229D06ECB00786A34 /* Friend.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -424,6 +443,7 @@
 				1893D29429BF2A4E00B61BC9 /* MockChat.swift */,
 				188EBDBA29C1B142002735F0 /* MockTrips.swift */,
 				D7F6A9D129C6F661006FBD26 /* MockDatabaseData.json */,
+				AC832C9629D1F97200B3D52D /* MockFriends.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -514,7 +534,7 @@
 			children = (
 				18591C8229BCDB2800FA987D /* ProfileImageView.swift */,
 				18591C8429BCDB7700FA987D /* SearchBarView.swift */,
-				181C746E29BDDEB700E6D3B1 /* UserActionMenuView.swift */,
+				181C746E29BDDEB700E6D3B1 /* ActionMenuButton.swift */,
 				18BE7F2629BDEDBE0035DE2C /* UserHorizontalListView.swift */,
 				18D9713429BD7CC90064DC2A /* UserListItemView.swift */,
 				AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */,
@@ -589,6 +609,9 @@
 			isa = PBXGroup;
 			children = (
 				B4C3536B29C0A7930073931C /* UserRepositoryNode.swift */,
+				B485A8E029CEF76900786A34 /* EventRepositoryNode.swift */,
+				B485A8F629D0709300786A34 /* ApiErrorHelper.swift */,
+				B4671ED429D2077F00266871 /* TripRepositoryNode.swift */,
 			);
 			path = NodeRepository;
 			sourceTree = "<group>";
@@ -636,6 +659,10 @@
 				D7F6A9EF29D1B87C006FBD26 /* ChatMessageApiModel.swift */,
 				B46B0A6E29CCA9A2006F2BA2 /* UpdateUserApiModel.swift */,
 				B46B0A7029CCB148006F2BA2 /* Encodable+Subscriptable.swift */,
+				B485A8E829CF628F00786A34 /* EventApiModel.swift */,
+				B485A8F029D04ADE00786A34 /* UserCreateEventApiModel.swift */,
+				B485A8F429D06F3200786A34 /* UserFriendApiModel.swift */,
+				B4671ED629D2DB4600266871 /* GetAllTripsApiModel.swift */,
 			);
 			path = ApiModels;
 			sourceTree = "<group>";
@@ -801,6 +828,7 @@
 				D7F6A9CD29C6E6BB006FBD26 /* DatabaseAdapter.swift in Sources */,
 				18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */,
 				ACF2B20329CD8BAA0017A9F0 /* EventPageUserViewModel.swift in Sources */,
+				AC832C9729D1F97200B3D52D /* MockFriends.swift in Sources */,
 				AC28033229C61CC500687D62 /* ChatsStore.swift in Sources */,
 				1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */,
 				B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */,
@@ -812,12 +840,14 @@
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
 				18591C8829BD73FF00FA987D /* User.swift in Sources */,
 				B4C3536829C0A7160073931C /* ChatRepository.swift in Sources */,
+				B4671ED729D2DB4600266871 /* GetAllTripsApiModel.swift in Sources */,
 				188C147729CDC13500531F9F /* LocationManagerService.swift in Sources */,
 				B43AFA6D29CA0E9F0029AB85 /* Repositories+Injection.swift in Sources */,
 				AC32F96029BA2A930005F5B9 /* ChatPageView.swift in Sources */,
 				188EBDB129C1AD3E002735F0 /* TripsPageView.swift in Sources */,
 				18D9713829BD84480064DC2A /* FriendProfilePageView.swift in Sources */,
 				ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */,
+				B485A8F529D06F3200786A34 /* UserFriendApiModel.swift in Sources */,
 				18D9713A29BD86330064DC2A /* FriendsListPageView.swift in Sources */,
 				D7F6A9D029C6E755006FBD26 /* DatabaseConnector.swift in Sources */,
 				18591C8529BCDB7700FA987D /* SearchBarView.swift in Sources */,
@@ -829,6 +859,8 @@
 				188C147529CDA3A600531F9F /* LabelledToggleView.swift in Sources */,
 				18C3660629C0227C00AF0338 /* ChatMessageView.swift in Sources */,
 				18D9714429BD9AF80064DC2A /* EventsStore.swift in Sources */,
+				B485A8F129D04ADE00786A34 /* UserCreateEventApiModel.swift in Sources */,
+				B485A8F729D0709300786A34 /* ApiErrorHelper.swift in Sources */,
 				AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */,
 				AC63059E29BDA43F00EEEA85 /* ChatHeaderView.swift in Sources */,
 				ACA4016929C769A70076E183 /* EditProfileViewModel.swift in Sources */,
@@ -848,6 +880,7 @@
 				ACA4016329C765DC0076E183 /* ProfileHeaderViewModel.swift in Sources */,
 				1893D29329BF295400B61BC9 /* ChatMessage.swift in Sources */,
 				188EBDB529C1B08B002735F0 /* URLImageView.swift in Sources */,
+				B4671ED529D2077F00266871 /* TripRepositoryNode.swift in Sources */,
 				AC32F96229BA2AD90005F5B9 /* ChatPageCellView.swift in Sources */,
 				185CBD0E29CC0FE6008C3B79 /* MapStorageService.swift in Sources */,
 				18A1AC5629BB12940064CF37 /* Calendar.swift in Sources */,
@@ -855,9 +888,10 @@
 				AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */,
 				188EBDBE29C1B4AC002735F0 /* TripPageView.swift in Sources */,
 				B46B0A6F29CCA9A2006F2BA2 /* UpdateUserApiModel.swift in Sources */,
+				B485A8F329D06ECB00786A34 /* Friend.swift in Sources */,
 				AC63059C29BDA34F00EEEA85 /* ChatView.swift in Sources */,
+				181C746F29BDDEB700E6D3B1 /* ActionMenuButton.swift in Sources */,
 				D7F6A9E429CF8E17006FBD26 /* ChatPageCellViewModel.swift in Sources */,
-				181C746F29BDDEB700E6D3B1 /* UserActionMenuView.swift in Sources */,
 				183F435629D02D1D00F4DFEE /* MapPageView.swift in Sources */,
 				B4E9460A29C35CEF001B65EE /* SotravelError.swift in Sources */,
 				B4C3536329C0A5D30073931C /* TripRepository.swift in Sources */,
@@ -878,6 +912,7 @@
 				B4C3536A29C0A7460073931C /* UserRepository.swift in Sources */,
 				183F435A29D0344500F4DFEE /* Coordinator.swift in Sources */,
 				1866DE6029B993E3005D9F59 /* ContentView.swift in Sources */,
+				B485A8E129CEF76900786A34 /* EventRepositoryNode.swift in Sources */,
 				B46B0A7129CCB148006F2BA2 /* Encodable+Subscriptable.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
@@ -887,6 +922,7 @@
 				183F435229D02CDF00F4DFEE /* MapView.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				B46B0A8129CEC6B4006F2BA2 /* MapViewModel.swift in Sources */,
+				B485A8E929CF628F00786A34 /* EventApiModel.swift in Sources */,
 				18DEC58029B9A3D600B3228A /* Color.swift in Sources */,
 				AC32F96B29BA38CE0005F5B9 /* ProfilePageView.swift in Sources */,
 				AC11B87E29CB0C2500ADE703 /* EventService.swift in Sources */,

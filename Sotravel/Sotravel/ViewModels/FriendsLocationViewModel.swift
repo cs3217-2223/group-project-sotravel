@@ -12,7 +12,9 @@ class FriendsLocationViewModel: ObservableObject {
 
     private func listenForFriendsLocations() {
         db.child("locations").observe(.value, with: { [weak self] snapshot in
-            guard let self = self else { return }
+            guard let self = self else {
+                return
+            }
             var newLocations: [String: CLLocation] = [:]
 
             for child in snapshot.children {
