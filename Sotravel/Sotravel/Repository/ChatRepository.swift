@@ -14,4 +14,5 @@ protocol ChatRepository {
     func setListenerForChatMessages(for chatId: UUID, completion: @escaping ((ChatMessage) -> Void))
     func removeListenerForChatMessages(for chatId: UUID)
     func setListenerForChatBasicInfo(for chatId: UUID, completion: @escaping ((Chat) -> Void))
+    func setListenerForAddedChat(userId: UUID, completion: @escaping ((Chat) -> Void))
 }

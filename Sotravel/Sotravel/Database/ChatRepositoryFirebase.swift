@@ -341,4 +341,33 @@ class ChatRepositoryFirebase: ChatRepository {
             }
         })
     }
+
+    func setListenerForAddedChat(userId: UUID, completion: @escaping ((Chat) -> Void)) {
+        let databasePath = self.databaseRef.child("userChats/\(userId.uuidString)")
+        databasePath.observe(.childAdded, with: { snapshot in
+            guard let json = snapshot.value as? String, let chatId = UUID(uuidString: json) else {
+                return
+            }
+
+            self.getChatBasicInfoAM(chatId: chatId, completion: { chatBasicInfoAM in
+                guard let lastMessage = chatBasicInfoAM.lastMessage,
+                        let messageId = UUID(uuidString: lastMessage) else {
+                    let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
+                                    messages: [],
+                                    title: chatBasicInfoAM.title ?? "",
+                                    members: [])
+                    completion(chat)
+                    return
+                }
+
+                self.getLastMessage(chatId: chatId, messageId: messageId, completion: { chatMessage in
+                    let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
+                                    messages: [chatMessage],
+                                    title: chatBasicInfoAM.title ?? "",
+                                    members: [])
+                    completion(chat)
+                })
+            })
+        })
+    }
 }

@@ -14,6 +14,7 @@ class ChatService: ObservableObject {
     @Published var chatPageCellVMs: [ChatPageCellViewModel]
     @Published var chatHeaderVM: ChatHeaderViewModel
     @Published var chatMessageVMs: [ChatMessageViewModel]
+    var isNewChatListenerSet = false
 
     @Injected private var chatRepository: ChatRepository
 
@@ -56,7 +57,25 @@ class ChatService: ObservableObject {
                 chatPageCellVMToUpdate.update(with: updatedVM)
             })
 
-            // TODO: set listener for new chats => on userChats .childAdded
+            if !self.isNewChatListenerSet {
+                self.isNewChatListenerSet = true
+                self.setListenerForAddedChat(userId: id)
+            }
+        })
+
+    }
+
+    private func setListenerForAddedChat(userId: UUID) {
+        chatRepository.setListenerForAddedChat(userId: userId, completion: { newChat in
+            let chatPageCellVM = ChatPageCellViewModel(chatTitle: newChat.title,
+                                                       lastMessageText: newChat.messages.last?.messageText,
+                                                       lastMessageSender: newChat.messages.last?.sender.uuidString,
+                                                       lastMessageDate: newChat.messages.last?.timestamp,
+                                                       id: newChat.id)
+            if self.chatPageCellVMs.contains(where: { $0.id == newChat.id }) {
+                return
+            }
+            self.chatPageCellVMs.append(chatPageCellVM)
         })
     }
 
