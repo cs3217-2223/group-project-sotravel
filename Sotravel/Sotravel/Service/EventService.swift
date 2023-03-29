@@ -23,8 +23,7 @@ class EventService: ObservableObject {
         self.eventToViewModels = [:]
     }
 
-    func loadUserEvents(forTrip tripId: Int) {
-        let userId = mockUser.id // Replace this with the actual user ID
+    func loadUserEvents(forTrip tripId: Int, userId: UUID) {
         Task {
             do {
                 let events = try await eventRepository.getUserEvents(userId: userId, tripId: tripId)
@@ -39,31 +38,20 @@ class EventService: ObservableObject {
         }
     }
 
-    //    func getEvent(id: Int) {
-    //        Task {
-    //            do {
-    //                let event = try await eventRepository.get(id: id)
-    //                DispatchQueue.main.async {
-    //                    self.handleEventPropertyChange(for: event)
-    //                }
-    //            } catch {
-    //                print("Error getting event:", error)
-    //            }
-    //        }
-    //    }
-
-    func createEvent(event: Event) {
+    func createEvent(event: Event, completion: @escaping (Result<Event, Error>) -> Void) {
         Task {
             do {
                 let newEvent = try await eventRepository.create(event: event)
                 DispatchQueue.main.async {
                     self.events.append(newEvent)
-                    let viewModel = EventViewModel(event: event)
+                    let viewModel = EventViewModel(event: newEvent)
                     self.eventViewModels.append(viewModel)
-                    self.eventToViewModels[event] = viewModel
+                    self.eventToViewModels[newEvent] = viewModel
+                    completion(.success(newEvent))
                 }
             } catch {
                 print("Error creating event:", error)
+                completion(.failure(error))
             }
         }
     }

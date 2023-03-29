@@ -20,7 +20,8 @@ enum EventRsvpStatus {
 }
 
 class EventRepositoryStub: EventRepository {
-    var dataBase = mockEventss
+    var dataBase = mockEvents
+    var index = 999
 
     func get(id: Int) async throws -> Event {
         for event in dataBase where event.id == id {
@@ -35,13 +36,24 @@ class EventRepositoryStub: EventRepository {
                                         && (event.hostUser == userId || event.invitedUsers.contains(userId))) {
             events.append(event)
         }
-        print(events.count)
         return events
     }
 
     func create(event: Event) async throws -> Event {
-        dataBase.append(event)
-        return event
+        var newEvent = Event(id: index,
+                             tripId: event.tripId,
+                             title: event.title,
+                             details: event.details,
+                             status: event.status,
+                             datetime: event.datetime,
+                             meetingPoint: event.meetingPoint,
+                             location: event.location,
+                             hostUser: event.hostUser,
+                             invitedUsers: event.invitedUsers,
+                             attendingUsers: event.attendingUsers + [event.hostUser],
+                             rejectedUsers: event.rejectedUsers)
+        index += 1
+        return newEvent
     }
 
     func cancelEvent(id: Int) async throws {
@@ -49,9 +61,7 @@ class EventRepositoryStub: EventRepository {
     }
 
     func rsvpToEvent(eventId: Int, userId: UUID, status: EventRsvpStatus) async throws {
-
         for event in dataBase where eventId == event.id {
-
             event.attendingUsers.removeAll { $0 == userId }
             event.rejectedUsers.removeAll { $0 == userId }
 

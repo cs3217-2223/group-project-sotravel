@@ -30,25 +30,6 @@ class UserService: ObservableObject {
         self.eventPageViewModel = EventPageUserViewModel()
     }
 
-    func getUser(for friend: User) -> User? {
-        userCache[friend.id]
-    }
-
-    func fetchUserIfNeeded(for friend: User) async {
-        if userCache[friend.id] == nil {
-            do {
-                if let fetchedUser = try await userRepository.get(id: friend.id) {
-                    DispatchQueue.main.async {
-                        self.userCache[friend.id] = fetchedUser
-                        self.objectWillChange.send()
-                    }
-                }
-            } catch {
-                print("Error fetching user:", error)
-            }
-        }
-    }
-
     func fetchUserIfNeededFrom(id: UUID) async {
         if userCache[id] == nil {
             do {
@@ -111,6 +92,7 @@ class UserService: ObservableObject {
                 DispatchQueue.main.async {
                     self.profileFriendsVM.updateFrom(friends: fetchedFriends)
                     self.createInvitePageViewModel.updateFrom(friends: fetchedFriends)
+                    self.initCache(users: fetchedFriends)
                     completion(true)
                 }
             } catch {
@@ -136,6 +118,12 @@ class UserService: ObservableObject {
         editProfileViewModel.updateError.toggle()
     }
 
+    private func initCache(users: [User]) {
+        for user in users {
+            userCache[user.id] = user
+        }
+    }
+
     private func alertEditProfileView() {
         editProfileViewModel.updateError = true
     }
@@ -148,5 +136,6 @@ class UserService: ObservableObject {
         self.socialMediaLinksVM.updateFrom(user: user)
         self.editProfileViewModel.updateFrom(user: user)
         self.eventPageViewModel.updateFrom(user: user)
+        self.createInvitePageViewModel.updateFrom(user: user)
     }
 }

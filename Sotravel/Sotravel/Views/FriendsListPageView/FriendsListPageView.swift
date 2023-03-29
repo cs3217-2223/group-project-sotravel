@@ -24,7 +24,7 @@ struct FriendsListPageView: View {
                 .padding()
             ScrollView {
                 ForEach(filteredFriends, id: \.id) { friend in
-                    let user = userService.getUser(for: friend)
+                    let user = userService.userCache[friend.id]
                     NavigationLink(destination: FriendProfilePageView(friend: user)) {
                         UserListItemView(user: user) {
                             ActionMenuButton()
@@ -32,7 +32,7 @@ struct FriendsListPageView: View {
                     }
                     .onAppear {
                         Task {
-                            await userService.fetchUserIfNeeded(for: friend)
+                            await userService.fetchUserIfNeededFrom(id: friend.id)
                         }
                     }
                     Divider()

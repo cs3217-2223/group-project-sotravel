@@ -14,7 +14,7 @@ struct ProfileFriendsView: View {
             VStack(spacing: 0) {
                 let usersShown = viewModel.friends.prefix(3)
                 ForEach(Array(usersShown.enumerated()), id: \.element.id) { index, friend in
-                    let user = userService.getUser(for: friend)
+                    let user = userService.userCache[friend.id]
                     NavigationLink(destination: FriendProfilePageView(friend: user)) {
                         UserListItemView(user: user) {
                             ActionMenuButton()
@@ -22,7 +22,7 @@ struct ProfileFriendsView: View {
                     }
                     .onAppear {
                         Task {
-                            await userService.fetchUserIfNeeded(for: friend)
+                            await userService.fetchUserIfNeededFrom(id: friend.id)
                         }
                     }
                     if index != usersShown.count - 1 {
