@@ -17,6 +17,7 @@ class EventViewModel: ObservableObject {
     @Published var invitedUsers: [UUID]
     @Published var attendingUsers: [UUID]
     @Published var rejectedUsers: [UUID]
+    @Published var hostUser: UUID
 
     var description: String {
         "\(title) at \(location)"
@@ -35,7 +36,8 @@ class EventViewModel: ObservableObject {
          meetingPoint: String = "",
          invitedUsers: [UUID] = [],
          attendingUsers: [UUID] = [],
-         rejectedUsers: [UUID] = []) {
+         rejectedUsers: [UUID] = [],
+         hostUser: UUID = UUID()) {
         self.id = id
         self.title = title
         self.details = details
@@ -45,6 +47,7 @@ class EventViewModel: ObservableObject {
         self.invitedUsers = invitedUsers
         self.attendingUsers = attendingUsers
         self.rejectedUsers = rejectedUsers
+        self.hostUser = hostUser
     }
 
     init(event: Event) {
@@ -57,6 +60,7 @@ class EventViewModel: ObservableObject {
         self.location = event.location
         self.details = event.details
         self.meetingPoint = event.meetingPoint
+        self.hostUser = event.hostUser
     }
 
     func updateFrom(event: Event) {
@@ -70,6 +74,7 @@ class EventViewModel: ObservableObject {
             self.invitedUsers = event.invitedUsers
             self.attendingUsers = event.attendingUsers
             self.rejectedUsers = event.rejectedUsers
+            self.hostUser = event.hostUser
         }
     }
 }

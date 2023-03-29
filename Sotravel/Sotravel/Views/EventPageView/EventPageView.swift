@@ -7,6 +7,7 @@ struct EventPageView: View {
     var chat: Chat = mockChat
     @State private var selectedTab = 0
     @State private var eventStatus = EventStatus.pending
+    @State private var showConfirmationDialog = false
 
     var body: some View {
         ScrollView {
@@ -45,7 +46,6 @@ struct EventPageView: View {
                         .foregroundColor(.primary.opacity(0.5))
                         .padding(.vertical, 8)
                 }
-
                 // Attendees status
                 VStack {
                     HStack {
@@ -57,11 +57,9 @@ struct EventPageView: View {
                     AttendeesView(eventViewModel: eventViewModel)
 
                 }.padding(.top, 6)
-
                 VStack {
                     EventStatusButton(eventStatus: $eventStatus)
                 }.padding(.top, 16)
-
                 // Attendees status
                 VStack {
                     HStack {
@@ -81,7 +79,6 @@ struct EventPageView: View {
                      }.padding(.top, 3)
                      .padding(.bottom, 14)
                      */
-
                     NavigationLink(destination: ChatView()) {
                         HStack(alignment: .firstTextBaseline, spacing: 8) {
                             Image(systemName: "message.fill")
@@ -103,6 +100,10 @@ struct EventPageView: View {
                     }.simultaneousGesture(TapGesture().onEnded {
                         print(chat.title) // TODO: the fetch chat action here
                     })
+                    if eventViewModel.hostUser == eventPageUserViewModel.userId {
+                        CancelEventButton(eventViewModel: eventViewModel, showConfirmationDialog: $showConfirmationDialog)
+                            .padding(.top, 18)
+                    }
                 }.padding(.top, 18)
 
                 Spacer()
@@ -110,6 +111,39 @@ struct EventPageView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 20)
         }.navigationBarBackButtonHidden(true)
+    }
+}
+
+struct CancelEventButton: View {
+    @EnvironmentObject private var eventService: EventService
+    @ObservedObject var eventViewModel: EventViewModel
+    @Binding var showConfirmationDialog: Bool
+
+    var body: some View {
+        Button(action: {
+            showConfirmationDialog = true
+        }) {
+            Text("Cancel Event")
+                .font(.uiButton)
+                .padding(.vertical, 16)
+                .frame(maxWidth: .infinity)
+                .clipped()
+                .foregroundColor(Color.white)
+                .background {
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(Color.red)
+                }
+        }
+        .alert(isPresented: $showConfirmationDialog) {
+            Alert(
+                title: Text("Cancel Event"),
+                message: Text("Are you sure you want to cancel this event?"),
+                primaryButton: .destructive(Text("Cancel Event")) {
+                    eventService.cancelEvent(id: eventViewModel.id)
+                },
+                secondaryButton: .cancel()
+            )
+        }
     }
 }
 

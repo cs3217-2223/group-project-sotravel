@@ -67,6 +67,14 @@ struct EventDetailsView: View {
                                                       eventViewModel: eventViewModel)) {
                 AttendingUsersView(attendingUsers: eventViewModel.attendingUsers)
             }
+
+            // New section to display host user
+            if let hostUser = userService.userCache[eventViewModel.hostUser] {
+                Text("Hosted by \(hostUser.name ?? "Unknown")")
+                    .font(.uiFootnote)
+                    .foregroundColor(.gray)
+                    .padding(.top, 8)
+            }
         }
     }
 }
