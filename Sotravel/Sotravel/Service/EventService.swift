@@ -96,7 +96,7 @@ class EventService: ObservableObject {
             }
         }
     }
-    
+
     func fetchEventIfNeededFrom(id: Int) async {
         if eventCache[id] == nil {
             do {
