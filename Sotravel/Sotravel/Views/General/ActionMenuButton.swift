@@ -14,7 +14,7 @@ struct ActionMenuButton: View {
         })
         .actionSheet(isPresented: $showActionSheet) {
             ActionSheet(title: Text("Options"), buttons: [
-                .destructive(Text("Unfriend")),
+                //                .destructive(Text("Unfriend")),
                 .cancel()
             ])
         }
