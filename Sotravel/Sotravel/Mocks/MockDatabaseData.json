@@ -84,13 +84,13 @@
         }
     },
     "locations": {
-      "4f728585-baa7-416c-a941-9e68bf85d968": {
-        "latitude": "",
-        "longitude": ""
+      "003C8B4A-F831-43C8-9895-BF37DA40FA95": {
+        "latitude": 1.4130379495729224,
+        "longitude": 103.83401029781349
       },
       "CA2D6ADC-C904-4909-8F91-0DA79E8C77CD": {
-        "latitude": 37.33233141,
-        "longitude": -122.0312186
+        "latitude": 1.41289269,
+        "longitude": 103.83394
       }
     }
 }

@@ -7,7 +7,6 @@
 
 import Foundation
 import Resolver
-// import Combine
 
 class ChatService: ObservableObject {
     var userId: UUID?
@@ -42,7 +41,22 @@ class ChatService: ObservableObject {
                                                      lastMessageSender: basicChat.messages.last?.sender.uuidString,
                                                      lastMessageDate: basicChat.messages.last?.timestamp,
                                                      id: basicChat.id)
-            self.chatPageCellVMs.append(mappedChatVM) // TODO: sort?
+            self.chatPageCellVMs.append(mappedChatVM)
+            // TODO: sort by timestamp, latest in front ... want to maintain sorted array
+
+            self.chatRepository.setListenerForChatBasicInfo(for: basicChat.id, completion: { updatedChat in
+                guard let chatPageCellVMToUpdate = self.chatPageCellVMs.first(where: { $0.id == updatedChat.id }) else {
+                    return
+                }
+                let updatedVM = ChatPageCellViewModel(chatTitle: updatedChat.title,
+                                                      lastMessageText: updatedChat.messages.last?.messageText,
+                                                      lastMessageSender: updatedChat.messages.last?.sender.uuidString,
+                                                      lastMessageDate: updatedChat.messages.last?.timestamp,
+                                                      id: updatedChat.id)
+                chatPageCellVMToUpdate.update(with: updatedVM)
+            })
+            
+            // TODO: set listener for new chats => on userChats .childAdded
         })
     }
 
@@ -66,12 +80,29 @@ class ChatService: ObservableObject {
                                      senderImageSrc: $0.sender.uuidString,
                                      senderName: $0.sender.uuidString,
                                      isSentByMe: $0.sender == userId,
-                                     id: $0.id)
+                                     id: $0.id) // TODO: sort by timestamp, earliest in front
             }
+
+            self.chatRepository.setListenerForChatMessages(for: id, completion: { chatMessage in
+                // TODO: convert sender uuid to image src and name (through user service?)
+                let chatMessageVM = ChatMessageViewModel(messageText: chatMessage.messageText,
+                                                         messageTimestamp: chatMessage.timestamp,
+                                                         senderImageSrc: chatMessage.sender.uuidString,
+                                                         senderName: chatMessage.sender.uuidString,
+                                                         isSentByMe: chatMessage.sender == userId,
+                                                         id: chatMessage.id)
+                self.chatMessageVMs.append(chatMessageVM)
+            })
         })
     }
 
-    // to check the realtime update thingy
+    func dismissChat() {
+        guard let chatId = chatId else {
+            return
+        }
+        chatRepository.removeListenerForChatMessages(for: chatId)
+    }
+
     func sendChatMessage(messageText: String) -> Bool {
         guard let userId = userId, let chatId = chatId else {
             return false

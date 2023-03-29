@@ -257,8 +257,88 @@ class ChatRepositoryFirebase: ChatRepository {
 
     private func updateChatBasicInfo(chatMessage: ChatMessage, chatId: UUID) -> Bool {
         let databasePath = databaseRef.child("chats/\(chatId.uuidString)")
-        let updateMessage = ["latestMessage": chatMessage.id.uuidString]
+        let updateMessage = ["lastMessage": chatMessage.id.uuidString]
         databasePath.updateChildValues(updateMessage)
         return true
+    }
+
+    func setListenerForChatMessages(for chatId: UUID, completion: @escaping ((ChatMessage) -> Void)) {
+        let databasePath = databaseRef.child("messages/\(chatId.uuidString)")
+        databasePath.observe(.childAdded, with: { snapshot in
+            guard let json = snapshot.value as? [String: Any] else {
+                return
+            }
+            do {
+                let chatMessageAMData = try JSONSerialization.data(withJSONObject: json)
+                let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
+                let chatMessage = ChatMessage(id: UUID(uuidString: chatMessageAM.id ?? "") ?? UUID(),
+                                              messageText: chatMessageAM.messageText ?? "",
+                                              timestamp: Date(timeIntervalSinceReferenceDate: chatMessageAM.timestamp),
+                                              sender: UUID(uuidString: chatMessageAM.sender ?? "") ?? UUID())
+                completion(chatMessage)
+            } catch {
+                print("An error occurred", error)
+            }
+        })
+    }
+
+    func removeListenerForChatMessages(for chatId: UUID) {
+        let databasePath = databaseRef.child("messages/\(chatId.uuidString)")
+        databasePath.removeAllObservers()
+    }
+
+    func setListenerForChatBasicInfo(for chatId: UUID, completion: @escaping ((Chat) -> Void)) {
+        let databasePath = databaseRef.child("chats/\(chatId.uuidString)")
+        databasePath.observe(.value, with: { snapshot in
+            guard let json = snapshot.value as? [String: Any] else {
+                return
+            }
+            do {
+                let chatBasicInfoAMData = try JSONSerialization.data(withJSONObject: json)
+                let chatBasicInfoAM = try self.decoder.decode(ChatBasicInfoApiModel.self, from: chatBasicInfoAMData)
+                guard let lastMessage = chatBasicInfoAM.lastMessage, let messageId = UUID(uuidString: lastMessage) else {
+                    let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
+                                    messages: [],
+                                    title: chatBasicInfoAM.title ?? "",
+                                    members: [])
+                    completion(chat)
+                    return
+                }
+
+                self.getLastMessage(chatId: chatId, messageId: messageId, completion: { chatMessage in
+                    let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
+                                    messages: [chatMessage],
+                                    title: chatBasicInfoAM.title ?? "",
+                                    members: [])
+                    completion(chat)
+                })
+            } catch {
+                print("An error occurred", error)
+            }
+        })
+    }
+
+    private func getLastMessage(chatId: UUID, messageId: UUID, completion: @escaping ((ChatMessage) -> Void)) {
+        let databasePath = self.databaseRef.child("messages/\(chatId)/\(messageId)")
+        databasePath.getData(completion: { error, snapshot in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let json = snapshot?.value as? [String: Any] else {
+                return
+            }
+            do {
+                let chatMessageAMData = try JSONSerialization.data(withJSONObject: json)
+                let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
+                let chatMessage = ChatMessage(id: UUID(uuidString: chatMessageAM.id ?? "") ?? UUID(),
+                                              messageText: chatMessageAM.messageText ?? "",
+                                              timestamp: Date(timeIntervalSinceReferenceDate: chatMessageAM.timestamp),
+                                              sender: UUID(uuidString: chatMessageAM.sender ?? "") ?? UUID())
+                completion(chatMessage)
+            } catch {
+                print("An error occurred", error)
+            }
+        })
     }
 }
