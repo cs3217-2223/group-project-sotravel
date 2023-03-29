@@ -6,6 +6,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
     var parent: MapView
     var imageCache: [UUID: UIImage] = [:]
     let bubbleSize: CGFloat = 32
+    @State var isFirstLoad = true
 
     init(_ parent: MapView) {
         self.parent = parent
@@ -13,7 +14,6 @@ class Coordinator: NSObject, MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let customAnnotation = annotation as? CustomPointAnnotation else { return nil
-
         }
 
         let identifier = "userAnnotationView"
@@ -52,13 +52,12 @@ class Coordinator: NSObject, MKMapViewDelegate {
 
         // If is user then have higher display priority
         if customAnnotation.isUser {
-            annotationView?.displayPriority = .required
-            annotationView?.layer.zPosition = 10
+            annotationView?.layer.zPosition = 0
             annotationView?.layer.cornerRadius = bubbleSize / 2
             annotationView?.layer.borderColor = UIColor.systemBlue.cgColor
             annotationView?.layer.borderWidth = 2
         } else {
-            annotationView?.layer.zPosition = 1
+            annotationView?.layer.zPosition = -1
         }
 
         annotationView?.layer.shadowColor = UIColor.black.cgColor

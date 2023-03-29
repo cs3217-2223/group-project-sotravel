@@ -22,13 +22,25 @@ struct MapView: UIViewRepresentable {
     func updateUIView(_ mapView: MKMapView, context: Context) {
         updateAnnotations(from: mapView)
 
-        print("firstLoad", firstLoad)
-        if firstLoad {
-            centerMapOnUserLocation(mapView)
-            firstLoad = false
+        self.setZoomLevelIfNotZoomedIn(mapView)
+    }
+
+    func setZoomLevelIfNotZoomedIn(_ mapView: MKMapView) {
+        let currentSpan = mapView.region.span
+        let thresholdLatitudeDelta: CLLocationDegrees = 0.01
+        let thresholdLongitudeDelta: CLLocationDegrees = 0.01
+
+        if currentSpan.latitudeDelta > thresholdLatitudeDelta || currentSpan.longitudeDelta > thresholdLongitudeDelta {
+            guard let userLocation = userLocation else { return }
+            let desiredLatitudeDelta: CLLocationDegrees = 0.005
+            let desiredLongitudeDelta: CLLocationDegrees = 0.005
+            let desiredSpan = MKCoordinateSpan(latitudeDelta: desiredLatitudeDelta, longitudeDelta: desiredLongitudeDelta)
+            let region = MKCoordinateRegion(center: userLocation.coordinate, span: desiredSpan)
+            mapView.setRegion(region, animated: true)
         }
     }
 
+    // todo unused
     func centerMapOnUserLocation(_ mapView: MKMapView) {
         guard let userLocation = userLocation else {
             return
@@ -51,22 +63,6 @@ struct MapView: UIViewRepresentable {
             }
         }
 
-        guard let user = userService.user, let userCoordinate = userLocation?.coordinate else {
-            return
-        }
-
-        if let exisitingAnnotation = existingAnnotations[user.id] {
-            exisitingAnnotation.coordinate = userCoordinate
-        } else {
-            mapView.addAnnotation(CustomPointAnnotation(
-                userId: user.id,
-                coordinate: userCoordinate,
-                title: user.name,
-                imageURL: user.imageURL,
-                isUser: true
-            ))
-        }
-
         for (friendId, friendLocation) in friendsLocations {
             guard let friendUUID = UUID(uuidString: friendId) else {
                 continue
@@ -87,6 +83,23 @@ struct MapView: UIViewRepresentable {
                 isUser: false
             )
             mapView.addAnnotation(friendAnnotation)
+        }
+
+        // Add user annotation last, for it to appear on top
+        guard let user = userService.user, let userCoordinate = userLocation?.coordinate else {
+            return
+        }
+
+        if let exisitingAnnotation = existingAnnotations[user.id] {
+            exisitingAnnotation.coordinate = userCoordinate
+        } else {
+            mapView.addAnnotation(CustomPointAnnotation(
+                userId: user.id,
+                coordinate: userCoordinate,
+                title: user.name,
+                imageURL: user.imageURL,
+                isUser: true
+            ))
         }
     }
 }

@@ -55,7 +55,7 @@ class ChatService: ObservableObject {
                                                       id: updatedChat.id)
                 chatPageCellVMToUpdate.update(with: updatedVM)
             })
-            
+
             // TODO: set listener for new chats => on userChats .childAdded
         })
     }
