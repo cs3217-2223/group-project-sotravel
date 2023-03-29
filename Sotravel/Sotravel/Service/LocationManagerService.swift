@@ -4,6 +4,7 @@ import CoreLocation
 class LocationManagerService: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var locationManager = CLLocationManager()
     @Published var userLocation: CLLocation?
+    var locationUpdateHandler: ((CLLocation) -> Void)?
 
     override init() {
         super.init()
@@ -18,5 +19,6 @@ class LocationManagerService: NSObject, ObservableObject, CLLocationManagerDeleg
             return
         }
         userLocation = location
+        locationUpdateHandler?(location)
     }
 }

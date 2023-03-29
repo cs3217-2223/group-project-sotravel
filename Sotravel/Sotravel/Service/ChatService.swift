@@ -7,7 +7,6 @@
 
 import Foundation
 import Resolver
-// import Combine
 
 class ChatService: ObservableObject {
     var userId: UUID?
@@ -15,6 +14,7 @@ class ChatService: ObservableObject {
     @Published var chatPageCellVMs: [ChatPageCellViewModel]
     @Published var chatHeaderVM: ChatHeaderViewModel
     @Published var chatMessageVMs: [ChatMessageViewModel]
+    var isNewChatListenerSet = false
 
     @Injected private var chatRepository: ChatRepository
 
@@ -42,7 +42,40 @@ class ChatService: ObservableObject {
                                                      lastMessageSender: basicChat.messages.last?.sender.uuidString,
                                                      lastMessageDate: basicChat.messages.last?.timestamp,
                                                      id: basicChat.id)
-            self.chatPageCellVMs.append(mappedChatVM) // TODO: sort?
+            self.chatPageCellVMs.append(mappedChatVM)
+            // TODO: sort by timestamp, latest in front ... want to maintain sorted array
+
+            self.chatRepository.setListenerForChatBasicInfo(for: basicChat.id, completion: { updatedChat in
+                guard let chatPageCellVMToUpdate = self.chatPageCellVMs.first(where: { $0.id == updatedChat.id }) else {
+                    return
+                }
+                let updatedVM = ChatPageCellViewModel(chatTitle: updatedChat.title,
+                                                      lastMessageText: updatedChat.messages.last?.messageText,
+                                                      lastMessageSender: updatedChat.messages.last?.sender.uuidString,
+                                                      lastMessageDate: updatedChat.messages.last?.timestamp,
+                                                      id: updatedChat.id)
+                chatPageCellVMToUpdate.update(with: updatedVM)
+            })
+
+            if !self.isNewChatListenerSet {
+                self.isNewChatListenerSet = true
+                self.setListenerForAddedChat(userId: id)
+            }
+        })
+
+    }
+
+    private func setListenerForAddedChat(userId: UUID) {
+        chatRepository.setListenerForAddedChat(userId: userId, completion: { newChat in
+            let chatPageCellVM = ChatPageCellViewModel(chatTitle: newChat.title,
+                                                       lastMessageText: newChat.messages.last?.messageText,
+                                                       lastMessageSender: newChat.messages.last?.sender.uuidString,
+                                                       lastMessageDate: newChat.messages.last?.timestamp,
+                                                       id: newChat.id)
+            if self.chatPageCellVMs.contains(where: { $0.id == newChat.id }) {
+                return
+            }
+            self.chatPageCellVMs.append(chatPageCellVM)
         })
     }
 
@@ -52,26 +85,43 @@ class ChatService: ObservableObject {
         }
         chatId = id
 
-        let chat = chatRepository.getChat(chatId: id)
+        chatRepository.getChat(chatId: id, completion: { chat in
+            if let event = chat.event {
+                self.chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title, eventDatetime: event.datetime)
+            } else {
+                self.chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title)
+            }
 
-        if let event = chat.event {
-            chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title, eventDatetime: event.datetime)
-        } else {
-            chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title)
-        }
+            // TODO: convert sender uuid to image src and name (through user service?)
+            self.chatMessageVMs = chat.messages.map {
+                ChatMessageViewModel(messageText: $0.messageText,
+                                     messageTimestamp: $0.timestamp,
+                                     senderImageSrc: $0.sender.uuidString,
+                                     senderName: $0.sender.uuidString,
+                                     isSentByMe: $0.sender == userId,
+                                     id: $0.id) // TODO: sort by timestamp, earliest in front
+            }
 
-        // TODO: convert sender uuid to image src and name (through user service?)
-        chatMessageVMs = chat.messages.map {
-            ChatMessageViewModel(messageText: $0.messageText,
-                                 messageTimestamp: $0.timestamp,
-                                 senderImageSrc: $0.sender.uuidString,
-                                 senderName: $0.sender.uuidString,
-                                 isSentByMe: $0.sender == userId,
-                                 id: $0.id)
-        }
+            self.chatRepository.setListenerForChatMessages(for: id, completion: { chatMessage in
+                // TODO: convert sender uuid to image src and name (through user service?)
+                let chatMessageVM = ChatMessageViewModel(messageText: chatMessage.messageText,
+                                                         messageTimestamp: chatMessage.timestamp,
+                                                         senderImageSrc: chatMessage.sender.uuidString,
+                                                         senderName: chatMessage.sender.uuidString,
+                                                         isSentByMe: chatMessage.sender == userId,
+                                                         id: chatMessage.id)
+                self.chatMessageVMs.append(chatMessageVM)
+            })
+        })
     }
 
-    // to check the realtime update thingy
+    func dismissChat() {
+        guard let chatId = chatId else {
+            return
+        }
+        chatRepository.removeListenerForChatMessages(for: chatId)
+    }
+
     func sendChatMessage(messageText: String) -> Bool {
         guard let userId = userId, let chatId = chatId else {
             return false

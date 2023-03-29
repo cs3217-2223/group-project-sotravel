@@ -29,4 +29,11 @@ class ChatPageCellViewModel: ObservableObject, Identifiable {
             ? timeStamp.toFriendlyTimeString()
             : timeStamp.toFriendlyDateString()
     }
+
+    func update(with newVM: ChatPageCellViewModel) {
+        self.chatTitle = newVM.chatTitle
+        self.lastMessageText = newVM.lastMessageText
+        self.lastMessageSender = newVM.lastMessageSender
+        self.lastMessageTimestamp = newVM.lastMessageTimestamp
+    }
 }

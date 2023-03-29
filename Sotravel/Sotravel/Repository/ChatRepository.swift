@@ -9,6 +9,10 @@ import Foundation
 
 protocol ChatRepository {
     func getBasicInfoChats(userId: UUID, completion: @escaping ((Chat) -> Void))
-    func getChat(chatId: UUID) -> Chat
+    func getChat(chatId: UUID, completion: @escaping ((Chat) -> Void))
     func sendChatMessage(chatMessage: ChatMessage, chatId: UUID) -> Bool
+    func setListenerForChatMessages(for chatId: UUID, completion: @escaping ((ChatMessage) -> Void))
+    func removeListenerForChatMessages(for chatId: UUID)
+    func setListenerForChatBasicInfo(for chatId: UUID, completion: @escaping ((Chat) -> Void))
+    func setListenerForAddedChat(userId: UUID, completion: @escaping ((Chat) -> Void))
 }

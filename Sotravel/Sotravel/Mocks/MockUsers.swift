@@ -1,7 +1,7 @@
 import Foundation
 
 let mockUser = User(
-    id: UUID(),
+    id: UUID(uuidString: "4f728585-baa7-416c-a941-9e68bf85d990")!,
     firstName: "Larry",
     lastName: "Lee",
     description: "I am a snowboarding Junkie.",
@@ -13,7 +13,7 @@ let mockUser = User(
 )
 
 let mockUser1 = User(
-    id: UUID(),
+    id: UUID(uuidString: "4f728585-baa7-416c-a941-9e68bf85d968")!,
     firstName: "Jane",
     lastName: "Doe",
     description: "I'm a beach lover and surfer!",
@@ -26,7 +26,7 @@ let mockUser1 = User(
 )
 
 let mockUser2 = User(
-    id: UUID(),
+    id: UUID(uuidString: "4f728585-baa7-416c-a941-9e68bf85d999")!,
     firstName: "Micky",
     lastName: "Johnson",
     description: "I'm a history buff and love visiting ancient ruins!",
