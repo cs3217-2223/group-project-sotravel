@@ -146,21 +146,21 @@ class ChatRepositoryFirebase: ChatRepository {
                         completion(chat)
                     } else {
                         // TODO: get event from id
-                        let event = Event(id: UUID(uuidString: eventId) ?? UUID(),
-                                          activity: "temp",
-                                          invitedUsers: [mockMe, mockNotMe],
-                                          attendingUsers: [mockMe],
-                                          rejectedUsers: [mockNotMe],
-                                          datetime: Date.now,
-                                          location: "",
-                                          meetingPoint: "",
-                                          description: "",
-                                          hostUser: mockMe)
-                        let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
-                                        messages: chatMessages,
-                                        members: chatMembers,
-                                        event: event)
-                        completion(chat)
+                        //                        let event = Event(id: UUID(uuidString: eventId) ?? UUID(),
+                        //                                          activity: "temp",
+                        //                                          invitedUsers: [mockMe, mockNotMe],
+                        //                                          attendingUsers: [mockMe],
+                        //                                          rejectedUsers: [mockNotMe],
+                        //                                          datetime: Date.now,
+                        //                                          location: "",
+                        //                                          meetingPoint: "",
+                        //                                          description: "",
+                        //                                          hostUser: mockMe)
+                        //                        let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
+                        //                                        messages: chatMessages,
+                        //                                        members: chatMembers,
+                        //                                        event: event)
+                        //                        completion(chat)
                     }
                 })
             })
@@ -351,7 +351,7 @@ class ChatRepositoryFirebase: ChatRepository {
 
             self.getChatBasicInfoAM(chatId: chatId, completion: { chatBasicInfoAM in
                 guard let lastMessage = chatBasicInfoAM.lastMessage,
-                        let messageId = UUID(uuidString: lastMessage) else {
+                      let messageId = UUID(uuidString: lastMessage) else {
                     let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
                                     messages: [],
                                     title: chatBasicInfoAM.title ?? "",
