@@ -235,7 +235,30 @@ class ChatRepositoryFirebase: ChatRepository {
     }
 
     func sendChatMessage(chatMessage: ChatMessage, chatId: UUID) -> Bool {
-        // TODO: actual implementation - convert to api model and send to db for storage
+        if !addChatMessage(chatMessage: chatMessage, chatId: chatId) {
+            return false
+        }
+
+        return updateChatBasicInfo(chatMessage: chatMessage, chatId: chatId)
+    }
+
+    private func addChatMessage(chatMessage: ChatMessage, chatId: UUID) -> Bool {
+        let databasePath = databaseRef.child("messages/\(chatId.uuidString)")
+        do {
+            let data = try encoder.encode(chatMessage)
+            let json = try JSONSerialization.jsonObject(with: data)
+            databasePath.child(chatMessage.id.uuidString).setValue(json)
+        } catch {
+            print("An error occurred", error)
+            return false
+        }
+        return true
+    }
+
+    private func updateChatBasicInfo(chatMessage: ChatMessage, chatId: UUID) -> Bool {
+        let databasePath = databaseRef.child("chats/\(chatId.uuidString)")
+        let updateMessage = ["latestMessage": chatMessage.id.uuidString]
+        databasePath.updateChildValues(updateMessage)
         return true
     }
 }
