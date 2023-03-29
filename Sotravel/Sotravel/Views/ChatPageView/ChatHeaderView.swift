@@ -14,6 +14,7 @@ struct ChatHeaderView: View {
                     withAnimation(.spring()) {
                         dismiss()
                     }
+                    chatService.dismissChat()
                 }
             VStack(alignment: .leading, spacing: 3) {
                 Text(chatHeaderVM.chatTitle ?? "No Title")

@@ -3,47 +3,43 @@
         "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A": {
             "id": "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A",
             "title": "Island Hopping at Phi Phi Islands, Krabi",
-            "lastMessage": "E041EC1A-554E-49F1-8915-DC6B648C4815"
+            "lastMessage": "E041EC1A-554E-49F1-8915-DC6B648C4815",
+            "event": "CA2D6ADC-C904-4909-8F91-0DA79E8C77CD"
         },
         "F39BA902-30F1-47F9-87DC-47F4F240B552": {
             "id": "F39BA902-30F1-47F9-87DC-47F4F240B552",
             "title": "Test Title",
-            "lastMessage": "47F599DC-C760-4734-A6B1-0A13F935E892"
+            "lastMessage": "47F599DC-C760-4734-A6B1-0A13F935E892",
+            "event": ""
         },
         "EDB48892-410C-4EA8-8423-2E7168E74E5B": {
             "id": "EDB48892-410C-4EA8-8423-2E7168E74E5B",
             "title": "Climbing at Railay Beach, Krabi",
-            "lastMessage": ""
+            "lastMessage": "",
+            "event": "DA2D6ADC-C904-4909-8F91-0DA79E8C77CD"
         },
         "25500CEE-CF12-47FF-B2CE-83025518DB86": {
             "id": "25500CEE-CF12-47FF-B2CE-83025518DB86",
             "title": "Should not be seen",
-            "lastMessage": ""
+            "lastMessage": "",
+            "event": "EA2D6ADC-C904-4909-8F91-0DA79E8C77CD"
         }
     },
     "chatMembers": {
-        "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A": [
-            {
-                "003C8B4A-F831-43C8-9895-BF37DA40FA95": "003C8B4A-F831-43C8-9895-BF37DA40FA95",
-                "103C8B4A-F831-43C8-9895-BF37DA40FA95": "103C8B4A-F831-43C8-9895-BF37DA40FA95"
-            }
-        ],
-        "F39BA902-30F1-47F9-87DC-47F4F240B552": [
-            {
-                "003C8B4A-F831-43C8-9895-BF37DA40FA95": "003C8B4A-F831-43C8-9895-BF37DA40FA95"
-            }
-        ],
-        "EDB48892-410C-4EA8-8423-2E7168E74E5B": [
-            {
-                "003C8B4A-F831-43C8-9895-BF37DA40FA95": "003C8B4A-F831-43C8-9895-BF37DA40FA95",
-                "103C8B4A-F831-43C8-9895-BF37DA40FA95": "103C8B4A-F831-43C8-9895-BF37DA40FA95"
-            }
-        ],
-        "25500CEE-CF12-47FF-B2CE-83025518DB86": [
-            {
-                "103C8B4A-F831-43C8-9895-BF37DA40FA95": "103C8B4A-F831-43C8-9895-BF37DA40FA95"
-            }
-        ]
+        "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A": {
+            "003C8B4A-F831-43C8-9895-BF37DA40FA95": "003C8B4A-F831-43C8-9895-BF37DA40FA95",
+            "103C8B4A-F831-43C8-9895-BF37DA40FA95": "103C8B4A-F831-43C8-9895-BF37DA40FA95"
+        },
+        "F39BA902-30F1-47F9-87DC-47F4F240B552": {
+            "003C8B4A-F831-43C8-9895-BF37DA40FA95": "003C8B4A-F831-43C8-9895-BF37DA40FA95"
+        },
+        "EDB48892-410C-4EA8-8423-2E7168E74E5B": {
+            "003C8B4A-F831-43C8-9895-BF37DA40FA95": "003C8B4A-F831-43C8-9895-BF37DA40FA95",
+            "103C8B4A-F831-43C8-9895-BF37DA40FA95": "103C8B4A-F831-43C8-9895-BF37DA40FA95"
+        },
+        "25500CEE-CF12-47FF-B2CE-83025518DB86": {
+            "103C8B4A-F831-43C8-9895-BF37DA40FA95": "103C8B4A-F831-43C8-9895-BF37DA40FA95"
+        }
     },
     "userChats": {
         "003C8B4A-F831-43C8-9895-BF37DA40FA95": {
@@ -88,13 +84,13 @@
         }
     },
     "locations": {
-      "CA2D6ADC-C904-4909-8F91-0DA79E8C77CD": {
-        "latitude": 37.33233141,
-        "longitude": -122.0312186
+      "003C8B4A-F831-43C8-9895-BF37DA40FA95": {
+        "latitude": 1.4130379495729224,
+        "longitude": 103.83401029781349
       },
-      "yourUserId": {
-        "latitude": 37.33233141,
-        "longitude": -122.0312186
+      "CA2D6ADC-C904-4909-8F91-0DA79E8C77CD": {
+        "latitude": 1.41289269,
+        "longitude": 103.83394
       }
     }
 }

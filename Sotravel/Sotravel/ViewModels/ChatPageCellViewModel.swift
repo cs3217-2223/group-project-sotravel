@@ -14,7 +14,7 @@ class ChatPageCellViewModel: ObservableObject, Identifiable {
     @Published var lastMessageTimestamp: String?
     var id: UUID
 
-    init(chatTitle: String = "", lastMessageText: String = "", lastMessageSender: String = "", lastMessageDate: Date? = nil, id: UUID = UUID()) {
+    init(chatTitle: String = "", lastMessageText: String? = nil, lastMessageSender: String? = nil, lastMessageDate: Date? = nil, id: UUID = UUID()) {
         self.chatTitle = chatTitle
         self.lastMessageText = lastMessageText
         self.lastMessageSender = lastMessageSender
@@ -28,5 +28,12 @@ class ChatPageCellViewModel: ObservableObject, Identifiable {
         self.lastMessageTimestamp = timeStamp.isToday(using: calendar)
             ? timeStamp.toFriendlyTimeString()
             : timeStamp.toFriendlyDateString()
+    }
+
+    func update(with newVM: ChatPageCellViewModel) {
+        self.chatTitle = newVM.chatTitle
+        self.lastMessageText = newVM.lastMessageText
+        self.lastMessageSender = newVM.lastMessageSender
+        self.lastMessageTimestamp = newVM.lastMessageTimestamp
     }
 }
