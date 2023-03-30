@@ -7,15 +7,6 @@ struct ChatHeaderView: View {
 
     var body: some View {
         HStack(spacing: 20) {
-            Image(systemName: "chevron.backward")
-                .foregroundColor(.blue)
-                .offset(y: chatHeaderVM.eventDatetime == nil ? 0 : -21)
-                .onTapGesture {
-                    withAnimation(.spring()) {
-                        dismiss()
-                    }
-                    chatService.dismissChat()
-                }
             VStack(alignment: .leading, spacing: 3) {
                 Text(chatHeaderVM.chatTitle ?? "No Title")
                     .font(.uiButton)

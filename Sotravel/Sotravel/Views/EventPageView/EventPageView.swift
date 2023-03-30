@@ -14,14 +14,6 @@ struct EventPageView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(.blue)
-                        .onTapGesture {
-                            withAnimation(.spring()) {
-                                dismiss()
-                            }
-                        }
-                        .padding(.trailing, 4)
                     Text(eventViewModel.title)
                         .font(.uiTitle2)
                         .lineLimit(1)
@@ -116,7 +108,7 @@ struct EventPageView: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 20)
-        }.navigationBarBackButtonHidden(true)
+        }
     }
 
     private func updateEventStatus() {

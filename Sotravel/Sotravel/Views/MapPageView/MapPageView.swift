@@ -4,8 +4,8 @@ struct MapPageView: View {
     @StateObject var locationManagerService = LocationManagerService()
     @StateObject var mapStorageService = MapStorageService(mapRepository: FirebaseMapRepository())
     @EnvironmentObject var userService: UserService
+    @EnvironmentObject var locationSharing: LocationSharingViewModel
     @State private var selectedFriend: User?
-    @State private var isSharingLocation = true
     @State private var showToast = false
 
     private func toggleToast() {
@@ -27,7 +27,7 @@ struct MapPageView: View {
                         userLocation: $locationManagerService.userLocation,
                         friendsLocations: $mapStorageService.friendsLocations,
                         selectedFriend: $selectedFriend,
-                        isSharingLocation: $isSharingLocation
+                        isSharingLocation: $locationSharing.isSharingLocation
                     )
                     .edgesIgnoringSafeArea(.all)
                     .onAppear {
@@ -47,7 +47,7 @@ struct MapPageView: View {
 
                     VStack {
                         if showToast {
-                            Toast(message: isSharingLocation ? "Sharing location" : "Stopped sharing location")
+                            Toast(message: locationSharing.isSharingLocation ? "Sharing location" : "Stopped sharing location")
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .background(Color.black.opacity(0.1))
                                 .edgesIgnoringSafeArea(.all)
@@ -62,15 +62,19 @@ struct MapPageView: View {
                                 }
 
                                 toggleToast()
-                                isSharingLocation.toggle()
+                                locationSharing.isSharingLocation.toggle()
 
-                                if isSharingLocation {
+                                if locationSharing.isSharingLocation {
+                                    locationManagerService.startUpdatingLocation()
+
                                     mapStorageService
                                         .startUserLocationUpdate(
                                             locationManager: locationManagerService,
                                             userId: user.id.uuidString
                                         )
                                 } else {
+                                    locationManagerService.stopUpdatingLocation()
+
                                     mapStorageService
                                         .stopUserLocationUpdate(
                                             locationManager: locationManagerService,
@@ -78,7 +82,7 @@ struct MapPageView: View {
                                         )
                                 }
                             }) {
-                                Image(systemName: isSharingLocation ? "location.fill" : "location.slash")
+                                Image(systemName: locationSharing.isSharingLocation ? "location.fill" : "location.slash")
                                     .foregroundColor(.white)
                                     .padding()
                                     .background(Color.blue)

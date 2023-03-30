@@ -69,7 +69,7 @@ struct ChatView: View {
             .padding()
             .padding(.bottom, keyboard.currentHeight)
             .edgesIgnoringSafeArea(keyboard.currentHeight == 0.0 ? .leading : .bottom)
-        }.navigationBarBackButtonHidden(true)
+        }
     }
 
     func sendMessage() {

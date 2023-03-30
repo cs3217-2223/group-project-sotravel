@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1817D0F829D538D000D8D9F0 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817D0F729D538CF00D8D9F0 /* Toast.swift */; };
+		1817D0FA29D554CB00D8D9F0 /* LocationSharingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817D0F929D554CB00D8D9F0 /* LocationSharingViewModel.swift */; };
 		181C746D29BDDBEF00E6D3B1 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C746C29BDDBEF00E6D3B1 /* AttendeesView.swift */; };
 		181C746F29BDDEB700E6D3B1 /* ActionMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C746E29BDDEB700E6D3B1 /* ActionMenuButton.swift */; };
 		183F435229D02CDF00F4DFEE /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F435129D02CDF00F4DFEE /* MapView.swift */; };
@@ -166,6 +167,7 @@
 
 /* Begin PBXFileReference section */
 		1817D0F729D538CF00D8D9F0 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		1817D0F929D554CB00D8D9F0 /* LocationSharingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSharingViewModel.swift; sourceTree = "<group>"; };
 		181C746C29BDDBEF00E6D3B1 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
 		181C746E29BDDEB700E6D3B1 /* ActionMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuButton.swift; sourceTree = "<group>"; };
 		183F435129D02CDF00F4DFEE /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 				ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */,
 				ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */,
 				B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */,
+				1817D0F929D554CB00D8D9F0 /* LocationSharingViewModel.swift */,
 				AC7356C829D476D9009740EA /* EventStatusButtonUserViewModel.swift */,
 			);
 			path = ViewModels;
@@ -843,6 +846,7 @@
 				B4939BA929D481E200B736F2 /* URL+QueryParameters.swift in Sources */,
 				B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */,
 				ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */,
+				1817D0FA29D554CB00D8D9F0 /* LocationSharingViewModel.swift in Sources */,
 				D7F6A9EE29D1B85A006FBD26 /* ChatMemberApiModel.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
 				183F435829D02FF900F4DFEE /* CustomPointAnnotation.swift in Sources */,
@@ -1089,7 +1093,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sotravel/Info.plist;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to show your position on the map and share it with your friends.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your app needs background location updates to continue sharing your location with friends.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show your position on the map and share it with your friends.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1125,7 +1129,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sotravel/Info.plist;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to show your position on the map and share it with your friends.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your app needs background location updates to continue sharing your location with friends.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show your position on the map and share it with your friends.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

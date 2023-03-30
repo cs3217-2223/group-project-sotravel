@@ -94,7 +94,6 @@ struct CreateInvitePageView: View {
                     .frame(maxWidth: .infinity)
                     .clipped()
                     .foregroundColor(.blue)
-                    .background(Color.white) // add background color
                     .cornerRadius(10) // add corner radius
                 }
             }

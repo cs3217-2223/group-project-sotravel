@@ -11,5 +11,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
             .environmentObject(UserService())
             .environmentObject(EventsStore(events: mockEvents))
+            .environmentObject(LocationSharingViewModel())
     }
 }

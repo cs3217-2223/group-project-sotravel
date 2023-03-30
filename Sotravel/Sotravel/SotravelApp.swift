@@ -28,6 +28,7 @@ struct SotravelApp: App {
     @StateObject var chats = ChatsStore(chats: mockChats)
     // db should be 1 obj that is passed around?
     @StateObject var chatService = ChatService()
+    @StateObject var locationSharingState = LocationSharingViewModel()
 
     var body: some Scene {
         WindowGroup {
@@ -35,6 +36,7 @@ struct SotravelApp: App {
                 .environmentObject(eventService)
                 .environmentObject(userService)
                 .environmentObject(chatService)
+                .environmentObject(locationSharingState)
         }
     }
 }

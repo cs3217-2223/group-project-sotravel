@@ -5,25 +5,17 @@ import SwiftUI
 class Coordinator: NSObject, MKMapViewDelegate {
     var parent: MapView
     var imageCache: [UUID: UIImage] = [:]
+    let bubbleSize: CGFloat = 32
     @State var isFirstLoad = true
 
     init(_ parent: MapView) {
         self.parent = parent
     }
 
-    private func bubbleSize(_ isUser: Bool) -> CGFloat {
-        if isUser {
-            return 48
-        }
-
-        return 32
-    }
-
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let customAnnotation = annotation as? CustomPointAnnotation else { return nil
         }
 
-        let bubSize = bubbleSize(customAnnotation.isUser)
         let identifier = "userAnnotationView"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
 
@@ -47,10 +39,9 @@ class Coordinator: NSObject, MKMapViewDelegate {
                 DispatchQueue.main.async {
                     if let image = UIImage(data: data) {
                         // Resize the image to a larger size if needed.
-                        let bubSize = self.bubbleSize(customAnnotation.isUser)
                         self.imageCache[customAnnotation.userId] = self.resizeImage(
-                            image: image, fixedWidth: bubSize,
-                            fixedHeight: bubSize
+                            image: image, fixedWidth: self.bubbleSize,
+                            fixedHeight: self.bubbleSize
                         )
                         annotationView?.image = self.imageCache[customAnnotation.userId]
                     }
@@ -62,7 +53,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
         // If is user then have higher display priority
         if customAnnotation.isUser {
             annotationView?.layer.zPosition = 10
-            annotationView?.layer.cornerRadius = bubSize / 2
+            annotationView?.layer.cornerRadius = self.bubbleSize / 2
             annotationView?.layer.borderColor = UIColor.systemBlue.cgColor
             annotationView?.layer.borderWidth = 2
             annotationView?.layer.shadowColor = UIColor.systemBlue.cgColor
