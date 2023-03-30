@@ -47,6 +47,12 @@ class UserService: ObservableObject {
         }
     }
 
+    func createFriendsSocialMediaLinkVM(for friend: User) -> SocialMediaLinksViewModel {
+        SocialMediaLinksViewModel(instagramUsername: friend.instagramUsername ?? "",
+                                  tiktokUsername: friend.tiktokUsername ?? "",
+                                  telegramUsername: friend.telegramUsername ?? "")
+    }
+
     func fetchUser(id: UUID, completion: @escaping (Bool) -> Void) {
         Task {
             do {
@@ -87,6 +93,25 @@ class UserService: ObservableObject {
         }
     }
 
+    func reloadUser() {
+        Task {
+            do {
+                guard let user = user else {
+                    return
+                }
+                guard let updatedUser = try await userRepository.update(user: user) else {
+                    // handle update failure
+                    return
+                }
+                self.user = updatedUser
+                self.handleUserPropertyChange()
+            } catch {
+                print("Error updating user:", error)
+                // Handle error as needed
+            }
+        }
+    }
+
     func fetchAllFriends(tripId: Int, completion: @escaping (Bool) -> Void) {
         Task {
             do {
@@ -118,6 +143,29 @@ class UserService: ObservableObject {
 
     func toggleEditProfileViewAlert() {
         editProfileViewModel.updateError.toggle()
+    }
+
+    func clear() {
+        self.user = nil
+        self.userCache = [:]
+        self.profileHeaderVM.clear()
+        self.socialMediaLinksVM.clear()
+        self.profileFriendsVM.clear()
+        self.editProfileViewModel.clear()
+        self.createInvitePageViewModel.clear()
+        self.eventPageViewModel.clear()
+        self.eventStatusButtonViewModel.clear()
+    }
+
+    func changeTrip() {
+        self.userCache = [:]
+        self.profileHeaderVM.clear()
+        self.socialMediaLinksVM.clear()
+        self.profileFriendsVM.clear()
+        self.editProfileViewModel.clear()
+        self.createInvitePageViewModel.clear()
+        self.eventPageViewModel.clear()
+        self.eventStatusButtonViewModel.clear()
     }
 
     private func initCache(users: [User]) {

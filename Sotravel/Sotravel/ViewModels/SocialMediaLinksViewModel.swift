@@ -24,4 +24,10 @@ class SocialMediaLinksViewModel: ObservableObject {
             self.telegramUsername = user.telegramUsername
         }
     }
+
+    func clear() {
+        self.instagramUsername = ""
+        self.tiktokUsername = ""
+        self.telegramUsername = ""
+    }
 }

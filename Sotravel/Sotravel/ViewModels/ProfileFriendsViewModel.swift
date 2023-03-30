@@ -18,4 +18,8 @@ class ProfileFriendsViewModel: ObservableObject {
             self.friends = friends
         }
     }
+
+    func clear() {
+        self.friends = []
+    }
 }

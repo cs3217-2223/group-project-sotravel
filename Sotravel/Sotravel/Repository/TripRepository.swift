@@ -10,3 +10,11 @@ import Foundation
 protocol TripRepository {
     func getTrips(userId: UUID) async throws -> [Trip]
 }
+
+class TripRepositoryStub: TripRepository {
+    let dataBase = mockTrips
+
+    func getTrips(userId: UUID) async throws -> [Trip] {
+        dataBase
+    }
+}

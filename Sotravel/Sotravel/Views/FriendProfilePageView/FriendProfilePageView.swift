@@ -15,7 +15,11 @@ struct FriendProfilePageView: View {
                     .font(.uiHeadline)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
-                SocialMediaLinksView(viewModel: userService.socialMediaLinksVM)
+                if let friend = friend {
+                    SocialMediaLinksView(viewModel: userService.createFriendsSocialMediaLinkVM(for: friend))
+                } else {
+                    SocialMediaLinksView(viewModel: SocialMediaLinksViewModel())
+                }
                 Divider().padding(.bottom, 20)
                 if let user = friend {
                     RecentActivityView(user: user)

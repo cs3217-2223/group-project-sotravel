@@ -42,4 +42,13 @@ class EditProfileViewModel: ObservableObject {
             self.tiktokUsername = user.tiktokUsername
         }
     }
+
+    func clear() {
+        self.firstName = ""
+        self.lastName = ""
+        self.description = ""
+        self.instagramUsername = ""
+        self.tiktokUsername = ""
+        self.updateError = false
+    }
 }

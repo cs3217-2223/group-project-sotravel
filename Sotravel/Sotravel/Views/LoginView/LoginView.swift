@@ -3,6 +3,7 @@ import SwiftUI
 struct LoginView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var eventService: EventService
+    @EnvironmentObject private var tripService: TripService
     @State private var isNavigationActive = false
     @State private var isLoading = false
     var body: some View {
@@ -110,11 +111,7 @@ struct LoginView: View {
                         if success {
                             // TODO: Move this into some separate token storage class
                             NodeApi.storeAuthToken(token: token)
-                            userService.fetchAllFriends(tripId: 1) { _ in
-                                // empty for now
-                            }
-                            // TODO: Remove hardcoded trip id and user id
-                            eventService.loadUserEvents(forTrip: 1, userId: mockUser.id)
+                            tripService.loadUserTrips(userId: id)
                             isNavigationActive = true
                         } else {
                             isLoading = false

@@ -26,4 +26,9 @@ class CreateInvitePageUserViewModel: ObservableObject {
             self.userId = user.id
         }
     }
+
+    func clear() {
+        self.userId = UUID()
+        self.friends = []
+    }
 }
