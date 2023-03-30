@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct TripsPageView: View {
-    let trips: [Trip] = mockTrips
     @EnvironmentObject var chatService: ChatService
     @EnvironmentObject var userService: UserService
+    @EnvironmentObject var eventService: EventService
+    @EnvironmentObject var tripService: TripService
 
     var body: some View {
         ScrollView {
@@ -14,13 +15,15 @@ struct TripsPageView: View {
                     Spacer()
                 }
                 LazyVStack(alignment: .leading, spacing: 16) {
-                    ForEach(trips) { trip in
+                    ForEach(Array(tripService.tripCache.values), id: \.id) { trip in
                         NavigationLink(destination: TripPageView()) {
                             TripCardView(trip: trip)
                         }.foregroundColor(.primary)
                         .simultaneousGesture(TapGesture().onEnded {
                             self.chatService.setUserId(user: self.userService.user)
                             self.chatService.fetchChatPageCells()
+                            // Call loadUserData when the TripCardView is tapped
+                            self.loadUserData(for: trip)
                         })
                     }
                 }
@@ -28,6 +31,23 @@ struct TripsPageView: View {
             .padding()
         }
         .navigationBarBackButtonHidden(true)
+    }
+
+    private func loadUserData(for trip: Trip) {
+        guard let user = userService.user else {
+            print("Error")
+            return
+        }
+        userService.fetchAllFriends(tripId: trip.id) { success in
+            if success {
+                print("Friends successfully fetched.")
+                // Handle the successfully fetched friends here
+            } else {
+                print("Error occurred while fetching friends.")
+                // Handle the error here
+            }
+        }
+        eventService.loadUserEvents(forTrip: trip.id, userId: user.id)
     }
 }
 

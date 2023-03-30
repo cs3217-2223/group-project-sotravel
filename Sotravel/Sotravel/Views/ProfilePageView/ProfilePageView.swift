@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ProfilePageView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var eventService: EventService
+    @EnvironmentObject private var tripService: TripService
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -38,11 +41,19 @@ struct ProfilePageView: View {
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(Color.uiPrimary, lineWidth: 1)
                             )
-                            Button(action: {}) {
+                            .simultaneousGesture(TapGesture().onEnded {
+                                self.changeTrip()
+                            })
+
+                            NavigationLink(destination: ContentView().navigationBarBackButtonHidden()) {
                                 Text("Log Out")
                                     .font(.uiHeadline)
                                     .foregroundColor(.red)
+                                Image(systemName: "airplane.departure")
                             }
+                            .simultaneousGesture(TapGesture().onEnded {
+                                self.logOut()
+                            })
                         }
 
                     }
@@ -51,6 +62,26 @@ struct ProfilePageView: View {
                 .padding(.bottom, 32)
             }
         }
+    }
+
+    private func changeTrip() {
+        guard let user = userService.user else {
+            return
+        }
+        userService.changeTrip()
+        userService.reloadUser()
+        eventService.clear()
+        tripService.clear()
+
+        // Reload the trips
+        tripService.loadUserTrips(userId: user.id)
+    }
+
+    private func logOut() {
+        userService.clear()
+        eventService.clear()
+        tripService.clear()
+
     }
 }
 

@@ -77,4 +77,17 @@ class EventViewModel: ObservableObject {
             self.hostUser = event.hostUser
         }
     }
+
+    func clear() {
+        self.id = .zero
+        self.title = ""
+        self.datetime = Date()
+        self.location = ""
+        self.details = ""
+        self.meetingPoint = ""
+        self.invitedUsers = []
+        self.attendingUsers = []
+        self.rejectedUsers = []
+        self.hostUser = UUID()
+    }
 }

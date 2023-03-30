@@ -120,6 +120,12 @@ class EventService: ObservableObject {
         return attendingEvents.compactMap { eventToViewModels[$0] }
     }
 
+    func clear() {
+        self.eventCache = [:]
+        self.eventToViewModels = [:]
+        self.eventViewModels = []
+    }
+
     private func createEventViewModels(from events: [Event]) {
         for event in events {
             let viewModel = EventViewModel(event: event)

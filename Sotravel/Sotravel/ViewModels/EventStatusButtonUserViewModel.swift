@@ -19,4 +19,8 @@ class EventStatusButtonUserViewModel: ObservableObject {
             self.userId = user.id
         }
     }
+
+    func clear() {
+        self.userId = UUID()
+    }
 }

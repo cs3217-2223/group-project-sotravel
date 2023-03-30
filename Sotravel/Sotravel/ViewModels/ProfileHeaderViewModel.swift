@@ -24,4 +24,10 @@ class ProfileHeaderViewModel: ObservableObject {
             self.imageURL = user.imageURL
         }
     }
+
+    func clear() {
+        self.name = ""
+        self.description = ""
+        self.imageURL = ""
+    }
 }

@@ -12,7 +12,7 @@ extension Resolver {
     public static func registerRepositories() {
         register { UserRepositoryStub() }.implements(UserRepository.self)
         register { EventRepositoryStub() }.implements(EventRepository.self)
-        // register { UserRepositoryNode() }.implements(UserRepository.self)
+        register { TripRepositoryStub() }.implements(TripRepository.self)
         register { ChatRepositoryFirebase() }.implements(ChatRepository.self)
     }
 }
