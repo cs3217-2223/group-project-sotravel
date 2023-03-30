@@ -7,39 +7,70 @@ enum EventStatus {
 }
 
 struct EventStatusButton: View {
+    @EnvironmentObject private var eventService: EventService
+    @ObservedObject var eventStatusUserViewModel: EventStatusButtonUserViewModel
+    @ObservedObject var eventViewModel: EventViewModel
     @Binding var eventStatus: EventStatus
     @State private var isMenuVisible = false
 
     var body: some View {
-        Menu {
-            Button(action: { eventStatus = .going }, label: {
-                Label("Going", systemImage: "checkmark.circle.fill")
-            })
-            Button(action: { eventStatus = .notGoing }, label: {
-                Label("Not Going", systemImage: "xmark.circle.fill")
-            })
-            Button(action: { eventStatus = .pending }, label: {
-                Label("Pending", systemImage: "clock")
-            })
-        } label: {
-            HStack {
-                Text(statusString)
-                    .foregroundColor(statusColor)
-                    .font(.headline)
-                Image(systemName: "chevron.down")
-                    .foregroundColor(statusColor)
-                    .font(.headline)
+        if eventViewModel.hostUser == eventStatusUserViewModel.userId {
+            Text(statusString)
+                .foregroundColor(statusColor)
+                .font(.headline)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .foregroundColor(statusColor)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(statusColor, lineWidth: 2)
+                )
+                .cornerRadius(10)
+        } else {
+            Menu {
+                Button(action: {
+                    eventStatus = .going
+                    eventService.rsvpToEvent(eventId: eventViewModel.id,
+                                             userId: eventStatusUserViewModel.userId,
+                                             status: EventRsvpStatus.yes)
+                }, label: {
+                    Label("Going", systemImage: "checkmark.circle.fill")
+                })
+                Button(action: {
+                    eventStatus = .notGoing
+                    eventService.rsvpToEvent(eventId: eventViewModel.id,
+                                             userId: eventStatusUserViewModel.userId,
+                                             status: EventRsvpStatus.no)
+                }, label: {
+                    Label("Not Going", systemImage: "xmark.circle.fill")
+                })
+                if eventStatus == .pending {
+                    Button(action: {
+                        eventStatus = .pending
+                    }, label: {
+                        Label("Pending", systemImage: "clock")
+                    })
+                }
+            } label: {
+                HStack {
+                    Text(statusString)
+                        .foregroundColor(statusColor)
+                        .font(.headline)
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(statusColor)
+                        .font(.headline)
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .foregroundColor(statusColor)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(statusColor, lineWidth: 2)
+                )
+                .cornerRadius(10)
             }
-            .frame(maxWidth: .infinity)
-            .padding()
-            .foregroundColor(statusColor)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(statusColor, lineWidth: 2)
-            )
-            .cornerRadius(10)
+            .menuStyle(BorderlessButtonMenuStyle())
         }
-        .menuStyle(BorderlessButtonMenuStyle())
     }
 
     var statusString: String {

@@ -79,6 +79,7 @@
 		AC63059E29BDA43F00EEEA85 /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC63059D29BDA43F00EEEA85 /* ChatHeaderView.swift */; };
 		AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */; };
 		AC6305A629BDC60300EEEA85 /* RecentActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */; };
+		AC7356C929D476D9009740EA /* EventStatusButtonUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7356C829D476D9009740EA /* EventStatusButtonUserViewModel.swift */; };
 		AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */; };
 		AC832C9729D1F97200B3D52D /* MockFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC832C9629D1F97200B3D52D /* MockFriends.swift */; };
 		ACA4016329C765DC0076E183 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016229C765DC0076E183 /* ProfileHeaderViewModel.swift */; };
@@ -231,6 +232,7 @@
 		AC63059D29BDA43F00EEEA85 /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
 		AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksView.swift; sourceTree = "<group>"; };
 		AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentActivityView.swift; sourceTree = "<group>"; };
+		AC7356C829D476D9009740EA /* EventStatusButtonUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStatusButtonUserViewModel.swift; sourceTree = "<group>"; };
 		AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsView.swift; sourceTree = "<group>"; };
 		AC832C9629D1F97200B3D52D /* MockFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFriends.swift; sourceTree = "<group>"; };
 		ACA4016229C765DC0076E183 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
@@ -520,6 +522,7 @@
 				ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */,
 				ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */,
 				B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */,
+				AC7356C829D476D9009740EA /* EventStatusButtonUserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -852,6 +855,7 @@
 				18D9713829BD84480064DC2A /* FriendProfilePageView.swift in Sources */,
 				ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */,
 				B485A8F529D06F3200786A34 /* UserFriendApiModel.swift in Sources */,
+				AC7356C929D476D9009740EA /* EventStatusButtonUserViewModel.swift in Sources */,
 				18D9713A29BD86330064DC2A /* FriendsListPageView.swift in Sources */,
 				D7F6A9D029C6E755006FBD26 /* DatabaseConnector.swift in Sources */,
 				18591C8529BCDB7700FA987D /* SearchBarView.swift in Sources */,

@@ -18,6 +18,7 @@ class UserService: ObservableObject {
     @Published var editProfileViewModel: EditProfileViewModel
     @Published var createInvitePageViewModel: CreateInvitePageUserViewModel
     @Published var eventPageViewModel: EventPageUserViewModel
+    @Published var eventStatusButtonViewModel: EventStatusButtonUserViewModel
 
     @Injected private var userRepository: UserRepository
 
@@ -28,6 +29,7 @@ class UserService: ObservableObject {
         self.editProfileViewModel = EditProfileViewModel()
         self.createInvitePageViewModel = CreateInvitePageUserViewModel()
         self.eventPageViewModel = EventPageUserViewModel()
+        self.eventStatusButtonViewModel = EventStatusButtonUserViewModel()
     }
 
     func fetchUserIfNeededFrom(id: UUID) async {
@@ -137,5 +139,6 @@ class UserService: ObservableObject {
         self.editProfileViewModel.updateFrom(user: user)
         self.eventPageViewModel.updateFrom(user: user)
         self.createInvitePageViewModel.updateFrom(user: user)
+        self.eventStatusButtonViewModel.updateFrom(user: user)
     }
 }
