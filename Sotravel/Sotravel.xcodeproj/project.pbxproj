@@ -85,6 +85,7 @@
 		AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */; };
 		AC832C9729D1F97200B3D52D /* MockFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC832C9629D1F97200B3D52D /* MockFriends.swift */; };
 		AC8AE12A29D59AA3000F78BC /* TripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8AE12929D59AA3000F78BC /* TripService.swift */; };
+		AC8AE12E29D5E40F000F78BC /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8AE12D29D5E40F000F78BC /* FriendService.swift */; };
 		ACA4016329C765DC0076E183 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016229C765DC0076E183 /* ProfileHeaderViewModel.swift */; };
 		ACA4016529C7664D0076E183 /* SocialMediaLinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */; };
 		ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */; };
@@ -241,6 +242,7 @@
 		AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsView.swift; sourceTree = "<group>"; };
 		AC832C9629D1F97200B3D52D /* MockFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFriends.swift; sourceTree = "<group>"; };
 		AC8AE12929D59AA3000F78BC /* TripService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripService.swift; sourceTree = "<group>"; };
+		AC8AE12D29D5E40F000F78BC /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
 		ACA4016229C765DC0076E183 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksViewModel.swift; sourceTree = "<group>"; };
 		ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsViewModel.swift; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 				185CBD0D29CC0FE6008C3B79 /* MapStorageService.swift */,
 				188C147629CDC13500531F9F /* LocationManagerService.swift */,
 				AC8AE12929D59AA3000F78BC /* TripService.swift */,
+				AC8AE12D29D5E40F000F78BC /* FriendService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -893,6 +896,7 @@
 				AC32F95329BA02700005F5B9 /* CalendarView.swift in Sources */,
 				D7F6A9F229D2D888006FBD26 /* ChatBasicInfoWithMessageApiModel.swift in Sources */,
 				181C746D29BDDBEF00E6D3B1 /* AttendeesView.swift in Sources */,
+				AC8AE12E29D5E40F000F78BC /* FriendService.swift in Sources */,
 				188C147929CDC31100531F9F /* MapRepository.swift in Sources */,
 				B4E9460E29C5A6BB001B65EE /* HTTPClientRequest+NodeAuth.swift in Sources */,
 				ACA4016329C765DC0076E183 /* ProfileHeaderViewModel.swift in Sources */,

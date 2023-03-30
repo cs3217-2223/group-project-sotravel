@@ -22,6 +22,10 @@ class EventService: ObservableObject {
         self.eventCache = [:]
     }
 
+    func getEvent(id: Int) throws -> Event {
+        mockEvent1
+    }
+
     func loadUserEvents(forTrip tripId: Int, userId: UUID) {
         Task {
             do {
