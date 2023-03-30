@@ -41,7 +41,8 @@ class ChatService: ObservableObject {
                                                      lastMessageText: basicChat.messages.last?.messageText,
                                                      lastMessageSender: basicChat.messages.last?.sender.uuidString,
                                                      lastMessageDate: basicChat.messages.last?.timestamp,
-                                                     id: basicChat.id)
+                                                     id: basicChat.id,
+                                                     eventId: basicChat.eventId)
             self.chatPageCellVMs.append(mappedChatVM)
             // TODO: sort by timestamp, latest in front ... want to maintain sorted array
 
@@ -53,7 +54,8 @@ class ChatService: ObservableObject {
                                                       lastMessageText: updatedChat.messages.last?.messageText,
                                                       lastMessageSender: updatedChat.messages.last?.sender.uuidString,
                                                       lastMessageDate: updatedChat.messages.last?.timestamp,
-                                                      id: updatedChat.id)
+                                                      id: updatedChat.id,
+                                                      eventId: updatedChat.eventId)
                 chatPageCellVMToUpdate.update(with: updatedVM)
             })
 
@@ -71,7 +73,8 @@ class ChatService: ObservableObject {
                                                        lastMessageText: newChat.messages.last?.messageText,
                                                        lastMessageSender: newChat.messages.last?.sender.uuidString,
                                                        lastMessageDate: newChat.messages.last?.timestamp,
-                                                       id: newChat.id)
+                                                       id: newChat.id,
+                                                       eventId: newChat.eventId)
             if self.chatPageCellVMs.contains(where: { $0.id == newChat.id }) {
                 return
             }

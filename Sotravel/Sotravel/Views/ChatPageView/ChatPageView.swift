@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatPageView: View {
     @EnvironmentObject var chatService: ChatService
+    @EnvironmentObject var eventService: EventService
 
     var body: some View {
         NavigationView {

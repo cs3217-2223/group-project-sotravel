@@ -16,10 +16,9 @@ struct ChatHeaderView: View {
                 if let eventId = chatHeaderVM.eventId,
                    let event = eventService.eventCache[eventId],
                    let eventVM = eventService.eventToViewModels[event] {
-                    Text("eventDatetime.toFriendlyString()")
+                    Text(eventVM.datetime.toFriendlyString())
                         .font(.uiSubheadline)
                         .lineLimit(1)
-                    // TODO: link to event via idk
                     NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
                                                               eventViewModel: eventVM)) {
                         Text("View More").font(.uiFootnote).foregroundColor(.blue)

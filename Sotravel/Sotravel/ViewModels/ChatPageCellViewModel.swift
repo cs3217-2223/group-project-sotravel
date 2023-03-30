@@ -12,13 +12,16 @@ class ChatPageCellViewModel: ObservableObject, Identifiable {
     @Published var lastMessageText: String?
     @Published var lastMessageSender: String?
     @Published var lastMessageTimestamp: String?
+    @Published var eventId: Int?
     var id: UUID
 
-    init(chatTitle: String = "", lastMessageText: String? = nil, lastMessageSender: String? = nil, lastMessageDate: Date? = nil, id: UUID = UUID()) {
+    init(chatTitle: String = "", lastMessageText: String? = nil, lastMessageSender: String? = nil,
+         lastMessageDate: Date? = nil, id: UUID = UUID(), eventId: Int? = nil) {
         self.chatTitle = chatTitle
         self.lastMessageText = lastMessageText
         self.lastMessageSender = lastMessageSender
         self.id = id
+        self.eventId = eventId
 
         guard let timeStamp = lastMessageDate else {
             self.lastMessageTimestamp = ""
@@ -35,5 +38,6 @@ class ChatPageCellViewModel: ObservableObject, Identifiable {
         self.lastMessageText = newVM.lastMessageText
         self.lastMessageSender = newVM.lastMessageSender
         self.lastMessageTimestamp = newVM.lastMessageTimestamp
+        self.eventId = newVM.eventId
     }
 }

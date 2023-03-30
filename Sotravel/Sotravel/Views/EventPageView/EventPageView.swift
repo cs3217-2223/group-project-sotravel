@@ -2,6 +2,7 @@ import SwiftUI
 
 struct EventPageView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var eventService: EventService
     @EnvironmentObject private var chatService: ChatService
     @ObservedObject var eventPageUserViewModel: EventPageUserViewModel
     @Environment(\.dismiss) var dismiss
