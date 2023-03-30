@@ -5,8 +5,8 @@ struct MapView: UIViewRepresentable {
     @Binding var userLocation: CLLocation?
     @Binding var friendsLocations: [String: CLLocation]
     @Binding var selectedFriend: User?
+    @Binding var isSharingLocation: Bool
     @EnvironmentObject var userService: UserService
-    @State var firstLoad = true
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -31,26 +31,18 @@ struct MapView: UIViewRepresentable {
         let thresholdLongitudeDelta: CLLocationDegrees = 0.01
 
         if currentSpan.latitudeDelta > thresholdLatitudeDelta || currentSpan.longitudeDelta > thresholdLongitudeDelta {
-            guard let userLocation = userLocation else { return }
-            let desiredLatitudeDelta: CLLocationDegrees = 0.005
-            let desiredLongitudeDelta: CLLocationDegrees = 0.005
-            let desiredSpan = MKCoordinateSpan(latitudeDelta: desiredLatitudeDelta, longitudeDelta: desiredLongitudeDelta)
-            let region = MKCoordinateRegion(center: userLocation.coordinate, span: desiredSpan)
-            mapView.setRegion(region, animated: true)
+            self.centerMapOnUserLocation(mapView)
         }
     }
 
-    // todo unused
     func centerMapOnUserLocation(_ mapView: MKMapView) {
         guard let userLocation = userLocation else {
             return
         }
-
-        let region = MKCoordinateRegion(
-            center: userLocation.coordinate,
-            latitudinalMeters: 500,
-            longitudinalMeters: 500
-        )
+        let desiredLatitudeDelta: CLLocationDegrees = 0.005
+        let desiredLongitudeDelta: CLLocationDegrees = 0.005
+        let desiredSpan = MKCoordinateSpan(latitudeDelta: desiredLatitudeDelta, longitudeDelta: desiredLongitudeDelta)
+        let region = MKCoordinateRegion(center: userLocation.coordinate, span: desiredSpan)
         mapView.setRegion(region, animated: true)
     }
 
@@ -85,8 +77,18 @@ struct MapView: UIViewRepresentable {
             mapView.addAnnotation(friendAnnotation)
         }
 
-        // Add user annotation last, for it to appear on top
+        // Handle user annotation
         guard let user = userService.user, let userCoordinate = userLocation?.coordinate else {
+            return
+        }
+
+        if !isSharingLocation {
+            // Remove user annotation
+            guard let userAnnotation = existingAnnotations[user.id] else {
+                return
+            }
+
+            mapView.removeAnnotation(userAnnotation)
             return
         }
 

@@ -123,7 +123,7 @@ struct DateTimeView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(datetime.toFriendlyTimeString())
                 .font(.uiHeadline)
-                .foregroundColor(Color.black)
+                .foregroundColor(Color.primary)
             Text(datetime.toFriendlyDateString())
                 .font(.uiCallout)
                 .foregroundColor(Color.gray)

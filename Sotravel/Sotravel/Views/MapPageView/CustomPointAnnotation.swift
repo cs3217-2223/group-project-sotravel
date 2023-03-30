@@ -12,6 +12,5 @@ class CustomPointAnnotation: MKPointAnnotation {
         self.isUser = isUser
         super.init()
         self.coordinate = coordinate
-        self.title = title
     }
 }

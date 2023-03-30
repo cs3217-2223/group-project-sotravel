@@ -33,23 +33,23 @@ struct LoginView: View {
                     .padding(.top, 40)
                     .shadow(color: .primary.opacity(0.15), radius: 18, x: 0, y: 14)
                 VStack(spacing: 10) {
-                    HStack(alignment: .firstTextBaseline, spacing: 8) {
-                        Image(systemName: "envelope.fill")
-                            .imageScale(.medium)
-                        Text("Continue with Gmail").font(.uiButton)
-                    }
-                    .font(.uiBody.weight(.medium))
-                    .padding(.vertical, 16)
-                    .frame(maxWidth: .infinity)
-                    .clipped()
-                    .foregroundColor(Color.uiPrimary)
-                    .background {
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .stroke(.clear.opacity(0.25), lineWidth: 0)
-                            .background(RoundedRectangle(cornerRadius: 10,
-                                                         style: .continuous)
-                                            .fill(Color.uiPrimary.opacity(0.1)))
-                    }
+                    //                    HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    //                        Image(systemName: "envelope.fill")
+                    //                            .imageScale(.medium)
+                    //                        Text("Continue with Gmail").font(.uiButton)
+                    //                    }
+                    //                    .font(.uiBody.weight(.medium))
+                    //                    .padding(.vertical, 16)
+                    //                    .frame(maxWidth: .infinity)
+                    //                    .clipped()
+                    //                    .foregroundColor(Color.uiPrimary)
+                    //                    .background {
+                    //                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    //                            .stroke(.clear.opacity(0.25), lineWidth: 0)
+                    //                            .background(RoundedRectangle(cornerRadius: 10,
+                    //                                                         style: .continuous)
+                    //                                            .fill(Color.uiPrimary.opacity(0.1)))
+                    //                    }
                     NavigationLink(
                         destination: TripsPageView()
                             .navigationBarBackButtonHidden(true)

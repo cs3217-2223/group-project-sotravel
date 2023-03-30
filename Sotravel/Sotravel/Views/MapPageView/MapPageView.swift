@@ -6,6 +6,18 @@ struct MapPageView: View {
     @EnvironmentObject var userService: UserService
     @State private var selectedFriend: User?
     @State private var isSharingLocation = true
+    @State private var showToast = false
+
+    private func toggleToast() {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            showToast = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                showToast = false
+            }
+        }
+    }
 
     var body: some View {
         NavigationView {
@@ -14,7 +26,8 @@ struct MapPageView: View {
                     MapView(
                         userLocation: $locationManagerService.userLocation,
                         friendsLocations: $mapStorageService.friendsLocations,
-                        selectedFriend: $selectedFriend
+                        selectedFriend: $selectedFriend,
+                        isSharingLocation: $isSharingLocation
                     )
                     .edgesIgnoringSafeArea(.all)
                     .onAppear {
@@ -31,7 +44,15 @@ struct MapPageView: View {
                     .sheet(item: $selectedFriend) { friend in
                         FriendProfilePageView(friend: friend)
                     }
+
                     VStack {
+                        if showToast {
+                            Toast(message: isSharingLocation ? "Sharing location" : "Stopped sharing location")
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background(Color.black.opacity(0.1))
+                                .edgesIgnoringSafeArea(.all)
+                                .transition(.opacity)
+                        }
                         Spacer()
                         HStack {
                             Spacer()
@@ -40,6 +61,7 @@ struct MapPageView: View {
                                     return
                                 }
 
+                                toggleToast()
                                 isSharingLocation.toggle()
 
                                 if isSharingLocation {
@@ -68,32 +90,6 @@ struct MapPageView: View {
                     }
                 }
             }.padding(.bottom, 12)
-            //            HStack {
-            //                LabelledToggleView(icon: "antenna.radiowaves.left.and.right",
-            //                                   title: "Find Me",
-            //                                   subtitle: "Share Location with Friends",
-            //                                   isOn: $isSharingLocation)
-            //                .onChange(of: isSharingLocation, perform: { _ in
-            //                    guard let user = userService.user else {
-            //                        return
-            //                    }
-            //
-            //                    if isSharingLocation {
-            //                        mapStorageService
-            //                            .startUserLocationUpdate(
-            //                                locationManager: locationManagerService,
-            //                                userId: user.id.uuidString
-            //                            )
-            //                    } else {
-            //                        mapStorageService
-            //                            .stopUserLocationUpdate(
-            //                                locationManager: locationManagerService,
-            //                                userId: user.id.uuidString
-            //                            )
-            //                    }
-            //                })
-            //                Spacer()
-            //            }
         }
     }
 
