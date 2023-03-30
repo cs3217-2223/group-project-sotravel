@@ -146,21 +146,12 @@ class ChatRepositoryFirebase: ChatRepository {
                         completion(chat)
                     } else {
                         // TODO: get event from id
-                        //                        let event = Event(id: UUID(uuidString: eventId) ?? UUID(),
-                        //                                          activity: "temp",
-                        //                                          invitedUsers: [mockMe, mockNotMe],
-                        //                                          attendingUsers: [mockMe],
-                        //                                          rejectedUsers: [mockNotMe],
-                        //                                          datetime: Date.now,
-                        //                                          location: "",
-                        //                                          meetingPoint: "",
-                        //                                          description: "",
-                        //                                          hostUser: mockMe)
-                        //                        let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
-                        //                                        messages: chatMessages,
-                        //                                        members: chatMembers,
-                        //                                        event: event)
-                        //                        completion(chat)
+                        let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
+                                        messages: chatMessages,
+                                        title: chatBasicInfoAM.title ?? "Untitled",
+                                        members: chatMembers,
+                                        eventId: Int(eventId) ?? 0)
+                        completion(chat)
                     }
                 })
             })

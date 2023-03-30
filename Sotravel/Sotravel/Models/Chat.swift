@@ -5,7 +5,7 @@ class Chat: ObservableObject, Identifiable {
     @Published var title: String
     @Published var messages: [ChatMessage]
     @Published var members: [User]
-    @Published var event: Event?
+    @Published var eventId: Int?
 
     init(id: UUID = UUID(), messages: [ChatMessage] = [ChatMessage](), title: String = "New Chat", members: [User]) {
         self.id = id
@@ -14,12 +14,12 @@ class Chat: ObservableObject, Identifiable {
         self.members = members
     }
 
-    init(id: UUID = UUID(), messages: [ChatMessage] = [ChatMessage](), members: [User], event: Event) {
+    init(id: UUID = UUID(), messages: [ChatMessage] = [ChatMessage](), title: String = "New Chat", members: [User], eventId: Int) {
         self.id = id
         self.messages = messages
-        self.title = event.title
+        self.title = title
         self.members = members
-        self.event = event
+        self.eventId = eventId
     }
 
     func addChatMessage(_ message: ChatMessage) {

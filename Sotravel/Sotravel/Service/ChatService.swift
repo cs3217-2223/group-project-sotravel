@@ -86,8 +86,9 @@ class ChatService: ObservableObject {
         chatId = id
 
         chatRepository.getChat(chatId: id, completion: { chat in
-            if let event = chat.event {
-                self.chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title, eventDatetime: event.datetime)
+            if let eventId = chat.eventId {
+                // TODO: pass eventId and get datetime from eventService in the view
+                self.chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title)
             } else {
                 self.chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title)
             }
@@ -96,6 +97,7 @@ class ChatService: ObservableObject {
             self.chatMessageVMs = chat.messages.map {
                 ChatMessageViewModel(messageText: $0.messageText,
                                      messageTimestamp: $0.timestamp,
+                                     senderId: $0.sender,
                                      senderImageSrc: $0.sender.uuidString,
                                      senderName: $0.sender.uuidString,
                                      isSentByMe: $0.sender == userId,
@@ -106,6 +108,7 @@ class ChatService: ObservableObject {
                 // TODO: convert sender uuid to image src and name (through user service?)
                 let chatMessageVM = ChatMessageViewModel(messageText: chatMessage.messageText,
                                                          messageTimestamp: chatMessage.timestamp,
+                                                         senderId: chatMessage.sender,
                                                          senderImageSrc: chatMessage.sender.uuidString,
                                                          senderName: chatMessage.sender.uuidString,
                                                          isSentByMe: chatMessage.sender == userId,
@@ -143,4 +146,6 @@ class ChatService: ObservableObject {
         let previousMessage = chatMessageVMs[index - 1]
         return message.messageTimestamp.timeIntervalSince(previousMessage.messageTimestamp) > 60
     }
+
+    // TODO: addEventChat(eventId: int)
 }

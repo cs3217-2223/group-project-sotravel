@@ -16,9 +16,10 @@ struct ChatHeaderView: View {
                         .font(.uiSubheadline)
                         .lineLimit(1)
                     // TODO: link to event via idk
+                    //     @ObservedObject var eventViewModel: EventViewModel
                     /*
                      NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
-                     eventViewModel: EventViewModel())) {
+                     eventViewModel: EventViewModel())) { // change here
                      Text("View More")
                      .font(.uiFootnote)
                      .foregroundColor(.blue)

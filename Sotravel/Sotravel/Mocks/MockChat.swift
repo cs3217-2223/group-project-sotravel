@@ -64,8 +64,8 @@ let mockChat = Chat(
         mockMessage9,
         mockMessage10
     ],
-    members: mockFriends,
-    event: mockEvent1
+    members: mockFriends
+    //    event: mockEvent1
 )
 
 let mockChatNoEvent = Chat(
@@ -77,6 +77,6 @@ let mockChatNoEvent = Chat(
     members: mockFriends
 )
 
-let mockChatNoMessage = Chat(members: mockFriends, event: mockEvent3)
+// let mockChatNoMessage = Chat(members: mockFriends, event: mockEvent3)
 
-let mockChats = [mockChat, mockChatNoEvent, mockChatNoMessage]
+let mockChats = [mockChat, mockChatNoEvent]

@@ -20,6 +20,7 @@ struct TripsPageView: View {
                         }.foregroundColor(.primary)
                         .simultaneousGesture(TapGesture().onEnded {
                             // makes sense to just set it once i think...
+                            print(self.userService.user?.id)
                             self.chatService.setUserId(user: self.userService.user)
                             self.chatService.fetchChatPageCells()
                         })
