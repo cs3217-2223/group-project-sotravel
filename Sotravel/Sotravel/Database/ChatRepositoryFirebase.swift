@@ -124,13 +124,11 @@ class ChatRepositoryFirebase: ChatRepository {
                                     sender: UUID(uuidString: $0.sender ?? "") ?? UUID())
                     }
 
-                    // TODO: get user from id
                     let chatMembers = chatMemberAMs.map {
                         User(id: UUID(uuidString: $0.id ?? "") ?? UUID())
                     }
 
                     guard let eventId = chatBasicInfoAM.event, eventId >= 0 else { // we take it as no event
-                        print("no event")
                         let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
                                         messages: chatMessages,
                                         title: chatBasicInfoAM.title ?? "Untitled",
@@ -139,7 +137,6 @@ class ChatRepositoryFirebase: ChatRepository {
                         return
                     }
 
-                    print("has event")
                     let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
                                     messages: chatMessages,
                                     title: chatBasicInfoAM.title ?? "Untitled",
@@ -357,7 +354,6 @@ class ChatRepositoryFirebase: ChatRepository {
 
     func getChatIdFromEvent(eventId: Int, completion: @escaping ((UUID) -> Void)) {
         let databasePath = self.databaseRef.child("eventChat/\(eventId)")
-        print(databasePath)
         databasePath.getData(completion: { error, snapshot in
             guard error == nil else {
                 print(error!.localizedDescription)

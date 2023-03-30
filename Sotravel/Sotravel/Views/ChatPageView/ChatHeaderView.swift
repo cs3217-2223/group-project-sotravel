@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ChatHeaderView: View {
     @EnvironmentObject var chatService: ChatService
+    @EnvironmentObject var userService: UserService
+    @EnvironmentObject var eventService: EventService
     @ObservedObject var chatHeaderVM: ChatHeaderViewModel
     @Environment(\.dismiss) var dismiss
 
@@ -11,28 +13,17 @@ struct ChatHeaderView: View {
                 Text(chatHeaderVM.chatTitle ?? "No Title")
                     .font(.uiButton)
                     .lineLimit(1)
-                if let eventDatetime = chatHeaderVM.eventDatetime {
-                    Text(eventDatetime.toFriendlyString())
+                if let eventId = chatHeaderVM.eventId,
+                   let event = eventService.eventCache[eventId],
+                   let eventVM = eventService.eventToViewModels[event] {
+                    Text("eventDatetime.toFriendlyString()")
                         .font(.uiSubheadline)
                         .lineLimit(1)
                     // TODO: link to event via idk
-                    //     @ObservedObject var eventViewModel: EventViewModel
-                    /*
-                     NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
-                     eventViewModel: EventViewModel())) { // change here
-                     Text("View More")
-                     .font(.uiFootnote)
-                     .foregroundColor(.blue)
-                     }
-                     */
-                    //                    NavigationLink(destination: FriendProfilePageView(friend: userService.userCache[chatMessageVM.senderId])) {
-                    //                        ProfileImageView(imageSrc: userService.userCache[chatMessageVM.senderId]?.imageURL,
-                    //                                         name: userService.userCache[chatMessageVM.senderId]?.name ?? "", width: 30, height: 30)
-                    //                    }.onAppear {
-                    //                        Task {
-                    //                            await userService.fetchUserIfNeededFrom(id: chatMessageVM.id)
-                    //                        }
-                    //                    }
+                    NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
+                                                              eventViewModel: eventVM)) {
+                        Text("View More").font(.uiFootnote).foregroundColor(.blue)
+                    }
                 }
             }
             Spacer()

@@ -9,10 +9,10 @@ import Foundation
 
 class ChatHeaderViewModel: ObservableObject {
     @Published var chatTitle: String?
-    @Published var eventDatetime: Date?
+    @Published var eventId: Int?
 
-    init(chatTitle: String = "", eventDatetime: Date? = nil) {
+    init(chatTitle: String = "", eventId: Int? = nil) {
         self.chatTitle = chatTitle
-        self.eventDatetime = eventDatetime
+        self.eventId = eventId
     }
 }

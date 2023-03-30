@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ChatView: View {
     @EnvironmentObject var chatService: ChatService
+    @EnvironmentObject var userService: UserService
+    @EnvironmentObject var eventService: EventService
     @State private var messageText = ""
     @State private var isSending = false
     @ObservedObject private var keyboard = KeyboardResponder()
@@ -19,7 +21,14 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
-            ChatHeaderView(chatHeaderVM: chatService.chatHeaderVM)
+            ChatHeaderView(chatHeaderVM: chatService.chatHeaderVM).onAppear {
+                Task {
+                    guard let eventId = chatService.chatHeaderVM.eventId else {
+                        return
+                    }
+                    await eventService.fetchEventIfNeededFrom(id: eventId)
+                }
+            }
             Divider()
 
             ScrollView {

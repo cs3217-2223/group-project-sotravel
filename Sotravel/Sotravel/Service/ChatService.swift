@@ -87,8 +87,7 @@ class ChatService: ObservableObject {
 
         chatRepository.getChat(chatId: id, completion: { chat in
             if let eventId = chat.eventId {
-                // TODO: pass eventId and get datetime from eventService in the view
-                self.chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title)
+                self.chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title, eventId: eventId)
             } else {
                 self.chatHeaderVM = ChatHeaderViewModel(chatTitle: chat.title)
             }

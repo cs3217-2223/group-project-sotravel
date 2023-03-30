@@ -12,8 +12,7 @@ import Combine
 class EventService: ObservableObject {
     @Published var eventViewModels: [EventViewModel]
     @Published var eventCache: [Int: Event]
-
-    private var eventToViewModels: [Event: EventViewModel]
+    @Published var eventToViewModels: [Event: EventViewModel]
 
     @Injected private var eventRepository: EventRepository
 
