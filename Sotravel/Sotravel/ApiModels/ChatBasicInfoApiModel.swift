@@ -11,5 +11,5 @@ struct ChatBasicInfoApiModel: Codable {
     let id: String?
     let title: String?
     let lastMessage: String?
-    let event: String?
+    let event: Int?
 }

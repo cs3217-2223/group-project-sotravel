@@ -2,10 +2,10 @@ import SwiftUI
 
 struct EventPageView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var chatService: ChatService
     @ObservedObject var eventPageUserViewModel: EventPageUserViewModel
     @Environment(\.dismiss) var dismiss
     @ObservedObject var eventViewModel: EventViewModel
-    var chat: Chat = mockChat
     @State private var selectedTab = 0
     @State private var eventStatus = EventStatus.pending
     @State private var showConfirmationDialog = false
@@ -93,7 +93,7 @@ struct EventPageView: View {
                                 .fill(Color.uiPrimary)
                         }
                     }.simultaneousGesture(TapGesture().onEnded {
-                        print(chat.title) // TODO: the fetch chat action here
+                        chatService.fetchEventChat(eventId: eventViewModel.id)
                     })
                     if eventViewModel.hostUser == eventPageUserViewModel.userId {
                         CancelEventButton(eventViewModel: eventViewModel, showConfirmationDialog: $showConfirmationDialog)
@@ -162,8 +162,7 @@ struct EventPageView_Previews: PreviewProvider {
         let eventVM = EventViewModel(title: "Test event VM", datetime: Date(), location: "COM1", meetingPoint: "COM1")
         NavigationView {
             EventPageView(eventPageUserViewModel: EventPageUserViewModel(),
-                          eventViewModel: eventVM,
-                          chat: mockChat)
+                          eventViewModel: eventVM)
                 .environmentObject(UserService())
         }
     }

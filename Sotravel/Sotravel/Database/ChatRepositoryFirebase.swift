@@ -129,7 +129,8 @@ class ChatRepositoryFirebase: ChatRepository {
                         User(id: UUID(uuidString: $0.id ?? "") ?? UUID())
                     }
 
-                    guard let eventId = chatBasicInfoAM.event else { // we take it as no event
+                    guard let eventId = chatBasicInfoAM.event, eventId >= 0 else { // we take it as no event
+                        print("no event")
                         let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
                                         messages: chatMessages,
                                         title: chatBasicInfoAM.title ?? "Untitled",
@@ -138,21 +139,13 @@ class ChatRepositoryFirebase: ChatRepository {
                         return
                     }
 
-                    if eventId.isEmpty {
-                        let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
-                                        messages: chatMessages,
-                                        title: chatBasicInfoAM.title ?? "Untitled",
-                                        members: chatMembers)
-                        completion(chat)
-                    } else {
-                        // TODO: get event from id
-                        let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
-                                        messages: chatMessages,
-                                        title: chatBasicInfoAM.title ?? "Untitled",
-                                        members: chatMembers,
-                                        eventId: Int(eventId) ?? 0)
-                        completion(chat)
-                    }
+                    print("has event")
+                    let chat = Chat(id: UUID(uuidString: chatBasicInfoAM.id ?? "") ?? UUID(),
+                                    messages: chatMessages,
+                                    title: chatBasicInfoAM.title ?? "Untitled",
+                                    members: chatMembers,
+                                    eventId: eventId)
+                    completion(chat)
                 })
             })
         })
@@ -359,6 +352,21 @@ class ChatRepositoryFirebase: ChatRepository {
                     completion(chat)
                 })
             })
+        })
+    }
+
+    func getChatIdFromEvent(eventId: Int, completion: @escaping ((UUID) -> Void)) {
+        let databasePath = self.databaseRef.child("eventChat/\(eventId)")
+        print(databasePath)
+        databasePath.getData(completion: { error, snapshot in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let json = snapshot?.value as? String, let chatId = UUID(uuidString: json) else {
+                return
+            }
+            completion(chatId)
         })
     }
 }

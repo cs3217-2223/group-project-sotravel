@@ -4,25 +4,25 @@
             "id": "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A",
             "title": "Island Hopping at Phi Phi Islands, Krabi",
             "lastMessage": "E041EC1A-554E-49F1-8915-DC6B648C4815",
-            "event": "CA2D6ADC-C904-4909-8F91-0DA79E8C77CD"
+            "event": 123
         },
         "F39BA902-30F1-47F9-87DC-47F4F240B552": {
             "id": "F39BA902-30F1-47F9-87DC-47F4F240B552",
             "title": "Test Title",
             "lastMessage": "47F599DC-C760-4734-A6B1-0A13F935E892",
-            "event": ""
+            "event": -1
         },
         "EDB48892-410C-4EA8-8423-2E7168E74E5B": {
             "id": "EDB48892-410C-4EA8-8423-2E7168E74E5B",
             "title": "Climbing at Railay Beach, Krabi",
             "lastMessage": "",
-            "event": "DA2D6ADC-C904-4909-8F91-0DA79E8C77CD"
+            "event": 456
         },
         "25500CEE-CF12-47FF-B2CE-83025518DB86": {
             "id": "25500CEE-CF12-47FF-B2CE-83025518DB86",
             "title": "Should not be seen",
             "lastMessage": "",
-            "event": "EA2D6ADC-C904-4909-8F91-0DA79E8C77CD"
+            "event": 789
         }
     },
     "chatMembers": {
@@ -52,6 +52,9 @@
             "EDB48892-410C-4EA8-8423-2E7168E74E5B": "EDB48892-410C-4EA8-8423-2E7168E74E5B",
             "25500CEE-CF12-47FF-B2CE-83025518DB86": "25500CEE-CF12-47FF-B2CE-83025518DB86"
         }
+    },
+    "eventChat": {
+        "1": "EDB48892-410C-4EA8-8423-2E7168E74E5B"
     },
     "messages": {
         "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A": {

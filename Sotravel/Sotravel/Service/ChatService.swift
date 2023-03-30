@@ -147,5 +147,11 @@ class ChatService: ObservableObject {
         return message.messageTimestamp.timeIntervalSince(previousMessage.messageTimestamp) > 60
     }
 
+    func fetchEventChat(eventId: Int) {
+        chatRepository.getChatIdFromEvent(eventId: eventId, completion: { chatId in
+            self.fetchChat(id: chatId)
+        })
+    }
+
     // TODO: addEventChat(eventId: int)
 }

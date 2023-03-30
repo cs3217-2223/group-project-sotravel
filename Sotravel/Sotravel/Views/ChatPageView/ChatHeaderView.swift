@@ -25,6 +25,14 @@ struct ChatHeaderView: View {
                      .foregroundColor(.blue)
                      }
                      */
+                    //                    NavigationLink(destination: FriendProfilePageView(friend: userService.userCache[chatMessageVM.senderId])) {
+                    //                        ProfileImageView(imageSrc: userService.userCache[chatMessageVM.senderId]?.imageURL,
+                    //                                         name: userService.userCache[chatMessageVM.senderId]?.name ?? "", width: 30, height: 30)
+                    //                    }.onAppear {
+                    //                        Task {
+                    //                            await userService.fetchUserIfNeededFrom(id: chatMessageVM.id)
+                    //                        }
+                    //                    }
                 }
             }
             Spacer()
