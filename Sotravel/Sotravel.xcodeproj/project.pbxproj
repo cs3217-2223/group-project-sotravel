@@ -105,6 +105,7 @@
 		B485A8F329D06ECB00786A34 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8F229D06ECB00786A34 /* Friend.swift */; };
 		B485A8F529D06F3200786A34 /* UserFriendApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8F429D06F3200786A34 /* UserFriendApiModel.swift */; };
 		B485A8F729D0709300786A34 /* ApiErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B485A8F629D0709300786A34 /* ApiErrorHelper.swift */; };
+		B4939BA929D481E200B736F2 /* URL+QueryParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4939BA829D481E200B736F2 /* URL+QueryParameters.swift */; };
 		B4C3536129C0A5BE0073931C /* FriendRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536029C0A5BE0073931C /* FriendRepository.swift */; };
 		B4C3536329C0A5D30073931C /* TripRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536229C0A5D30073931C /* TripRepository.swift */; };
 		B4C3536529C0A64A0073931C /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3536429C0A64A0073931C /* EventRepository.swift */; };
@@ -256,6 +257,7 @@
 		B485A8F229D06ECB00786A34 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		B485A8F429D06F3200786A34 /* UserFriendApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendApiModel.swift; sourceTree = "<group>"; };
 		B485A8F629D0709300786A34 /* ApiErrorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiErrorHelper.swift; sourceTree = "<group>"; };
+		B4939BA829D481E200B736F2 /* URL+QueryParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+QueryParameters.swift"; sourceTree = "<group>"; };
 		B4C3536029C0A5BE0073931C /* FriendRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRepository.swift; sourceTree = "<group>"; };
 		B4C3536229C0A5D30073931C /* TripRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRepository.swift; sourceTree = "<group>"; };
 		B4C3536429C0A64A0073931C /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				18A1AC5529BB12940064CF37 /* Calendar.swift */,
 				18A1AC5729BB12B90064CF37 /* Date.swift */,
 				18A1AC5929BB12CB0064CF37 /* DateFormatter.swift */,
+				B4939BA829D481E200B736F2 /* URL+QueryParameters.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 				AC832C9729D1F97200B3D52D /* MockFriends.swift in Sources */,
 				AC28033229C61CC500687D62 /* ChatsStore.swift in Sources */,
 				1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */,
+				B4939BA929D481E200B736F2 /* URL+QueryParameters.swift in Sources */,
 				B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */,
 				ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */,
 				D7F6A9EE29D1B85A006FBD26 /* ChatMemberApiModel.swift in Sources */,
@@ -1081,6 +1085,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sotravel/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to show your position on the map and share it with your friends.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show your position on the map and share it with your friends.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1115,6 +1121,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sotravel/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to show your position on the map and share it with your friends.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show your position on the map and share it with your friends.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
