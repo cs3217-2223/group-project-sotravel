@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct UserHorizontalListView: View {
+    @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var friendService: FriendService
     let users: [UUID]
-    @State var userIdToUser: [UUID: User] = [:]
 
     var body: some View {
         if users.isEmpty {
@@ -15,7 +15,7 @@ struct UserHorizontalListView: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 2) {
                     ForEach(users, id: \.self) { userId in
-                        if let user = userIdToUser[userId] {
+                        if let user = self.getUser(id: userId) {
                             NavigationLink(destination: FriendProfilePageView(friend: user)) {
                                 ProfileImageView(
                                     imageSrc: user.imageURL,
@@ -29,20 +29,16 @@ struct UserHorizontalListView: View {
                     Spacer()
                 }
             }
-            .task {
-                for userId in users {
-                    await self.getUser(id: userId)
-                }
-            }
         }
     }
 
-    private func getUser(id: UUID) async {
-        do {
-            var user = try await friendService.getFriend(id: id)
-            userIdToUser[id] = user
-        } catch {
-            print(error)
+    private func getUser(id: UUID) -> User? {
+        if let friend = friendService.getFriend(id: id) {
+            return friend
+        } else if let userId = userService.getUserId(), userId == id {
+            return userService.getUser()
+        } else {
+            return nil
         }
     }
 }
