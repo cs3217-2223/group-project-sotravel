@@ -17,7 +17,7 @@ struct TripsPageView: View {
                 }
                 LazyVStack(alignment: .leading, spacing: 16) {
                     ForEach(Array(tripService.getTrips()), id: \.id) { trip in
-                        NavigationLink(destination: TripPageView()) {
+                        NavigationLink(destination: TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)) {
                             TripCardView(trip: trip)
                         }.foregroundColor(.primary)
                         .simultaneousGesture(TapGesture().onEnded {
@@ -34,6 +34,7 @@ struct TripsPageView: View {
 
     private func loadUserData(for trip: Trip) {
         friendService.fetchAllFriends(tripId: trip.id)
+        tripService.selectTrip(trip)
 
         guard let userId = userService.getUserId() else {
             print("Error: User is nil")

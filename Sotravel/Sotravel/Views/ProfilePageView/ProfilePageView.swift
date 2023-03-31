@@ -57,7 +57,6 @@ struct ProfilePageView: View {
                                 self.logOut()
                             })
                         }
-
                     }
                 }
                 .padding(.horizontal)

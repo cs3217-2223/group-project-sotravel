@@ -34,7 +34,7 @@ class ChatRepositoryFirebase: ChatRepository {
                     return
                 }
                 self.getChatMessageAM(chatId: id, messageId: messageId, completion: { chatMessageAM in
-//                    let chatBasicInfoWithMessageAM = ChatBasicInfoWithMessageApiModel(id: key, lastMessage: chatMessageAM)
+                    //                    let chatBasicInfoWithMessageAM = ChatBasicInfoWithMessageApiModel(id: key, lastMessage: chatMessageAM)
                     let chatMessage = ChatMessage(id: UUID(uuidString: chatMessageAM.id ?? "") ?? UUID(),
                                                   messageText: chatMessageAM.messageText ?? "",
                                                   timestamp: Date(timeIntervalSinceReferenceDate: chatMessageAM.timestamp),
@@ -104,10 +104,8 @@ class ChatRepositoryFirebase: ChatRepository {
         return true
     }
 
-    
     /*============================================================================================*/
-    
-    
+
     func getChat(chatId: UUID, completion: @escaping ((Chat) -> Void)) {
         //        getChatBasicInfoAM(chatId: chatId, completion: { chatBasicInfoAM in
         //            self.getChatMessages(chatId: chatId, completion: { chatMessageAMs in

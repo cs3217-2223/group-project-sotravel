@@ -2,8 +2,10 @@ import SwiftUI
 
 struct TripPageView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var eventService: EventService
     @EnvironmentObject private var friendService: FriendService
-    @State private var selectedTab: Int = 0
+    @EnvironmentObject private var tripService: TripService
+    @Binding var selectedTab: Int
     @State private var mapPageViewID = UUID().uuidString
     @State private var invitePageViewID = UUID().uuidString
     @State private var createInvitePageViewID = UUID().uuidString
@@ -53,10 +55,23 @@ struct TripPageView: View {
                 .tag(4)
         }
         .font(.uiBody)
-        .onChange(of: selectedTab, perform: { _ in
-            resetNavigationStacks()
-        })
+        .onChange(of: selectedTab, perform: tabTapped)
         .navigationBarBackButtonHidden(true)
+    }
+
+    private func tabTapped(_ selectedTab: Int) {
+        resetNavigationStacks()
+
+        // Add any additional actions you want to perform when a tab is tapped
+        if selectedTab == 1 {
+            if let tripId = tripService.getCurrTripId(), let userId = userService.getUserId() {
+                print("Swapped to 111111111")
+                eventService.reloadUserEvents(forTrip: tripId, userId: userId)
+            }
+        } else if selectedTab == 4 {
+            print("Swapped to 444444444")
+            userService.reloadUser()
+        }
     }
 
     private func resetNavigationStacks() {

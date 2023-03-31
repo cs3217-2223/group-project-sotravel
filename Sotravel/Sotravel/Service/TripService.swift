@@ -9,6 +9,8 @@ import Foundation
 import Resolver
 
 class TripService: ObservableObject {
+
+    @Published var selectedTapInCurrTrip: Int = 0
     private var selectedTrip: Trip?
     private var tripCache: [Int: Trip]
 
@@ -29,6 +31,10 @@ class TripService: ObservableObject {
 
     func getTrips() -> [Trip] {
         Array(tripCache.values)
+    }
+
+    func resetTapIndex() {
+        selectedTapInCurrTrip = 0
     }
 
     func loadUserTrips(userId: UUID) {

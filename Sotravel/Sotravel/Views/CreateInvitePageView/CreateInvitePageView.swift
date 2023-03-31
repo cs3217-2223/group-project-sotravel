@@ -99,6 +99,7 @@ struct CreateInvitePageView: View {
                 }
             }
         }
+        .modifier(DismissKeyboardOnTap())
     }
 
     private func createEvent() {
