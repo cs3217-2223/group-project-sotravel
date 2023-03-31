@@ -11,6 +11,7 @@ import Combine
 
 class EventService: ObservableObject {
     @Published var eventViewModels: [EventViewModel]
+    @Published var calendarViewModel: CalendarViewModel
     private var eventCache: [Int: Event]
     private var eventToViewModels: [Event: EventViewModel]
 
@@ -20,6 +21,7 @@ class EventService: ObservableObject {
         self.eventViewModels = []
         self.eventToViewModels = [:]
         self.eventCache = [:]
+        self.calendarViewModel = CalendarViewModel()
     }
 
     func getEvent(id: Int) -> Event? {
@@ -79,6 +81,7 @@ class EventService: ObservableObject {
                     let viewModel = EventViewModel(event: newEvent)
                     self.eventViewModels.append(viewModel)
                     self.eventToViewModels[newEvent] = viewModel
+                    self.calendarViewModel.addEvent(event: newEvent)
                     completion(.success(newEvent))
                 }
             } catch {
@@ -95,6 +98,7 @@ class EventService: ObservableObject {
                 DispatchQueue.main.async {
                     self.eventCache[id] = nil
                     self.eventViewModels.removeAll { $0.id == id }
+                    self.calendarViewModel.removeEvent(id: id)
                 }
             } catch {
                 print("Error canceling event:", error)
@@ -157,6 +161,7 @@ class EventService: ObservableObject {
         self.eventCache = [:]
         self.eventToViewModels = [:]
         self.eventViewModels = []
+        self.calendarViewModel.clear()
     }
 
     private func updateCacheAndViewModels(from events: [Event]) {
@@ -165,6 +170,7 @@ class EventService: ObservableObject {
             let viewModel = EventViewModel(event: event)
             self.eventViewModels.append(viewModel)
             self.eventToViewModels[event] = viewModel
+            self.calendarViewModel.addEvent(event: event)
         }
     }
 
@@ -174,6 +180,7 @@ class EventService: ObservableObject {
             self.eventViewModels.append(viewModel)
             self.eventToViewModels[event] = viewModel
         }
+        self.calendarViewModel.updateFrom(events: events)
     }
 
     private func initCache(from events: [Event]) {

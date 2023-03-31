@@ -40,16 +40,18 @@ class FriendService: ObservableObject {
         }
     }
 
-    func reloadFriends(tripId: Int) {
+    func reloadFriends(tripId: Int, completion: @escaping (Bool) -> Void) {
         Task {
             do {
                 let fetchedFriends = try await userRepository.getAllFriendsOnTrip(tripId: tripId)
                 DispatchQueue.main.async {
                     self.updateCache(friends: fetchedFriends)
                     self.handlePropertyChange(fetchedFriends: fetchedFriends)
+                    completion(true)
                 }
             } catch {
                 print("Error fetching friends:", error)
+                completion(false)
             }
         }
     }

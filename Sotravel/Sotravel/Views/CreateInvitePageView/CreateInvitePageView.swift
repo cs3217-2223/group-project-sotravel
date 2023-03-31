@@ -99,10 +99,10 @@ struct CreateInvitePageView: View {
                 }
             }
         }
-        .modifier(DismissKeyboardOnTap())
     }
 
     private func createEvent() {
+        print("tapped")
         // TODO: Validate inputs
         guard !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             showAlert(message: "Please enter a title for your invite.")
