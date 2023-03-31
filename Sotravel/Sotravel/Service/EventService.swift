@@ -56,6 +56,20 @@ class EventService: ObservableObject {
         }
     }
 
+    func reloadUserEvents(forTrip tripId: Int, userId: UUID) {
+        Task {
+            do {
+                let events = try await eventRepository.getUserEvents(userId: userId, tripId: tripId)
+                DispatchQueue.main.async {
+                    self.updateCacheAndViewModels(from: events)
+                    self.objectWillChange.send()
+                }
+            } catch {
+                print("Error loading user events:", error)
+            }
+        }
+    }
+
     func createEvent(event: Event, completion: @escaping (Result<Event, Error>) -> Void) {
         Task {
             do {
@@ -143,6 +157,15 @@ class EventService: ObservableObject {
         self.eventCache = [:]
         self.eventToViewModels = [:]
         self.eventViewModels = []
+    }
+
+    private func updateCacheAndViewModels(from events: [Event]) {
+        for event in events where eventCache[event.id] == nil {
+            eventCache[event.id] = event
+            let viewModel = EventViewModel(event: event)
+            self.eventViewModels.append(viewModel)
+            self.eventToViewModels[event] = viewModel
+        }
     }
 
     private func createEventViewModels(from events: [Event]) {

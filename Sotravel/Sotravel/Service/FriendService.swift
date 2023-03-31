@@ -26,12 +26,6 @@ class FriendService: ObservableObject {
         self.friendsCache = [:]
     }
 
-    func createFriendsSocialMediaLinkVM(for friend: User) -> SocialMediaLinksViewModel {
-        SocialMediaLinksViewModel(instagramUsername: friend.instagramUsername ?? "",
-                                  tiktokUsername: friend.tiktokUsername ?? "",
-                                  telegramUsername: friend.telegramUsername ?? "")
-    }
-
     func fetchAllFriends(tripId: Int) {
         Task {
             do {
@@ -58,6 +52,12 @@ class FriendService: ObservableObject {
                 print("Error fetching friends:", error)
             }
         }
+    }
+
+    func createFriendsSocialMediaLinkVM(for friend: User) -> SocialMediaLinksViewModel {
+        SocialMediaLinksViewModel(instagramUsername: friend.instagramUsername ?? "",
+                                  tiktokUsername: friend.tiktokUsername ?? "",
+                                  telegramUsername: friend.telegramUsername ?? "")
     }
 
     func clear() {
