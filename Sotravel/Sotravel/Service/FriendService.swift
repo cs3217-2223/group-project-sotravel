@@ -18,7 +18,7 @@ class FriendService: ObservableObject {
         self.friendsCache = [:]
     }
 
-    func getFriend(id: UUID) throws -> User {
+    func getFriend(id: UUID) throws -> User? {
         mockUser1
     }
 }
