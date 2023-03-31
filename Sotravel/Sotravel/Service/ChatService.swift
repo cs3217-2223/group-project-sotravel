@@ -58,15 +58,6 @@ class ChatService: ObservableObject {
         }
     }
 
-    private func convertChatToChatPageCellVM(chat: Chat) -> ChatPageCellViewModel {
-        ChatPageCellViewModel(chatTitle: "to delete field",
-                              lastMessageText: chat.messages.last?.messageText,
-                              lastMessageSender: chat.messages.last?.sender.uuidString,
-                              lastMessageDate: chat.messages.last?.timestamp,
-                              id: chat.idUUID,
-                              eventId: chat.id)
-    }
-
     // TODO: check if this is needed... i don't think so
     // if needed, need to check if the chat is something the user should see before adding
     private func setListenerForAddedChat(userId: UUID) {
@@ -112,20 +103,6 @@ class ChatService: ObservableObject {
         })
     }
 
-    private func convertChatToChatHeaderVM(chat: Chat) -> ChatHeaderViewModel {
-        ChatHeaderViewModel(chatTitle: "to delete - get from event service", eventId: chat.eventId)
-    }
-
-    private func convertChatMessageToChatMessageVM(chatMessage: ChatMessage, userId: UUID) -> ChatMessageViewModel {
-        ChatMessageViewModel(messageText: chatMessage.messageText,
-                             messageTimestamp: chatMessage.timestamp,
-                             senderId: chatMessage.sender,
-                             senderImageSrc: chatMessage.sender.uuidString, // TODO: delete this field
-                             senderName: chatMessage.sender.uuidString, // TODO: delete this field
-                             isSentByMe: chatMessage.sender == userId,
-                             id: chatMessage.id)
-    }
-
     func dismissChat() {
         guard let chatId = chatId else {
             return
@@ -162,5 +139,31 @@ class ChatService: ObservableObject {
         chatHeaderVM = ChatHeaderViewModel(chatTitle: "", eventId: nil) // will delete chat title field later
         chatMessageVMs = []
         isNewChatListenerSet = false // TODO: check if this field is needed
+    }
+}
+
+// MARK: CONVERTERS
+extension ChatService {
+    private func convertChatToChatPageCellVM(chat: Chat) -> ChatPageCellViewModel {
+        ChatPageCellViewModel(chatTitle: "to delete field",
+                              lastMessageText: chat.messages.last?.messageText,
+                              lastMessageSender: chat.messages.last?.sender.uuidString,
+                              lastMessageDate: chat.messages.last?.timestamp,
+                              id: chat.idUUID,
+                              eventId: chat.id)
+    }
+
+    private func convertChatToChatHeaderVM(chat: Chat) -> ChatHeaderViewModel {
+        ChatHeaderViewModel(chatTitle: "to delete - get from event service", eventId: chat.eventId)
+    }
+
+    private func convertChatMessageToChatMessageVM(chatMessage: ChatMessage, userId: UUID) -> ChatMessageViewModel {
+        ChatMessageViewModel(messageText: chatMessage.messageText,
+                             messageTimestamp: chatMessage.timestamp,
+                             senderId: chatMessage.sender,
+                             senderImageSrc: chatMessage.sender.uuidString, // TODO: delete this field
+                             senderName: chatMessage.sender.uuidString, // TODO: delete this field
+                             isSentByMe: chatMessage.sender == userId,
+                             id: chatMessage.id)
     }
 }
