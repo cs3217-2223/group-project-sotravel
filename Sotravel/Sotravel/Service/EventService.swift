@@ -11,8 +11,9 @@ import Combine
 
 class EventService: ObservableObject {
     @Published var eventViewModels: [EventViewModel]
-    @Published var eventCache: [Int: Event]
-    @Published var eventToViewModels: [Event: EventViewModel]
+    @Published var calendarViewModel: CalendarViewModel
+    private var eventCache: [Int: Event]
+    private var eventToViewModels: [Event: EventViewModel]
 
     @Injected private var eventRepository: EventRepository
 
@@ -20,10 +21,26 @@ class EventService: ObservableObject {
         self.eventViewModels = []
         self.eventToViewModels = [:]
         self.eventCache = [:]
+        self.calendarViewModel = CalendarViewModel()
     }
 
-    func getEvent(id: Int) throws -> Event {
-        mockEvent1
+    func getEvent(id: Int) -> Event? {
+        eventCache[id]
+    }
+
+    func getEventViewModel(eventId: Int) -> EventViewModel? {
+        guard let event = eventCache[eventId] else {
+            return nil
+        }
+        return eventToViewModels[event]
+    }
+
+    func getEvents() -> [Event] {
+        Array(eventCache.values)
+    }
+
+    func getEventIds() -> [Int] {
+        Array(eventCache.keys)
     }
 
     func loadUserEvents(forTrip tripId: Int, userId: UUID) {
@@ -41,6 +58,20 @@ class EventService: ObservableObject {
         }
     }
 
+    func reloadUserEvents(forTrip tripId: Int, userId: UUID) {
+        Task {
+            do {
+                let events = try await eventRepository.getUserEvents(userId: userId, tripId: tripId)
+                DispatchQueue.main.async {
+                    self.updateCacheAndViewModels(from: events)
+                    self.objectWillChange.send()
+                }
+            } catch {
+                print("Error loading user events:", error)
+            }
+        }
+    }
+
     func createEvent(event: Event, completion: @escaping (Result<Event, Error>) -> Void) {
         Task {
             do {
@@ -50,6 +81,7 @@ class EventService: ObservableObject {
                     let viewModel = EventViewModel(event: newEvent)
                     self.eventViewModels.append(viewModel)
                     self.eventToViewModels[newEvent] = viewModel
+                    self.calendarViewModel.addEvent(event: newEvent)
                     completion(.success(newEvent))
                 }
             } catch {
@@ -66,6 +98,7 @@ class EventService: ObservableObject {
                 DispatchQueue.main.async {
                     self.eventCache[id] = nil
                     self.eventViewModels.removeAll { $0.id == id }
+                    self.calendarViewModel.removeEvent(id: id)
                 }
             } catch {
                 print("Error canceling event:", error)
@@ -128,6 +161,17 @@ class EventService: ObservableObject {
         self.eventCache = [:]
         self.eventToViewModels = [:]
         self.eventViewModels = []
+        self.calendarViewModel.clear()
+    }
+
+    private func updateCacheAndViewModels(from events: [Event]) {
+        for event in events where eventCache[event.id] == nil {
+            eventCache[event.id] = event
+            let viewModel = EventViewModel(event: event)
+            self.eventViewModels.append(viewModel)
+            self.eventToViewModels[event] = viewModel
+            self.calendarViewModel.addEvent(event: event)
+        }
     }
 
     private func createEventViewModels(from events: [Event]) {
@@ -136,6 +180,7 @@ class EventService: ObservableObject {
             self.eventViewModels.append(viewModel)
             self.eventToViewModels[event] = viewModel
         }
+        self.calendarViewModel.updateFrom(events: events)
     }
 
     private func initCache(from events: [Event]) {

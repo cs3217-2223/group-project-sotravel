@@ -18,6 +18,7 @@ class EventViewModel: ObservableObject {
     @Published var attendingUsers: [UUID]
     @Published var rejectedUsers: [UUID]
     @Published var hostUser: UUID
+    @Published var eventStatus: EventStatus
 
     var description: String {
         "\(title) at \(location)"
@@ -37,7 +38,8 @@ class EventViewModel: ObservableObject {
          invitedUsers: [UUID] = [],
          attendingUsers: [UUID] = [],
          rejectedUsers: [UUID] = [],
-         hostUser: UUID = UUID()) {
+         hostUser: UUID = UUID(),
+         eventStatus: EventStatus = .pending) {
         self.id = id
         self.title = title
         self.details = details
@@ -48,6 +50,7 @@ class EventViewModel: ObservableObject {
         self.attendingUsers = attendingUsers
         self.rejectedUsers = rejectedUsers
         self.hostUser = hostUser
+        self.eventStatus = eventStatus
     }
 
     init(event: Event) {
@@ -61,6 +64,7 @@ class EventViewModel: ObservableObject {
         self.details = event.details
         self.meetingPoint = event.meetingPoint
         self.hostUser = event.hostUser
+        self.eventStatus = EventStatus.pending
     }
 
     func updateFrom(event: Event) {
@@ -89,5 +93,18 @@ class EventViewModel: ObservableObject {
         self.attendingUsers = []
         self.rejectedUsers = []
         self.hostUser = UUID()
+        self.eventStatus = EventStatus.pending
+    }
+
+    func updateEventStatus(userId: UUID) {
+        if self.attendingUsers.contains(userId)
+            || self.hostUser == userId {
+            self.eventStatus = .going
+        } else if self.rejectedUsers.contains(userId) {
+            self.eventStatus = .notGoing
+        } else {
+            self.eventStatus = .pending
+        }
+
     }
 }

@@ -24,11 +24,8 @@ class ChatService: ObservableObject {
         self.chatMessageVMs = []
     }
 
-    func setUserId(user: User?) {
-        guard let user = user else {
-            return
-        }
-        userId = user.id
+    func setUserId(userId: UUID) {
+        self.userId = userId
     }
 
     func fetchChatPageCells(ids: [Int]) {

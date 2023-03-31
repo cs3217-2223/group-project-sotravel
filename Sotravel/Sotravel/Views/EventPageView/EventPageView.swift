@@ -4,11 +4,9 @@ struct EventPageView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var eventService: EventService
     @EnvironmentObject private var chatService: ChatService
-    @ObservedObject var eventPageUserViewModel: EventPageUserViewModel
     @Environment(\.dismiss) var dismiss
     @ObservedObject var eventViewModel: EventViewModel
     @State private var selectedTab = 0
-    @State private var eventStatus = EventStatus.pending
     @State private var showConfirmationDialog = false
 
     var body: some View {
@@ -52,9 +50,8 @@ struct EventPageView: View {
 
                 }.padding(.top, 6)
                 VStack {
-                    EventStatusButton(eventStatusUserViewModel: userService.eventStatusButtonViewModel,
-                                      eventViewModel: eventViewModel,
-                                      eventStatus: $eventStatus)
+                    EventStatusButton(eventViewModel: eventViewModel,
+                                      eventStatus: $eventViewModel.eventStatus)
                 }.padding(.top, 16)
                 // Attendees status
                 VStack {
@@ -96,32 +93,17 @@ struct EventPageView: View {
                     }.simultaneousGesture(TapGesture().onEnded {
                         chatService.fetchChat(id: eventViewModel.id)
                     })
-                    if eventViewModel.hostUser == eventPageUserViewModel.userId {
+                    if let userId = userService.getUserId(), eventViewModel.hostUser == userId {
                         CancelEventButton(eventViewModel: eventViewModel, showConfirmationDialog: $showConfirmationDialog)
                             .padding(.top, 18)
                     }
                 }
                 .padding(.top, 18)
-                .onAppear {
-                    updateEventStatus()
-                }
                 Spacer()
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 20)
         }
-    }
-
-    private func updateEventStatus() {
-        if eventViewModel.attendingUsers.contains(eventPageUserViewModel.userId)
-            || eventViewModel.hostUser == eventPageUserViewModel.userId {
-            eventStatus = .going
-        } else if eventViewModel.rejectedUsers.contains(eventPageUserViewModel.userId) {
-            eventStatus = .notGoing
-        } else {
-            eventStatus = .pending
-        }
-
     }
 }
 
@@ -160,26 +142,26 @@ struct CancelEventButton: View {
     }
 }
 
-struct EventPageView_Previews: PreviewProvider {
-    static func makeUserService() -> UserService {
-        let userService = UserService()
-        userService.user = mockUser
-        return userService
-    }
-
-    static var previews: some View {
-        let userService = makeUserService()
-        let eventVM = EventViewModel(
-            title: "Test event VM",
-            datetime: Date(),
-            location: "COM1",
-            meetingPoint: "COM1",
-            hostUser: (userService.user?.id)!
-        )
-        NavigationView {
-            EventPageView(eventPageUserViewModel: EventPageUserViewModel(),
-                          eventViewModel: eventVM)
-                .environmentObject(userService)
-        }
-    }
-}
+// struct EventPageView_Previews: PreviewProvider {
+//    static func makeUserService() -> UserService {
+//        let userService = UserService()
+//        userService.user = mockUser
+//        return userService
+//    }
+//
+//    static var previews: some View {
+//        let userService = makeUserService()
+//        let eventVM = EventViewModel(
+//            title: "Test event VM",
+//            datetime: Date(),
+//            location: "COM1",
+//            meetingPoint: "COM1",
+//            hostUser: (userService.user?.id)!
+//        )
+//        NavigationView {
+//            EventPageView(eventPageUserViewModel: EventPageUserViewModel(),
+//                          eventViewModel: eventVM)
+//                .environmentObject(userService)
+//        }
+//    }
+// }

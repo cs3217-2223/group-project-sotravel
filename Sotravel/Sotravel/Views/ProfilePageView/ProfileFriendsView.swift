@@ -2,7 +2,11 @@ import SwiftUI
 
 struct ProfileFriendsView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var friendService: FriendService
+    @EnvironmentObject private var tripService: TripService
     @ObservedObject var viewModel: ProfileFriendsViewModel
+
+    @State private var refreshing = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -10,19 +14,26 @@ struct ProfileFriendsView: View {
                 Text("Friends")
                     .font(.uiTitle3)
                 Spacer()
+                if refreshing {
+                    ProgressView()
+                } else {
+                    Button(action: {
+                        refreshing = true
+                        self.refresh()
+                    }, label: {
+                        Text("Refresh")
+                            .padding()
+                            .cornerRadius(10)
+                    })
+                }
+
             }.padding(.bottom, 10)
             VStack(spacing: 0) {
                 let usersShown = viewModel.friends.prefix(3)
                 ForEach(Array(usersShown.enumerated()), id: \.element.id) { index, friend in
-                    let user = userService.userCache[friend.id]
-                    NavigationLink(destination: FriendProfilePageView(friend: user)) {
-                        UserListItemView(user: user) {
+                    NavigationLink(destination: FriendProfilePageView(friend: friend)) {
+                        UserListItemView(user: friend) {
                             ActionMenuButton()
-                        }
-                    }
-                    .onAppear {
-                        Task {
-                            await userService.fetchUserIfNeededFrom(id: friend.id)
                         }
                     }
                     if index != usersShown.count - 1 {
@@ -46,6 +57,19 @@ struct ProfileFriendsView: View {
             }
         }
         .padding(.top, 6)
+    }
+
+    private func refresh() {
+        guard let tripId = tripService.getCurrTripId() else {
+            return
+        }
+        friendService.reloadFriends(tripId: tripId) { success in
+            if success {
+                refreshing = false
+            } else {
+                refreshing = false
+            }
+        }
     }
 }
 

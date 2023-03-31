@@ -5,6 +5,7 @@ struct TripsPageView: View {
     @EnvironmentObject var userService: UserService
     @EnvironmentObject var eventService: EventService
     @EnvironmentObject var tripService: TripService
+    @EnvironmentObject var friendService: FriendService
 
     var body: some View {
         ScrollView {
@@ -15,14 +16,11 @@ struct TripsPageView: View {
                     Spacer()
                 }
                 LazyVStack(alignment: .leading, spacing: 16) {
-                    ForEach(Array(tripService.tripCache.values), id: \.id) { trip in
-                        NavigationLink(destination: TripPageView()) {
+                    ForEach(Array(tripService.getTrips()), id: \.id) { trip in
+                        NavigationLink(destination: TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)) {
                             TripCardView(trip: trip)
                         }.foregroundColor(.primary)
                         .simultaneousGesture(TapGesture().onEnded {
-                            self.chatService.setUserId(user: self.userService.user)
-                            // TODO: pass in a list of eventids
-                            self.chatService.fetchChatPageCells(ids: [1, 2, 3])
                             // Call loadUserData when the TripCardView is tapped
                             self.loadUserData(for: trip)
                         })
@@ -35,20 +33,17 @@ struct TripsPageView: View {
     }
 
     private func loadUserData(for trip: Trip) {
-        guard let user = userService.user else {
-            print("Error")
+        friendService.fetchAllFriends(tripId: trip.id)
+        tripService.selectTrip(trip)
+
+        guard let userId = userService.getUserId() else {
+            print("Error: User is nil")
             return
         }
-        userService.fetchAllFriends(tripId: trip.id) { success in
-            if success {
-                print("Friends successfully fetched.")
-                // Handle the successfully fetched friends here
-            } else {
-                print("Error occurred while fetching friends.")
-                // Handle the error here
-            }
-        }
-        eventService.loadUserEvents(forTrip: trip.id, userId: user.id)
+        eventService.loadUserEvents(forTrip: trip.id, userId: userId)
+        self.chatService.setUserId(userId: userId)
+        // TODO: pass in a list of eventids
+        self.chatService.fetchChatPageCells(ids: [1, 2, 3])
     }
 }
 

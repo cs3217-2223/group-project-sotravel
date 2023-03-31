@@ -11,6 +11,7 @@ struct ProfilePageView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var eventService: EventService
     @EnvironmentObject private var tripService: TripService
+    @EnvironmentObject private var friendService: FriendService
     @EnvironmentObject private var chatService: ChatService
 
     var body: some View {
@@ -19,7 +20,7 @@ struct ProfilePageView: View {
                 VStack {
                     ProfileHeaderView(viewModel: userService.profileHeaderVM)
                     Divider()
-                    ProfileFriendsView(viewModel: userService.profileFriendsVM)
+                    ProfileFriendsView(viewModel: friendService.profileFriendsViewModel)
                     Spacer()
                     Divider()
                     VStack {
@@ -56,7 +57,6 @@ struct ProfilePageView: View {
                                 self.logOut()
                             })
                         }
-
                     }
                 }
                 .padding(.horizontal)
@@ -66,7 +66,7 @@ struct ProfilePageView: View {
     }
 
     private func changeTrip() {
-        guard let user = userService.user else {
+        guard let userId = userService.getUserId() else {
             return
         }
         userService.changeTrip()
@@ -74,9 +74,10 @@ struct ProfilePageView: View {
         eventService.clear()
         tripService.clear()
         chatService.clear()
+        friendService.clear()
 
         // Reload the trips
-        tripService.loadUserTrips(userId: user.id)
+        tripService.reloadUserTrips(userId: userId)
     }
 
     private func logOut() {
@@ -84,6 +85,7 @@ struct ProfilePageView: View {
         eventService.clear()
         tripService.clear()
         chatService.clear()
+        friendService.clear()
     }
 }
 

@@ -81,17 +81,16 @@
 		AC63059E29BDA43F00EEEA85 /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC63059D29BDA43F00EEEA85 /* ChatHeaderView.swift */; };
 		AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */; };
 		AC6305A629BDC60300EEEA85 /* RecentActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */; };
-		AC7356C929D476D9009740EA /* EventStatusButtonUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7356C829D476D9009740EA /* EventStatusButtonUserViewModel.swift */; };
 		AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */; };
 		AC832C9729D1F97200B3D52D /* MockFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC832C9629D1F97200B3D52D /* MockFriends.swift */; };
 		AC8AE12A29D59AA3000F78BC /* TripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8AE12929D59AA3000F78BC /* TripService.swift */; };
 		AC8AE12E29D5E40F000F78BC /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8AE12D29D5E40F000F78BC /* FriendService.swift */; };
+		AC8AE13429D72663000F78BC /* CalenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8AE13329D72663000F78BC /* CalenderViewModel.swift */; };
 		ACA4016329C765DC0076E183 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016229C765DC0076E183 /* ProfileHeaderViewModel.swift */; };
 		ACA4016529C7664D0076E183 /* SocialMediaLinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */; };
 		ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */; };
 		ACA4016929C769A70076E183 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016829C769A70076E183 /* EditProfileViewModel.swift */; };
 		ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */; };
-		ACF2B20329CD8BAA0017A9F0 /* EventPageUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */; };
 		ACF2B20529CDB4DB0017A9F0 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */; };
 		B43AFA5729CA06BD0029AB85 /* RestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5629CA06BD0029AB85 /* RestApi.swift */; };
 		B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */; };
@@ -238,17 +237,16 @@
 		AC63059D29BDA43F00EEEA85 /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
 		AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksView.swift; sourceTree = "<group>"; };
 		AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentActivityView.swift; sourceTree = "<group>"; };
-		AC7356C829D476D9009740EA /* EventStatusButtonUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStatusButtonUserViewModel.swift; sourceTree = "<group>"; };
 		AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsView.swift; sourceTree = "<group>"; };
 		AC832C9629D1F97200B3D52D /* MockFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFriends.swift; sourceTree = "<group>"; };
 		AC8AE12929D59AA3000F78BC /* TripService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripService.swift; sourceTree = "<group>"; };
 		AC8AE12D29D5E40F000F78BC /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
+		AC8AE13329D72663000F78BC /* CalenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewModel.swift; sourceTree = "<group>"; };
 		ACA4016229C765DC0076E183 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksViewModel.swift; sourceTree = "<group>"; };
 		ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsViewModel.swift; sourceTree = "<group>"; };
 		ACA4016829C769A70076E183 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInvitePageUserViewModel.swift; sourceTree = "<group>"; };
-		ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPageUserViewModel.swift; sourceTree = "<group>"; };
 		ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		B43AFA5629CA06BD0029AB85 /* RestApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApi.swift; sourceTree = "<group>"; };
 		B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swif.swift"; sourceTree = "<group>"; };
@@ -529,11 +527,10 @@
 				ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */,
 				ACA4016829C769A70076E183 /* EditProfileViewModel.swift */,
 				ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */,
-				ACF2B20229CD8BAA0017A9F0 /* EventPageUserViewModel.swift */,
 				ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */,
 				B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */,
 				1817D0F929D554CB00D8D9F0 /* LocationSharingViewModel.swift */,
-				AC7356C829D476D9009740EA /* EventStatusButtonUserViewModel.swift */,
+				AC8AE13329D72663000F78BC /* CalenderViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -845,7 +842,6 @@
 				18DEC57E29B9A29700B3228A /* Font.swift in Sources */,
 				D7F6A9CD29C6E6BB006FBD26 /* DatabaseAdapter.swift in Sources */,
 				18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */,
-				ACF2B20329CD8BAA0017A9F0 /* EventPageUserViewModel.swift in Sources */,
 				AC832C9729D1F97200B3D52D /* MockFriends.swift in Sources */,
 				AC28033229C61CC500687D62 /* ChatsStore.swift in Sources */,
 				1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */,
@@ -856,6 +852,7 @@
 				D7F6A9EE29D1B85A006FBD26 /* ChatMemberApiModel.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
 				183F435829D02FF900F4DFEE /* CustomPointAnnotation.swift in Sources */,
+				AC8AE13429D72663000F78BC /* CalenderViewModel.swift in Sources */,
 				18D9714029BD91B60064DC2A /* Event.swift in Sources */,
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
 				18591C8829BD73FF00FA987D /* User.swift in Sources */,
@@ -868,7 +865,6 @@
 				18D9713829BD84480064DC2A /* FriendProfilePageView.swift in Sources */,
 				ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */,
 				B485A8F529D06F3200786A34 /* UserFriendApiModel.swift in Sources */,
-				AC7356C929D476D9009740EA /* EventStatusButtonUserViewModel.swift in Sources */,
 				18D9713A29BD86330064DC2A /* FriendsListPageView.swift in Sources */,
 				D7F6A9D029C6E755006FBD26 /* DatabaseConnector.swift in Sources */,
 				18591C8529BCDB7700FA987D /* SearchBarView.swift in Sources */,

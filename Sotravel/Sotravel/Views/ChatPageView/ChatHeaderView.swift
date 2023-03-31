@@ -16,8 +16,7 @@ struct ChatHeaderView: View {
                 Text(getEventDatetime(eventId: chatHeaderVM.eventId))
                     .font(.uiSubheadline)
                     .lineLimit(1)
-                NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
-                                                          eventViewModel: getEventVM(eventId: chatHeaderVM.eventId))) {
+                NavigationLink(destination: EventPageView(eventViewModel: getEventVM(eventId: chatHeaderVM.eventId))) {
                     Text("View More").font(.uiFootnote).foregroundColor(.blue)
                 }
                 //                if let eventId = chatHeaderVM.eventId,

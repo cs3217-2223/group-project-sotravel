@@ -9,8 +9,10 @@ import Foundation
 import Resolver
 
 class TripService: ObservableObject {
-    @Published var selectedTrip: Trip?
-    @Published var tripCache: [Int: Trip]
+
+    @Published var selectedTapInCurrTrip: Int = 0
+    private var selectedTrip: Trip?
+    private var tripCache: [Int: Trip]
 
     @Injected private var tripRepository: TripRepository
 
@@ -19,13 +21,41 @@ class TripService: ObservableObject {
         self.tripCache = [:]
     }
 
+    func getCurrTripId() -> Int? {
+        selectedTrip?.id
+    }
+
+    func getTripIds() -> [Int] {
+        Array(tripCache.keys)
+    }
+
+    func getTrips() -> [Trip] {
+        Array(tripCache.values)
+    }
+
+    func resetTapIndex() {
+        selectedTapInCurrTrip = 0
+    }
+
     func loadUserTrips(userId: UUID) {
         Task {
             do {
                 let trips = try await tripRepository.getTrips(userId: userId)
                 DispatchQueue.main.async {
                     self.initCache(from: trips)
-                    self.objectWillChange.send()
+                }
+            } catch {
+                print("Error loading user events:", error)
+            }
+        }
+    }
+
+    func reloadUserTrips(userId: UUID) {
+        Task {
+            do {
+                let trips = try await tripRepository.getTrips(userId: userId)
+                DispatchQueue.main.async {
+                    self.updateCache(from: trips)
                 }
             } catch {
                 print("Error loading user events:", error)
@@ -40,6 +70,12 @@ class TripService: ObservableObject {
     func clear() {
         self.selectedTrip = nil
         self.tripCache = [:]
+    }
+
+    private func updateCache(from trips: [Trip]) {
+        for trip in trips where tripCache[trip.id] == nil {
+            tripCache[trip.id] = trip
+        }
     }
 
     private func initCache(from trips: [Trip]) {

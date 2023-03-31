@@ -2,7 +2,10 @@ import SwiftUI
 
 struct TripPageView: View {
     @EnvironmentObject private var userService: UserService
-    @State private var selectedTab: Int = 0
+    @EnvironmentObject private var eventService: EventService
+    @EnvironmentObject private var friendService: FriendService
+    @EnvironmentObject private var tripService: TripService
+    @Binding var selectedTab: Int
     @State private var mapPageViewID = UUID().uuidString
     @State private var invitePageViewID = UUID().uuidString
     @State private var createInvitePageViewID = UUID().uuidString
@@ -27,7 +30,7 @@ struct TripPageView: View {
                 .id(invitePageViewID)
                 .tag(1)
 
-            CreateInvitePageView(createInvitePageUserViewModel: userService.createInvitePageViewModel)
+            CreateInvitePageView(createInvitePageUserViewModel: friendService.createInvitePageViewModel)
                 .tabItem {
                     Image(systemName: "plus.circle.fill")
                     Text("Create")
@@ -52,10 +55,29 @@ struct TripPageView: View {
                 .tag(4)
         }
         .font(.uiBody)
-        .onChange(of: selectedTab, perform: { _ in
-            resetNavigationStacks()
-        })
+        .onChange(of: selectedTab, perform: tabTapped)
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            self.resetNavigationStacks()
+        }
+    }
+
+    private func tabTapped(_ selectedTab: Int) {
+        resetNavigationStacks()
+
+        // Add any additional actions you want to perform when a tab is tapped
+        if selectedTab == 1 {
+            if let tripId = tripService.getCurrTripId(), let userId = userService.getUserId() {
+                eventService.reloadUserEvents(forTrip: tripId, userId: userId)
+            }
+        } else if selectedTab == 4 {
+            if let tripId = tripService.getCurrTripId() {
+                userService.reloadUser()
+                friendService.reloadFriends(tripId: tripId) { _ in
+                    // empty
+                }
+            }
+        }
     }
 
     private func resetNavigationStacks() {

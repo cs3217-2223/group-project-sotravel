@@ -19,6 +19,12 @@ class ProfileFriendsViewModel: ObservableObject {
         }
     }
 
+    func add(friend: User) {
+        DispatchQueue.main.async {
+            self.friends.append(friend)
+        }
+    }
+
     func clear() {
         self.friends = []
     }
