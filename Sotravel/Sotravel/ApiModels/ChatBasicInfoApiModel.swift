@@ -8,8 +8,8 @@
 import Foundation
 
 struct ChatBasicInfoApiModel: Codable {
-    let id: String?
-    let title: String?
+    //    let id: String?
+    //    let title: String?
     let lastMessage: String?
-    let event: Int?
+    let id: String?
 }

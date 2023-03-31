@@ -9,6 +9,5 @@ import Foundation
 
 struct ChatBasicInfoWithMessageApiModel: Codable {
     let id: String?
-    let title: String?
     let lastMessage: ChatMessageApiModel?
 }
