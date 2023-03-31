@@ -2,6 +2,7 @@ import SwiftUI
 
 struct FriendProfilePageView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var friendService: FriendService
     let friend: User?
 
     var body: some View {
@@ -16,7 +17,7 @@ struct FriendProfilePageView: View {
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
                 if let friend = friend {
-                    SocialMediaLinksView(viewModel: userService.createFriendsSocialMediaLinkVM(for: friend))
+                    SocialMediaLinksView(viewModel: friendService.createFriendsSocialMediaLinkVM(for: friend))
                 } else {
                     SocialMediaLinksView(viewModel: SocialMediaLinksViewModel())
                 }

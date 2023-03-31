@@ -16,12 +16,11 @@ struct TripsPageView: View {
                     Spacer()
                 }
                 LazyVStack(alignment: .leading, spacing: 16) {
-                    ForEach(Array(tripService.tripCache.values), id: \.id) { trip in
+                    ForEach(Array(tripService.getTrips()), id: \.id) { trip in
                         NavigationLink(destination: TripPageView()) {
                             TripCardView(trip: trip)
                         }.foregroundColor(.primary)
                         .simultaneousGesture(TapGesture().onEnded {
-
                             // Call loadUserData when the TripCardView is tapped
                             self.loadUserData(for: trip)
                         })
@@ -34,15 +33,8 @@ struct TripsPageView: View {
     }
 
     private func loadUserData(for trip: Trip) {
-        friendService.fetchAllFriends(tripId: trip.id) { success in
-            if success {
-                print("Friends successfully fetched.")
-                // Handle the successfully fetched friends here
-            } else {
-                print("Error occurred while fetching friends.")
-                // Handle the error here
-            }
-        }
+        friendService.fetchAllFriends(tripId: trip.id)
+
         guard let userId = userService.getUserId() else {
             print("Error: User is nil")
             return

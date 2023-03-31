@@ -36,12 +36,6 @@ class UserService: ObservableObject {
         user?.id
     }
 
-    func createFriendsSocialMediaLinkVM(for friend: User) -> SocialMediaLinksViewModel {
-        SocialMediaLinksViewModel(instagramUsername: friend.instagramUsername ?? "",
-                                  tiktokUsername: friend.tiktokUsername ?? "",
-                                  telegramUsername: friend.telegramUsername ?? "")
-    }
-
     func fetchUser(id: UUID, completion: @escaping (Bool) -> Void) {
         Task {
             do {

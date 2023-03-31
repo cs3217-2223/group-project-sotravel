@@ -78,7 +78,7 @@ struct ProfilePageView: View {
         friendService.clear()
 
         // Reload the trips
-        tripService.loadUserTrips(userId: userId)
+        tripService.reloadUserTrips(userId: userId)
     }
 
     private func logOut() {

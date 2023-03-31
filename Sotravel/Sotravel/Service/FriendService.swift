@@ -26,18 +26,36 @@ class FriendService: ObservableObject {
         self.friendsCache = [:]
     }
 
-    func fetchAllFriends(tripId: Int, completion: @escaping (Bool) -> Void) {
+    func createFriendsSocialMediaLinkVM(for friend: User) -> SocialMediaLinksViewModel {
+        SocialMediaLinksViewModel(instagramUsername: friend.instagramUsername ?? "",
+                                  tiktokUsername: friend.tiktokUsername ?? "",
+                                  telegramUsername: friend.telegramUsername ?? "")
+    }
+
+    func fetchAllFriends(tripId: Int) {
         Task {
             do {
                 let fetchedFriends = try await userRepository.getAllFriendsOnTrip(tripId: tripId)
                 DispatchQueue.main.async {
                     self.initCache(friends: fetchedFriends)
                     self.handlePropertyChange(fetchedFriends: fetchedFriends)
-                    completion(true)
                 }
             } catch {
                 print("Error fetching friends:", error)
-                completion(false)
+            }
+        }
+    }
+
+    func reloadFriends(tripId: Int) {
+        Task {
+            do {
+                let fetchedFriends = try await userRepository.getAllFriendsOnTrip(tripId: tripId)
+                DispatchQueue.main.async {
+                    self.updateCache(friends: fetchedFriends)
+                    self.handlePropertyChange(fetchedFriends: fetchedFriends)
+                }
+            } catch {
+                print("Error fetching friends:", error)
             }
         }
     }
@@ -46,6 +64,12 @@ class FriendService: ObservableObject {
         self.friendsCache = [:]
         self.profileFriendsViewModel.clear()
         self.createInvitePageViewModel.clear()
+    }
+
+    private func updateCache(friends: [User]) {
+        for friend in friends where friendsCache[friend.id] == nil {
+            friendsCache[friend.id] = friend
+        }
     }
 
     private func initCache(friends: [User]) {
