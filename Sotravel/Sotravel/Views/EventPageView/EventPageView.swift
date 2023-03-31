@@ -7,7 +7,6 @@ struct EventPageView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var eventViewModel: EventViewModel
     @State private var selectedTab = 0
-    @State private var eventStatus = EventStatus.pending
     @State private var showConfirmationDialog = false
 
     var body: some View {
@@ -52,7 +51,7 @@ struct EventPageView: View {
                 }.padding(.top, 6)
                 VStack {
                     EventStatusButton(eventViewModel: eventViewModel,
-                                      eventStatus: $eventStatus)
+                                      eventStatus: $eventViewModel.eventStatus)
                 }.padding(.top, 16)
                 // Attendees status
                 VStack {
@@ -100,29 +99,11 @@ struct EventPageView: View {
                     }
                 }
                 .padding(.top, 18)
-                .onAppear {
-                    updateEventStatus()
-                }
                 Spacer()
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 20)
         }
-    }
-
-    private func updateEventStatus() {
-        guard let userId = userService.getUserId() else {
-            return
-        }
-        if eventViewModel.attendingUsers.contains(userId)
-            || eventViewModel.hostUser == userId {
-            eventStatus = .going
-        } else if eventViewModel.rejectedUsers.contains(userId) {
-            eventStatus = .notGoing
-        } else {
-            eventStatus = .pending
-        }
-
     }
 }
 

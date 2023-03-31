@@ -61,7 +61,7 @@ let mockEvent4 = Event(
     hostUser: mockFriendss[2].id,
     invitedUsers: mockFriendss.map { $0.id }.filter { $0 != mockFriendss[2].id } + [mockUser.id],
     attendingUsers: [mockFriendss[2]].map { $0.id },
-    rejectedUsers: []
+    rejectedUsers: [mockUser.id]
 )
 
 let mockEvent5 = Event(

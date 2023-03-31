@@ -13,20 +13,71 @@ struct EventView: View {
                 EventDetailsView(eventViewModel: eventViewModel)
             }
             if !isHideButton {
-                NavigationLink(destination: EventPageView(eventViewModel: eventViewModel)) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Text("View")
+                if let userId = userService.getUserId() {
+                    Group {
+                        NavigationLink(destination: EventPageView(eventViewModel: eventViewModel)) {
+                            if eventViewModel.hostUser == userId {
+                                Text("You're hosting 😊")
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .foregroundColor(.purple)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(.purple, lineWidth: 2)
+                                    )
+                                    .cornerRadius(10)
+                            } else if eventViewModel.eventStatus == EventStatus.going {
+                                HStack(alignment: .firstTextBaseline) {
+                                    Text("Going")
+                                }
+                                .font(.uiButton)
+                                .padding(.vertical, 14)
+                                .frame(maxWidth: .infinity)
+                                .clipped()
+                                .foregroundColor(Color.green)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .stroke(.clear.opacity(0.25), lineWidth: 0)
+                                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                                        .fill(Color.green.opacity(0.1)))
+                                }
+                            } else if eventViewModel.eventStatus == EventStatus.notGoing {
+                                HStack(alignment: .firstTextBaseline) {
+                                    Text("Not Going")
+                                }
+                                .font(.uiButton)
+                                .padding(.vertical, 14)
+                                .frame(maxWidth: .infinity)
+                                .clipped()
+                                .foregroundColor(Color.red)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .stroke(.clear.opacity(0.25), lineWidth: 0)
+                                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                                        .fill(Color.red.opacity(0.1)))
+                                }
+                            } else {
+                                HStack(alignment: .firstTextBaseline) {
+                                    Text("View")
+                                }
+                                .font(.uiButton)
+                                .padding(.vertical, 14)
+                                .frame(maxWidth: .infinity)
+                                .clipped()
+                                .foregroundColor(Color.uiPrimary)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .stroke(.clear.opacity(0.25), lineWidth: 0)
+                                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                                        .fill(Color.uiPrimary.opacity(0.1)))
+                                }
+                            }
+
+                        }
                     }
-                    .font(.uiButton)
-                    .padding(.vertical, 14)
-                    .frame(maxWidth: .infinity)
-                    .clipped()
-                    .foregroundColor(Color.uiPrimary)
-                    .background {
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .stroke(.clear.opacity(0.25), lineWidth: 0)
-                            .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                            .fill(Color.uiPrimary.opacity(0.1)))
+                    .onAppear {
+                        eventViewModel.updateEventStatus(userId: userId)
                     }
                 }
             }

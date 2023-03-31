@@ -57,6 +57,9 @@ struct TripPageView: View {
         .font(.uiBody)
         .onChange(of: selectedTab, perform: tabTapped)
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            self.resetNavigationStacks()
+        }
     }
 
     private func tabTapped(_ selectedTab: Int) {
@@ -65,11 +68,9 @@ struct TripPageView: View {
         // Add any additional actions you want to perform when a tab is tapped
         if selectedTab == 1 {
             if let tripId = tripService.getCurrTripId(), let userId = userService.getUserId() {
-                print("Swapped to 111111111")
                 eventService.reloadUserEvents(forTrip: tripId, userId: userId)
             }
         } else if selectedTab == 4 {
-            print("Swapped to 444444444")
             userService.reloadUser()
         }
     }
