@@ -11,8 +11,8 @@ import Combine
 
 class EventService: ObservableObject {
     @Published var eventViewModels: [EventViewModel]
-    @Published var eventCache: [Int: Event]
-    @Published var eventToViewModels: [Event: EventViewModel]
+    private var eventCache: [Int: Event]
+    private var eventToViewModels: [Event: EventViewModel]
 
     @Injected private var eventRepository: EventRepository
 
@@ -22,8 +22,23 @@ class EventService: ObservableObject {
         self.eventCache = [:]
     }
 
-    func getEvent(id: Int) throws -> Event {
-        mockEvent1
+    func getEvent(id: Int) -> Event? {
+        eventCache[id]
+    }
+
+    func getEventViewModel(eventId: Int) -> EventViewModel? {
+        guard let event = eventCache[eventId] else {
+            return nil
+        }
+        return eventToViewModels[event]
+    }
+
+    func getEvents() -> [Event] {
+        Array(eventCache.values)
+    }
+
+    func getEventIds() -> [Int] {
+        Array(eventCache.keys)
     }
 
     func loadUserEvents(forTrip tripId: Int, userId: UUID) {

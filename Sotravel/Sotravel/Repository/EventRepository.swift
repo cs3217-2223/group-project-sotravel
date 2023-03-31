@@ -32,8 +32,7 @@ class EventRepositoryStub: EventRepository {
 
     func getUserEvents(userId: UUID, tripId: Int) async throws -> [Event] {
         var events: [Event] = []
-        for event in dataBase where (event.tripId == tripId
-                                        && (event.hostUser == userId || event.invitedUsers.contains(userId))) {
+        for event in dataBase where (event.hostUser == userId || event.invitedUsers.contains(userId)) {
             events.append(event)
         }
         return events
