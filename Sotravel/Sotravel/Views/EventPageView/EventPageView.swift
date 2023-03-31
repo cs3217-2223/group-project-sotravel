@@ -139,11 +139,13 @@ struct CancelEventButton: View {
                 .padding(.vertical, 16)
                 .frame(maxWidth: .infinity)
                 .clipped()
-                .foregroundColor(Color.white)
-                .background {
+                .foregroundColor(Color.red)
+                .background(
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(Color.red)
-                }
+                        .stroke(.clear.opacity(0.25), lineWidth: 0)
+                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .fill(Color.red.opacity(0.1)))
+                )
         }
         .alert(isPresented: $showConfirmationDialog) {
             Alert(
@@ -159,12 +161,25 @@ struct CancelEventButton: View {
 }
 
 struct EventPageView_Previews: PreviewProvider {
+    static func makeUserService() -> UserService {
+        let userService = UserService()
+        userService.user = mockUser
+        return userService
+    }
+
     static var previews: some View {
-        let eventVM = EventViewModel(title: "Test event VM", datetime: Date(), location: "COM1", meetingPoint: "COM1")
+        let userService = makeUserService()
+        let eventVM = EventViewModel(
+            title: "Test event VM",
+            datetime: Date(),
+            location: "COM1",
+            meetingPoint: "COM1",
+            hostUser: (userService.user?.id)!
+        )
         NavigationView {
             EventPageView(eventPageUserViewModel: EventPageUserViewModel(),
                           eventViewModel: eventVM)
-                .environmentObject(UserService())
+                .environmentObject(userService)
         }
     }
 }
