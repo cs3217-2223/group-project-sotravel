@@ -75,6 +75,7 @@ struct ProfilePageView: View {
         eventService.clear()
         tripService.clear()
         chatService.clear()
+        friendService.clear()
 
         // Reload the trips
         tripService.loadUserTrips(userId: userId)
@@ -85,6 +86,7 @@ struct ProfilePageView: View {
         eventService.clear()
         tripService.clear()
         chatService.clear()
+        friendService.clear()
     }
 }
 
