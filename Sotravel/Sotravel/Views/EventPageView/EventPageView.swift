@@ -4,7 +4,6 @@ struct EventPageView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var eventService: EventService
     @EnvironmentObject private var chatService: ChatService
-    @ObservedObject var eventPageUserViewModel: EventPageUserViewModel
     @Environment(\.dismiss) var dismiss
     @ObservedObject var eventViewModel: EventViewModel
     @State private var selectedTab = 0
@@ -52,8 +51,7 @@ struct EventPageView: View {
 
                 }.padding(.top, 6)
                 VStack {
-                    EventStatusButton(eventStatusUserViewModel: userService.eventStatusButtonViewModel,
-                                      eventViewModel: eventViewModel,
+                    EventStatusButton(eventViewModel: eventViewModel,
                                       eventStatus: $eventStatus)
                 }.padding(.top, 16)
                 // Attendees status
@@ -96,7 +94,7 @@ struct EventPageView: View {
                     }.simultaneousGesture(TapGesture().onEnded {
                         chatService.fetchChat(id: eventViewModel.id)
                     })
-                    if eventViewModel.hostUser == eventPageUserViewModel.userId {
+                    if let userId = userService.getUserId(), eventViewModel.hostUser == userId {
                         CancelEventButton(eventViewModel: eventViewModel, showConfirmationDialog: $showConfirmationDialog)
                             .padding(.top, 18)
                     }
@@ -113,10 +111,13 @@ struct EventPageView: View {
     }
 
     private func updateEventStatus() {
-        if eventViewModel.attendingUsers.contains(eventPageUserViewModel.userId)
-            || eventViewModel.hostUser == eventPageUserViewModel.userId {
+        guard let userId = userService.getUserId() else {
+            return
+        }
+        if eventViewModel.attendingUsers.contains(userId)
+            || eventViewModel.hostUser == userId {
             eventStatus = .going
-        } else if eventViewModel.rejectedUsers.contains(eventPageUserViewModel.userId) {
+        } else if eventViewModel.rejectedUsers.contains(userId) {
             eventStatus = .notGoing
         } else {
             eventStatus = .pending

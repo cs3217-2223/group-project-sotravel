@@ -24,8 +24,7 @@ struct RecentActivityView: View {
 
             LazyVStack(spacing: 16) {
                 ForEach(eventService.findAttendingEvents(for: user), id: \.id) { eventViewModel in
-                    NavigationLink(destination: EventPageView(eventPageUserViewModel: userServiice.eventPageViewModel,
-                                                              eventViewModel: eventViewModel)) {
+                    NavigationLink(destination: EventPageView(eventViewModel: eventViewModel)) {
                         EventView(eventViewModel: eventViewModel, isHideButton: true)
                     }
                 }

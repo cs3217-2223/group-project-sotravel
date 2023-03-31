@@ -17,7 +17,7 @@ struct FriendProfilePageView: View {
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
                 if let friend = friend {
-                    SocialMediaLinksView(viewModel: friendService.createFriendsSocialMediaLinkVM(for: friend))
+                    SocialMediaLinksView(viewModel: friendService.createTempFriendsSocialMediaLinkVM(for: friend))
                 } else {
                     SocialMediaLinksView(viewModel: SocialMediaLinksViewModel())
                 }

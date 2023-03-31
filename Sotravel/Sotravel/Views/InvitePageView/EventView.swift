@@ -13,7 +13,7 @@ struct EventView: View {
                 EventDetailsView(eventViewModel: eventViewModel)
             }
             if !isHideButton {
-                NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel, eventViewModel: eventViewModel)) {
+                NavigationLink(destination: EventPageView(eventViewModel: eventViewModel)) {
                     HStack(alignment: .firstTextBaseline) {
                         Text("View")
                     }
@@ -58,8 +58,7 @@ struct EventDetailsView: View {
                 .foregroundColor(.gray)
                 .padding(.top, 4)
                 .lineLimit(1)
-            NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel,
-                                                      eventViewModel: eventViewModel)) {
+            NavigationLink(destination: EventPageView(eventViewModel: eventViewModel)) {
                 AttendingUsersView(attendingUsers: eventViewModel.attendingUsers)
             }
 

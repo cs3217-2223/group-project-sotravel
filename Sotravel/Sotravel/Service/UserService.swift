@@ -14,8 +14,6 @@ class UserService: ObservableObject {
     @Published var profileHeaderVM: ProfileHeaderViewModel
     @Published var socialMediaLinksVM: SocialMediaLinksViewModel
     @Published var editProfileViewModel: EditProfileViewModel
-    @Published var eventPageViewModel: EventPageUserViewModel
-    @Published var eventStatusButtonViewModel: EventStatusButtonUserViewModel
 
     @Injected private var userRepository: UserRepository
 
@@ -23,8 +21,6 @@ class UserService: ObservableObject {
         self.profileHeaderVM = ProfileHeaderViewModel()
         self.socialMediaLinksVM = SocialMediaLinksViewModel()
         self.editProfileViewModel = EditProfileViewModel()
-        self.eventPageViewModel = EventPageUserViewModel()
-        self.eventStatusButtonViewModel = EventStatusButtonUserViewModel()
     }
 
     // Should not call this
@@ -116,16 +112,12 @@ class UserService: ObservableObject {
         self.profileHeaderVM.clear()
         self.socialMediaLinksVM.clear()
         self.editProfileViewModel.clear()
-        self.eventPageViewModel.clear()
-        self.eventStatusButtonViewModel.clear()
     }
 
     func changeTrip() {
         self.profileHeaderVM.clear()
         self.socialMediaLinksVM.clear()
         self.editProfileViewModel.clear()
-        self.eventPageViewModel.clear()
-        self.eventStatusButtonViewModel.clear()
     }
 
     private func alertEditProfileView() {
@@ -139,7 +131,5 @@ class UserService: ObservableObject {
         self.profileHeaderVM.updateFrom(user: user)
         self.socialMediaLinksVM.updateFrom(user: user)
         self.editProfileViewModel.updateFrom(user: user)
-        self.eventPageViewModel.updateFrom(user: user)
-        self.eventStatusButtonViewModel.updateFrom(user: user)
     }
 }

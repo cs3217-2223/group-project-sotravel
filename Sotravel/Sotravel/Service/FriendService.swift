@@ -54,7 +54,7 @@ class FriendService: ObservableObject {
         }
     }
 
-    func createFriendsSocialMediaLinkVM(for friend: User) -> SocialMediaLinksViewModel {
+    func createTempFriendsSocialMediaLinkVM(for friend: User) -> SocialMediaLinksViewModel {
         SocialMediaLinksViewModel(instagramUsername: friend.instagramUsername ?? "",
                                   tiktokUsername: friend.tiktokUsername ?? "",
                                   telegramUsername: friend.telegramUsername ?? "")
