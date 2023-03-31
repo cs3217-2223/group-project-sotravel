@@ -15,15 +15,14 @@ struct EventStatusButton: View {
 
     var body: some View {
         if eventViewModel.hostUser == eventStatusUserViewModel.userId {
-            Text(statusString)
-                .foregroundColor(statusColor)
+            Text("You're hosting 😊")
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding()
-                .foregroundColor(statusColor)
+                .foregroundColor(.purple)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(statusColor, lineWidth: 2)
+                        .stroke(.purple, lineWidth: 2)
                 )
                 .cornerRadius(10)
         } else {

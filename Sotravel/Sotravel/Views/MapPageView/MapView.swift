@@ -7,6 +7,7 @@ struct MapView: UIViewRepresentable {
     @Binding var selectedFriend: User?
     @Binding var isSharingLocation: Bool
     @EnvironmentObject var userService: UserService
+    @EnvironmentObject var friendService: FriendService
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -66,15 +67,15 @@ struct MapView: UIViewRepresentable {
                 continue
             }
 
-            let friendAnnotation = CustomPointAnnotation(
-                userId: friendUUID,
-                coordinate: friendLocation.coordinate,
-                // TODO: Using mock data should fetch name and image from friendService
-                title: "John Doe",
-                imageURL: mockUser1.imageURL,
-                isUser: false
-            )
-            mapView.addAnnotation(friendAnnotation)
+            if let friend = friendService.getFriend(id: friendUUID) {
+                let friendAnnotation = CustomPointAnnotation(
+                    userId: friendUUID,
+                    coordinate: friendLocation.coordinate,
+                    imageURL: friend.imageURL,
+                    isUser: false
+                )
+                mapView.addAnnotation(friendAnnotation)
+            }
         }
 
         // Handle user annotation
@@ -98,7 +99,6 @@ struct MapView: UIViewRepresentable {
             mapView.addAnnotation(CustomPointAnnotation(
                 userId: user.id,
                 coordinate: userCoordinate,
-                title: user.name,
                 imageURL: user.imageURL,
                 isUser: true
             ))

@@ -14,6 +14,51 @@ class ChatRepositoryFirebase: ChatRepository {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 
+    func getBasicInfo(for id: Int, completion: @escaping ((Chat) -> Void)) {
+        // TODO: actual implementation
+        let chat = Chat(id: 1,
+                        messages: [ChatMessage(messageText: "message",
+                                               timestamp: Date.now,
+                                               sender: UUID(uuidString: "4F728585-BAA7-416C-A941-9E68BF85D990") ?? UUID())])
+        completion(chat)
+    }
+
+    func getChat(id: Int, completion: @escaping ((Chat) -> Void)) {
+        // TODO: actual implementation
+        let chat = Chat(id: 1,
+                        messages: [ChatMessage(messageText: "message",
+                                               timestamp: Date.now,
+                                               sender: UUID(uuidString: "4F728585-BAA7-416C-A941-9E68BF85D990") ?? UUID())])
+        completion(chat)
+    }
+
+    func sendChatMessage(chatMessage: ChatMessage, to chatId: Int) -> Bool {
+        if !addChatMessage(chatMessage: chatMessage, chatId: chatId) {
+            return false
+        }
+        return updateChatBasicInfo(chatMessage: chatMessage, chatId: chatId)
+    }
+
+    private func addChatMessage(chatMessage: ChatMessage, chatId: Int) -> Bool {
+        let databasePath = databaseRef.child("messages/\(chatId)")
+        do {
+            let data = try encoder.encode(chatMessage)
+            let json = try JSONSerialization.jsonObject(with: data)
+            databasePath.child(chatMessage.id.uuidString).setValue(json)
+        } catch {
+            print("An error occurred", error)
+            return false
+        }
+        return true
+    }
+
+    private func updateChatBasicInfo(chatMessage: ChatMessage, chatId: Int) -> Bool {
+        let databasePath = databaseRef.child("chats/\(chatId)")
+        let updateMessage = ["lastMessage": chatMessage.id.uuidString]
+        databasePath.updateChildValues(updateMessage)
+        return true
+    }
+
     func getBasicInfoChats(userId: UUID, completion: @escaping ((Chat) -> Void)) {
         getChatBasicInfoWithMessageAMs(userId: userId, completion: { chatBasicInfoWithMessageAM in
             guard let lastMessage: ChatMessageApiModel = chatBasicInfoWithMessageAM.lastMessage else {
@@ -215,34 +260,6 @@ class ChatRepositoryFirebase: ChatRepository {
         })
     }
 
-    func sendChatMessage(chatMessage: ChatMessage, chatId: UUID) -> Bool {
-        if !addChatMessage(chatMessage: chatMessage, chatId: chatId) {
-            return false
-        }
-
-        return updateChatBasicInfo(chatMessage: chatMessage, chatId: chatId)
-    }
-
-    private func addChatMessage(chatMessage: ChatMessage, chatId: UUID) -> Bool {
-        let databasePath = databaseRef.child("messages/\(chatId.uuidString)")
-        do {
-            let data = try encoder.encode(chatMessage)
-            let json = try JSONSerialization.jsonObject(with: data)
-            databasePath.child(chatMessage.id.uuidString).setValue(json)
-        } catch {
-            print("An error occurred", error)
-            return false
-        }
-        return true
-    }
-
-    private func updateChatBasicInfo(chatMessage: ChatMessage, chatId: UUID) -> Bool {
-        let databasePath = databaseRef.child("chats/\(chatId.uuidString)")
-        let updateMessage = ["lastMessage": chatMessage.id.uuidString]
-        databasePath.updateChildValues(updateMessage)
-        return true
-    }
-
     func setListenerForChatMessages(for chatId: UUID, completion: @escaping ((ChatMessage) -> Void)) {
         let databasePath = databaseRef.child("messages/\(chatId.uuidString)")
         databasePath.observe(.childAdded, with: { snapshot in
@@ -364,5 +381,36 @@ class ChatRepositoryFirebase: ChatRepository {
             }
             completion(chatId)
         })
+    }
+}
+
+// just for safekeeping
+extension ChatRepositoryFirebase {
+    func sendChatMessage(chatMessage: ChatMessage, chatId: UUID) -> Bool {
+        if !addChatMessage(chatMessage: chatMessage, chatId: chatId) {
+            return false
+        }
+
+        return updateChatBasicInfo(chatMessage: chatMessage, chatId: chatId)
+    }
+
+    private func addChatMessage(chatMessage: ChatMessage, chatId: UUID) -> Bool {
+        let databasePath = databaseRef.child("messages/\(chatId.uuidString)")
+        do {
+            let data = try encoder.encode(chatMessage)
+            let json = try JSONSerialization.jsonObject(with: data)
+            databasePath.child(chatMessage.id.uuidString).setValue(json)
+        } catch {
+            print("An error occurred", error)
+            return false
+        }
+        return true
+    }
+
+    private func updateChatBasicInfo(chatMessage: ChatMessage, chatId: UUID) -> Bool {
+        let databasePath = databaseRef.child("chats/\(chatId.uuidString)")
+        let updateMessage = ["lastMessage": chatMessage.id.uuidString]
+        databasePath.updateChildValues(updateMessage)
+        return true
     }
 }

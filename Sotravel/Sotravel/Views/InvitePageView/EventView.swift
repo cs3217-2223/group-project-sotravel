@@ -15,7 +15,7 @@ struct EventView: View {
             if !isHideButton {
                 NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel, eventViewModel: eventViewModel)) {
                     HStack(alignment: .firstTextBaseline) {
-                        Text("Join")
+                        Text("View")
                     }
                     .font(.uiButton)
                     .padding(.vertical, 14)

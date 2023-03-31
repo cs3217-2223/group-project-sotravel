@@ -21,21 +21,21 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
-            ChatHeaderView(chatHeaderVM: chatService.chatHeaderVM).onAppear {
-                Task {
-                    guard let eventId = chatService.chatHeaderVM.eventId else {
-                        return
-                    }
-                    await eventService.fetchEventIfNeededFrom(id: eventId)
-                }
-            }
+            ChatHeaderView(chatHeaderVM: chatService.chatHeaderVM)
+            //                .onAppear {
+            //                Task {
+            //                    guard let eventId = chatService.chatHeaderVM.eventId else {
+            //                        return
+            //                    }
+            //                    await eventService.fetchEventIfNeededFrom(id: eventId)
+            //                }
+            //            }
             Divider()
 
             ScrollView {
                 ScrollViewReader { scrollViewProxy in
                     LazyVStack {
                         ForEach(chatService.chatMessageVMs) { chatMessageVM in
-                            // Show the timestamp above the message for the first message in a group
                             if chatService.shouldShowTimestampAboveMessage(for: chatMessageVM) {
                                 Text(chatMessageVM.messageTimestamp.toFriendlyShortString()).font(.caption)
                                     .foregroundColor(.gray)
@@ -53,6 +53,7 @@ struct ChatView: View {
             }
 
             HStack {
+                // TODO: check this text field
                 TextField("Send Message...", text: $messageText)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
@@ -85,6 +86,7 @@ struct ChatView: View {
         isSending = true
         let success = chatService.sendChatMessage(messageText: messageText)
         if !success {
+            // TODO: show some alert
             return
         }
         messageText = ""

@@ -26,7 +26,7 @@ struct SotravelApp: App {
     @StateObject var eventService = EventService()
     @StateObject var userService = UserService()
     @StateObject var tripService = TripService()
-    @StateObject var friendsService = FriendService()
+    @StateObject var friendService = FriendService()
     @StateObject var chats = ChatsStore(chats: mockChats)
     // db should be 1 obj that is passed around?
     @StateObject var chatService = ChatService()
@@ -39,6 +39,7 @@ struct SotravelApp: App {
                 .environmentObject(userService)
                 .environmentObject(tripService)
                 .environmentObject(chatService)
+                .environmentObject(friendService)
                 .environmentObject(locationSharingState)
         }
     }

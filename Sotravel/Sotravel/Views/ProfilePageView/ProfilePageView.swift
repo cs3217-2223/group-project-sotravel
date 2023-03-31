@@ -12,6 +12,7 @@ struct ProfilePageView: View {
     @EnvironmentObject private var eventService: EventService
     @EnvironmentObject private var tripService: TripService
     @EnvironmentObject private var friendService: FriendService
+    @EnvironmentObject private var chatService: ChatService
 
     var body: some View {
         NavigationView {
@@ -73,6 +74,7 @@ struct ProfilePageView: View {
         userService.reloadUser()
         eventService.clear()
         tripService.clear()
+        chatService.clear()
 
         // Reload the trips
         tripService.loadUserTrips(userId: userId)
@@ -82,7 +84,7 @@ struct ProfilePageView: View {
         userService.clear()
         eventService.clear()
         tripService.clear()
-
+        chatService.clear()
     }
 }
 

@@ -6,7 +6,7 @@ class CustomPointAnnotation: MKPointAnnotation {
     var userId: UUID
     var isUser: Bool // Check if is user using the app
 
-    init(userId: UUID, coordinate: CLLocationCoordinate2D, title: String?, imageURL: String?, isUser: Bool) {
+    init(userId: UUID, coordinate: CLLocationCoordinate2D, imageURL: String?, isUser: Bool) {
         self.userId = userId
         self.imageURL = imageURL
         self.isUser = isUser

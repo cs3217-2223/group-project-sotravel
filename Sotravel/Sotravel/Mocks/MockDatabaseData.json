@@ -1,88 +1,43 @@
 {
     "chats": {
-        "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A": {
-            "id": "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A",
-            "title": "Island Hopping at Phi Phi Islands, Krabi",
-            "lastMessage": "E041EC1A-554E-49F1-8915-DC6B648C4815",
-            "event": 123
+        "1": {
+            "lastMessage": "03E4A023-2A43-4216-A4CB-EDEABFEE9964"
         },
-        "F39BA902-30F1-47F9-87DC-47F4F240B552": {
-            "id": "F39BA902-30F1-47F9-87DC-47F4F240B552",
-            "title": "Test Title",
-            "lastMessage": "47F599DC-C760-4734-A6B1-0A13F935E892",
-            "event": -1
+        "2": {
+            "lastMessage": ""
         },
-        "EDB48892-410C-4EA8-8423-2E7168E74E5B": {
-            "id": "EDB48892-410C-4EA8-8423-2E7168E74E5B",
-            "title": "Climbing at Railay Beach, Krabi",
-            "lastMessage": "",
-            "event": 456
-        },
-        "25500CEE-CF12-47FF-B2CE-83025518DB86": {
-            "id": "25500CEE-CF12-47FF-B2CE-83025518DB86",
-            "title": "Should not be seen",
-            "lastMessage": "",
-            "event": 789
+        "3": {
+            "lastMessage": "47F599DC-C760-4734-A6B1-0A13F935E892"
         }
-    },
-    "chatMembers": {
-        "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A": {
-            "4F728585-BAA7-416C-A941-9E68BF85D990": "4F728585-BAA7-416C-A941-9E68BF85D990",
-            "103C8B4A-F831-43C8-9895-BF37DA40FA95": "103C8B4A-F831-43C8-9895-BF37DA40FA95"
-        },
-        "F39BA902-30F1-47F9-87DC-47F4F240B552": {
-            "4F728585-BAA7-416C-A941-9E68BF85D990": "4F728585-BAA7-416C-A941-9E68BF85D990"
-        },
-        "EDB48892-410C-4EA8-8423-2E7168E74E5B": {
-            "4F728585-BAA7-416C-A941-9E68BF85D990": "4F728585-BAA7-416C-A941-9E68BF85D990",
-            "103C8B4A-F831-43C8-9895-BF37DA40FA95": "103C8B4A-F831-43C8-9895-BF37DA40FA95"
-        },
-        "25500CEE-CF12-47FF-B2CE-83025518DB86": {
-            "103C8B4A-F831-43C8-9895-BF37DA40FA95": "103C8B4A-F831-43C8-9895-BF37DA40FA95"
-        }
-    },
-    "userChats": {
-        "4F728585-BAA7-416C-A941-9E68BF85D990": {
-            "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A": "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A",
-            "F39BA902-30F1-47F9-87DC-47F4F240B552": "F39BA902-30F1-47F9-87DC-47F4F240B552",
-            "EDB48892-410C-4EA8-8423-2E7168E74E5B": "EDB48892-410C-4EA8-8423-2E7168E74E5B"
-        },
-        "103C8B4A-F831-43C8-9895-BF37DA40FA95": {
-            "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A": "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A",
-            "EDB48892-410C-4EA8-8423-2E7168E74E5B": "EDB48892-410C-4EA8-8423-2E7168E74E5B",
-            "25500CEE-CF12-47FF-B2CE-83025518DB86": "25500CEE-CF12-47FF-B2CE-83025518DB86"
-        }
-    },
-    "eventChat": {
-        "1": "EDB48892-410C-4EA8-8423-2E7168E74E5B"
     },
     "messages": {
-        "2B2BA24E-A86E-4383-B1AA-D1D7D51BD24A": {
+        "1": {
             "E041EC1A-554E-49F1-8915-DC6B648C4815": {
                 "id": "E041EC1A-554E-49F1-8915-DC6B648C4815",
                 "messageText": "Test Message 1",
                 "sender": "4F728585-BAA7-416C-A941-9E68BF85D990",
                 "timestamp": 700904508.407394
-            }, "03E4A023-2A43-4216-A4CB-EDEABFEE9964": {
+            },
+            "03E4A023-2A43-4216-A4CB-EDEABFEE9964": {
                 "id": "03E4A023-2A43-4216-A4CB-EDEABFEE9964",
-                "messageText": "Test Message 4",
+                "messageText": "Test Message 2",
                 "sender": "103C8B4A-F831-43C8-9895-BF37DA40FA95",
-                "timestamp": 700905871.666835
+                "timestamp": 701005871.666835
             }
             
         },
-        "F39BA902-30F1-47F9-87DC-47F4F240B552": {
+        "3": {
             "3C022F8B-7E4E-49EE-AB1A-39C50DFB43CA": {
                 "id": "3C022F8B-7E4E-49EE-AB1A-39C50DFB43CA",
-                "messageText": "Test Message 2",
+                "messageText": "Test Message 3",
                 "sender": "4F728585-BAA7-416C-A941-9E68BF85D990",
-                "timestamp": 700904515.159614
+                "timestamp": 701104515.159614
             },
             "47F599DC-C760-4734-A6B1-0A13F935E892": {
                 "id": "47F599DC-C760-4734-A6B1-0A13F935E892",
-                "messageText": "Test Message 3",
+                "messageText": "Test Message 4",
                 "sender": "4F728585-BAA7-416C-A941-9E68BF85D990",
-                "timestamp": 700904517.943537
+                "timestamp": 701204517.943537
             }
         }
     },
@@ -92,8 +47,8 @@
         "longitude": 103.77427148908109
       },
       "4F728585-BAA7-416C-A941-9E68BF85D990": {
-        "latitude": 1.2943834401951935,
-        "longitude": 103.77436992117586
+        "latitude": 1.2943349012067422,
+        "longitude": 103.77421326347248
       },
       "CA2D6ADC-C904-4909-8F91-0DA79E8C77CD": {
         "latitude": 1.41289269,

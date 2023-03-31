@@ -21,6 +21,7 @@ struct TripsPageView: View {
                             TripCardView(trip: trip)
                         }.foregroundColor(.primary)
                         .simultaneousGesture(TapGesture().onEnded {
+
                             // Call loadUserData when the TripCardView is tapped
                             self.loadUserData(for: trip)
                         })
@@ -47,8 +48,9 @@ struct TripsPageView: View {
             return
         }
         eventService.loadUserEvents(forTrip: trip.id, userId: userId)
-        chatService.setUserId(userId: userId)
-        chatService.fetchChatPageCells()
+        self.chatService.setUserId(user: userId)
+        // TODO: pass in a list of eventids
+        self.chatService.fetchChatPageCells(ids: [1, 2, 3])
     }
 }
 

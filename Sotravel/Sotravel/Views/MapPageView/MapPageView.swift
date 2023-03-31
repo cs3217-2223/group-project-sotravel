@@ -100,8 +100,9 @@ struct MapPageView: View {
 
     struct MapPageView_Previews: PreviewProvider {
         static var previews: some View {
-            let meUser = UserService()
-            MapPageView().environmentObject(meUser)
+            MapPageView()
+                .environmentObject(UserService())
+                .environmentObject(FriendService())
         }
     }
 }
