@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CreateInvitePageView: View {
     @EnvironmentObject private var eventService: EventService
+    @EnvironmentObject private var userService: UserService
     @ObservedObject var createInvitePageUserViewModel: CreateInvitePageUserViewModel
     @State private var title: String = ""
     @State private var date = Date()
@@ -114,6 +115,11 @@ struct CreateInvitePageView: View {
             showAlert(message: "Please enter a meeting point for your invite.")
             return
         }
+        
+        guard let userId = userService.getUserId() else {
+            showAlert(message: "Cannot find host user")
+            return
+        }
 
         let selected = selectedAttendeesOption == 0
             ? createInvitePageUserViewModel.friends.map { $0.id }
@@ -127,7 +133,7 @@ struct CreateInvitePageView: View {
             datetime: combineDateAndTime(date: date, time: time),
             meetingPoint: meetingPoint,
             location: location,
-            hostUser: createInvitePageUserViewModel.userId,
+            hostUser: userId,
             invitedUsers: selected,
             attendingUsers: [],
             rejectedUsers: []
@@ -166,7 +172,10 @@ struct CreateInvitePageView: View {
     private func showAlert(message: String) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            windowScene.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
     }
 }
 

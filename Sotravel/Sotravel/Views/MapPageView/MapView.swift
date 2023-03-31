@@ -78,7 +78,7 @@ struct MapView: UIViewRepresentable {
         }
 
         // Handle user annotation
-        guard let user = userService.user, let userCoordinate = userLocation?.coordinate else {
+        guard let user = userService.getUser(), let userCoordinate = userLocation?.coordinate else {
             return
         }
 

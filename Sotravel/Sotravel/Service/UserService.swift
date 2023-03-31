@@ -10,13 +10,10 @@ import Resolver
 import Combine
 
 class UserService: ObservableObject {
-    var user: User?
-    @Published var userCache: [UUID: User] = [:]
+    private var user: User?
     @Published var profileHeaderVM: ProfileHeaderViewModel
     @Published var socialMediaLinksVM: SocialMediaLinksViewModel
-    @Published var profileFriendsVM: ProfileFriendsViewModel
     @Published var editProfileViewModel: EditProfileViewModel
-    @Published var createInvitePageViewModel: CreateInvitePageUserViewModel
     @Published var eventPageViewModel: EventPageUserViewModel
     @Published var eventStatusButtonViewModel: EventStatusButtonUserViewModel
 
@@ -25,26 +22,18 @@ class UserService: ObservableObject {
     init() {
         self.profileHeaderVM = ProfileHeaderViewModel()
         self.socialMediaLinksVM = SocialMediaLinksViewModel()
-        self.profileFriendsVM = ProfileFriendsViewModel()
         self.editProfileViewModel = EditProfileViewModel()
-        self.createInvitePageViewModel = CreateInvitePageUserViewModel()
         self.eventPageViewModel = EventPageUserViewModel()
         self.eventStatusButtonViewModel = EventStatusButtonUserViewModel()
     }
-
-    func fetchUserIfNeededFrom(id: UUID) async {
-        if userCache[id] == nil {
-            do {
-                if let fetchedUser = try await userRepository.get(id: id) {
-                    DispatchQueue.main.async {
-                        self.userCache[id] = fetchedUser
-                        self.objectWillChange.send()
-                    }
-                }
-            } catch {
-                print("Error fetching user:", error)
-            }
-        }
+    
+    // Should not call this
+    func getUser() -> User? {
+        return user
+    }
+    
+    func getUserId() -> UUID? {
+        user?.id
     }
 
     func createFriendsSocialMediaLinkVM(for friend: User) -> SocialMediaLinksViewModel {
@@ -112,23 +101,6 @@ class UserService: ObservableObject {
         }
     }
 
-    func fetchAllFriends(tripId: Int, completion: @escaping (Bool) -> Void) {
-        Task {
-            do {
-                let fetchedFriends = try await userRepository.getAllFriendsOnTrip(tripId: tripId)
-                DispatchQueue.main.async {
-                    self.profileFriendsVM.updateFrom(friends: fetchedFriends)
-                    self.createInvitePageViewModel.updateFrom(friends: fetchedFriends)
-                    self.initCache(users: fetchedFriends)
-                    completion(true)
-                }
-            } catch {
-                print("Error fetching friends:", error)
-                completion(false)
-            }
-        }
-    }
-
     func editUser(firstName: String,
                   lastName: String,
                   description: String,
@@ -147,31 +119,19 @@ class UserService: ObservableObject {
 
     func clear() {
         self.user = nil
-        self.userCache = [:]
         self.profileHeaderVM.clear()
         self.socialMediaLinksVM.clear()
-        self.profileFriendsVM.clear()
         self.editProfileViewModel.clear()
-        self.createInvitePageViewModel.clear()
         self.eventPageViewModel.clear()
         self.eventStatusButtonViewModel.clear()
     }
 
     func changeTrip() {
-        self.userCache = [:]
         self.profileHeaderVM.clear()
         self.socialMediaLinksVM.clear()
-        self.profileFriendsVM.clear()
         self.editProfileViewModel.clear()
-        self.createInvitePageViewModel.clear()
         self.eventPageViewModel.clear()
         self.eventStatusButtonViewModel.clear()
-    }
-
-    private func initCache(users: [User]) {
-        for user in users {
-            userCache[user.id] = user
-        }
     }
 
     private func alertEditProfileView() {
@@ -186,7 +146,6 @@ class UserService: ObservableObject {
         self.socialMediaLinksVM.updateFrom(user: user)
         self.editProfileViewModel.updateFrom(user: user)
         self.eventPageViewModel.updateFrom(user: user)
-        self.createInvitePageViewModel.updateFrom(user: user)
         self.eventStatusButtonViewModel.updateFrom(user: user)
     }
 }

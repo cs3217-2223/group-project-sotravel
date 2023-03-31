@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ChatMessageView: View {
     @EnvironmentObject var chatService: ChatService
-    @EnvironmentObject var userService: UserService
+    @EnvironmentObject var friendService: FriendService
     @ObservedObject var chatMessageVM: ChatMessageViewModel
 
     var body: some View {
@@ -10,13 +10,9 @@ struct ChatMessageView: View {
             if chatMessageVM.isSentByMe ?? false {
                 Spacer()
             } else {
-                NavigationLink(destination: FriendProfilePageView(friend: userService.userCache[chatMessageVM.senderId])) {
-                    ProfileImageView(imageSrc: userService.userCache[chatMessageVM.senderId]?.imageURL,
-                                     name: userService.userCache[chatMessageVM.senderId]?.name ?? "", width: 30, height: 30)
-                }.onAppear {
-                    Task {
-                        await userService.fetchUserIfNeededFrom(id: chatMessageVM.id)
-                    }
+                NavigationLink(destination: FriendProfilePageView(friend: friendService.getFriend(id: chatMessageVM.senderId))) {
+                    ProfileImageView(imageSrc: friendService.getFriend(id: chatMessageVM.senderId)?.imageURL,
+                                     name: friendService.getFriend(id: chatMessageVM.senderId)?.name ?? "", width: 30, height: 30)
                 }
             }
 

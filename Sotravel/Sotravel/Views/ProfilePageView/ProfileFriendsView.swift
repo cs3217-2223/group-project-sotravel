@@ -2,7 +2,10 @@ import SwiftUI
 
 struct ProfileFriendsView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var friendService: FriendService
     @ObservedObject var viewModel: ProfileFriendsViewModel
+    
+    @State var friend: User = mockUser
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -14,15 +17,9 @@ struct ProfileFriendsView: View {
             VStack(spacing: 0) {
                 let usersShown = viewModel.friends.prefix(3)
                 ForEach(Array(usersShown.enumerated()), id: \.element.id) { index, friend in
-                    let user = userService.userCache[friend.id]
-                    NavigationLink(destination: FriendProfilePageView(friend: user)) {
-                        UserListItemView(user: user) {
+                    NavigationLink(destination: FriendProfilePageView(friend: friend)) {
+                        UserListItemView(user: friend) {
                             ActionMenuButton()
-                        }
-                    }
-                    .onAppear {
-                        Task {
-                            await userService.fetchUserIfNeededFrom(id: friend.id)
                         }
                     }
                     if index != usersShown.count - 1 {

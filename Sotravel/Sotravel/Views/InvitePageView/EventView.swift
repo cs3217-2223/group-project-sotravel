@@ -2,6 +2,7 @@ import SwiftUI
 
 struct EventView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var friendService: FriendService
     @ObservedObject var eventViewModel: EventViewModel
     var isHideButton = false
 
@@ -10,13 +11,6 @@ struct EventView: View {
             HStack(spacing: 47) {
                 DateTimeView(datetime: eventViewModel.datetime)
                 EventDetailsView(eventViewModel: eventViewModel)
-                    .onAppear {
-                        Task {
-                            for userId in eventViewModel.attendingUsers {
-                                await userService.fetchUserIfNeededFrom(id: userId)
-                            }
-                        }
-                    }
             }
             if !isHideButton {
                 NavigationLink(destination: EventPageView(eventPageUserViewModel: userService.eventPageViewModel, eventViewModel: eventViewModel)) {
@@ -69,7 +63,7 @@ struct EventDetailsView: View {
             }
 
             // New section to display host user
-            if let hostUser = userService.userCache[eventViewModel.hostUser] {
+            if let hostUser = f.userCache[eventViewModel.hostUser] {
                 Text("Hosted by \(hostUser.name ?? "Unknown")")
                     .font(.uiFootnote)
                     .foregroundColor(.gray)

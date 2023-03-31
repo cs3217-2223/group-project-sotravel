@@ -5,6 +5,7 @@ struct TripsPageView: View {
     @EnvironmentObject var userService: UserService
     @EnvironmentObject var eventService: EventService
     @EnvironmentObject var tripService: TripService
+    @EnvironmentObject var friendService: FriendService
 
     var body: some View {
         ScrollView {
@@ -20,8 +21,6 @@ struct TripsPageView: View {
                             TripCardView(trip: trip)
                         }.foregroundColor(.primary)
                         .simultaneousGesture(TapGesture().onEnded {
-                            self.chatService.setUserId(user: self.userService.user)
-                            self.chatService.fetchChatPageCells()
                             // Call loadUserData when the TripCardView is tapped
                             self.loadUserData(for: trip)
                         })
@@ -34,11 +33,7 @@ struct TripsPageView: View {
     }
 
     private func loadUserData(for trip: Trip) {
-        guard let user = userService.user else {
-            print("Error")
-            return
-        }
-        userService.fetchAllFriends(tripId: trip.id) { success in
+        friendService.fetchAllFriends(tripId: trip.id) { success in
             if success {
                 print("Friends successfully fetched.")
                 // Handle the successfully fetched friends here
@@ -47,7 +42,13 @@ struct TripsPageView: View {
                 // Handle the error here
             }
         }
-        eventService.loadUserEvents(forTrip: trip.id, userId: user.id)
+        guard let userId = userService.getUserId() else {
+            print("Error: User is nil")
+            return
+        }
+        eventService.loadUserEvents(forTrip: trip.id, userId: userId)
+        chatService.setUserId(userId: userId)
+        chatService.fetchChatPageCells()
     }
 }
 

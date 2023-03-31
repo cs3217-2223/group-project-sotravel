@@ -7,6 +7,7 @@ struct MapPageView: View {
     @EnvironmentObject var locationSharing: LocationSharingViewModel
     @State private var selectedFriend: User?
     @State private var showToast = false
+    @State private var userId: UUID? = nil
 
     private func toggleToast() {
         withAnimation(.easeInOut(duration: 0.2)) {
@@ -31,14 +32,14 @@ struct MapPageView: View {
                     )
                     .edgesIgnoringSafeArea(.all)
                     .onAppear {
-                        guard let user = userService.user else {
+                        guard let userId = userService.getUserId() else {
                             return
                         }
 
                         mapStorageService
                             .startUserLocationUpdate(
                                 locationManager: locationManagerService,
-                                userId: user.id.uuidString
+                                userId: userId.uuidString
                             )
                     }
                     .sheet(item: $selectedFriend) { friend in
@@ -57,7 +58,7 @@ struct MapPageView: View {
                         HStack {
                             Spacer()
                             Button(action: {
-                                guard let user = userService.user else {
+                                guard let userId = userService.getUserId() else {
                                     return
                                 }
 
@@ -70,7 +71,7 @@ struct MapPageView: View {
                                     mapStorageService
                                         .startUserLocationUpdate(
                                             locationManager: locationManagerService,
-                                            userId: user.id.uuidString
+                                            userId: userId.uuidString
                                         )
                                 } else {
                                     locationManagerService.stopUpdatingLocation()
@@ -78,7 +79,7 @@ struct MapPageView: View {
                                     mapStorageService
                                         .stopUserLocationUpdate(
                                             locationManager: locationManagerService,
-                                            userId: user.id.uuidString
+                                            userId: userId.uuidString
                                         )
                                 }
                             }) {

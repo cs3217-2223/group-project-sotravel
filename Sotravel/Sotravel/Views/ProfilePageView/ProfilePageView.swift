@@ -11,6 +11,7 @@ struct ProfilePageView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var eventService: EventService
     @EnvironmentObject private var tripService: TripService
+    @EnvironmentObject private var friendService: FriendService
 
     var body: some View {
         NavigationView {
@@ -18,7 +19,7 @@ struct ProfilePageView: View {
                 VStack {
                     ProfileHeaderView(viewModel: userService.profileHeaderVM)
                     Divider()
-                    ProfileFriendsView(viewModel: userService.profileFriendsVM)
+                    ProfileFriendsView(viewModel: friendService.profileFriendsViewModel)
                     Spacer()
                     Divider()
                     VStack {
@@ -65,7 +66,7 @@ struct ProfilePageView: View {
     }
 
     private func changeTrip() {
-        guard let user = userService.user else {
+        guard let userId = userService.getUserId() else {
             return
         }
         userService.changeTrip()
@@ -74,7 +75,7 @@ struct ProfilePageView: View {
         tripService.clear()
 
         // Reload the trips
-        tripService.loadUserTrips(userId: user.id)
+        tripService.loadUserTrips(userId: userId)
     }
 
     private func logOut() {

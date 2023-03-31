@@ -25,9 +25,9 @@ struct UserListItemView<Content: View>: View {
 
             Spacer()
 
-            if let content = content {
-                content()
-            }
+//            if let content = content {
+//                content()
+//            }
         }
     }
 }

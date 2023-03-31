@@ -22,7 +22,7 @@ enum EventRsvpStatus {
 class EventRepositoryStub: EventRepository {
     var dataBase = mockEvents
     var index = 999
-
+    
     func get(id: Int) async throws -> Event {
         for event in dataBase where event.id == id {
             return event
