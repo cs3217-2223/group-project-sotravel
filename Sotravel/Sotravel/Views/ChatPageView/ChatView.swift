@@ -53,6 +53,7 @@ struct ChatView: View {
             }
 
             HStack {
+                // TODO: check this text field
                 TextField("Send Message...", text: $messageText)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)

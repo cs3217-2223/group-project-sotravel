@@ -75,6 +75,8 @@ struct ProfilePageView: View {
 
         // Reload the trips
         tripService.loadUserTrips(userId: user.id)
+        
+        // TODO: tear down / reset chat
     }
 
     private func logOut() {
@@ -82,6 +84,7 @@ struct ProfilePageView: View {
         eventService.clear()
         tripService.clear()
 
+        // TODO: tear down / reset chat
     }
 }
 
