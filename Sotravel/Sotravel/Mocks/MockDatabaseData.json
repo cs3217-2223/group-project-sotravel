@@ -1,15 +1,12 @@
 {
     "chats": {
         "1": {
-            "id": 1,
             "lastMessage": "03E4A023-2A43-4216-A4CB-EDEABFEE9964"
         },
         "2": {
-            "id": 2,
             "lastMessage": ""
         },
         "3": {
-            "id": 3,
             "lastMessage": "47F599DC-C760-4734-A6B1-0A13F935E892"
         }
     },
@@ -50,8 +47,8 @@
         "longitude": 103.77427148908109
       },
       "4F728585-BAA7-416C-A941-9E68BF85D990": {
-        "latitude": 1.2943834401951935,
-        "longitude": 103.77436992117586
+        "latitude": 1.2943349012067422,
+        "longitude": 103.77421326347248
       },
       "CA2D6ADC-C904-4909-8F91-0DA79E8C77CD": {
         "latitude": 1.41289269,

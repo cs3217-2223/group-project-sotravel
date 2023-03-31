@@ -35,6 +35,7 @@ class ChatService: ObservableObject {
         for id in ids {
             chatRepository.getBasicInfo(for: id, completion: { basicChat in
                 let chatPageCellVM = self.convertChatToChatPageCellVM(chat: basicChat)
+                // TODO: sort by timestamp, latest in front ... want to maintain sorted array
                 self.chatPageCellVMs.append(chatPageCellVM)
 
                 // TODO: set listener
@@ -45,15 +46,7 @@ class ChatService: ObservableObject {
         //        }
         //
         //        chatRepository.getBasicInfoChats(userId: id, completion: { basicChat in
-        //            let mappedChatVM = ChatPageCellViewModel(chatTitle: basicChat.title,
-        //                                                     lastMessageText: basicChat.messages.last?.messageText,
-        //                                                     lastMessageSender: basicChat.messages.last?.sender.uuidString,
-        //                                                     lastMessageDate: basicChat.messages.last?.timestamp,
-        //                                                     id: basicChat.id,
-        //                                                     eventId: basicChat.eventId)
-        //            self.chatPageCellVMs.append(mappedChatVM)
-        //            // TODO: sort by timestamp, latest in front ... want to maintain sorted array
-        //
+        //              TODO: keeping this listener part here for the moment
         //            self.chatRepository.setListenerForChatBasicInfo(for: basicChat.id, completion: { updatedChat in
         //                guard let chatPageCellVMToUpdate = self.chatPageCellVMs.first(where: { $0.id == updatedChat.id }) else {
         //                    return
@@ -83,6 +76,8 @@ class ChatService: ObservableObject {
                               eventId: chat.id)
     }
 
+    // TODO: check if this is needed... i don't think so
+    // if needed, need to check if the chat is something the user should see before adding
     private func setListenerForAddedChat(userId: UUID) {
         chatRepository.setListenerForAddedChat(userId: userId, completion: { newChat in
             let chatPageCellVM = ChatPageCellViewModel(chatTitle: newChat.title,
@@ -172,11 +167,9 @@ class ChatService: ObservableObject {
         guard let userId = userId, let chatId = chatId else {
             return false
         }
-        print("sending")
-        return true
 
-        //        let chatMessage = ChatMessage(messageText: messageText, timestamp: Date.now, sender: userId)
-        //        return chatRepository.sendChatMessage(chatMessage: chatMessage, chatId: chatId)
+        let chatMessage = ChatMessage(messageText: messageText, timestamp: Date.now, sender: userId)
+        return chatRepository.sendChatMessage(chatMessage: chatMessage, to: chatId)
     }
 
     func shouldShowTimestampAboveMessage(for message: ChatMessageViewModel) -> Bool {
@@ -197,4 +190,12 @@ class ChatService: ObservableObject {
     //            self.fetchChat(id: chatId)
     //        })
     //    }
+
+    func clear() {
+        chatId = nil
+        chatPageCellVMs = []
+        chatHeaderVM = ChatHeaderViewModel(chatTitle: "", eventId: nil) // will delete chat title field later
+        chatMessageVMs = []
+        isNewChatListenerSet = false // TODO: check if this field is needed
+    }
 }

@@ -22,6 +22,7 @@ struct ChatPageView: View {
                 .padding(.top, 24)
                 .padding(.bottom, 15)
 
+                // TODO: if loading from trip page doesn't work can just load from here
                 ForEach(self.chatService.chatPageCellVMs) { chatPageCell in
                     NavigationLink(destination: ChatView()) {
                         ChatPageCellView(chatPageCellVM: chatPageCell)

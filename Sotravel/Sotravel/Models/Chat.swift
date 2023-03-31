@@ -6,11 +6,12 @@ class Chat: ObservableObject, Identifiable {
     @Published var title: String
     @Published var messages: [ChatMessage]
     @Published var members: [User]
-    @Published var eventId: Int? // TODO: rename to id
+    @Published var eventId: Int? // TODO: rename to id, just keep 1 of id and eventid
 
     init(id: Int, messages: [ChatMessage] = [ChatMessage]()) {
-        self.id = id
+        self.eventId = id
         self.messages = messages
+        self.id = id
 
         self.title = ""
         self.idUUID = UUID()
