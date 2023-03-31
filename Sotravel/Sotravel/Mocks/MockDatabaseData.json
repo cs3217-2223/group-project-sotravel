@@ -1,15 +1,15 @@
 {
     "chats": {
         "1": {
-            "id": "1",
+            "id": 1,
             "lastMessage": "03E4A023-2A43-4216-A4CB-EDEABFEE9964"
         },
         "2": {
-            "id": "2",
+            "id": 2,
             "lastMessage": ""
         },
         "3": {
-            "id": "3",
+            "id": 3,
             "lastMessage": "47F599DC-C760-4734-A6B1-0A13F935E892"
         }
     },

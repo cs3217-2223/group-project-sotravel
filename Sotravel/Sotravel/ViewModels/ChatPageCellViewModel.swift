@@ -8,12 +8,12 @@
 import Foundation
 
 class ChatPageCellViewModel: ObservableObject, Identifiable {
-    @Published var chatTitle: String?
+    @Published var chatTitle: String? // remove
     @Published var lastMessageText: String?
-    @Published var lastMessageSender: String?
+    @Published var lastMessageSender: String? // id, keep as string
     @Published var lastMessageTimestamp: String?
     @Published var eventId: Int?
-    var id: UUID
+    var id: UUID // to remove eventually
 
     init(chatTitle: String = "", lastMessageText: String? = nil, lastMessageSender: String? = nil,
          lastMessageDate: Date? = nil, id: UUID = UUID(), eventId: Int? = nil) {

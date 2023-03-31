@@ -14,6 +14,29 @@ class ChatRepositoryFirebase: ChatRepository {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 
+    func getBasicInfo(for id: Int, completion: @escaping ((Chat) -> Void)) {
+        // TODO: actual implementation
+        let chat = Chat(id: 1,
+                        messages: [ChatMessage(messageText: "message",
+                                               timestamp: Date.now,
+                                               sender: UUID(uuidString: "4F728585-BAA7-416C-A941-9E68BF85D990") ?? UUID())])
+        completion(chat)
+    }
+
+    func getChat(id: Int, completion: @escaping ((Chat) -> Void)) {
+        // TODO: actual implementation
+        let chat = Chat(id: 1,
+                        messages: [ChatMessage(messageText: "message",
+                                               timestamp: Date.now,
+                                               sender: UUID(uuidString: "4F728585-BAA7-416C-A941-9E68BF85D990") ?? UUID())])
+        completion(chat)
+    }
+
+    func sendChatMessage(chatMessage: ChatMessage, id: Int) -> Bool {
+        print("sending chat message")
+        return true
+    }
+
     func getBasicInfoChats(userId: UUID, completion: @escaping ((Chat) -> Void)) {
         getChatBasicInfoWithMessageAMs(userId: userId, completion: { chatBasicInfoWithMessageAM in
             guard let lastMessage: ChatMessageApiModel = chatBasicInfoWithMessageAM.lastMessage else {

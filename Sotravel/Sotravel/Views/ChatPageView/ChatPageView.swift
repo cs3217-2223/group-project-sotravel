@@ -26,7 +26,7 @@ struct ChatPageView: View {
                     NavigationLink(destination: ChatView()) {
                         ChatPageCellView(chatPageCellVM: chatPageCell)
                     }.simultaneousGesture(TapGesture().onEnded {
-                        self.chatService.fetchChat(id: chatPageCell.id)
+                        self.chatService.fetchChat(id: chatPageCell.eventId)
                     })
                 }
             }

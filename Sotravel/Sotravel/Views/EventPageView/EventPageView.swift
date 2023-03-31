@@ -94,7 +94,7 @@ struct EventPageView: View {
                                 .fill(Color.uiPrimary)
                         }
                     }.simultaneousGesture(TapGesture().onEnded {
-                        chatService.fetchEventChat(eventId: eventViewModel.id)
+                        chatService.fetchChat(id: eventViewModel.id)
                     })
                     if eventViewModel.hostUser == eventPageUserViewModel.userId {
                         CancelEventButton(eventViewModel: eventViewModel, showConfirmationDialog: $showConfirmationDialog)
