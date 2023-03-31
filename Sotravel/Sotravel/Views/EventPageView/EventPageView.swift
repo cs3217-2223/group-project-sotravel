@@ -160,26 +160,26 @@ struct CancelEventButton: View {
     }
 }
 
-struct EventPageView_Previews: PreviewProvider {
-    static func makeUserService() -> UserService {
-        let userService = UserService()
-        userService.user = mockUser
-        return userService
-    }
-
-    static var previews: some View {
-        let userService = makeUserService()
-        let eventVM = EventViewModel(
-            title: "Test event VM",
-            datetime: Date(),
-            location: "COM1",
-            meetingPoint: "COM1",
-            hostUser: (userService.user?.id)!
-        )
-        NavigationView {
-            EventPageView(eventPageUserViewModel: EventPageUserViewModel(),
-                          eventViewModel: eventVM)
-                .environmentObject(userService)
-        }
-    }
-}
+// struct EventPageView_Previews: PreviewProvider {
+//    static func makeUserService() -> UserService {
+//        let userService = UserService()
+//        userService.user = mockUser
+//        return userService
+//    }
+//
+//    static var previews: some View {
+//        let userService = makeUserService()
+//        let eventVM = EventViewModel(
+//            title: "Test event VM",
+//            datetime: Date(),
+//            location: "COM1",
+//            meetingPoint: "COM1",
+//            hostUser: (userService.user?.id)!
+//        )
+//        NavigationView {
+//            EventPageView(eventPageUserViewModel: EventPageUserViewModel(),
+//                          eventViewModel: eventVM)
+//                .environmentObject(userService)
+//        }
+//    }
+// }

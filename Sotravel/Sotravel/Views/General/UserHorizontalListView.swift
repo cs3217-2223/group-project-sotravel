@@ -36,7 +36,7 @@ struct UserHorizontalListView: View {
             }
         }
     }
-    
+
     private func getUser(id: UUID) async {
         do {
             var user = try await friendService.getFriend(id: id)

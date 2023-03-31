@@ -7,7 +7,7 @@ struct MapPageView: View {
     @EnvironmentObject var locationSharing: LocationSharingViewModel
     @State private var selectedFriend: User?
     @State private var showToast = false
-    @State private var userId: UUID? = nil
+    @State private var userId: UUID?
 
     private func toggleToast() {
         withAnimation(.easeInOut(duration: 0.2)) {

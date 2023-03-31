@@ -115,7 +115,7 @@ struct CreateInvitePageView: View {
             showAlert(message: "Please enter a meeting point for your invite.")
             return
         }
-        
+
         guard let userId = userService.getUserId() else {
             showAlert(message: "Cannot find host user")
             return

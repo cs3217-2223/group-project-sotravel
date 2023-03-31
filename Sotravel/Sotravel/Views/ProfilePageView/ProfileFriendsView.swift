@@ -4,7 +4,7 @@ struct ProfileFriendsView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var friendService: FriendService
     @ObservedObject var viewModel: ProfileFriendsViewModel
-    
+
     @State var friend: User = mockUser
 
     var body: some View {

@@ -40,6 +40,7 @@ struct EventView: View {
 
 struct EventDetailsView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var friendService: FriendService
     @ObservedObject var eventViewModel: EventViewModel
 
     var body: some View {
@@ -63,7 +64,7 @@ struct EventDetailsView: View {
             }
 
             // New section to display host user
-            if let hostUser = f.userCache[eventViewModel.hostUser] {
+            if let hostUser = self.getUser(id: eventViewModel.hostUser) {
                 Text("Hosted by \(hostUser.name ?? "Unknown")")
                     .font(.uiFootnote)
                     .foregroundColor(.gray)
@@ -71,10 +72,21 @@ struct EventDetailsView: View {
             }
         }
     }
+
+    private func getUser(id: UUID) -> User? {
+        if let friend = friendService.getFriend(id: id) {
+            return friend
+        } else if let userId = userService.getUserId(), userId == id {
+            return userService.getUser()
+        } else {
+            return nil
+        }
+    }
 }
 
 struct AttendingUsersView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var friendService: FriendService
     var attendingUsers: [UUID]
 
     private func profileOffset(index: Int, totalCount: Int) -> CGFloat {
@@ -93,7 +105,7 @@ struct AttendingUsersView: View {
 
             ZStack {
                 ForEach(Array(renderedUserIds.enumerated()), id: \.1) { index, userId in
-                    if let user = userService.userCache[userId] {
+                    if let user = self.getUser(id: userId) {
                         let xOffset = profileOffset(index: index, totalCount: renderedUserIds.count)
                         ProfileImageView(
                             imageSrc: user.imageURL ?? "",
@@ -107,6 +119,16 @@ struct AttendingUsersView: View {
             }.offset(x: -50)
         }
         .padding(.top, 1)
+    }
+
+    private func getUser(id: UUID) -> User? {
+        if let friend = friendService.getFriend(id: id) {
+            return friend
+        } else if let userId = userService.getUserId(), userId == id {
+            return userService.getUser()
+        } else {
+            return nil
+        }
     }
 }
 

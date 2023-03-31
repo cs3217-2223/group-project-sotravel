@@ -18,7 +18,7 @@ class ProfileFriendsViewModel: ObservableObject {
             self.friends = friends
         }
     }
-    
+
     func add(friend: User) {
         DispatchQueue.main.async {
             self.friends.append(friend)

@@ -9,15 +9,15 @@ import Foundation
 import Resolver
 
 class FriendService: ObservableObject {
-    
+
     private var friendsCache: [UUID: User]
     @Published var profileFriendsViewModel: ProfileFriendsViewModel
     @Published var createInvitePageViewModel: CreateInvitePageUserViewModel
 
     @Injected private var userRepository: UserRepository
-    
+
     func getFriend(id: UUID) -> User? {
-        return friendsCache[id]
+        friendsCache[id]
     }
 
     init() {
@@ -25,7 +25,7 @@ class FriendService: ObservableObject {
         self.createInvitePageViewModel = CreateInvitePageUserViewModel()
         self.friendsCache = [:]
     }
-    
+
     func fetchAllFriends(tripId: Int, completion: @escaping (Bool) -> Void) {
         Task {
             do {
@@ -41,7 +41,7 @@ class FriendService: ObservableObject {
             }
         }
     }
-    
+
     func clear() {
         self.friendsCache = [:]
         self.profileFriendsViewModel.clear()
@@ -53,7 +53,7 @@ class FriendService: ObservableObject {
             friendsCache[friend.id] = friend
         }
     }
-    
+
     private func handlePropertyChange(fetchedFriends: [User]) {
         self.profileFriendsViewModel.updateFrom(friends: fetchedFriends)
         self.createInvitePageViewModel.updateFrom(friends: fetchedFriends)

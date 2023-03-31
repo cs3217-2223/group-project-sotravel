@@ -26,12 +26,12 @@ class UserService: ObservableObject {
         self.eventPageViewModel = EventPageUserViewModel()
         self.eventStatusButtonViewModel = EventStatusButtonUserViewModel()
     }
-    
+
     // Should not call this
     func getUser() -> User? {
-        return user
+        user
     }
-    
+
     func getUserId() -> UUID? {
         user?.id
     }
