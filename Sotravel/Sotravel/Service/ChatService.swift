@@ -46,8 +46,6 @@ class ChatService: ObservableObject {
 
             self.chatRepository.setListenerForChatBasicInfo(for: id, completion: { updatedChat in
                 guard let chatPageCellVMToUpdate = self.chatPageCellVMs.first(where: { ($0.id ?? -1) == updatedChat.id }) else {
-                    // TODO: the chat is not in
-                    print("new chat")
                     return
                 }
                 let updatedVM = self.convertChatToChatPageCellVM(chat: updatedChat)
@@ -68,21 +66,15 @@ class ChatService: ObservableObject {
             let chatHeaderVM = self.convertChatToChatHeaderVM(chat: chat)
             self.chatHeaderVM = chatHeaderVM
 
-            let chatMessageVMs = chat.messages.map { self.convertChatMessageToChatMessageVM(chatMessage: $0, userId: userId) }
+            let chatMessageVMs = chat.messages.map { self.convertChatMessageToChatMessageVM(chatMessage: $0,
+                                                                                            userId: userId) }
             self.chatMessageVMs = chatMessageVMs
 
-            // TODO: set listener for chat messages
-            //            self.chatRepository.setListenerForChatMessages(for: id, completion: { chatMessage in
-            //                // TODO: convert sender uuid to image src and name (through user service?)
-            //                let chatMessageVM = ChatMessageViewModel(messageText: chatMessage.messageText,
-            //                                                         messageTimestamp: chatMessage.timestamp,
-            //                                                         senderId: chatMessage.sender,
-            //                                                         senderImageSrc: chatMessage.sender.uuidString,
-            //                                                         senderName: chatMessage.sender.uuidString,
-            //                                                         isSentByMe: chatMessage.sender == userId,
-            //                                                         id: chatMessage.id)
-            //                self.chatMessageVMs.append(chatMessageVM)
-            //            })
+            self.chatRepository.setListenerForChatMessages(for: id, completion: { chatMessage in
+                // TODO: sort by timestamp, latest behind ... want to maintain sorted array
+                let chatMessageVM = self.convertChatMessageToChatMessageVM(chatMessage: chatMessage, userId: userId)
+                self.chatMessageVMs.append(chatMessageVM)
+            })
         })
     }
 
@@ -90,8 +82,7 @@ class ChatService: ObservableObject {
         guard let chatId = chatId else {
             return
         }
-        // TODO: fix this listener
-        // chatRepository.removeListenerForChatMessages(for: chatId)
+        chatRepository.removeListenerForChatMessages(for: chatId)
     }
 
     func sendChatMessage(messageText: String) -> Bool {
@@ -122,7 +113,7 @@ class ChatService: ObservableObject {
         chatHeaderVM = ChatHeaderViewModel()
         chatMessageVMs = []
         isChatPageCellListenerSet = [:]
-        // TODO: remove listeners
+        // TODO: remove listeners for current chatId and all ids in the chat page cell VMs
     }
 }
 

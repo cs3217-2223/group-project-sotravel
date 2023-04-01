@@ -12,6 +12,7 @@ struct ChatPageCellView: View {
     @EnvironmentObject var chatService: ChatService
     @EnvironmentObject var eventService: EventService
     @EnvironmentObject var userService: UserService
+    @EnvironmentObject var friendService: FriendService
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -29,8 +30,7 @@ struct ChatPageCellView: View {
             }
             HStack {
                 if let senderId = chatPageCellVM.lastMessageSender {
-                    // TODO: get sender name from userservice
-                    Text("\(senderId):")
+                    Text("\(getSenderName(senderId: senderId)):")
                         .foregroundColor(.primary)
                         .opacity(0.8)
                 } else {
@@ -55,6 +55,13 @@ struct ChatPageCellView: View {
             return ""
         }
         return event.title
+    }
+
+    private func getSenderName(senderId: String) -> String {
+        guard let senderUUID = UUID(uuidString: senderId) else {
+            return "John Doe"
+        }
+        return friendService.getFriend(id: senderUUID)?.name ?? "John Doe"
     }
 
     private func showAlert(message: String) {

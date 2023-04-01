@@ -63,7 +63,16 @@ class ChatRepositoryFirebase: ChatRepository {
                 let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
                 completion(chatMessageAM)
             } catch {
-                print("An error occurred", error)
+                guard let data = json[messageId] else {
+                    return
+                }
+                do {
+                    let chatMessageAMData = try JSONSerialization.data(withJSONObject: data)
+                    let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
+                    completion(chatMessageAM)
+                } catch {
+                    print("An error occurred", error)
+                }
             }
         })
     }
@@ -133,32 +142,26 @@ class ChatRepositoryFirebase: ChatRepository {
     }
 
     // MARK: FOR LISTENERS
-
-    /*============================================================================================*/
-
-    func setListenerForChatMessages(for chatId: UUID, completion: @escaping ((ChatMessage) -> Void)) {
-        //        let databasePath = databaseRef.child("messages/\(chatId.uuidString)")
-        //        databasePath.observe(.childAdded, with: { snapshot in
-        //            guard let json = snapshot.value as? [String: Any] else {
-        //                return
-        //            }
-        //            do {
-        //                let chatMessageAMData = try JSONSerialization.data(withJSONObject: json)
-        //                let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
-        //                let chatMessage = ChatMessage(id: UUID(uuidString: chatMessageAM.id ?? "") ?? UUID(),
-        //                                              messageText: chatMessageAM.messageText ?? "",
-        //                                              timestamp: Date(timeIntervalSinceReferenceDate: chatMessageAM.timestamp),
-        //                                              sender: UUID(uuidString: chatMessageAM.sender ?? "") ?? UUID())
-        //                completion(chatMessage)
-        //            } catch {
-        //                print("An error occurred", error)
-        //            }
-        //        })
+    func setListenerForChatMessages(for chatId: Int, completion: @escaping ((ChatMessage) -> Void)) {
+        let databasePath = databaseRef.child("messages/\(chatId)")
+        databasePath.observe(.childAdded, with: { snapshot in
+            guard let json = snapshot.value as? [String: Any] else {
+                return
+            }
+            do {
+                let chatMessageAMData = try JSONSerialization.data(withJSONObject: json)
+                let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
+                let chatMessage = self.convertChatMessageAMToChatMessage(chatMessageAM: chatMessageAM)
+                completion(chatMessage)
+            } catch {
+                print("An error occurred", error)
+            }
+        })
     }
 
-    func removeListenerForChatMessages(for chatId: UUID) {
-        //        let databasePath = databaseRef.child("messages/\(chatId.uuidString)")
-        //        databasePath.removeAllObservers()
+    func removeListenerForChatMessages(for chatId: Int) {
+        let databasePath = databaseRef.child("messages/\(chatId)")
+        databasePath.removeAllObservers()
     }
 
     func setListenerForChatBasicInfo(for chatId: Int, completion: @escaping ((Chat) -> Void)) {
@@ -179,7 +182,8 @@ class ChatRepositoryFirebase: ChatRepository {
                     return
                 }
                 self.getChatMessageAM(chatId: chatId, messageId: messageId, completion: { chatMessageAM in
-                    let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM, chatMessageAMs: [chatMessageAM])
+                    let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM,
+                                                           chatMessageAMs: [chatMessageAM])
                     completion(chat)
                 })
             } catch {
@@ -191,7 +195,8 @@ class ChatRepositoryFirebase: ChatRepository {
 
 // MARK: CONVERTERS
 extension ChatRepositoryFirebase {
-    func convertApiModelsToChat(chatBasicInfoAM: ChatBasicInfoApiModel, chatMessageAMs: [ChatMessageApiModel] = []) -> Chat {
+    func convertApiModelsToChat(chatBasicInfoAM: ChatBasicInfoApiModel,
+                                chatMessageAMs: [ChatMessageApiModel] = []) -> Chat {
         let chatMessages = chatMessageAMs.map { convertChatMessageAMToChatMessage(chatMessageAM: $0) }
         return Chat(id: Int(chatBasicInfoAM.id ?? "-1") ?? -1, messages: chatMessages)
     }
