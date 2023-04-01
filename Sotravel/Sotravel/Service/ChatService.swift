@@ -30,6 +30,9 @@ class ChatService: ObservableObject {
 
     func fetchChatPageCells(ids: [Int]) {
         for id in ids {
+            if chatPageCellVMs.contains(where: { $0.id == id }) {
+                continue
+            }
             fetchChatPageCell(id: id)
         }
     }

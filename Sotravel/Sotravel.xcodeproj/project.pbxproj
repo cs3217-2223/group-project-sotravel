@@ -122,6 +122,7 @@
 		B4E9460A29C35CEF001B65EE /* SotravelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E9460929C35CEF001B65EE /* SotravelError.swift */; };
 		B4E9460E29C5A6BB001B65EE /* HTTPClientRequest+NodeAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E9460D29C5A6BB001B65EE /* HTTPClientRequest+NodeAuth.swift */; };
 		B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E9461229C5C7C6001B65EE /* TelegramSignInResponse.swift */; };
+		D7400E5029D8143000B5E74D /* Array+BinarySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7400E4F29D8143000B5E74D /* Array+BinarySearch.swift */; };
 		D7F6A9BF29C5B55B006FBD26 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D7F6A9BE29C5B55B006FBD26 /* FirebaseAnalytics */; };
 		D7F6A9C129C5B55B006FBD26 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D7F6A9C029C5B55B006FBD26 /* FirebaseAuth */; };
 		D7F6A9C329C5B55B006FBD26 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D7F6A9C229C5B55B006FBD26 /* FirebaseDatabase */; };
@@ -276,6 +277,7 @@
 		B4E9460929C35CEF001B65EE /* SotravelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SotravelError.swift; sourceTree = "<group>"; };
 		B4E9460D29C5A6BB001B65EE /* HTTPClientRequest+NodeAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClientRequest+NodeAuth.swift"; sourceTree = "<group>"; };
 		B4E9461229C5C7C6001B65EE /* TelegramSignInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelegramSignInResponse.swift; sourceTree = "<group>"; };
+		D7400E4F29D8143000B5E74D /* Array+BinarySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+BinarySearch.swift"; sourceTree = "<group>"; };
 		D7F6A9CA29C6CEA9006FBD26 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7F6A9CC29C6E6BB006FBD26 /* DatabaseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAdapter.swift; sourceTree = "<group>"; };
 		D7F6A9CF29C6E755006FBD26 /* DatabaseConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseConnector.swift; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 				18A1AC5729BB12B90064CF37 /* Date.swift */,
 				18A1AC5929BB12CB0064CF37 /* DateFormatter.swift */,
 				B4939BA829D481E200B736F2 /* URL+QueryParameters.swift */,
+				D7400E4F29D8143000B5E74D /* Array+BinarySearch.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -910,6 +913,7 @@
 				B485A8F329D06ECB00786A34 /* Friend.swift in Sources */,
 				AC63059C29BDA34F00EEEA85 /* ChatView.swift in Sources */,
 				181C746F29BDDEB700E6D3B1 /* ActionMenuButton.swift in Sources */,
+				D7400E5029D8143000B5E74D /* Array+BinarySearch.swift in Sources */,
 				D7F6A9E429CF8E17006FBD26 /* ChatPageCellViewModel.swift in Sources */,
 				183F435629D02D1D00F4DFEE /* MapPageView.swift in Sources */,
 				B4E9460A29C35CEF001B65EE /* SotravelError.swift in Sources */,

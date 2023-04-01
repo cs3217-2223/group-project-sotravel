@@ -5,6 +5,7 @@ struct TripPageView: View {
     @EnvironmentObject private var eventService: EventService
     @EnvironmentObject private var friendService: FriendService
     @EnvironmentObject private var tripService: TripService
+    @EnvironmentObject private var chatService: ChatService
     @Binding var selectedTab: Int
     @State private var mapPageViewID = UUID().uuidString
     @State private var invitePageViewID = UUID().uuidString
@@ -70,6 +71,8 @@ struct TripPageView: View {
             if let tripId = tripService.getCurrTripId(), let userId = userService.getUserId() {
                 eventService.reloadUserEvents(forTrip: tripId, userId: userId)
             }
+        } else if selectedTab == 3 {
+            chatService.fetchChatPageCells(ids: eventService.getEventIds())
         } else if selectedTab == 4 {
             if let tripId = tripService.getCurrTripId() {
                 userService.reloadUser()
