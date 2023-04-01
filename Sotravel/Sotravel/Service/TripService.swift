@@ -30,7 +30,7 @@ class TripService: ObservableObject {
     }
 
     func getTrips() -> [Trip] {
-        Array(tripCache.values)
+        Array(tripCache.values).sorted(by: { $0.startDate < $1.startDate })
     }
 
     func resetTapIndex() {

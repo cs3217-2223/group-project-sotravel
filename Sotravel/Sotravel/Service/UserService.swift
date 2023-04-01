@@ -11,6 +11,7 @@ import Combine
 
 class UserService: ObservableObject {
     private var user: User?
+    private let userId = "userIdKey"
     @Published var profileHeaderVM: ProfileHeaderViewModel
     @Published var socialMediaLinksVM: SocialMediaLinksViewModel
     @Published var editProfileViewModel: EditProfileViewModel
@@ -23,13 +24,24 @@ class UserService: ObservableObject {
         self.editProfileViewModel = EditProfileViewModel()
     }
 
-    // Should not call this
     func getUser() -> User? {
         user
     }
 
     func getUserId() -> UUID? {
         user?.id
+    }
+
+    func storeUserId(id: UUID) {
+        UserDefaults.standard.set(id.uuidString, forKey: userId)
+    }
+
+    func getStoredUserId() -> UUID? {
+        if let uuidString = UserDefaults.standard.string(forKey: userId) {
+            return UUID(uuidString: uuidString)
+        } else {
+            return nil
+        }
     }
 
     func fetchUser(id: UUID, completion: @escaping (Bool) -> Void) {
@@ -73,21 +85,12 @@ class UserService: ObservableObject {
     }
 
     func reloadUser() {
-        Task {
-            do {
-                guard let user = user else {
-                    return
-                }
-                guard let updatedUser = try await userRepository.update(user: user) else {
-                    // handle update failure
-                    return
-                }
-                self.user = updatedUser
-                self.handleUserPropertyChange()
-            } catch {
-                print("Error updating user:", error)
-                // Handle error as needed
-            }
+        guard let userId = getStoredUserId() else {
+            return
+        }
+
+        fetchUser(id: userId) { _ in
+            // empty
         }
     }
 

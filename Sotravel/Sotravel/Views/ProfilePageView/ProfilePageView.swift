@@ -31,31 +31,34 @@ struct ProfilePageView: View {
                         }.padding(.bottom, 20)
 
                         VStack(spacing: 32) {
-                            NavigationLink(destination: TripsPageView()) {
-                                Text("Change Trip")
-                                    .font(.uiHeadline)
-                                Image(systemName: "airplane.departure")
+                            Button(action: {
+                                self.reloadMenu()
+                            }) {
+                                Menu {
+                                    ForEach(tripService.getTrips(), id: \.id) { trip in
+                                        Button(action: {
+                                            self.loadUserData(for: trip)
+                                        }) {
+                                            Text(trip.title)
+                                        }
+                                    }
+                                } label: {
+                                    HStack {
+                                        Text("Change Trip")
+                                            .font(.uiHeadline)
+                                        Image(systemName: "airplane.departure")
+                                        Spacer()
+                                        Image(systemName: "chevron.down")
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .foregroundColor(.uiPrimary)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(Color.uiPrimary, lineWidth: 1)
+                                    )
+                                }
                             }
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .foregroundColor(.uiPrimary)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.uiPrimary, lineWidth: 1)
-                            )
-                            .simultaneousGesture(TapGesture().onEnded {
-                                self.changeTrip()
-                            })
-
-                            NavigationLink(destination: ContentView().navigationBarBackButtonHidden()) {
-                                Text("Log Out")
-                                    .font(.uiHeadline)
-                                    .foregroundColor(.red)
-                                Image(systemName: "airplane.departure")
-                            }
-                            .simultaneousGesture(TapGesture().onEnded {
-                                self.logOut()
-                            })
                         }
                     }
                 }
@@ -65,27 +68,36 @@ struct ProfilePageView: View {
         }
     }
 
-    private func changeTrip() {
+    private func reloadMenu() {
         guard let userId = userService.getUserId() else {
             return
         }
+        // Reload the trips
+        tripService.reloadUserTrips(userId: userId)
+    }
+
+    private func changeTrip() {
         userService.changeTrip()
         userService.reloadUser()
         eventService.clear()
         tripService.clear()
         chatService.clear()
         friendService.clear()
-
-        // Reload the trips
-        tripService.reloadUserTrips(userId: userId)
     }
 
-    private func logOut() {
-        userService.clear()
-        eventService.clear()
-        tripService.clear()
-        chatService.clear()
-        friendService.clear()
+    private func loadUserData(for trip: Trip) {
+        changeTrip()
+
+        friendService.fetchAllFriends(tripId: trip.id)
+
+        guard let userId = userService.getUserId() else {
+            print("Error: User is nil")
+            return
+        }
+        tripService.reloadUserTrips(userId: userId)
+        tripService.selectTrip(trip)
+        eventService.loadUserEvents(forTrip: trip.id, userId: userId)
+        chatService.setUserId(userId: userId)
     }
 }
 

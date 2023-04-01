@@ -16,7 +16,7 @@ struct TripsPageView: View {
                     Spacer()
                 }
                 LazyVStack(alignment: .leading, spacing: 16) {
-                    ForEach(Array(tripService.getTrips()), id: \.id) { trip in
+                    ForEach(tripService.getTrips(), id: \.id) { trip in
                         NavigationLink(destination: TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)) {
                             TripCardView(trip: trip)
                         }.foregroundColor(.primary)
@@ -33,13 +33,15 @@ struct TripsPageView: View {
     }
 
     private func loadUserData(for trip: Trip) {
+        userService.reloadUser()
+        guard let userId = userService.getUserId() else {
+            print("Fatal error, userId not found")
+            return
+        }
+
         friendService.fetchAllFriends(tripId: trip.id)
         tripService.selectTrip(trip)
 
-        guard let userId = userService.getUserId() else {
-            print("Error: User is nil")
-            return
-        }
         eventService.loadUserEvents(forTrip: trip.id, userId: userId)
         chatService.setUserId(userId: userId)
     }

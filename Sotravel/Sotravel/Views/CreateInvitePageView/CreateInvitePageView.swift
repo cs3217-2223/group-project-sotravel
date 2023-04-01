@@ -16,93 +16,105 @@ struct CreateInvitePageView: View {
     let attendeesOptions = ["All Friends", "Selected friends"]
 
     var body: some View {
-        VStack {
-            HStack {
-                Text("Create an invite ✨")
-                    .font(.uiTitle1)
+        ZStack {
+            VStack {
+                HStack {
+                    Text("Create an invite ✨")
+                        .font(.uiTitle1)
 
-                Spacer()
-            }
-            .padding(.leading)
-            .padding(.top, 24)
-
-            Form {
-                Section(header: Text("Invite Details ✍️")) {
-                    TextField("Activity (e.g. Rock Climbing)", text: $title)
-                        .autocapitalization(.words)
-                        .disableAutocorrection(true)
-                        .font(.body)
-                    TextField("Location (e.g. Railay Beach)", text: $location)
-                        .autocapitalization(.words)
-                        .disableAutocorrection(true)
-                    TextField("Meeting Point (e.g. Hotel Lobby)", text: $meetingPoint)
-                        .autocapitalization(.words)
-                        .disableAutocorrection(true)
+                    Spacer()
                 }
+                .padding(.leading)
+                .padding(.top, 24)
 
-                Section(header: Text("Date and time ⏱")) {
-                    DatePicker("Date", selection: $date, displayedComponents: .date)
-                    DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
-                }
-
-                Section(header: Text("Additional Information 🗞")) {
-                    TextEditor(text: $description)
-                        .frame(height: 100)
-                        .padding(.vertical, 4)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.gray, lineWidth: 1)
-                        )
-                }
-
-                Section(header: Text("Who are you inviting? 👥")) {
-                    Picker(selection: $selectedAttendeesOption, label: Text("Select attendees")) {
-                        ForEach(0..<attendeesOptions.count) { index in
-                            Text(attendeesOptions[index]).tag(index)
-                        }
+                Form {
+                    Section(header: Text("Invite Details ✍️")) {
+                        TextField("Activity (e.g. Rock Climbing)", text: $title)
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
+                            .font(.body)
+                        TextField("Location (e.g. Railay Beach)", text: $location)
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
+                        TextField("Meeting Point (e.g. Hotel Lobby)", text: $meetingPoint)
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
                     }
-                    .pickerStyle(SegmentedPickerStyle())
 
-                    if selectedAttendeesOption == 0 {
-                        Text("This invite will be send to all your friends in the same city.").font(.uiBody)
-                    } else {
-                        ForEach(createInvitePageUserViewModel.friends, id: \.id) { friend in
-                            Toggle(isOn: Binding(
-                                get: { self.selectedAttendees.contains(friend.id) },
-                                set: { selected in
-                                    if selected {
-                                        self.selectedAttendees.append(friend.id)
-                                    } else {
-                                        self.selectedAttendees.removeAll(where: { $0 == friend.id })
+                    Section(header: Text("Date and time ⏱")) {
+                        DatePicker("Date", selection: $date, displayedComponents: .date)
+                        DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
+                    }
+
+                    Section(header: Text("Additional Information 🗞")) {
+                        TextEditor(text: $description)
+                            .frame(height: 100)
+                            .padding(.vertical, 4)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                    }
+
+                    Section(header: Text("Who are you inviting? 👥")) {
+                        Picker(selection: $selectedAttendeesOption, label: Text("Select attendees")) {
+                            ForEach(0..<attendeesOptions.count) { index in
+                                Text(attendeesOptions[index]).tag(index)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+
+                        if selectedAttendeesOption == 0 {
+                            Text("This invite will be send to all your friends in the same city.").font(.uiBody)
+                        } else {
+                            ForEach(createInvitePageUserViewModel.friends, id: \.id) { friend in
+                                Toggle(isOn: Binding(
+                                    get: { self.selectedAttendees.contains(friend.id) },
+                                    set: { selected in
+                                        if selected {
+                                            self.selectedAttendees.append(friend.id)
+                                        } else {
+                                            self.selectedAttendees.removeAll(where: { $0 == friend.id })
+                                        }
                                     }
+                                )) {
+                                    Text(friend.name ?? "John Doe")
                                 }
-                            )) {
-                                Text(friend.name ?? "John Doe")
                             }
                         }
                     }
-                }
 
-                Button(action: {
-                    createEvent()
-                }) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Image(systemName: "plus")
-                        Text("Create Invite")
+                    Button(action: {
+                        createEvent()
+                    }) {
+                        HStack(alignment: .firstTextBaseline) {
+                            Image(systemName: "plus")
+                            Text("Create Invite")
+                        }
+                        .font(.body.weight(.medium))
+                        .padding(.vertical, 8)
+                        .frame(maxWidth: .infinity)
+                        .clipped()
+                        .foregroundColor(.blue)
+                        .cornerRadius(10) // add corner radius
                     }
-                    .font(.body.weight(.medium))
-                    .padding(.vertical, 8)
-                    .frame(maxWidth: .infinity)
-                    .clipped()
-                    .foregroundColor(.blue)
-                    .cornerRadius(10) // add corner radius
                 }
             }
+            // Adding a tap gesture to dismiss the keyboard when the user taps outside a text field
+            Color.clear
+                .edgesIgnoringSafeArea(.all)
+                .onTapGesture {
+                    dismissKeyboard()
+                }
         }
     }
 
+    // Helper function to dismiss the keyboard
+    private func dismissKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+
     private func createEvent() {
-        print("tapped")
         // TODO: Validate inputs
         guard !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             showAlert(message: "Please enter a title for your invite.")
