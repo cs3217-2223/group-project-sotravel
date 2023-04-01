@@ -29,7 +29,6 @@ struct ChatPageCellView: View {
                     .lineLimit(1)
             }
             HStack {
-                // TODO: check if it's sent by me, then send to either userService or friendService
                 if let senderId = chatPageCellVM.lastMessageSender {
                     Text("\(getSenderName(senderId: senderId)):")
                         .foregroundColor(.primary)
@@ -59,6 +58,12 @@ struct ChatPageCellView: View {
     }
 
     private func getSenderName(senderId: String) -> String {
+        // sender is the user
+        if let userId = chatService.userId, senderId == userId.uuidString {
+            return userService.getUser()?.name ?? "John Doe"
+        }
+
+        // sender is a friend
         guard let senderUUID = UUID(uuidString: senderId) else {
             return "John Doe"
         }

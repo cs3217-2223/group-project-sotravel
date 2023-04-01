@@ -61,6 +61,7 @@ class ChatService: ObservableObject {
                 }
                 let updatedVM = self.convertChatToChatPageCellVM(chat: updatedChat)
                 chatPageCellVMToUpdate.update(with: updatedVM)
+                // TODO: re-order the cell......
             })
 
             self.isChatPageCellListenerSet[id] = true
@@ -92,9 +93,8 @@ class ChatService: ObservableObject {
             self.chatMessageVMs.sort(by: { $0.messageTimestamp < $1.messageTimestamp })
 
             self.chatRepository.setListenerForChatMessages(for: id, completion: { chatMessage in
-                // TODO: sort by timestamp, latest behind ... want to maintain sorted array
                 let chatMessageVM = self.convertChatMessageToChatMessageVM(chatMessage: chatMessage, userId: userId)
-                self.chatMessageVMs.append(chatMessageVM)
+                self.chatMessageVMs.append(chatMessageVM) // should be appended in the order they enter the db, so it's fine
             })
         })
     }
@@ -164,19 +164,19 @@ extension ChatService {
 
 // MARK: temp for safekeeping
 extension ChatService {
-// if needed, need to check if the chat is something the user should see before adding
-//    private func setListenerForAddedChat(userId: UUID) {
-//        chatRepository.setListenerForAddedChat(userId: userId, completion: { newChat in
-//            let chatPageCellVM = ChatPageCellViewModel(chatTitle: newChat.title,
-//                                                       lastMessageText: newChat.messages.last?.messageText,
-//                                                       lastMessageSender: newChat.messages.last?.sender.uuidString,
-//                                                       lastMessageDate: newChat.messages.last?.timestamp,
-//                                                       id: newChat.idUUID,
-//                                                       eventId: newChat.eventId)
-//            if self.chatPageCellVMs.contains(where: { $0.id == newChat.id }) {
-//                return
-//            }
-//            self.chatPageCellVMs.append(chatPageCellVM)
-//        })
-//    }
+    // if needed, need to check if the chat is something the user should see before adding
+    //    private func setListenerForAddedChat(userId: UUID) {
+    //        chatRepository.setListenerForAddedChat(userId: userId, completion: { newChat in
+    //            let chatPageCellVM = ChatPageCellViewModel(chatTitle: newChat.title,
+    //                                                       lastMessageText: newChat.messages.last?.messageText,
+    //                                                       lastMessageSender: newChat.messages.last?.sender.uuidString,
+    //                                                       lastMessageDate: newChat.messages.last?.timestamp,
+    //                                                       id: newChat.idUUID,
+    //                                                       eventId: newChat.eventId)
+    //            if self.chatPageCellVMs.contains(where: { $0.id == newChat.id }) {
+    //                return
+    //            }
+    //            self.chatPageCellVMs.append(chatPageCellVM)
+    //        })
+    //    }
 }
