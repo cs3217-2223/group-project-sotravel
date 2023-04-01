@@ -150,7 +150,14 @@ class EventService: ObservableObject {
         }
     }
 
-    func findAttendingEvents(for user: User) -> [EventViewModel] {
+    func findAttendingEventsId(for user: User) -> [Int] {
+        let attendingEvents = eventCache.values.filter { event in
+            event.attendingUsers.contains(user.id) || event.hostUser == user.id
+        }
+        return attendingEvents.map { $0.id }
+    }
+
+    func findAttendingEventsVM(for user: User) -> [EventViewModel] {
         let attendingEvents = eventCache.values.filter { event in
             event.attendingUsers.contains(user.id) || event.hostUser == user.id
         }
