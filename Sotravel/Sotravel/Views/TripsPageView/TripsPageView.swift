@@ -41,9 +41,8 @@ struct TripsPageView: View {
             return
         }
         eventService.loadUserEvents(forTrip: trip.id, userId: userId)
-        self.chatService.setUserId(userId: userId)
-        // TODO: pass in a list of eventids
-        self.chatService.fetchChatPageCells(ids: [1, 2, 3, 4])
+        chatService.setUserId(userId: userId)
+        chatService.fetchChatPageCells(ids: eventService.getEventIds())
     }
 }
 

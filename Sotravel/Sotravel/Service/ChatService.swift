@@ -30,6 +30,9 @@ class ChatService: ObservableObject {
 
     func fetchChatPageCells(ids: [Int]) {
         for id in ids {
+            if chatPageCellVMs.contains(where: { $0.id == id }) {
+                continue
+            }
             fetchChatPageCell(id: id)
         }
     }
@@ -67,7 +70,8 @@ class ChatService: ObservableObject {
             self.chatHeaderVM = chatHeaderVM
 
             let chatMessageVMs = chat.messages.map { self.convertChatMessageToChatMessageVM(chatMessage: $0,
-                                                                                            userId: userId) }
+                                                                                            userId: userId)
+            }
             self.chatMessageVMs = chatMessageVMs
 
             self.chatRepository.setListenerForChatMessages(for: id, completion: { chatMessage in
