@@ -42,6 +42,7 @@ struct TripsPageView: View {
         }
         eventService.loadUserEvents(forTrip: trip.id, userId: userId)
         chatService.setUserId(userId: userId)
+        // TODO: findAttendingEventsId
         chatService.fetchChatPageCells(ids: eventService.getEventIds())
     }
 }

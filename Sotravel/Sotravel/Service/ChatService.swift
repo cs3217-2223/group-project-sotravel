@@ -40,8 +40,16 @@ class ChatService: ObservableObject {
     func fetchChatPageCell(id: Int) {
         chatRepository.getBasicInfo(for: id, completion: { basicChat in
             let chatPageCellVM = self.convertChatToChatPageCellVM(chat: basicChat)
-            // TODO: sort by timestamp, latest in front ... want to maintain sorted array
-            self.chatPageCellVMs.append(chatPageCellVM)
+            let index = self.chatPageCellVMs.insertionIndexOf(chatPageCellVM, isOrderedBefore: {
+                guard let date1 = $0.lastMessageDate else { // no date, place behind
+                    return false
+                }
+                guard let date2 = $1.lastMessageDate else { // other has no date, place in front
+                    return true
+                }
+                return date1 > date2 // place in front if the last message came later
+            })
+            self.chatPageCellVMs.insert(chatPageCellVM, at: index)
 
             if self.isChatPageCellListenerSet[id] ?? false {
                 return
@@ -59,6 +67,11 @@ class ChatService: ObservableObject {
         })
     }
 
+    func removeChatPageCell(id: Int) {
+        chatPageCellVMs.removeAll(where: { ($0.id ?? -1) == id })
+        chatRepository.removeListenerForChatBasicInfo(for: id)
+    }
+
     func fetchChat(id: Int?) {
         guard let userId = userId, let id = id else {
             return
@@ -73,6 +86,10 @@ class ChatService: ObservableObject {
                                                                                             userId: userId)
             }
             self.chatMessageVMs = chatMessageVMs
+            // for performance reasons, we can fetch data from firebase
+            // sort it in an AMs array, then process 1 by 1 into the VMs array (see `fetchChatPageCell` above)
+            // but leaving it like this for now
+            self.chatMessageVMs.sort(by: { $0.messageTimestamp < $1.messageTimestamp })
 
             self.chatRepository.setListenerForChatMessages(for: id, completion: { chatMessage in
                 // TODO: sort by timestamp, latest behind ... want to maintain sorted array
@@ -108,7 +125,7 @@ class ChatService: ObservableObject {
         }
 
         let previousMessage = chatMessageVMs[index - 1]
-        return message.messageTimestamp.timeIntervalSince(previousMessage.messageTimestamp) > 60
+        return message.messageTimestamp.timeIntervalSince(previousMessage.messageTimestamp) > 600 // 10 mins
     }
 
     func clear() {
@@ -147,19 +164,19 @@ extension ChatService {
 
 // MARK: temp for safekeeping
 extension ChatService {
-    // if needed, need to check if the chat is something the user should see before adding
-    //    private func setListenerForAddedChat(userId: UUID) {
-    //        chatRepository.setListenerForAddedChat(userId: userId, completion: { newChat in
-    //            let chatPageCellVM = ChatPageCellViewModel(chatTitle: newChat.title,
-    //                                                       lastMessageText: newChat.messages.last?.messageText,
-    //                                                       lastMessageSender: newChat.messages.last?.sender.uuidString,
-    //                                                       lastMessageDate: newChat.messages.last?.timestamp,
-    //                                                       id: newChat.idUUID,
-    //                                                       eventId: newChat.eventId)
-    //            if self.chatPageCellVMs.contains(where: { $0.id == newChat.id }) {
-    //                return
-    //            }
-    //            self.chatPageCellVMs.append(chatPageCellVM)
-    //        })
-    //    }
+// if needed, need to check if the chat is something the user should see before adding
+//    private func setListenerForAddedChat(userId: UUID) {
+//        chatRepository.setListenerForAddedChat(userId: userId, completion: { newChat in
+//            let chatPageCellVM = ChatPageCellViewModel(chatTitle: newChat.title,
+//                                                       lastMessageText: newChat.messages.last?.messageText,
+//                                                       lastMessageSender: newChat.messages.last?.sender.uuidString,
+//                                                       lastMessageDate: newChat.messages.last?.timestamp,
+//                                                       id: newChat.idUUID,
+//                                                       eventId: newChat.eventId)
+//            if self.chatPageCellVMs.contains(where: { $0.id == newChat.id }) {
+//                return
+//            }
+//            self.chatPageCellVMs.append(chatPageCellVM)
+//        })
+//    }
 }

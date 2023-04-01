@@ -72,6 +72,7 @@ struct TripPageView: View {
                 eventService.reloadUserEvents(forTrip: tripId, userId: userId)
             }
         } else if selectedTab == 3 {
+            // TODO: findAttendingEventsId
             chatService.fetchChatPageCells(ids: eventService.getEventIds())
         } else if selectedTab == 4 {
             if let tripId = tripService.getCurrTripId() {
