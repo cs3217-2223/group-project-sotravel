@@ -10,11 +10,19 @@ import NIOHTTP1
 
 class ApiErrorHelper {
     static func handleError(location: String, status: HTTPResponseStatus) throws {
-        if status == HTTPResponseStatus.unauthorized {
+        switch status {
+        case .ok: // do nothing, no error
+            return
+        case HTTPResponseStatus.unauthorized:
             throw SotravelError.AuthorizationError("[\(location)]: Call was unauthorized", nil)
-        }
-        if status != HTTPResponseStatus.ok {
-            throw SotravelError.NetworkError("[\(location)]: Call failed", nil)
+        case .internalServerError:
+            throw SotravelError.AuthorizationError("[\(location)]: Server threw an error", nil)
+        default:
+            let errorMsg = """
+            "[\(location)]: Call failed with HTTP status \(status.code).\
+            The description is \(status.description)
+            """
+            throw SotravelError.NetworkError(errorMsg, nil)
         }
     }
 
