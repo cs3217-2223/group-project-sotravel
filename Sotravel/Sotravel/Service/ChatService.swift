@@ -67,7 +67,8 @@ class ChatService: ObservableObject {
             self.chatHeaderVM = chatHeaderVM
 
             let chatMessageVMs = chat.messages.map { self.convertChatMessageToChatMessageVM(chatMessage: $0,
-                                                                                            userId: userId) }
+                                                                                            userId: userId)
+            }
             self.chatMessageVMs = chatMessageVMs
 
             self.chatRepository.setListenerForChatMessages(for: id, completion: { chatMessage in
