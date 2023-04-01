@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TripRepositoryNode {
+class TripRepositoryNode: TripRepository {
     private static var api = NodeApi()
 
     func getTrips(userId: UUID) async throws -> [Trip] {
