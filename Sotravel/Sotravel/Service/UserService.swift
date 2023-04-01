@@ -5,7 +5,7 @@
 //  Created by Weiqiang Zhang on 17/3/23.
 //
 
-import Foundation
+import SwiftUI
 import Resolver
 import Combine
 
@@ -15,6 +15,8 @@ class UserService: ObservableObject {
     @Published var profileHeaderVM: ProfileHeaderViewModel
     @Published var socialMediaLinksVM: SocialMediaLinksViewModel
     @Published var editProfileViewModel: EditProfileViewModel
+
+    @AppStorage("LoggedIn") var isLoggedIn = false
 
     @Injected private var userRepository: UserRepository
 

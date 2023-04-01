@@ -1,8 +1,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var userService = UserService()
     var body: some View {
-        LoginView()
+        if userService.isLoggedIn {
+            TripsPageView()
+        } else {
+            LoginView()
+        }
     }
 }
 

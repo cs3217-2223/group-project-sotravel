@@ -109,6 +109,7 @@ struct LoginView: View {
                     userService.storeUserId(id: id)
                     userService.fetchUser(id: id) { success in
                         if success {
+                            userService.isLoggedIn = true
                             // TODO: Move this into some separate token storage class
                             NodeApi.storeAuthToken(token: token)
                             tripService.loadUserTrips(userId: id)
