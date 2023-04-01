@@ -64,7 +64,7 @@ struct CreateInvitePageView: View {
                     .pickerStyle(SegmentedPickerStyle())
 
                     if selectedAttendeesOption == 0 {
-                        Text("This invite will be send to all your friends in the same city.").font(.uiBody)
+                        Text("This invite will be send to all your friends on this trip.").font(.uiBody)
                     } else {
                         ForEach(createInvitePageUserViewModel.friends, id: \.id) { friend in
                             Toggle(isOn: Binding(
