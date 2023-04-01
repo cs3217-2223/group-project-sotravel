@@ -16,7 +16,7 @@ struct ChatPageCellView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .center) {
-                Text(getTitle(eventId: chatPageCellVM.eventId))
+                Text(getTitle(eventId: chatPageCellVM.id))
                     .font(.uiHeadline)
                     .foregroundColor(.primary)
                     .clipped()

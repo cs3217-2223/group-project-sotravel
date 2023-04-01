@@ -8,20 +8,16 @@
 import Foundation
 
 class ChatPageCellViewModel: ObservableObject, Identifiable {
-    @Published var chatTitle: String? // remove
     @Published var lastMessageText: String?
     @Published var lastMessageSender: String? // id, keep as string
     @Published var lastMessageTimestamp: String?
-    @Published var eventId: Int?
-    var id: UUID // to remove eventually
+    @Published var id: Int?
 
-    init(chatTitle: String = "", lastMessageText: String? = nil, lastMessageSender: String? = nil,
-         lastMessageDate: Date? = nil, id: UUID = UUID(), eventId: Int? = nil) {
-        self.chatTitle = chatTitle
+    init(lastMessageText: String? = nil, lastMessageSender: String? = nil,
+         lastMessageDate: Date? = nil, id: Int? = nil) {
         self.lastMessageText = lastMessageText
         self.lastMessageSender = lastMessageSender
         self.id = id
-        self.eventId = eventId
 
         guard let timeStamp = lastMessageDate else {
             self.lastMessageTimestamp = ""
@@ -34,10 +30,9 @@ class ChatPageCellViewModel: ObservableObject, Identifiable {
     }
 
     func update(with newVM: ChatPageCellViewModel) {
-        self.chatTitle = newVM.chatTitle
         self.lastMessageText = newVM.lastMessageText
         self.lastMessageSender = newVM.lastMessageSender
         self.lastMessageTimestamp = newVM.lastMessageTimestamp
-        self.eventId = newVM.eventId
+        self.id = newVM.id
     }
 }

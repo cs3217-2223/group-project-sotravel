@@ -12,8 +12,8 @@ class ChatsStore: ObservableObject {
     init(chats: [Chat]) {
         self.chats = chats
     }
-
-    func findChats(for user: User) -> [Chat] {
-        chats.filter { $0.isUserInChat(user: user) }
-    }
+    //
+    //    func findChats(for user: User) -> [Chat] {
+    //        chats.filter { $0.isUserInChat(user: user) }
+    //    }
 }
