@@ -30,7 +30,8 @@ class TripService: ObservableObject {
     }
 
     func getTrips() -> [Trip] {
-        Array(tripCache.values).sorted(by: { $0.startDate < $1.startDate })
+        var res = Array(tripCache.values).sorted(by: { $0.startDate < $1.startDate })
+        return res
     }
 
     func resetTapIndex() {
@@ -42,10 +43,11 @@ class TripService: ObservableObject {
             do {
                 let trips = try await tripRepository.getTrips(userId: userId)
                 DispatchQueue.main.async {
+                    print(trips)
                     self.initCache(from: trips)
                 }
             } catch {
-                print("Error loading user events:", error)
+                print("Error loading user trips:", error)
             }
         }
     }
@@ -80,7 +82,7 @@ class TripService: ObservableObject {
 
     private func initCache(from trips: [Trip]) {
         for trip in trips {
-            tripCache[trip.id] = trip
+            self.tripCache[trip.id] = trip
         }
     }
 }

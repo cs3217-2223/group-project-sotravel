@@ -39,7 +39,7 @@ struct TripApiModel: Codable {
     let createdat, updatedat: String
     let hidden: Bool
     let itineraryNotionDatabaseID: String
-    let socialsTiktok, socialsInstagram, socialsTelegram, socialsWhatsapp: JSONNull?
+    let socialsTiktok, socialsInstagram, socialsTelegram, socialsWhatsapp: String?
     let firstName, cfoDesc: String
 
     enum CodingKeys: String, CodingKey {
