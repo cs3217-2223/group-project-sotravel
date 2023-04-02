@@ -14,11 +14,11 @@ class TripRepositoryNode: TripRepository {
         let params = ["user_id": userId.uuidString]
         let (status, response) = try await TripRepositoryNode.api.get(path: .userTrips,
                                                                       params: params)
-        let functionName = "Get User"
+        let functionName = "Get Trip"
 
         try ApiErrorHelper.handleError(location: functionName, status: status)
         let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
-
+        print(data.utf8)
         do {
             let responseModel = try JSONDecoder().decode(GetAllTripsApiModel.self, from: Data(data.utf8))
             let pastTrips = responseModel.pastTrips.map { Trip(from: $0) }
@@ -26,7 +26,7 @@ class TripRepositoryNode: TripRepository {
 
             return pastTrips + upcomingTrips
         } catch is DecodingError {
-            throw SotravelError.message("Unable to parse Get User response")
+            throw SotravelError.message("Unable to parse Get Trip response")
         } catch {
             throw error
         }

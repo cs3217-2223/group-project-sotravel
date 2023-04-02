@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var userService: UserService
-    
+
     // MARK: Uncomment to reset login status
     init() {
         UserDefaults.standard.resetLogin()

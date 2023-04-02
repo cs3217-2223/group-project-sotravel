@@ -12,4 +12,3 @@ extension UserDefaults {
         removeObject(forKey: "LoggedIn")
     }
 }
-
