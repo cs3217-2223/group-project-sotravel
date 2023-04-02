@@ -77,7 +77,9 @@ struct TripPageView: View {
             }
         } else if selectedTab == 4 {
             if let tripId = tripService.getCurrTripId() {
-                userService.reloadUser()
+                userService.reloadUser { _ in
+                    // empty
+                }
                 friendService.reloadFriends(tripId: tripId) { _ in
                     // empty
                 }

@@ -86,13 +86,17 @@ class UserService: ObservableObject {
         }
     }
 
-    func reloadUser() {
+    func reloadUser(completion: @escaping (Bool) -> Void) {
         guard let userId = getStoredUserId() else {
             return
         }
 
-        fetchUser(id: userId) { _ in
-            // empty
+        fetchUser(id: userId) { success in
+            if success {
+                completion(true)
+            } else {
+                completion(false)
+            }
         }
     }
 

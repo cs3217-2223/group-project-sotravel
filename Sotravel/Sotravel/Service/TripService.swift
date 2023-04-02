@@ -14,6 +14,8 @@ class TripService: ObservableObject {
     private var selectedTrip: Trip?
     private var tripCache: [Int: Trip]
 
+    var count = 0
+
     @Injected private var tripRepository: TripRepository
 
     init() {
@@ -38,16 +40,17 @@ class TripService: ObservableObject {
         selectedTapInCurrTrip = 0
     }
 
-    func loadUserTrips(userId: UUID) {
+    func loadUserTrips(userId: UUID, completion: @escaping (Bool) -> Void) {
         Task {
             do {
                 let trips = try await tripRepository.getTrips(userId: userId)
                 DispatchQueue.main.async {
-                    print(trips)
                     self.initCache(from: trips)
+                    completion(true)
                 }
             } catch {
                 print("Error loading user trips:", error)
+                completion(false)
             }
         }
     }

@@ -19,7 +19,6 @@ class TripRepositoryNode: TripRepository {
         try ApiErrorHelper.handleError(location: functionName, status: status)
         let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
 
-        print(data)
         do {
             let responseModel = try JSONDecoder().decode(GetAllTripsApiModel.self, from: Data(data.utf8))
             let pastTrips = responseModel.pastTrips.map { Trip(from: $0) }
