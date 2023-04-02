@@ -82,6 +82,7 @@
 		AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */; };
 		AC6305A629BDC60300EEEA85 /* RecentActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */; };
 		AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */; };
+		AC7AE7F029D975100094B9EF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7AE7EF29D975100094B9EF /* UserDefaults.swift */; };
 		AC832C9729D1F97200B3D52D /* MockFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC832C9629D1F97200B3D52D /* MockFriends.swift */; };
 		AC8AE12A29D59AA3000F78BC /* TripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8AE12929D59AA3000F78BC /* TripService.swift */; };
 		AC8AE12E29D5E40F000F78BC /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8AE12D29D5E40F000F78BC /* FriendService.swift */; };
@@ -239,6 +240,7 @@
 		AC6305A329BDC51500EEEA85 /* SocialMediaLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksView.swift; sourceTree = "<group>"; };
 		AC6305A529BDC60300EEEA85 /* RecentActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentActivityView.swift; sourceTree = "<group>"; };
 		AC75222829BCBF8100E7C6E7 /* ProfileFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsView.swift; sourceTree = "<group>"; };
+		AC7AE7EF29D975100094B9EF /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		AC832C9629D1F97200B3D52D /* MockFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFriends.swift; sourceTree = "<group>"; };
 		AC8AE12929D59AA3000F78BC /* TripService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripService.swift; sourceTree = "<group>"; };
 		AC8AE12D29D5E40F000F78BC /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 				18A1AC5929BB12CB0064CF37 /* DateFormatter.swift */,
 				B4939BA829D481E200B736F2 /* URL+QueryParameters.swift */,
 				D7400E4F29D8143000B5E74D /* Array+BinarySearch.swift */,
+				AC7AE7EF29D975100094B9EF /* UserDefaults.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -900,6 +903,7 @@
 				B4E9460E29C5A6BB001B65EE /* HTTPClientRequest+NodeAuth.swift in Sources */,
 				ACA4016329C765DC0076E183 /* ProfileHeaderViewModel.swift in Sources */,
 				1893D29329BF295400B61BC9 /* ChatMessage.swift in Sources */,
+				AC7AE7F029D975100094B9EF /* UserDefaults.swift in Sources */,
 				188EBDB529C1B08B002735F0 /* URLImageView.swift in Sources */,
 				B4671ED529D2077F00266871 /* TripRepositoryNode.swift in Sources */,
 				1817D0F829D538D000D8D9F0 /* Toast.swift in Sources */,
