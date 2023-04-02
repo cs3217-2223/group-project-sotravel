@@ -65,7 +65,7 @@ messages, share photos, and even plan meetups.
 #### 3.4.1. Map and Street View
 
 One of the most exciting features of Sotravel is the map view. You can toggle
-between map view and street view to get a better sense of your surroundings
+between satelitte view and street view to get a better sense of your surroundings
 during your trip.
 
 #### 3.4.2. Viewing Friends' Locations
@@ -78,7 +78,7 @@ displayed on the map, making it easy to stay connected and plan meetups.
 
 If you run into any issues while using Sotravel, don't worry – we're here to
 help! Just shoot us an email at
-[support@sotravel.com](mailto:support@sotravel.com), and our friendly support
+[larry@sotravel.me](mailto:larry@sotravel.me), and our friendly support
 team will assist you.
 
 ## 5. Conclusion
