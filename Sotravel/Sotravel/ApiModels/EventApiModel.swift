@@ -11,8 +11,8 @@ struct EventApiModel: Codable {
     let id: Int
     let tripId: Int
     let createdAt: String
-    let status: String?
-    let details, date, time, location: String
+    let status, details: String?
+    let date, time, location: String
     let meetingPoint, host, activity: String
     let participants: Participants
 

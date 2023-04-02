@@ -18,12 +18,11 @@ class TripRepositoryNode: TripRepository {
 
         try ApiErrorHelper.handleError(location: functionName, status: status)
         let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
-        print(data.utf8)
+
         do {
             let responseModel = try JSONDecoder().decode(GetAllTripsApiModel.self, from: Data(data.utf8))
             let pastTrips = responseModel.pastTrips.map { Trip(from: $0) }
             let upcomingTrips = responseModel.upcomingTrips.map { Trip(from: $0) }
-
             return pastTrips + upcomingTrips
         } catch is DecodingError {
             throw SotravelError.message("Unable to parse Get Trip response")

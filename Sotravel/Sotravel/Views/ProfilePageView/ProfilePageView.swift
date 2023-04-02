@@ -35,7 +35,7 @@ struct ProfilePageView: View {
                                 self.reloadMenu()
                             }) {
                                 Menu {
-                                    ForEach(tripService.getTrips(), id: \.id) { trip in
+                                    ForEach(tripService.trips, id: \.id) { trip in
                                         Button(action: {
                                             self.loadUserData(for: trip)
                                         }) {
@@ -76,28 +76,39 @@ struct ProfilePageView: View {
         tripService.reloadUserTrips(userId: userId)
     }
 
-    private func changeTrip() {
+    private func changeTrip(completion: @escaping (Bool) -> Void) {
         userService.changeTrip()
-        userService.reloadUser()
         eventService.clear()
         tripService.clear()
         chatService.clear()
         friendService.clear()
+
+        userService.reloadUser { success in
+            if success {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
     }
 
     private func loadUserData(for trip: Trip) {
-        changeTrip()
+        changeTrip { success in
+            if success {
+                friendService.fetchAllFriends(tripId: trip.id)
 
-        friendService.fetchAllFriends(tripId: trip.id)
-
-        guard let userId = userService.getUserId() else {
-            print("Error: User is nil")
-            return
+                guard let userId = userService.getUserId() else {
+                    print("Error: User is nil")
+                    return
+                }
+                tripService.reloadUserTrips(userId: userId)
+                tripService.selectTrip(trip)
+                eventService.loadUserEvents(forTrip: trip.id, userId: userId)
+                chatService.setUserId(userId: userId)
+            } else {
+                print("failed to call changeTrip")
+            }
         }
-        tripService.reloadUserTrips(userId: userId)
-        tripService.selectTrip(trip)
-        eventService.loadUserEvents(forTrip: trip.id, userId: userId)
-        chatService.setUserId(userId: userId)
     }
 }
 

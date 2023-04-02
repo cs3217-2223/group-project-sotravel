@@ -18,19 +18,19 @@ struct NodeApiUser: Codable {
     let backupID, teleUsername, teleID: String?
     let socialsTiktok, socialsInstagram: String?
     let socialsTelegram: String?
-    let socialsWhatsapp: JSONNull?
+    let socialsWhatsapp: String?
     let firstName, lastName, country, city: String?
     let gender: String?
-    let phoneNumber: JSONNull?
+    let phoneNumber: String?
     let email: String?
     let image: String?
     let birthday: String?
-    let cfoDesc: JSONNull?
+    let cfoDesc: String?
     let groupBookingID: String?
     let credits: Int?
     let interests: [String]?
     let description, createdat, updatedat: String?
-    let currentlyOnTrip: JSONNull?
+    let currentlyOnTrip: String?
     let coordinator: Bool?
     let socialsLinkedin: String?
 

@@ -36,12 +36,13 @@ struct ChatView: View {
                             ChatMessageView(chatMessageVM: chatMessageVM)
                                 .font(.body)
                         }
-                    }.onAppear {
-                        if chatService.chatMessageVMs.isEmpty {
-                            scrollViewProxy.scrollTo(chatService.chatMessageVMs.last?.id, anchor: .bottom)
-                        }
+                        Spacer().id("-1")
+                    }.onChange(of: chatService.chatMessageVMs.count) { _ in
+                        scrollViewProxy.scrollTo("-1")
                     }
                 }
+            }.onTapGesture {
+                dismissKeyboard()
             }
 
             HStack {
@@ -68,13 +69,18 @@ struct ChatView: View {
             .background(Color(.systemGray6)
                             .ignoresSafeArea())
             .cornerRadius(20)
-            .padding()
-            .padding(.bottom, keyboard.currentHeight)
+            .padding(.horizontal)
+            .padding(.bottom, 10)
             .edgesIgnoringSafeArea(keyboard.currentHeight == 0.0 ? .leading : .bottom)
         }
     }
 
-    func sendMessage() {
+    // Helper function to dismiss the keyboard
+    private func dismissKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+
+    private func sendMessage() {
         isSending = true
         let success = chatService.sendChatMessage(messageText: messageText)
         if !success {
@@ -86,8 +92,11 @@ struct ChatView: View {
     }
 }
 
-// struct ChatView_Previews: PreviewProvider {
+//struct ChatView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        ChatView(chat: mockChatNoEvent).environmentObject(UserService())
+//        ChatView()
+//            .environmentObject(UserService())
+//            .environmentObject(ChatService())
+//            .environmentObject(EventService())
 //    }
-// }
+//}
