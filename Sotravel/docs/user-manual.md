@@ -3,7 +3,7 @@
 ## 1. Introduction
 
 Hey there, welcome to Sotravel! This app is all about making your travel
-experiences more fun and social. Sotravel allows you to easily view and manage
+experiences more fun and social whil you are on a trip with us. The Sotravel app allows you to easily view and manage
 trips you're participating in, join events, and stay connected with your
 friends. One of the coolest features is the map view, where you can see your
 friends' locations during your trip. This user manual will walk you through all
