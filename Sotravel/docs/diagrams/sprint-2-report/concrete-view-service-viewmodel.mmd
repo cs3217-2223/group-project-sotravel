@@ -1,0 +1,41 @@
+classDiagram
+    direction RL
+    
+    View --> ProfileHeaderVM: Observes
+    View --> UserService
+    UserService ..> User
+    UserRepository --> User
+    UserService --> ProfileHeaderVM: Publishes
+    UserService --> UserRepository: Has injected reference to
+
+    
+    class View { }
+    class ProfileHeaderVM {
+        - name
+        - description
+        - imageURL
+        updateFrom(user: User)
+    }
+    class User {
+        - id
+        - firstName
+        - lastName
+        - desc
+        - imageURL
+        - instagramUsername
+        - tiktokUsername
+        - telegramUsername
+        - email
+        - friends
+        - name
+    }
+    class UserService {
+        FetchUser(id)
+        UpdateUser()
+        ReloadUser()
+    }
+    class UserRepository {
+        <<interface>>
+        get(): User
+        update(user: User)
+    }

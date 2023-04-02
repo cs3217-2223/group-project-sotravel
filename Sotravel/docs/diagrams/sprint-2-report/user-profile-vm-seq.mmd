@@ -1,0 +1,18 @@
+sequenceDiagram
+    ProfileView-->>ProfileHeaderViewModel: Attach observer
+    ProfileView-->>+UserService: fetchUserById()
+    UserService->>+UserRepository: get(id)
+    UserRepository->>+API: get("/user/getUser", "user_id={id}")
+    API->>+HTTPClient: Perform HTTP GET to server
+    HTTPClient-->>-API: 
+    API-->>-UserRepository: Return server response as JSON string
+    UserRepository-->>+User Model: Construct from JSON
+    User Model-->>-UserRepository: User Object
+    UserRepository-->>-UserService: Return User Model
+    UserService-->>-ProfileHeaderViewModel: updateFrom(user)
+    activate ProfileHeaderViewModel
+    ProfileHeaderViewModel-->>ProfileHeaderViewModel: Update self values
+    ProfileHeaderViewModel-->>ProfileHeaderViewModel: Notify observers
+    ProfileHeaderViewModel-->>ProfileView: Update observer
+    ProfileView-->>ProfileView: Update view values
+    deactivate ProfileHeaderViewModel

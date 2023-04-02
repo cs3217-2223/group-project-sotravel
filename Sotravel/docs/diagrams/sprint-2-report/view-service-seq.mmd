@@ -1,0 +1,6 @@
+sequenceDiagram
+    View-->>+Service:Request for data for a specific view
+    Service->>+Repository: Request for model
+    Repository-->>-Service: Return model
+    Service-->>+Service: Transform Model to ViewModel
+    Service-->>-View: Return ViewModel

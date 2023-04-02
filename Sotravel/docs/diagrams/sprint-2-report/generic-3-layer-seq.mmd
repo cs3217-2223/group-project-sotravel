@@ -1,0 +1,9 @@
+sequenceDiagram
+    View->>+ViewModel: Bind observer
+    View->>+Service: Request view-specific data
+    Service->>+Repository: Request data from storage
+    Repository-->>-Service: Return data
+    Service-->>-ViewModel: Update ViewModel from Model
+    ViewModel-->>ViewModel: Update observers
+    ViewModel-->>View: Update observer
+    View-->>View: Update View values
