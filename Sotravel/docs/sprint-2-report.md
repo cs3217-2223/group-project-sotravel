@@ -127,6 +127,11 @@ updated information.
 A concrete example of how this works for the `User` model can be seen below:
 ![Concrete User](./diagrams/sprint-2-report/concrete-view-service-viewmodel.svg)
 
+Another concrete example can be seen with the Chat views:
+![Concrete Chat](./diagrams/sprint-2-report/chat-concrete-view-service-viewmodel.svg)
+
+Notice how both the service and the repository act as [Mediators](https://refactoring.guru/design-patterns/mediator) to the viewmodel and the model respectively. The view collaborates with the viewmodel via the service, and the service collaborates with the model (to get the viewmodel) via the repository.
+
 ### Error handling
 
 The app defines a custom `SotravelError` class which is thrown at all layers. If
