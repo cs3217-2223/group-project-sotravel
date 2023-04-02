@@ -3,6 +3,7 @@ import SwiftUI
 struct CreateInvitePageView: View {
     @EnvironmentObject private var eventService: EventService
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var tripService: TripService
     @ObservedObject var createInvitePageUserViewModel: CreateInvitePageUserViewModel
     @State private var title: String = ""
     @State private var date = Date()
@@ -134,12 +135,17 @@ struct CreateInvitePageView: View {
             return
         }
 
+        guard let tripId = tripService.getCurrTripId() else {
+            showAlert(message: "TripId not found")
+            return
+        }
+
         let selected = selectedAttendeesOption == 0
             ? createInvitePageUserViewModel.friends.map { $0.id }
             : self.selectedAttendees
 
         let event = Event(
-            tripId: 1,
+            tripId: tripId,
             title: title,
             details: description.isEmpty ? nil : description,
             status: nil,
@@ -186,8 +192,10 @@ struct CreateInvitePageView: View {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-            windowScene.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                windowScene.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
         }
     }
 }

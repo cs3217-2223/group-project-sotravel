@@ -25,7 +25,7 @@ class UserRepositoryNode: UserRepository {
 
             return try User(apiUser: responseModel)
         } catch is DecodingError {
-            throw SotravelError.message("Unable to parse Get User response")
+            throw SotravelError.message("Unable to parse Get User response for id \(id)")
         } catch {
             throw error
         }
