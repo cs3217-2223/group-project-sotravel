@@ -47,8 +47,7 @@ communicate with each other.
 
 ### In-app instant messaging
 
--   Provides an easy means of communication between group members or from user
-    to user
+-   Provides an easy means of communication between group members
 -   Helps to ensure a degree of privacy as users do not need to share more
     personal information like Telegram handle or phone number
 
@@ -63,7 +62,7 @@ frontend. For ease of understanding, the backend specifically refers to the part
 of the codebase that does not directly deal with the views. This can be thought
 of as the components that do not directly deal with the views. The frontend is
 the set of components that do deal with the views (and presentation more
-broadly)
+broadly).
 
 ## Backend
 
@@ -91,7 +90,7 @@ The 3 layers put together show how data is called from each layer
 
 ![Detailed 3 layer](./diagrams/sprint-2-report/full-generic-3-layer-seq.svg)
 
-This generic pattern was adopted across each of the key models of `Trip`, `User`
+This generic pattern was adopted across each of the key models of `Trip`, `User`,
 `Event` and `Chat`. Thus, each model has it's own Service and Repository as
 well. We will see a concrete implementation for how this works in the case of
 the Get User Profile flow:
@@ -110,6 +109,12 @@ wrappers. This allows for the following benefits:
 -   Testability is greatly increased as dependencies can easily be replaced with
     stubs/mocks. We already use such stubs/mocks of repositories such as the
     `UserRepository` to provide mock data during testing.
+
+We present another concrete implementation for how this works in the case of the Get Chat Page Cell flow:
+
+![Chat Page Cell Gathering Flow](./diagrams/sprint-2-report/chat-page-cell-vm-seq.svg)
+
+Here, we see how the repository acts as an [Adapter](https://refactoring.guru/design-patterns/adapter) in its conversion from the API model in the database to the model used in the application. Thus, the repository helps the application and the database collaborate with each other. The repository also acts as a [Facade](https://refactoring.guru/design-patterns/facade) to the database by only exposing a few of the API methods required, as well as a [Proxy](https://refactoring.guru/design-patterns/proxy) through the repository interface.
 
 ### Frontend
 
