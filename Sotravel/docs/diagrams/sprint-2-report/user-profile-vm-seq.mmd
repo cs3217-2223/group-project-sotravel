@@ -14,5 +14,6 @@ sequenceDiagram
     ProfileHeaderViewModel-->>ProfileHeaderViewModel: Update self values
     ProfileHeaderViewModel-->>ProfileHeaderViewModel: Notify observers
     ProfileHeaderViewModel-->>ProfileView: Update observer
-    ProfileView-->>ProfileView: Update view values
     deactivate ProfileHeaderViewModel
+    ProfileView-->>ProfileView: Update view values
+    
