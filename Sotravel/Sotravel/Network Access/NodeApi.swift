@@ -30,7 +30,7 @@ class NodeApi: RestApi {
         // Friends
         .friends: "/trip/getUsersOnTrips",
         // Trips
-        .userTrips: "/trip/getUserTrips",
+        .userTrips: "/trip/getUserTripsForIOS",
         // Events/Invites
         .userInvites: "/invites/getUserInvitesForTrip",
         .inviteById: "/invites/getInviteById",

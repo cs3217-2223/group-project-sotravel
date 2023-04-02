@@ -27,6 +27,6 @@ struct Trip: Identifiable {
         self.endDate = dateFormatter.date(from: apiModel.endDate) ?? Date()
         self.location = apiModel.location
         // TODO: Remove force cast
-        self.imageURL = URL(string: apiModel.mainImages[0])!
+        self.imageURL = URL(string: apiModel.imageURL)!
     }
 }
