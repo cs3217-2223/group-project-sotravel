@@ -1,5 +1,7 @@
 classDiagram
     direction RL
+    ChatView --> ChatHeaderView: Contains
+    ChatView --> ChatMessageView: Contains
     ChatView --> ChatHeaderVM: Observes
     ChatView --> ChatMessageVM: Observes
     ChatView --> ChatService
@@ -10,6 +12,8 @@ classDiagram
     ChatService --> ChatRepository: Has injected reference to
     
     class ChatView { }
+    class ChatHeaderView { }
+    class ChatMessageView { }
     class ChatHeaderVM {
         - eventId
     }
