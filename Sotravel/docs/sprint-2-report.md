@@ -217,17 +217,12 @@ triggers when errors are bubbled to the view layer.
 ### What's next
 
 -   More bugfixing
-
-## Lessons
-
--   More inter-team communication is needed. We ended up working in 2 groups
-    (unintentionally) and hope to meet more frequently so everyone's on the same
-    page on a regular basis
+-   End to end testing
 
 ## Known Bugs and Limitations
 
--   The app is not complete, so almost nothing "works" yet as most things are
-    not wired up.
+-   There are some bugs in interacting with the backend api that occasionally
+    pop up. We are doing tests to resolve these issues.
 
 # Tests
 
