@@ -1,0 +1,28 @@
+classDiagram
+    direction RL
+    FirebaseMapRepository ..|> MapRepository
+    MapPageView --> LocationManagerService
+    MapPageView --> MapStorageService
+    MapStorageService --> MapRepository
+
+    class MapPageView { }
+
+    class LocationManagerService {
+        - locationUpdateHandler: location -> void
+        startUpdatingLocation()
+        stopUpdatingLocation()
+        configureLocationManagerForBackgroundUpdates()
+    }
+    class MapStorageService {
+        startUserLocationUpdate(LocationManager)
+        stopUserLocationUpdate(LocationManager)
+        fetchFriendsLocations()
+    }
+    class MapRepository {
+        <<interface>>
+        listenForFriendsLocations(completion: delegate)
+        updateCurrentUserLocation(location, userId)
+        removeCurrentUserLocation(userId)
+    }
+
+    class FirebaseMapRepository { }

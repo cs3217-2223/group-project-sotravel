@@ -1,0 +1,29 @@
+sequenceDiagram
+    ChatPageCellView-->>ChatPageCellViewModel: Attach observer
+    ChatPageCellView-->>+ChatService: fetchChatPageCell(id)
+    ChatService->>+ChatRepository: getBasicInfo(id, completion)
+    ChatRepository->>+API: getData(chatPath)
+    API->>+Database: Perform fetching of data at path
+    Database-->>-API: 
+    API-->>-ChatRepository: Return database response as JSON string
+    ChatRepository-->>+ChatBasicInfoApiModel: Construct from JSON
+    ChatBasicInfoApiModel-->>-ChatRepository: Chat Basic Info API Model Object
+    ChatRepository->>+API: getData(messagePath)
+    API->>+Database: Perform fetching of data at path
+    Database-->>-API: 
+    API-->>-ChatRepository: Return database response as JSON string
+    ChatRepository-->>+ChatMessageApiModel: Construct from JSON
+    ChatMessageApiModel-->>-ChatRepository: Chat Message API Model Object
+    ChatRepository->>+API: observeData(chatPath)
+    API->>+Database: Attach observer
+    activate ChatRepository
+    ChatRepository-->>ChatRepository: Convert API Models to Chat Model
+    deactivate ChatRepository
+    ChatRepository-->>-ChatService: Return Chat Model
+    ChatService-->>-ChatPageCellViewModel: Construct/Update from Chat Object
+    activate ChatPageCellViewModel
+    ChatPageCellViewModel-->>ChatPageCellViewModel: Construct/Update self values
+    ChatPageCellViewModel-->>ChatPageCellViewModel: Notify observers
+    ChatPageCellViewModel-->>ChatPageCellView: Update observer
+    deactivate ChatPageCellViewModel
+    ChatPageCellView-->>ChatPageCellView: Update view values

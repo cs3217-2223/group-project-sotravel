@@ -1,0 +1,42 @@
+classDiagram
+    direction RL
+    ChatView --> ChatHeaderView: Contains
+    ChatView --> ChatMessageView: Contains
+    ChatView --> ChatHeaderVM: Observes
+    ChatView --> ChatMessageVM: Observes
+    ChatView --> ChatService
+    ChatService ..> Chat
+    ChatRepository --> Chat
+    ChatService --> ChatHeaderVM: Publishes
+    ChatService --> ChatMessageVM: Publishes
+    ChatService --> ChatRepository: Has injected reference to
+    
+    class ChatView { }
+    class ChatHeaderView { }
+    class ChatMessageView { }
+    class ChatHeaderVM {
+        - eventId
+    }
+    class ChatMessageVM {
+        - messageText
+        - messageTimestamp
+        - senderId
+        - isSentByMe
+    }
+    class Chat {
+        - id
+        - messages
+    }
+    class ChatService {
+        - shouldShowTimestampAboveMessage(message: ChatMessageViewModel): Bool
+        - func fetchChat(id: Int)
+        - func dismissChat()
+        - func sendChatMessage(messageText: String): Bool
+    }
+    class ChatRepository {
+        <<interface>>
+        - getChat(id, completion)
+        - setListenerForChatMessages(id)
+        - removeListenerForChatMessages(id)
+        - sendChatMessage(chatMessage, chatId)
+    }
