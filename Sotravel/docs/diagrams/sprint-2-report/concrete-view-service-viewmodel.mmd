@@ -1,15 +1,15 @@
 classDiagram
     direction RL
     
-    View --> ProfileHeaderVM: Observes
-    View --> UserService
+    ProfileHeaderView --> ProfileHeaderVM: Observes
+    ProfileHeaderView --> UserService
     UserService ..> User
     UserRepository --> User
     UserService --> ProfileHeaderVM: Publishes
     UserService --> UserRepository: Has injected reference to
 
     
-    class View { }
+    class ProfileHeaderView { }
     class ProfileHeaderVM {
         - name
         - description
