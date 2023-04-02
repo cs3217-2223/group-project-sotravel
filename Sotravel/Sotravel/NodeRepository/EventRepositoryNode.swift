@@ -69,7 +69,7 @@ class EventRepositoryNode: EventRepository {
 
     func cancelEvent(id: Int) async throws {
         let body = [
-            "id": String(id)
+            "invite_id": String(id)
         ]
         let (status, _) = try await EventRepositoryNode.api.post(path: .cancelInvite, data: body)
         let functionName = "Cancel event"

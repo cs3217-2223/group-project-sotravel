@@ -92,11 +92,11 @@ struct ChatView: View {
     }
 }
 
-//struct ChatView_Previews: PreviewProvider {
+// struct ChatView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        ChatView()
 //            .environmentObject(UserService())
 //            .environmentObject(ChatService())
 //            .environmentObject(EventService())
 //    }
-//}
+// }

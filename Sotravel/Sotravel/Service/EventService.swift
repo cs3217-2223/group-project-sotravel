@@ -44,7 +44,8 @@ class EventService: ObservableObject {
     func loadUserEvents(forTrip tripId: Int, userId: UUID) {
         Task {
             do {
-                let events = try await eventRepository.getUserEvents(userId: userId, tripId: tripId)
+                let allEvents = try await eventRepository.getUserEvents(userId: userId, tripId: tripId)
+                let events = allEvents.filter { $0.status != "cancelled" }
                 DispatchQueue.main.async {
                     self.initCache(from: events)
                     self.createEventViewModels(from: events)
@@ -59,7 +60,8 @@ class EventService: ObservableObject {
     func reloadUserEvents(forTrip tripId: Int, userId: UUID) {
         Task {
             do {
-                let events = try await eventRepository.getUserEvents(userId: userId, tripId: tripId)
+                let allEvents = try await eventRepository.getUserEvents(userId: userId, tripId: tripId)
+                let events = allEvents.filter { $0.status != "cancelled" }
                 DispatchQueue.main.async {
                     self.updateCacheAndViewModels(from: events)
                     self.objectWillChange.send()
