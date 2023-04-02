@@ -6,26 +6,12 @@ struct ProfileFriendsView: View {
     @EnvironmentObject private var tripService: TripService
     @ObservedObject var viewModel: ProfileFriendsViewModel
 
-    @State private var refreshing = false
-
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text("Friends")
                     .font(.uiTitle3)
                 Spacer()
-                if refreshing {
-                    ProgressView()
-                } else {
-                    Button(action: {
-                        refreshing = true
-                        self.refresh()
-                    }, label: {
-                        Text("Refresh")
-                            .padding()
-                            .cornerRadius(10)
-                    })
-                }
 
             }.padding(.bottom, 10)
             VStack(spacing: 0) {
@@ -59,18 +45,6 @@ struct ProfileFriendsView: View {
         .padding(.top, 6)
     }
 
-    private func refresh() {
-        guard let tripId = tripService.getCurrTripId() else {
-            return
-        }
-        friendService.reloadFriends(tripId: tripId) { success in
-            if success {
-                refreshing = false
-            } else {
-                refreshing = false
-            }
-        }
-    }
 }
 
 struct ProfileFriendsView_Previews: PreviewProvider {

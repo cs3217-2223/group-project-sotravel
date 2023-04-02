@@ -9,6 +9,7 @@ enum EventStatus {
 struct EventStatusButton: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var eventService: EventService
+    @EnvironmentObject private var chatService: ChatService
     @ObservedObject var eventViewModel: EventViewModel
     @Binding var eventStatus: EventStatus
     @State private var isMenuVisible = false
@@ -34,6 +35,8 @@ struct EventStatusButton: View {
                             eventService.rsvpToEvent(eventId: eventViewModel.id,
                                                      userId: userId,
                                                      status: EventRsvpStatus.yes)
+                            chatService.fetchChatPageCell(id: eventViewModel.id)
+
                         }, label: {
                             Label("Going", systemImage: "checkmark.circle.fill")
                         })
@@ -42,6 +45,7 @@ struct EventStatusButton: View {
                             eventService.rsvpToEvent(eventId: eventViewModel.id,
                                                      userId: userId,
                                                      status: EventRsvpStatus.no)
+                            chatService.removeChatPageCell(id: eventViewModel.id)
                         }, label: {
                             Label("Not Going", systemImage: "xmark.circle.fill")
                         })

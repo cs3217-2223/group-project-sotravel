@@ -1,16 +1,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        LoginView()
-    }
-}
+    @EnvironmentObject var userService: UserService
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .environmentObject(UserService())
-            .environmentObject(EventsStore(events: mockEvents))
-            .environmentObject(LocationSharingViewModel())
+    // MARK: Uncomment to reset login status
+    //    init() {
+    //        UserDefaults.standard.resetLogin()
+    //    }
+
+    var body: some View {
+        if userService.isLoggedIn {
+            TripsPageView()
+        } else {
+            LoginView()
+        }
     }
 }

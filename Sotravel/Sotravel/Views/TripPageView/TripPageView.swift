@@ -72,10 +72,16 @@ struct TripPageView: View {
                 eventService.reloadUserEvents(forTrip: tripId, userId: userId)
             }
         } else if selectedTab == 3 {
-            chatService.fetchChatPageCells(ids: eventService.getEventIds())
+            if let user = userService.getUser() {
+                // let eventIds = eventService.findAttendingEventsId(for: user)
+                let eventIds = [1, 3, 4, 5, 6, 7, 8]
+                chatService.fetchChatPageCells(ids: eventIds)
+            }
         } else if selectedTab == 4 {
             if let tripId = tripService.getCurrTripId() {
-                userService.reloadUser()
+                userService.reloadUser { _ in
+                    // empty
+                }
                 friendService.reloadFriends(tripId: tripId) { _ in
                     // empty
                 }

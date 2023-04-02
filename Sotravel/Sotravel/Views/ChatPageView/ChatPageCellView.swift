@@ -58,6 +58,12 @@ struct ChatPageCellView: View {
     }
 
     private func getSenderName(senderId: String) -> String {
+        // sender is the user
+        if let userId = chatService.userId, senderId == userId.uuidString {
+            return userService.getUser()?.name ?? "John Doe"
+        }
+
+        // sender is a friend
         guard let senderUUID = UUID(uuidString: senderId) else {
             return "John Doe"
         }
@@ -68,8 +74,10 @@ struct ChatPageCellView: View {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-            windowScene.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                windowScene.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
         }
     }
 }

@@ -40,8 +40,16 @@ class ChatService: ObservableObject {
     func fetchChatPageCell(id: Int) {
         chatRepository.getBasicInfo(for: id, completion: { basicChat in
             let chatPageCellVM = self.convertChatToChatPageCellVM(chat: basicChat)
-            // TODO: sort by timestamp, latest in front ... want to maintain sorted array
-            self.chatPageCellVMs.append(chatPageCellVM)
+            let index = self.chatPageCellVMs.insertionIndexOf(chatPageCellVM, isOrderedBefore: {
+                guard let date1 = $0.lastMessageDate else { // no date, place behind
+                    return false
+                }
+                guard let date2 = $1.lastMessageDate else { // other has no date, place in front
+                    return true
+                }
+                return date1 > date2 // place in front if the last message came later
+            })
+            self.chatPageCellVMs.insert(chatPageCellVM, at: index)
 
             if self.isChatPageCellListenerSet[id] ?? false {
                 return
@@ -53,10 +61,16 @@ class ChatService: ObservableObject {
                 }
                 let updatedVM = self.convertChatToChatPageCellVM(chat: updatedChat)
                 chatPageCellVMToUpdate.update(with: updatedVM)
+                // TODO: re-order the cell......
             })
 
             self.isChatPageCellListenerSet[id] = true
         })
+    }
+
+    func removeChatPageCell(id: Int) {
+        chatPageCellVMs.removeAll(where: { ($0.id ?? -1) == id })
+        chatRepository.removeListenerForChatBasicInfo(for: id)
     }
 
     func fetchChat(id: Int?) {
@@ -73,10 +87,17 @@ class ChatService: ObservableObject {
                                                                                             userId: userId)
             }
             self.chatMessageVMs = chatMessageVMs
+            // for performance reasons, we can fetch data from firebase
+            // sort it in an AMs array, then process 1 by 1 into the VMs array (see `fetchChatPageCell` above)
+            // but leaving it like this for now
+            self.chatMessageVMs.sort(by: { $0.messageTimestamp < $1.messageTimestamp })
 
             self.chatRepository.setListenerForChatMessages(for: id, completion: { chatMessage in
-                // TODO: sort by timestamp, latest behind ... want to maintain sorted array
+                if chatMessageVMs.contains(where: { $0.id == chatMessage.id }) {
+                    return
+                }
                 let chatMessageVM = self.convertChatMessageToChatMessageVM(chatMessage: chatMessage, userId: userId)
+                // should be appended in the order they enter the db, so it's fine
                 self.chatMessageVMs.append(chatMessageVM)
             })
         })
@@ -108,7 +129,7 @@ class ChatService: ObservableObject {
         }
 
         let previousMessage = chatMessageVMs[index - 1]
-        return message.messageTimestamp.timeIntervalSince(previousMessage.messageTimestamp) > 60
+        return message.messageTimestamp.timeIntervalSince(previousMessage.messageTimestamp) > 600 // 10 mins
     }
 
     func clear() {

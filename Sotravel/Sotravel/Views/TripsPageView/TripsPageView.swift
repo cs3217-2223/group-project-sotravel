@@ -8,41 +8,74 @@ struct TripsPageView: View {
     @EnvironmentObject var friendService: FriendService
 
     var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Text("My Trips")
-                        .font(.uiTitle1)
-                    Spacer()
-                }
-                LazyVStack(alignment: .leading, spacing: 16) {
-                    ForEach(Array(tripService.getTrips()), id: \.id) { trip in
-                        NavigationLink(destination: TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)) {
-                            TripCardView(trip: trip)
-                        }.foregroundColor(.primary)
-                        .simultaneousGesture(TapGesture().onEnded {
-                            // Call loadUserData when the TripCardView is tapped
-                            self.loadUserData(for: trip)
+        NavigationView {
+            ScrollView {
+                VStack {
+                    HStack {
+                        Text("My Trips")
+                            .font(.uiTitle1)
+                        Spacer()
+                        Button(action: {
+                            refreshTrip()
+                        }, label: {
+                            Image(systemName: "arrow.clockwise")
+                                .foregroundColor(.primary)
                         })
                     }
+                    LazyVStack(alignment: .leading, spacing: 16) {
+                        if tripService.trips.isEmpty {
+                            Text("No trips found. Tap the refresh button to try again.")
+                                .font(.uiBody)
+                                .foregroundColor(.secondary)
+                        } else {
+                            ForEach(tripService.trips, id: \.id) { trip in
+                                NavigationLink(destination: TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)) {
+                                    TripCardView(trip: trip)
+                                }.foregroundColor(.primary)
+                                .simultaneousGesture(TapGesture().onEnded {
+                                    // Call loadUserData when the TripCardView is tapped
+                                    self.loadUserData(for: trip)
+                                })
+                            }
+                        }
+                    }
                 }
+                .padding()
             }
-            .padding()
+            .navigationBarBackButtonHidden(true)
         }
-        .navigationBarBackButtonHidden(true)
     }
 
     private func loadUserData(for trip: Trip) {
-        friendService.fetchAllFriends(tripId: trip.id)
-        tripService.selectTrip(trip)
+        userService.reloadUser { success in
+            if success {
+                guard let userId = userService.getUserId() else {
+                    print("Fatal error, userId not found")
+                    return
+                }
 
-        guard let userId = userService.getUserId() else {
-            print("Error: User is nil")
-            return
+                friendService.fetchAllFriends(tripId: trip.id)
+                tripService.selectTrip(trip)
+
+                eventService.loadUserEvents(forTrip: trip.id, userId: userId)
+                chatService.setUserId(userId: userId)
+            } else {
+                print("failed to reload User")
+            }
+
         }
-        eventService.loadUserEvents(forTrip: trip.id, userId: userId)
-        chatService.setUserId(userId: userId)
-        chatService.fetchChatPageCells(ids: eventService.getEventIds())
+    }
+
+    private func refreshTrip() {
+        userService.reloadUser { success in
+            if success {
+                guard let userId = userService.getUserId() else {
+                    print("Fatal error, userId not found")
+                    return
+                }
+                tripService.reloadUserTrips(userId: userId)
+            }
+        }
     }
 }
 

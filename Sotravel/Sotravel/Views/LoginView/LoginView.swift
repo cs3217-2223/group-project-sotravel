@@ -106,13 +106,20 @@ struct LoginView: View {
                     guard let id = UUID(uuidString: idStr) else {
                         return
                     }
-
+                    userService.storeUserId(id: id)
                     userService.fetchUser(id: id) { success in
                         if success {
+                            userService.isLoggedIn = true
                             // TODO: Move this into some separate token storage class
                             NodeApi.storeAuthToken(token: token)
-                            tripService.loadUserTrips(userId: id)
-                            isNavigationActive = true
+                            tripService.loadUserTrips(userId: id) { success in
+                                if success {
+                                    isNavigationActive = true
+                                } else {
+                                    // Handle case where load trips fails
+                                }
+                            }
+
                         } else {
                             isLoading = false
                         }

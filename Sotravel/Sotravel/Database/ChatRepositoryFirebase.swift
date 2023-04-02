@@ -191,6 +191,11 @@ class ChatRepositoryFirebase: ChatRepository {
             }
         })
     }
+
+    func removeListenerForChatBasicInfo(for chatId: Int) {
+        let databasePath = databaseRef.child("chats/\(chatId)")
+        databasePath.removeAllObservers()
+    }
 }
 
 // MARK: CONVERTERS

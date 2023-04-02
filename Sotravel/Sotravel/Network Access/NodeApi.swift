@@ -16,7 +16,7 @@ class NodeApi: RestApi {
     typealias Path = NodeApiPath
     internal static let client = HTTPClient(eventLoopGroupProvider: .createNew)
     internal let baseScheme = "https"
-    internal let baseUrl = "qa-api.sotravel.me"
+    internal let baseUrl = "api.sotravel.me"
     internal let basePathPrefix = "/v1"
     private let default_timeout: Int64 = 60
     private static let authTokenKey: String = "nodeApiBearerToken"
@@ -30,7 +30,7 @@ class NodeApi: RestApi {
         // Friends
         .friends: "/trip/getUsersOnTrips",
         // Trips
-        .userTrips: "/trip/getUserTrips",
+        .userTrips: "/trip/getUserTripsForIOS",
         // Events/Invites
         .userInvites: "/invites/getUserInvitesForTrip",
         .inviteById: "/invites/getInviteById",
