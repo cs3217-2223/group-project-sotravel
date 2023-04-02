@@ -35,7 +35,7 @@ struct ProfilePageView: View {
                                 self.reloadMenu()
                             }) {
                                 Menu {
-                                    ForEach(tripService.getTrips(), id: \.id) { trip in
+                                    ForEach(tripService.trips, id: \.id) { trip in
                                         Button(action: {
                                             self.loadUserData(for: trip)
                                         }) {

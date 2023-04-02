@@ -11,6 +11,7 @@ import Resolver
 class TripService: ObservableObject {
 
     @Published var selectedTapInCurrTrip: Int = 0
+    @Published var trips: [Trip]
     private var selectedTrip: Trip?
     private var tripCache: [Int: Trip]
 
@@ -21,6 +22,7 @@ class TripService: ObservableObject {
     init() {
         self.selectedTrip = nil
         self.tripCache = [:]
+        self.trips = []
     }
 
     func getCurrTripId() -> Int? {
@@ -29,11 +31,6 @@ class TripService: ObservableObject {
 
     func getTripIds() -> [Int] {
         Array(tripCache.keys)
-    }
-
-    func getTrips() -> [Trip] {
-        var res = Array(tripCache.values).sorted(by: { $0.startDate < $1.startDate })
-        return res
     }
 
     func resetTapIndex() {
@@ -46,6 +43,7 @@ class TripService: ObservableObject {
                 let trips = try await tripRepository.getTrips(userId: userId)
                 DispatchQueue.main.async {
                     self.initCache(from: trips)
+                    self.trips = trips
                     completion(true)
                 }
             } catch {
@@ -61,6 +59,7 @@ class TripService: ObservableObject {
                 let trips = try await tripRepository.getTrips(userId: userId)
                 DispatchQueue.main.async {
                     self.updateCache(from: trips)
+                    self.trips = trips
                 }
             } catch {
                 print("Error loading user events:", error)

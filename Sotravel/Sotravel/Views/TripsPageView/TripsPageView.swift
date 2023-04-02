@@ -17,7 +17,7 @@ struct TripsPageView: View {
                         Spacer()
                     }
                     LazyVStack(alignment: .leading, spacing: 16) {
-                        ForEach(tripService.getTrips(), id: \.id) { trip in
+                        ForEach(tripService.trips, id: \.id) { trip in
                             NavigationLink(destination: TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)) {
                                 TripCardView(trip: trip)
                             }.foregroundColor(.primary)
