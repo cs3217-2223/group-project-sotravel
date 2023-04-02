@@ -15,16 +15,28 @@ struct TripsPageView: View {
                         Text("My Trips")
                             .font(.uiTitle1)
                         Spacer()
+                        Button(action: {
+                            refreshTrip()
+                        }, label: {
+                            Image(systemName: "arrow.clockwise")
+                                .foregroundColor(.primary)
+                        })
                     }
                     LazyVStack(alignment: .leading, spacing: 16) {
-                        ForEach(tripService.trips, id: \.id) { trip in
-                            NavigationLink(destination: TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)) {
-                                TripCardView(trip: trip)
-                            }.foregroundColor(.primary)
-                            .simultaneousGesture(TapGesture().onEnded {
-                                // Call loadUserData when the TripCardView is tapped
-                                self.loadUserData(for: trip)
-                            })
+                        if tripService.trips.isEmpty {
+                            Text("No trips found. Tap the refresh button to try again.")
+                                .font(.uiBody)
+                                .foregroundColor(.secondary)
+                        } else {
+                            ForEach(tripService.trips, id: \.id) { trip in
+                                NavigationLink(destination: TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)) {
+                                    TripCardView(trip: trip)
+                                }.foregroundColor(.primary)
+                                .simultaneousGesture(TapGesture().onEnded {
+                                    // Call loadUserData when the TripCardView is tapped
+                                    self.loadUserData(for: trip)
+                                })
+                            }
                         }
                     }
                 }
@@ -51,6 +63,18 @@ struct TripsPageView: View {
                 print("failed to reload User")
             }
 
+        }
+    }
+
+    private func refreshTrip() {
+        userService.reloadUser { success in
+            if success {
+                guard let userId = userService.getUserId() else {
+                    print("Fatal error, userId not found")
+                    return
+                }
+                tripService.reloadUserTrips(userId: userId)
+            }
         }
     }
 }
