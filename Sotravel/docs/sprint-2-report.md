@@ -47,8 +47,7 @@ communicate with each other.
 
 ### In-app instant messaging
 
--   Provides an easy means of communication between group members or from user
-    to user
+-   Provides an easy means of communication between group members
 -   Helps to ensure a degree of privacy as users do not need to share more
     personal information like Telegram handle or phone number
 
@@ -63,7 +62,7 @@ frontend. For ease of understanding, the backend specifically refers to the part
 of the codebase that does not directly deal with the views. This can be thought
 of as the components that do not directly deal with the views. The frontend is
 the set of components that do deal with the views (and presentation more
-broadly)
+broadly).
 
 ## Backend
 
@@ -91,12 +90,13 @@ The 3 layers put together show how data is called from each layer
 
 ![Detailed 3 layer](./diagrams/sprint-2-report/full-generic-3-layer-seq.svg)
 
-This generic pattern was adopted across each of the key models of `Trip`, `User`
-`Event` and `Chat`. Thus, each model has it's own Service and Repository as
-well. We will see a concrete implementation for how this works in the case of
-the Get User Profile flow:
+This generic pattern was adopted across each of the key models of `Trip`,
+`User`, `Event` and `Chat`. Thus, each model has it's own Service and Repository
+as well. We will see a concrete implementation for how this works in the case
+of the Get User Profile flow:
 
-![User Profile Data Gathering Flow](./diagrams/sprint-2-report/user-profile-vm-seq.svg)
+![User Profile Data Gathering
+Flow](./diagrams/sprint-2-report/user-profile-vm-seq.svg)
 
 The `Repositories` for each model conform to an interface and are dependency
 injected into each `Service`. Dependency injection is done through property
@@ -111,6 +111,22 @@ wrappers. This allows for the following benefits:
     stubs/mocks. We already use such stubs/mocks of repositories such as the
     `UserRepository` to provide mock data during testing.
 
+We present another concrete implementation for how this works in the case of the
+Get Chat Page Cell flow:
+
+![Chat Page Cell Gathering
+Flow](./diagrams/sprint-2-report/chat-page-cell-vm-seq.svg)
+
+Here, we see how the repository acts as an
+[Adapter](https://refactoring.guru/design-patterns/adapter) in its conversion
+from the API model in the database to the model used in the application. Thus,
+the repository helps the application and the database collaborate with each
+other. The repository also acts as a
+[Facade](https://refactoring.guru/design-patterns/facade) to the database by
+only exposing a few of the API methods required, as well as a
+[Proxy](https://refactoring.guru/design-patterns/proxy) through the repository
+interface.
+
 ## Frontend
 
 The frontend is relatively straightforward, following an MVVM architecture. A
@@ -121,6 +137,16 @@ updated information.
 
 A concrete example of how this works for the `User` model can be seen below:
 ![Concrete User](./diagrams/sprint-2-report/concrete-view-service-viewmodel.svg)
+
+Another concrete example can be seen with the Chat views:
+![Concrete
+Chat](./diagrams/sprint-2-report/chat-concrete-view-service-viewmodel.svg)
+
+Notice how both the service and the repository act as
+[Mediators](https://refactoring.guru/design-patterns/mediator) to the viewmodel
+and the model respectively. The view collaborates with the viewmodel via the
+service, and the service collaborates with the model (to get the viewmodel) via
+the repository.
 
 ## Live location sharing
 
@@ -159,7 +185,8 @@ is moving around.
 The flow of how the user's GPS coordinates are stored in the data storage as
 well as how friends' locations are retrieved and updated on the map can be seen
 below:
-![Location Management Sequence Diagram](./diagrams/sprint-2-report/map-location-update-seq.svg)
+![Location Management Sequence
+Diagram](./diagrams/sprint-2-report/map-location-update-seq.svg)
 
 ### Error handling
 
@@ -184,17 +211,12 @@ triggers when errors are bubbled to the view layer.
 
 ### What's done so far
 
--   All views have been designed
--   General architecture for the application (3 layer, MVVM) has been concretely
-    set up
--   Chat flow is setup and connects to realtime database
+-   The app is (more or less) fully functional. We are bugfixing at the moment
+-   All interactions conform to the 3 tier architecture that we designed
 
 ### What's next
 
--   Wiring up the frontend to the backend for Events, Invites, Update profile
--   Wiring up authentication to Telegram, Apple Login
--   Refactoring chat to conform better to 3 layer architecture
--   Map POC -> Adding users etc on the map itself
+-   More bugfixing
 
 ## Lessons
 
