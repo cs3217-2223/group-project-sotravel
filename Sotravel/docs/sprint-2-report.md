@@ -111,7 +111,7 @@ wrappers. This allows for the following benefits:
     stubs/mocks. We already use such stubs/mocks of repositories such as the
     `UserRepository` to provide mock data during testing.
 
-### Frontend
+## Frontend
 
 The frontend is relatively straightforward, following an MVVM architecture. A
 service is injected into each view, and the view observes a view model in the
@@ -121,6 +121,45 @@ updated information.
 
 A concrete example of how this works for the `User` model can be seen below:
 ![Concrete User](./diagrams/sprint-2-report/concrete-view-service-viewmodel.svg)
+
+## Live location sharing
+
+The live location sharing is one of the key features of the application. The
+goal is to allow the user to update their location and save that to the
+database, as well as allow the user to view the live locations of all of their
+friends.
+
+### Location Management: Key responsibilities
+
+The location management functionality has three key parts:
+
+1. Getting the user's current location via GPS
+1. Persisting the user's location to the real-time database
+1. Pulling all the friends' locations onto the map
+
+Part (1) is handled by the `LocationManager` while parts (2) and (3) are handled
+by the `MapStorageService` which relies on the `MapRepository`.
+
+The class diagram for how these 3 key classes interact with the `MapView` is
+shown below:
+![Location Management class
+diagram](./diagrams/sprint-2-report/map-class-diagram.svg)
+
+### Location Management: Flow of data
+
+The `LocationManager` resolves the user's current location via GPS, while the
+`MapStorageService` sends and receives information from the persistent data
+store. The delegate pattern is employed here, where the `MapStorageService`
+passes a delegate function to the `LocationManager` to call to when the user's
+location is updated. This allows the app to easily swap out the desired
+behaviour when the user's location changes, decoupling it from the GPS service
+itself as well as allowing flexibility on the actions to be taken when the user
+is moving around.
+
+The flow of how the user's GPS coordinates are stored in the data storage as
+well as how friends' locations are retrieved and updated on the map can be seen
+below:
+![Location Management Sequence Diagram](./diagrams/sprint-2-report/map-location-update-seq.svg)
 
 ### Error handling
 

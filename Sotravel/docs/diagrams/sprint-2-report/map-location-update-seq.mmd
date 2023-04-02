@@ -1,0 +1,28 @@
+sequenceDiagram
+    actor User
+    MapPageView->>LocationManagerService: init
+    MapPageView->>MapStorageService: init(MapFirebase:MapFirebaseRepository)
+    MapStorageService->>MapStorageService: fetchFriendsLocations()
+    activate MapStorageService
+    MapStorageService->>MapRepository: listenForFriendsLocations(self.friendLocations)
+    note right of MapStorageService: listenForFriendsLocations<br/>updates a friend-location<br/>map in MapStorageService<br/>in the background
+    deactivate MapStorageService
+    MapPageView->>MapStorageService: observe friendLocations
+    opt
+    User->>MapPageView: Tap on start sharing location
+    MapPageView->>MapStorageService: startUserLocationUpdate(locationManager, userId)
+    MapStorageService->>LocationManagerService: setLocationUpdateHandler()
+    note right of MapStorageService: the locationHandler passed in<br/>is a MapRepository function<br/>to persist the user's current<br/>location to the Firebase db
+    loop on location update
+    LocationManagerService->>LocationManagerService:locationUpdateHandler()
+    activate LocationManagerService
+    LocationManagerService->>MapRepository:updateCurrentUserLocation
+    MapRepository-->>LocationManagerService: 
+    deactivate LocationManagerService
+    end
+    end
+    opt there is an update in firebase
+    MapRepository->>LocationManagerService: Update friendLocations
+    MapPageView->>MapPageView: Update MapKit with new friend locations
+    end
+    
