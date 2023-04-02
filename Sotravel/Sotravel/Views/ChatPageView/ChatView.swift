@@ -36,10 +36,9 @@ struct ChatView: View {
                             ChatMessageView(chatMessageVM: chatMessageVM)
                                 .font(.body)
                         }
-                    }.onAppear {
-                        if chatService.chatMessageVMs.isEmpty {
-                            scrollViewProxy.scrollTo(chatService.chatMessageVMs.last?.id, anchor: .bottom)
-                        }
+                        Spacer().id("-1")
+                    }.onChange(of: chatService.chatMessageVMs.count) { _ in
+                        scrollViewProxy.scrollTo("-1")
                     }
                 }
             }

@@ -93,8 +93,12 @@ class ChatService: ObservableObject {
             self.chatMessageVMs.sort(by: { $0.messageTimestamp < $1.messageTimestamp })
 
             self.chatRepository.setListenerForChatMessages(for: id, completion: { chatMessage in
+                if chatMessageVMs.contains(where: { $0.id == chatMessage.id }) {
+                    return
+                }
                 let chatMessageVM = self.convertChatMessageToChatMessageVM(chatMessage: chatMessage, userId: userId)
-                self.chatMessageVMs.append(chatMessageVM) // should be appended in the order they enter the db, so it's fine
+                // should be appended in the order they enter the db, so it's fine
+                self.chatMessageVMs.append(chatMessageVM)
             })
         })
     }
