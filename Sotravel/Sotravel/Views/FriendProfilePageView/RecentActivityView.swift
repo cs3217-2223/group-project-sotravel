@@ -16,17 +16,18 @@ struct RecentActivityView: View {
         let attendingEvents = eventService.findAttendingEventsVM(for: user)
         VStack(alignment: .leading) {
             HStack {
-                Text("I'm going to")
+                Text("Invites I'm going to")
                     .font(.uiTitle3)
-                Image(systemName: "checkmark.circle.fill")
+                Image(systemName: "megaphone.fill")
                     .foregroundColor(.green)
                 Spacer()
             }
 
             if attendingEvents.isEmpty {
-                Text("I'm not going for any events yet.")
+                Text("I'm not going to any invites yet.")
                     .font(.uiBody)
                     .foregroundColor(.gray)
+                    .padding(.top)
             } else {
                 LazyVStack(spacing: 16) {
                     ForEach(attendingEvents, id: \.id) { eventViewModel in

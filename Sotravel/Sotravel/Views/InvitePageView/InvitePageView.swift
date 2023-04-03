@@ -26,18 +26,20 @@ struct InvitePageView: View {
                         if filteredEvents.isEmpty {
                             VStack(spacing: 20) {
                                 Spacer()
-                                Text("Would you like to create an invite?")
+                                Text("No invites for this day.")
                                     .font(.uiHeadline)
+                                Text("Would you like to create an invite?")
+                                    .font(.uiBody)
                                     .foregroundColor(Color(.systemGray))
 
                                 Button(action: {
                                     self.navigateToCreateInvitePage()
                                 }) {
-                                    Text("Create")
+                                    Text("Create an invite")
                                         .font(.headline)
                                         .padding()
                                         .frame(maxWidth: .infinity)
-                                        .background(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+                                        .background(LinearGradient(gradient: Gradient(colors: [Color.uiPrimary, Color.purple]),
                                                                    startPoint: .leading,
                                                                    endPoint: .trailing))
                                         .foregroundColor(.white)
@@ -61,7 +63,9 @@ struct InvitePageView: View {
                 .refreshable {
                     await refreshEvents()
                 }
-            }.padding(.vertical)
+            }
+            .padding(.top)
+            .padding(.bottom, 6)
         }
     }
 

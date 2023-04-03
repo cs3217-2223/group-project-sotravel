@@ -27,7 +27,6 @@ class MapStorageService: ObservableObject {
 
     private func fetchFriendsLocations() {
         mapRepository.listenForFriendsLocations { [weak self] locations in
-            print("Fetch friends locations", locations)
             DispatchQueue.main.async {
                 self?.friendsLocations = locations
             }

@@ -22,8 +22,6 @@ class FirebaseMapRepository: MapRepository {
                 }
             }
 
-            print("LOCATIONS: ", locations)
-
             completion(locations)
         }
     }
