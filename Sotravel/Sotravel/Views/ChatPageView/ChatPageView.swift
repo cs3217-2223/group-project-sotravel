@@ -22,12 +22,18 @@ struct ChatPageView: View {
                 .padding(.top, 24)
                 .padding(.bottom, 15)
 
-                ForEach(self.chatService.chatPageCellVMs) { chatPageCell in
-                    NavigationLink(destination: ChatView()) {
-                        ChatPageCellView(chatPageCellVM: chatPageCell)
-                    }.simultaneousGesture(TapGesture().onEnded {
-                        self.chatService.fetchChat(id: chatPageCell.id)
-                    })
+                if chatService.chatPageCellVMs.isEmpty {
+                    Text("No chats yet. Chats for invites you are going to will be shown here 😊")
+                        .font(.uiBody)
+                        .foregroundColor(.gray)
+                } else {
+                    ForEach(self.chatService.chatPageCellVMs) { chatPageCell in
+                        NavigationLink(destination: ChatView()) {
+                            ChatPageCellView(chatPageCellVM: chatPageCell)
+                        }.simultaneousGesture(TapGesture().onEnded {
+                            self.chatService.fetchChat(id: chatPageCell.id)
+                        })
+                    }
                 }
             }
             .padding(.horizontal)
