@@ -71,10 +71,12 @@ class Coordinator: NSObject, MKMapViewDelegate {
 
     // Redirects to friend page on click
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let customAnnotation = view.annotation as? CustomPointAnnotation, !customAnnotation.isUser {
-            // let friend = fetchFriend(customAnnotation.userId)
-            // TODO: fetch actual user
-            parent.selectedFriend = mockUser3
+        if let customAnnotation = view.annotation as? CustomPointAnnotation {
+            if !customAnnotation.isUser {
+                parent.selectedFriend = parent.friendService.getFriend(id: customAnnotation.userId)
+            } else {
+                parent.selectedFriend = parent.userService.getUser()
+            }
         }
     }
 
