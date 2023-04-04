@@ -39,6 +39,8 @@ struct ChatView: View {
                         Spacer().id("-1")
                     }.onChange(of: chatService.chatMessageVMs.count) { _ in
                         scrollViewProxy.scrollTo("-1")
+                    }.onAppear {
+                        scrollViewProxy.scrollTo("-1")
                     }
                 }
             }.onTapGesture {
@@ -46,7 +48,6 @@ struct ChatView: View {
             }
 
             HStack {
-                // TODO: check this text field
                 TextField("Send Message...", text: $messageText)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)

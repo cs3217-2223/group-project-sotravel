@@ -132,13 +132,36 @@ class ChatService: ObservableObject {
         return message.messageTimestamp.timeIntervalSince(previousMessage.messageTimestamp) > 600 // 10 mins
     }
 
+    func getEventPagePreview(eventId: Int) {
+        // TODO: clear the preview messages
+        // TODO: populate with firebase data (sort and limit before processing)
+    }
+
     func clear() {
+        removeAllListeners()
+        resetAllStoredVMs()
+    }
+
+    func removeAllListeners() {
+        guard let chatId = chatId else {
+            return
+        }
+        chatRepository.removeListenerForChatMessages(for: chatId)
+
+        for chatPageCellVM in chatPageCellVMs {
+            guard let id = chatPageCellVM.id else {
+                continue
+            }
+            chatRepository.removeListenerForChatBasicInfo(for: id)
+        }
+        isChatPageCellListenerSet = [:]
+    }
+
+    func resetAllStoredVMs() {
         chatId = nil
         chatPageCellVMs = []
         chatHeaderVM = ChatHeaderViewModel()
         chatMessageVMs = []
-        isChatPageCellListenerSet = [:]
-        // TODO: remove listeners for current chatId and all ids in the chat page cell VMs
     }
 }
 
@@ -164,23 +187,4 @@ extension ChatService {
                              isSentByMe: chatMessage.sender == userId,
                              id: chatMessage.id)
     }
-}
-
-// MARK: temp for safekeeping
-extension ChatService {
-    // if needed, need to check if the chat is something the user should see before adding
-    //    private func setListenerForAddedChat(userId: UUID) {
-    //        chatRepository.setListenerForAddedChat(userId: userId, completion: { newChat in
-    //            let chatPageCellVM = ChatPageCellViewModel(chatTitle: newChat.title,
-    //                                                       lastMessageText: newChat.messages.last?.messageText,
-    //                                                       lastMessageSender: newChat.messages.last?.sender.uuidString,
-    //                                                       lastMessageDate: newChat.messages.last?.timestamp,
-    //                                                       id: newChat.idUUID,
-    //                                                       eventId: newChat.eventId)
-    //            if self.chatPageCellVMs.contains(where: { $0.id == newChat.id }) {
-    //                return
-    //            }
-    //            self.chatPageCellVMs.append(chatPageCellVM)
-    //        })
-    //    }
 }
