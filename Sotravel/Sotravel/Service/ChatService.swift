@@ -61,11 +61,24 @@ class ChatService: ObservableObject {
                 }
                 let updatedVM = self.convertChatToChatPageCellVM(chat: updatedChat)
                 chatPageCellVMToUpdate.update(with: updatedVM)
-                // TODO: re-order the cell......
+                // TODO: check if below works then 1. replace update code above and 2. replace the comparison code above
+                self.chatPageCellVMs.removeAll(where: { $0.id ?? -1 == updatedChat.id })
+                let index = self.chatPageCellVMs.insertionIndexOf(updatedVM, isOrderedBefore: self.isOrderedBefore)
+                self.chatPageCellVMs.insert(updatedVM, at: index)
             })
 
             self.isChatPageCellListenerSet[id] = true
         })
+    }
+
+    private func isOrderedBefore(element1: ChatPageCellViewModel, element2: ChatPageCellViewModel) -> Bool {
+        guard let date1 = element1.lastMessageDate else { // no date, place behind
+            return false
+        }
+        guard let date2 = element2.lastMessageDate else { // other has no date, place in front
+            return true
+        }
+        return date1 > date2 // place in front if the last message came later
     }
 
     func removeChatPageCell(id: Int) {
