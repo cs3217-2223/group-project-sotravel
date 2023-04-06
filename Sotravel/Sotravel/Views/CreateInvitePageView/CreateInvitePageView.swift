@@ -100,19 +100,15 @@ struct CreateInvitePageView: View {
                         .cornerRadius(10) // add corner radius
                     }
                 }
-            }
-            // Adding a tap gesture to dismiss the keyboard when the user taps outside a text field
-            Color.clear
-                .edgesIgnoringSafeArea(.all)
-                .onTapGesture {
-                    dismissKeyboard()
+            }.toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") {
+                        hideKeyboard()
+                    }
                 }
+            }
         }
-    }
-
-    // Helper function to dismiss the keyboard
-    private func dismissKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 
     private func createEvent() {

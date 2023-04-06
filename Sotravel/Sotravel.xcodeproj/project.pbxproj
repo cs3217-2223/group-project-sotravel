@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1813523429DACE7B00C07F85 /* DismissKeyboardToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813523329DACE7B00C07F85 /* DismissKeyboardToolbarView.swift */; };
+		1813523629DACEF600C07F85 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813523529DACEF600C07F85 /* Utils.swift */; };
 		1817D0F829D538D000D8D9F0 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817D0F729D538CF00D8D9F0 /* Toast.swift */; };
 		1817D0FA29D554CB00D8D9F0 /* LocationSharingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817D0F929D554CB00D8D9F0 /* LocationSharingViewModel.swift */; };
 		181C746D29BDDBEF00E6D3B1 /* AttendeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C746C29BDDBEF00E6D3B1 /* AttendeesView.swift */; };
@@ -171,6 +173,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1813523329DACE7B00C07F85 /* DismissKeyboardToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissKeyboardToolbarView.swift; sourceTree = "<group>"; };
+		1813523529DACEF600C07F85 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		1817D0F729D538CF00D8D9F0 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		1817D0F929D554CB00D8D9F0 /* LocationSharingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSharingViewModel.swift; sourceTree = "<group>"; };
 		181C746C29BDDBEF00E6D3B1 /* AttendeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendeesView.swift; sourceTree = "<group>"; };
@@ -450,6 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				18D736A629C03A7C00EB7439 /* KeyboardResponder.swift */,
+				1813523529DACEF600C07F85 /* Utils.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -565,6 +570,7 @@
 				188EBDB429C1B08B002735F0 /* URLImageView.swift */,
 				188C147429CDA3A600531F9F /* LabelledToggleView.swift */,
 				1817D0F729D538CF00D8D9F0 /* Toast.swift */,
+				1813523329DACE7B00C07F85 /* DismissKeyboardToolbarView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -867,6 +873,7 @@
 				18D9714029BD91B60064DC2A /* Event.swift in Sources */,
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
 				18591C8829BD73FF00FA987D /* User.swift in Sources */,
+				1813523629DACEF600C07F85 /* Utils.swift in Sources */,
 				B4C3536829C0A7160073931C /* ChatRepository.swift in Sources */,
 				B4671ED729D2DB4600266871 /* GetAllTripsApiModel.swift in Sources */,
 				188C147729CDC13500531F9F /* LocationManagerService.swift in Sources */,
@@ -906,6 +913,7 @@
 				AC8AE12E29D5E40F000F78BC /* FriendService.swift in Sources */,
 				188C147929CDC31100531F9F /* MapRepository.swift in Sources */,
 				B4E9460E29C5A6BB001B65EE /* HTTPClientRequest+NodeAuth.swift in Sources */,
+				1813523429DACE7B00C07F85 /* DismissKeyboardToolbarView.swift in Sources */,
 				ACA4016329C765DC0076E183 /* ProfileHeaderViewModel.swift in Sources */,
 				1893D29329BF295400B61BC9 /* ChatMessage.swift in Sources */,
 				AC7AE7F029D975100094B9EF /* UserDefaults.swift in Sources */,
@@ -1126,7 +1134,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Sotravel;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sotravel.sotravel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1162,7 +1170,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Sotravel;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sotravel.sotravel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

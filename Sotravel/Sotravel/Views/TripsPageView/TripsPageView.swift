@@ -38,6 +38,8 @@ struct TripsPageView: View {
                                 })
                             }
                         }
+                    }.onAppear {
+                        refreshTrip()
                     }
                 }
                 .padding()

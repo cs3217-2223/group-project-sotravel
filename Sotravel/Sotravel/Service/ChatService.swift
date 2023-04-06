@@ -61,11 +61,24 @@ class ChatService: ObservableObject {
                 }
                 let updatedVM = self.convertChatToChatPageCellVM(chat: updatedChat)
                 chatPageCellVMToUpdate.update(with: updatedVM)
-                // TODO: re-order the cell......
+                // TODO: check if below works then 1. replace update code above and 2. replace the comparison code above
+                self.chatPageCellVMs.removeAll(where: { $0.id ?? -1 == updatedChat.id })
+                let index = self.chatPageCellVMs.insertionIndexOf(updatedVM, isOrderedBefore: self.isOrderedBefore)
+                self.chatPageCellVMs.insert(updatedVM, at: index)
             })
 
             self.isChatPageCellListenerSet[id] = true
         })
+    }
+
+    private func isOrderedBefore(element1: ChatPageCellViewModel, element2: ChatPageCellViewModel) -> Bool {
+        guard let date1 = element1.lastMessageDate else { // no date, place behind
+            return false
+        }
+        guard let date2 = element2.lastMessageDate else { // other has no date, place in front
+            return true
+        }
+        return date1 > date2 // place in front if the last message came later
     }
 
     func removeChatPageCell(id: Int) {
@@ -132,13 +145,36 @@ class ChatService: ObservableObject {
         return message.messageTimestamp.timeIntervalSince(previousMessage.messageTimestamp) > 600 // 10 mins
     }
 
+    func getEventPagePreview(eventId: Int) {
+        // TODO: clear the preview messages
+        // TODO: populate with firebase data (sort and limit before processing)
+    }
+
     func clear() {
+        removeAllListeners()
+        resetAllStoredVMs()
+    }
+
+    func removeAllListeners() {
+        guard let chatId = chatId else {
+            return
+        }
+        chatRepository.removeListenerForChatMessages(for: chatId)
+
+        for chatPageCellVM in chatPageCellVMs {
+            guard let id = chatPageCellVM.id else {
+                continue
+            }
+            chatRepository.removeListenerForChatBasicInfo(for: id)
+        }
+        isChatPageCellListenerSet = [:]
+    }
+
+    func resetAllStoredVMs() {
         chatId = nil
         chatPageCellVMs = []
         chatHeaderVM = ChatHeaderViewModel()
         chatMessageVMs = []
-        isChatPageCellListenerSet = [:]
-        // TODO: remove listeners for current chatId and all ids in the chat page cell VMs
     }
 }
 
@@ -164,23 +200,4 @@ extension ChatService {
                              isSentByMe: chatMessage.sender == userId,
                              id: chatMessage.id)
     }
-}
-
-// MARK: temp for safekeeping
-extension ChatService {
-    // if needed, need to check if the chat is something the user should see before adding
-    //    private func setListenerForAddedChat(userId: UUID) {
-    //        chatRepository.setListenerForAddedChat(userId: userId, completion: { newChat in
-    //            let chatPageCellVM = ChatPageCellViewModel(chatTitle: newChat.title,
-    //                                                       lastMessageText: newChat.messages.last?.messageText,
-    //                                                       lastMessageSender: newChat.messages.last?.sender.uuidString,
-    //                                                       lastMessageDate: newChat.messages.last?.timestamp,
-    //                                                       id: newChat.idUUID,
-    //                                                       eventId: newChat.eventId)
-    //            if self.chatPageCellVMs.contains(where: { $0.id == newChat.id }) {
-    //                return
-    //            }
-    //            self.chatPageCellVMs.append(chatPageCellVM)
-    //        })
-    //    }
 }

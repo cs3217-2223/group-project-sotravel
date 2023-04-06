@@ -43,7 +43,14 @@ struct MapPageView: View {
                             )
                     }
                     .sheet(item: $selectedFriend) { friend in
-                        FriendProfilePageView(friend: friend)
+                        VStack {
+                            Capsule()
+                                .frame(width: 80, height: 5)
+                                .foregroundColor(.gray)
+                                .padding(.top)
+                                .padding(.bottom)
+                            FriendProfilePageView(friend: friend)
+                        }
                     }
 
                     VStack {
@@ -94,7 +101,7 @@ struct MapPageView: View {
                         }
                     }
                 }
-            }.padding(.bottom, 12)
+            }.padding(.bottom, 6)
         }
     }
 
