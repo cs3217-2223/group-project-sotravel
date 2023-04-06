@@ -11,4 +11,8 @@ extension UserDefaults {
     func resetLogin() {
         removeObject(forKey: "LoggedIn")
     }
+
+    func resetLastSelectedTrip() {
+        removeObject(forKey: "LastSelectedTripId")
+    }
 }

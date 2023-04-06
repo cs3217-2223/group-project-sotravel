@@ -5,7 +5,7 @@
 //  Created by Weiqiang Zhang on 30/3/23.
 //
 
-import Foundation
+import SwiftUI
 import Resolver
 
 class TripService: ObservableObject {
@@ -15,7 +15,7 @@ class TripService: ObservableObject {
     private var selectedTrip: Trip?
     private var tripCache: [Int: Trip]
 
-    var count = 0
+    @AppStorage("LastSelectedTripId") var lastSelectedTripId: Int?
 
     @Injected private var tripRepository: TripRepository
 
@@ -27,6 +27,10 @@ class TripService: ObservableObject {
 
     func getCurrTripId() -> Int? {
         selectedTrip?.id
+    }
+
+    func getTrip(from id: Int) -> Trip? {
+        tripCache[id]
     }
 
     func getTripIds() -> [Int] {

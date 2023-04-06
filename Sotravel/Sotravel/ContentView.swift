@@ -13,17 +13,26 @@ struct ContentView: View {
     // MARK: Uncomment to reset login status
     //    init() {
     //        UserDefaults.standard.resetLogin()
+    //        UserDefaults.standard.resetLastSelectedTrip()
     //    }
 
     var body: some View {
         Group {
             if isTripRefreshed {
                 if userService.isLoggedIn {
-                    if let mostRecentTrip = tripService.getMostRecentTrip() {
+                    // MARK: Uncomment to navigate user to the last selected trip
+                    if let lastSelectedTripId = tripService.lastSelectedTripId,
+                       let lastSelectedTrip = tripService.getTrip(from: lastSelectedTripId) {
                         TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)
                             .onAppear {
-                                self.loadUserData(for: mostRecentTrip)
+                                self.loadUserData(for: lastSelectedTrip)
                             }
+                        // MARK: Uncomment to navigate user to the most recent trip when login
+                        //                    } else if let mostRecentTrip = tripService.getMostRecentTrip() {
+                        //                        TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)
+                        //                            .onAppear {
+                        //                                self.loadUserData(for: mostRecentTrip)
+                        //                            }
                     } else {
                         TripsPageView()
                     }
@@ -38,6 +47,11 @@ struct ContentView: View {
     }
 
     private func loadUserData(for trip: Trip) {
+        // Check if trip data has already been loaded
+        if let id = tripService.getCurrTripId(), id == trip.id {
+            return
+        }
+
         userService.reloadUser { success in
             if success {
                 guard let userId = userService.getUserId() else {
@@ -50,10 +64,12 @@ struct ContentView: View {
 
                 eventService.loadUserEvents(forTrip: trip.id, userId: userId)
                 chatService.setUserId(userId: userId)
+
+                // Store the ID of the selected trip in UserDefaults
+                tripService.lastSelectedTripId = trip.id
             } else {
                 print("failed to reload User")
             }
-
         }
     }
 

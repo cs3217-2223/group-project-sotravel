@@ -107,6 +107,7 @@ struct ProfilePageView: View {
 
                 }
                 tripService.selectTrip(trip)
+                tripService.lastSelectedTripId = trip.id
                 eventService.loadUserEvents(forTrip: trip.id, userId: userId)
                 chatService.setUserId(userId: userId)
             } else {

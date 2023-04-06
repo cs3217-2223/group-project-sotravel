@@ -61,10 +61,12 @@ struct TripsPageView: View {
 
                 eventService.loadUserEvents(forTrip: trip.id, userId: userId)
                 chatService.setUserId(userId: userId)
+
+                // Store the ID of the selected trip
+                tripService.lastSelectedTripId = trip.id
             } else {
                 print("failed to reload User")
             }
-
         }
     }
 
