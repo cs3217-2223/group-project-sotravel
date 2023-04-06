@@ -26,6 +26,10 @@ class UserService: ObservableObject {
         self.editProfileViewModel = EditProfileViewModel()
     }
 
+    func login(email: String, password: String) {
+        userRepository.login(email, password)
+    }
+
     func getUser() -> User? {
         user
     }

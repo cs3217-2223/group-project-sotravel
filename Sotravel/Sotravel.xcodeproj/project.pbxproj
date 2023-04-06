@@ -53,6 +53,8 @@
 		18BE7F2729BDEDBE0035DE2C /* UserHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE7F2629BDEDBE0035DE2C /* UserHorizontalListView.swift */; };
 		18C3660429C020D800AF0338 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3660329C020D800AF0338 /* Chat.swift */; };
 		18C3660629C0227C00AF0338 /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3660529C0227C00AF0338 /* ChatMessageView.swift */; };
+		18CC54D329DEC41C00B8C3D2 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC54D229DEC41C00B8C3D2 /* LoginButtonView.swift */; };
+		18CC54D529DEC4FA00B8C3D2 /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC54D429DEC4FA00B8C3D2 /* EmailLoginView.swift */; };
 		18D736A729C03A7C00EB7439 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D736A629C03A7C00EB7439 /* KeyboardResponder.swift */; };
 		18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713229BD74B10064DC2A /* MockUsers.swift */; };
 		18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713429BD7CC90064DC2A /* UserListItemView.swift */; };
@@ -211,6 +213,8 @@
 		18BE7F2629BDEDBE0035DE2C /* UserHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHorizontalListView.swift; sourceTree = "<group>"; };
 		18C3660329C020D800AF0338 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		18C3660529C0227C00AF0338 /* ChatMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageView.swift; sourceTree = "<group>"; };
+		18CC54D229DEC41C00B8C3D2 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
+		18CC54D429DEC4FA00B8C3D2 /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
 		18D736A629C03A7C00EB7439 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		18D9713229BD74B10064DC2A /* MockUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUsers.swift; sourceTree = "<group>"; };
 		18D9713429BD7CC90064DC2A /* UserListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemView.swift; sourceTree = "<group>"; };
@@ -547,6 +551,7 @@
 			isa = PBXGroup;
 			children = (
 				18F72A3729B997F40084B94A /* LoginView.swift */,
+				18CC54D429DEC4FA00B8C3D2 /* EmailLoginView.swift */,
 			);
 			path = LoginView;
 			sourceTree = "<group>";
@@ -564,6 +569,7 @@
 				188C147429CDA3A600531F9F /* LabelledToggleView.swift */,
 				1817D0F729D538CF00D8D9F0 /* Toast.swift */,
 				1813523329DACE7B00C07F85 /* DismissKeyboardToolbarView.swift */,
+				18CC54D229DEC41C00B8C3D2 /* LoginButtonView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -870,6 +876,7 @@
 				188C147729CDC13500531F9F /* LocationManagerService.swift in Sources */,
 				B43AFA6D29CA0E9F0029AB85 /* Repositories+Injection.swift in Sources */,
 				AC32F96029BA2A930005F5B9 /* ChatPageView.swift in Sources */,
+				18CC54D529DEC4FA00B8C3D2 /* EmailLoginView.swift in Sources */,
 				188EBDB129C1AD3E002735F0 /* TripsPageView.swift in Sources */,
 				18D9713829BD84480064DC2A /* FriendProfilePageView.swift in Sources */,
 				ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */,
@@ -886,6 +893,7 @@
 				18C3660629C0227C00AF0338 /* ChatMessageView.swift in Sources */,
 				18D9714429BD9AF80064DC2A /* EventsStore.swift in Sources */,
 				B485A8F129D04ADE00786A34 /* UserCreateEventApiModel.swift in Sources */,
+				18CC54D329DEC41C00B8C3D2 /* LoginButtonView.swift in Sources */,
 				B485A8F729D0709300786A34 /* ApiErrorHelper.swift in Sources */,
 				AC75222929BCBF8100E7C6E7 /* ProfileFriendsView.swift in Sources */,
 				AC63059E29BDA43F00EEEA85 /* ChatHeaderView.swift in Sources */,
