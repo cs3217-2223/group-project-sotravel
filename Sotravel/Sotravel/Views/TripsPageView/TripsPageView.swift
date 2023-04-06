@@ -49,6 +49,11 @@ struct TripsPageView: View {
     }
 
     private func loadUserData(for trip: Trip) {
+        // Check if trip data has already been loaded
+        if let id = tripService.getCurrTripId(), id == trip.id {
+            return
+        }
+
         userService.reloadUser { success in
             if success {
                 guard let userId = userService.getUserId() else {
