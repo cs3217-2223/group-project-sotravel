@@ -35,8 +35,8 @@ classDiagram
     }
     class ChatRepository {
         <<interface>>
-        - getChat(id, completion)
-        - setListenerForChatMessages(id)
-        - removeListenerForChatMessages(id)
-        - sendChatMessage(chatMessage, chatId)
+        - getChat(id: Int, completion: Chat -> Void)
+        - setListenerForChatMessages(id: Int, completion: Chat -> Void)
+        - removeListenerForChatMessages(id: Int)
+        - sendChatMessage(chatMessage, chatId): Bool
     }
