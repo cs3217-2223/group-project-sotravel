@@ -26,10 +26,6 @@ class UserService: ObservableObject {
         self.editProfileViewModel = EditProfileViewModel()
     }
 
-    func login(email: String, password: String) {
-        userRepository.login(email, password)
-    }
-
     func getUser() -> User? {
         user
     }
@@ -47,6 +43,26 @@ class UserService: ObservableObject {
             return UUID(uuidString: uuidString)
         } else {
             return nil
+        }
+    }
+
+    func emailSignin(email: String, password: String, completion: @escaping (Bool, UUID?) -> Void) {
+        Task {
+            do {
+                if let fetchedUser = try await userRepository.emailSignin(email: email, password: password) {
+                    DispatchQueue.main.async {
+                        self.user = fetchedUser
+                        self.handleUserPropertyChange()
+                        completion(true, fetchedUser.id)
+                    }
+                } else {
+                    completion(false, nil)
+                }
+            } catch {
+                print("Error fetching user:", error)
+                // Handle error as needed
+                completion(false, nil)
+            }
         }
     }
 

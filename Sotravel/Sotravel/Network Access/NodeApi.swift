@@ -24,6 +24,7 @@ class NodeApi: RestApi {
     internal let pathEnumToStr: [Path: String] = [
         // Login
         .telegramSignIn: "/user/telegramSignin",
+        .demoSignin: "/user/demoSignin",
         // Profile
         .profile: "/user/getUser",
         .updateProfile: "/user/updateUser",
@@ -148,5 +149,6 @@ enum NodeApiPath {
          updateInvite,
          cancelInvite,
          friends,
-         userTrips
+         userTrips,
+         demoSignin
 }

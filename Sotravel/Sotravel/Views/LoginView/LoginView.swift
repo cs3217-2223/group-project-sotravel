@@ -54,7 +54,8 @@ struct LoginView: View {
                             NavigationLink(destination: EmailLoginView()) {
                                 Text("Continue With Email")
                                     .font(.uiButton)
-                            }.padding(.top)
+                            }
+                            .padding(.vertical)
                         }
                     }
                     .padding(.horizontal)
@@ -80,20 +81,20 @@ struct LoginView: View {
                         }
                         userService.storeUserId(id: id)
                         userService.fetchUser(id: id) { success in
-                            if success {
-                                userService.isLoggedIn = true
-                                // TODO: Move this into some separate token storage class
-                                NodeApi.storeAuthToken(token: token)
-                                tripService.loadUserTrips(userId: id) { success in
-                                    if success {
-                                        isNavigationActive = true
-                                    } else {
-                                        // Handle case where load trips fails
-                                    }
-                                }
-
-                            } else {
+                            if !success {
                                 isLoading = false
+                                return
+                            }
+
+                            userService.isLoggedIn = true
+                            // TODO: Move this into some separate token storage class
+                            NodeApi.storeAuthToken(token: token)
+                            tripService.loadUserTrips(userId: id) { success in
+                                if success {
+                                    isNavigationActive = true
+                                } else {
+                                    // Handle case where load trips fails
+                                }
                             }
                         }
                     })

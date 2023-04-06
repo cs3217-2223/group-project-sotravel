@@ -3,7 +3,8 @@ import SwiftUI
 struct EmailLoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
-    @EnvironmentObject user: UserService
+    @EnvironmentObject var userService: UserService
+    @EnvironmentObject private var tripService: TripService
 
     var body: some View {
         VStack {
@@ -26,7 +27,19 @@ struct EmailLoginView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
 
             LoginButtonView(action: {
-                
+                userService.emailSignin(email: email, password: password) {success, userId in
+                    if !success {
+                        return
+                    }
+
+                    guard let userId = userId else {
+                        return
+                    }
+
+                    userService.isLoggedIn = true
+                    userService.storeUserId(id: userId)
+                    tripService.loadUserTrips(userId: userId) { _ in }
+                }
             }, title: "Sign In", imageName: nil, url: nil)
 
             Spacer()
