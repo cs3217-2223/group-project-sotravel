@@ -21,4 +21,18 @@ class DecoderHelper {
             throw error
         }
     }
+
+    static func decodeToClassArray<ReturnType: ConvertableFromApiModel>(
+        functionName: String,
+        data: String)
+    throws -> [ReturnType] {
+        do {
+            let responseModel = try JSONDecoder().decode([ReturnType.TypeToConvertFrom].self, from: Data(data.utf8))
+            return try responseModel.map { try ReturnType(apiModel: $0) }
+        } catch is DecodingError {
+            throw SotravelError.message("Unable to decode json at \(functionName). The JSON string is \(data)")
+        } catch {
+            throw error
+        }
+    }
 }

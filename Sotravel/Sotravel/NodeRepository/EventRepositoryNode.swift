@@ -19,14 +19,7 @@ class EventRepositoryNode: EventRepository {
         try ApiErrorHelper.handleError(location: functionName, status: status)
         let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
 
-        do {
-            let responseModel = try JSONDecoder().decode(EventApiModel.self, from: Data(data.utf8))
-            return Event(apiModel: responseModel)
-        } catch is DecodingError {
-            throw SotravelError.DecodingError("Unable to parse Get Invite response")
-        } catch {
-            throw error
-        }
+        return try DecoderHelper.decodeToClass(functionName: functionName, data: data)
     }
 
     func getUserEvents(userId: UUID, tripId: Int) async throws -> [Event] {
@@ -38,15 +31,7 @@ class EventRepositoryNode: EventRepository {
         try ApiErrorHelper.handleError(location: functionName, status: status)
         let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
 
-        do {
-            let responseModel = try JSONDecoder().decode([EventApiModel].self, from: Data(data.utf8))
-            let events = responseModel.map { Event(apiModel: $0) }
-            return events
-        } catch is DecodingError {
-            throw SotravelError.DecodingError("Unable to parse Get User Invites response")
-        } catch {
-            throw error
-        }
+        return try DecoderHelper.decodeToClassArray(functionName: functionName, data: data)
     }
 
     func create(event: Event)  async throws -> Event {
@@ -57,14 +42,7 @@ class EventRepositoryNode: EventRepository {
         try ApiErrorHelper.handleError(location: functionName, status: status)
         let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
 
-        do {
-            let responseModel = try JSONDecoder().decode(EventApiModel.self, from: Data(data.utf8))
-            return Event(apiModel: responseModel)
-        } catch is DecodingError {
-            throw SotravelError.DecodingError("Unable to parse Create Invites response")
-        } catch {
-            throw error
-        }
+        return try DecoderHelper.decodeToClass(functionName: functionName, data: data)
     }
 
     func cancelEvent(id: Int) async throws {
