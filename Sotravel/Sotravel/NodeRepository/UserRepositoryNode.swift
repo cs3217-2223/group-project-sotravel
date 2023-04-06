@@ -18,7 +18,7 @@ class UserRepositoryNode: UserRepository {
 
         try ApiErrorHelper.handleError(location: functionName, status: status)
         let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
-        return try DecoderHelper.decodeToClass(functionName: functionName, data: data, convertFrom: NodeApiUser.self)
+        return try DecoderHelper.decodeToClass(functionName: functionName, data: data)
     }
 
     func update(user: User) async throws -> User? {
@@ -29,7 +29,7 @@ class UserRepositoryNode: UserRepository {
 
         try ApiErrorHelper.handleError(location: functionName, status: status)
         let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
-        return try DecoderHelper.decodeToClass(functionName: functionName, data: data, convertFrom: NodeApiUser.self)
+        return try DecoderHelper.decodeToClass(functionName: functionName, data: data)
     }
 
     func getAllFriendsOnTrip(tripId: Int) async throws -> [User] {

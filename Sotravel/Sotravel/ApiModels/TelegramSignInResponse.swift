@@ -14,8 +14,6 @@ struct TelegramSignInResponse: Codable {
 
 // MARK: - User
 struct NodeApiUser: Codable, ApiModel {
-    typealias T = Self
-
     let id: String
     let backupID, teleUsername, teleID: String?
     let socialsTiktok, socialsInstagram: String?

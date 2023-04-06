@@ -1,7 +1,6 @@
 import Foundation
 
 class User: Identifiable, Hashable, ConvertableFromApiModel {
-
     var id = UUID()
     var firstName: String?
     var lastName: String?

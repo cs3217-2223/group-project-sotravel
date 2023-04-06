@@ -8,20 +8,13 @@
 import Foundation
 
 class DecoderHelper {
-    static func decodeToClass<ApiModelType: Decodable, ReturnType: ConvertableFromApiModel>(
+    static func decodeToClass<ReturnType: ConvertableFromApiModel>(
         functionName: String,
-        data: String,
-        convertFrom: ApiModelType.Type)
+        data: String)
     throws -> ReturnType {
         do {
-            let responseModel = try JSONDecoder().decode(ApiModelType.self, from: Data(data.utf8))
-
-            guard let responseModelAsApiModel = responseModel as? ReturnType.TypeToConvertFrom else {
-                let modelName = String(describing: ReturnType.self)
-                let apiModelName = String(describing: type(of: responseModel.self))
-                throw SotravelError.CastingError("Unable to cast \(apiModelName) to \(modelName)")
-            }
-            return try ReturnType(apiModel: responseModelAsApiModel)
+            let responseModel = try JSONDecoder().decode(ReturnType.TypeToConvertFrom.self, from: Data(data.utf8))
+            return try ReturnType(apiModel: responseModel)
         } catch is DecodingError {
             throw SotravelError.message("Unable to decode json at \(functionName). The JSON string is \(data)")
         } catch {
