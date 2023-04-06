@@ -1,6 +1,16 @@
 import Foundation
 
-struct Trip: Identifiable {
+class AllTrips: ConvertableFromApiModel {
+    let upcomingTrips, pastTrips: [Trip]
+
+    required init(apiModel: GetAllTripsApiModel) {
+        upcomingTrips = apiModel.upcomingTrips.map { Trip(apiModel: $0) }
+        pastTrips = apiModel.pastTrips.map { Trip(apiModel: $0) }
+    }
+
+}
+
+class Trip: Identifiable, ConvertableFromApiModel {
     let id: Int
     let title: String
     let startDate: Date
@@ -17,7 +27,7 @@ struct Trip: Identifiable {
         self.imageURL = imageURL
     }
 
-    init(from apiModel: TripApiModel) {
+    required init(apiModel: TripApiModel) {
         self.id = apiModel.id
         self.title = apiModel.name
         let dateFormatter = DateFormatter()
