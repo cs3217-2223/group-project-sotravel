@@ -90,6 +90,7 @@ class ChatService: ObservableObject {
         guard let userId = userId, let id = id else {
             return
         }
+        dismissChat()
         chatId = id
 
         chatRepository.getChat(id: id, completion: { chat in

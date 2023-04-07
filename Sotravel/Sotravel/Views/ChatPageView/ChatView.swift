@@ -13,7 +13,6 @@ struct ChatView: View {
     @EnvironmentObject var eventService: EventService
     @State private var messageText = ""
     @State private var isSending = false
-    @ObservedObject private var keyboard = KeyboardResponder()
 
     var isSendDisabled: Bool {
         messageText.isEmpty || isSending
@@ -24,9 +23,9 @@ struct ChatView: View {
             ChatHeaderView(chatHeaderVM: chatService.chatHeaderVM)
             Divider()
 
-            ScrollView {
-                ScrollViewReader { scrollViewProxy in
-                    LazyVStack {
+            ScrollViewReader { scrollViewProxy in
+                ScrollView {
+                    LazyVStack(spacing: 5) {
                         ForEach(chatService.chatMessageVMs) { chatMessageVM in
                             if chatService.shouldShowTimestampAboveMessage(for: chatMessageVM) {
                                 Text(chatMessageVM.messageTimestamp.toFriendlyShortString()).font(.caption)
@@ -35,12 +34,16 @@ struct ChatView: View {
                             }
                             ChatMessageView(chatMessageVM: chatMessageVM)
                                 .font(.body)
+                                .id(chatMessageVM.id.uuidString)
                         }
-                        Spacer().id("-1")
                     }.onChange(of: chatService.chatMessageVMs.count) { _ in
-                        scrollViewProxy.scrollTo("-1")
+                        if let chatMessageVM = chatService.chatMessageVMs.last {
+                            scrollViewProxy.scrollTo(chatMessageVM.id.uuidString)
+                        }
                     }.onAppear {
-                        scrollViewProxy.scrollTo("-1")
+                        if let chatMessageVM = chatService.chatMessageVMs.last {
+                            scrollViewProxy.scrollTo(chatMessageVM.id.uuidString)
+                        }
                     }
                 }
             }.onTapGesture {
@@ -72,7 +75,6 @@ struct ChatView: View {
             .cornerRadius(20)
             .padding(.horizontal)
             .padding(.bottom, 10)
-            .edgesIgnoringSafeArea(keyboard.currentHeight == 0.0 ? .leading : .bottom)
         }
     }
 
@@ -85,11 +87,22 @@ struct ChatView: View {
         isSending = true
         let success = chatService.sendChatMessage(messageText: messageText)
         if !success {
-            // TODO: show some alert
+            showAlert(message: "Unable to send message. Please try again later.")
             return
         }
         messageText = ""
         isSending = false
+    }
+
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+        DispatchQueue.main.async {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                windowScene.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
+        }
     }
 }
 
