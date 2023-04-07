@@ -28,8 +28,8 @@ struct MapView: UIViewRepresentable {
 
     func setZoomLevelIfNotZoomedIn(_ mapView: MKMapView) {
         let currentSpan = mapView.region.span
-        let thresholdLatitudeDelta: CLLocationDegrees = 0.01
-        let thresholdLongitudeDelta: CLLocationDegrees = 0.01
+        let thresholdLatitudeDelta: CLLocationDegrees = 0.5
+        let thresholdLongitudeDelta: CLLocationDegrees = 0.5
 
         if currentSpan.latitudeDelta > thresholdLatitudeDelta || currentSpan.longitudeDelta > thresholdLongitudeDelta {
             self.centerMapOnUserLocation(mapView)
