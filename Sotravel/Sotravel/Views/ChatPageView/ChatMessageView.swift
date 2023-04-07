@@ -10,9 +10,11 @@ struct ChatMessageView: View {
             if chatMessageVM.isSentByMe ?? false {
                 Spacer()
             } else {
-                NavigationLink(destination: FriendProfilePageView(friend: friendService.getFriend(id: chatMessageVM.senderId))) {
+                NavigationLink(destination:
+                                FriendProfilePageView(friend: friendService.getFriend(id: chatMessageVM.senderId))) {
                     ProfileImageView(imageSrc: friendService.getFriend(id: chatMessageVM.senderId)?.imageURL,
-                                     name: friendService.getFriend(id: chatMessageVM.senderId)?.name ?? "", width: 30, height: 30)
+                                     name: friendService.getFriend(id: chatMessageVM.senderId)?.name ?? "",
+                                     width: 30, height: 30)
                 }
             }
 

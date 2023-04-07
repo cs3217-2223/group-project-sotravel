@@ -84,13 +84,14 @@ class ChatService: ObservableObject {
     func removeChatPageCell(id: Int) {
         chatPageCellVMs.removeAll(where: { ($0.id ?? -1) == id })
         chatRepository.removeListenerForChatBasicInfo(for: id)
+        isChatPageCellListenerSet[id] = false
     }
 
     func fetchChat(id: Int?) {
         guard let userId = userId, let id = id else {
             return
         }
-        dismissChat()
+        removeChatListener()
         chatId = id
 
         chatRepository.getChat(id: id, completion: { chat in
@@ -117,7 +118,7 @@ class ChatService: ObservableObject {
         })
     }
 
-    func dismissChat() {
+    func removeChatListener() {
         guard let chatId = chatId else {
             return
         }
@@ -157,10 +158,7 @@ class ChatService: ObservableObject {
     }
 
     func removeAllListeners() {
-        guard let chatId = chatId else {
-            return
-        }
-        chatRepository.removeListenerForChatMessages(for: chatId)
+        removeChatListener()
 
         for chatPageCellVM in chatPageCellVMs {
             guard let id = chatPageCellVM.id else {
@@ -196,8 +194,6 @@ extension ChatService {
         ChatMessageViewModel(messageText: chatMessage.messageText,
                              messageTimestamp: chatMessage.timestamp,
                              senderId: chatMessage.sender,
-                             senderImageSrc: chatMessage.sender.uuidString, // TODO: delete this field
-                             senderName: chatMessage.sender.uuidString, // TODO: delete this field
                              isSentByMe: chatMessage.sender == userId,
                              id: chatMessage.id)
     }

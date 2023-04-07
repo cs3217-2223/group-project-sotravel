@@ -37,13 +37,9 @@ struct ChatView: View {
                                 .id(chatMessageVM.id.uuidString)
                         }
                     }.onChange(of: chatService.chatMessageVMs.count) { _ in
-                        if let chatMessageVM = chatService.chatMessageVMs.last {
-                            scrollViewProxy.scrollTo(chatMessageVM.id.uuidString)
-                        }
+                        scrollToBottom(scrollViewProxy: scrollViewProxy)
                     }.onAppear {
-                        if let chatMessageVM = chatService.chatMessageVMs.last {
-                            scrollViewProxy.scrollTo(chatMessageVM.id.uuidString)
-                        }
+                        scrollToBottom(scrollViewProxy: scrollViewProxy)
                     }
                 }
             }.onTapGesture {
@@ -78,9 +74,15 @@ struct ChatView: View {
         }
     }
 
-    // Helper function to dismiss the keyboard
     private func dismissKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+
+    private func scrollToBottom(scrollViewProxy: ScrollViewProxy) {
+        guard let chatMessageVM = chatService.chatMessageVMs.last else {
+            return
+        }
+        scrollViewProxy.scrollTo(chatMessageVM.id.uuidString)
     }
 
     private func sendMessage() {
