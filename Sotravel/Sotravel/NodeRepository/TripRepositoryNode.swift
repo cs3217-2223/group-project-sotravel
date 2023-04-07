@@ -12,13 +12,11 @@ class TripRepositoryNode: TripRepository {
 
     func getTrips(userId: UUID) async throws -> [Trip] {
         let params = ["user_id": userId.uuidString]
-        let (status, response) = try await TripRepositoryNode.api.get(path: .userTrips,
-                                                                      params: params)
-        let functionName = "Get Trip"
+        let (status, response) = try await TripRepositoryNode.api.get(path: .userTrips, params: params)
 
-        try ApiErrorHelper.handleError(location: functionName, status: status)
-        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
-        let allTrips: AllTrips = try DecoderHelper.decodeToClass(functionName: functionName, data: data)
+        try ApiErrorHelper.handleError(status: status)
+        let data = try ApiErrorHelper.handleNilResponse(data: response)
+        let allTrips: AllTrips = try DecoderHelper.decodeToClass(data: data)
 
         return allTrips.pastTrips + allTrips.upcomingTrips
     }

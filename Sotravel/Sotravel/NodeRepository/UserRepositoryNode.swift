@@ -12,44 +12,39 @@ class UserRepositoryNode: UserRepository {
     private static var api = NodeApi()
 
     func emailSignin(email: String, password: String) async throws -> User? {
-        let functionName = "Email Sign In"
         let dataBody = ["email": email, "password": password]
-        let (status, response) = try await UserRepositoryNode.api.post(path: .demoSignin,
-                                                                       data: dataBody)
+        let (status, response) = try await UserRepositoryNode.api.post(path: .demoSignin, data: dataBody)
 
-        try ApiErrorHelper.handleError(location: functionName, status: status)
-        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
+        try ApiErrorHelper.handleError(status: status)
+        let data = try ApiErrorHelper.handleNilResponse(data: response)
 
-        return try DecoderHelper.decodeToClass(functionName: functionName, data: data)
+        return try DecoderHelper.decodeToClass(data: data)
     }
 
     func get(id: UUID) async throws -> User? {
-        let functionName = "Get User"
         let params = ["user_id": id.uuidString]
         let (status, response) = try await UserRepositoryNode.api.get(path: .profile, params: params)
 
-        try ApiErrorHelper.handleError(location: functionName, status: status)
-        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
-        return try DecoderHelper.decodeToClass(functionName: functionName, data: data)
+        try ApiErrorHelper.handleError(status: status)
+        let data = try ApiErrorHelper.handleNilResponse(data: response)
+        return try DecoderHelper.decodeToClass(data: data)
     }
 
     func update(user: User) async throws -> User? {
-        let functionName = "Update User"
         let userToUpdate = UpdateUserApiModel(user: user)
         let (status, response) = try await UserRepositoryNode.api.post(path: .updateProfile,
                                                                        data: userToUpdate.dictionary)
 
-        try ApiErrorHelper.handleError(location: functionName, status: status)
-        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
-        return try DecoderHelper.decodeToClass(functionName: functionName, data: data)
+        try ApiErrorHelper.handleError(status: status)
+        let data = try ApiErrorHelper.handleNilResponse(data: response)
+        return try DecoderHelper.decodeToClass(data: data)
     }
 
     func getAllFriendsOnTrip(tripId: Int) async throws -> [User] {
-        let functionName = "Get Friends"
         let params = ["trip_id": String(tripId)]
         let (status, response) = try await UserRepositoryNode.api.get(path: .friends, params: params)
-        try ApiErrorHelper.handleError(location: functionName, status: status)
-        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
+        try ApiErrorHelper.handleError(status: status)
+        let data = try ApiErrorHelper.handleNilResponse(data: response)
 
         do {
             let friendIds = try JSONDecoder().decode([String].self, from: Data(data.utf8))
