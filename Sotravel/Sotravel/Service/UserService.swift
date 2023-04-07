@@ -93,7 +93,7 @@ class UserService: ObservableObject {
                     return
                 }
                 guard let updatedUser = try await userRepository.update(user: user) else {
-                    // handle update failure
+                    alertEditProfileView()
                     return
                 }
                 self.user = updatedUser
