@@ -1,6 +1,6 @@
 import Foundation
 
-class User: Identifiable, Hashable {
+class User: Identifiable, Hashable, ConvertableFromApiModel {
     var id = UUID()
     var firstName: String?
     var lastName: String?
@@ -43,19 +43,19 @@ class User: Identifiable, Hashable {
         self.friends = friends
     }
 
-    init(apiUser: NodeApiUser) throws {
-        guard let id = UUID(uuidString: apiUser.id) else {
+    required init(apiModel: NodeApiUser) throws {
+        guard let id = UUID(uuidString: apiModel.id) else {
             throw SotravelError.DecodingError("Unable to get id from apiUser")
         }
         self.id = id
-        self.firstName = apiUser.firstName
-        self.lastName = apiUser.lastName
-        self.email = apiUser.email
-        self.desc = apiUser.description
-        self.imageURL = apiUser.image
-        self.instagramUsername = apiUser.socialsInstagram
-        self.tiktokUsername = apiUser.socialsTiktok
-        self.telegramUsername = apiUser.teleUsername
+        self.firstName = apiModel.firstName
+        self.lastName = apiModel.lastName
+        self.email = apiModel.email
+        self.desc = apiModel.description
+        self.imageURL = apiModel.image
+        self.instagramUsername = apiModel.socialsInstagram
+        self.tiktokUsername = apiModel.socialsTiktok
+        self.telegramUsername = apiModel.teleUsername
         // API user does not have friends
         self.friends = []
     }

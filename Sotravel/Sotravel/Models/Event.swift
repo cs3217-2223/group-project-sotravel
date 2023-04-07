@@ -1,6 +1,6 @@
 import Foundation
 
-class Event: Hashable, Identifiable {
+class Event: Hashable, Identifiable, ConvertableFromApiModel {
     var id: Int
     var tripId: Int
     var title: String
@@ -44,7 +44,7 @@ class Event: Hashable, Identifiable {
         self.rejectedUsers = rejectedUsers
     }
 
-    init(apiModel: EventApiModel) {
+    required init(apiModel: EventApiModel) {
         self.id = apiModel.id
         self.tripId = apiModel.tripId
         self.title = apiModel.activity

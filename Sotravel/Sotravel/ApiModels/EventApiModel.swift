@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EventApiModel: Codable {
+struct EventApiModel: Codable, ApiModel {
     let id: Int
     let tripId: Int
     let createdAt: String

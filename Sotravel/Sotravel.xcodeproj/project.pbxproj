@@ -101,6 +101,9 @@
 		B43AFA6B29CA0E230029AB85 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = B43AFA6A29CA0E230029AB85 /* Resolver */; };
 		B43AFA6D29CA0E9F0029AB85 /* Repositories+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */; };
 		B44CB22B29C03954007588DC /* MainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44CB22A29C03954007588DC /* MainRepository.swift */; };
+		B458C9A629DDCFBF00AE6A7A /* DecoderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B458C9A529DDCFBF00AE6A7A /* DecoderHelper.swift */; };
+		B458C9A829DDD0ED00AE6A7A /* ConvertableFromApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B458C9A729DDD0ED00AE6A7A /* ConvertableFromApiModel.swift */; };
+		B458C9AA29DDD13900AE6A7A /* ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B458C9A929DDD13900AE6A7A /* ApiModel.swift */; };
 		B4671ED529D2077F00266871 /* TripRepositoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4671ED429D2077F00266871 /* TripRepositoryNode.swift */; };
 		B4671ED729D2DB4600266871 /* GetAllTripsApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4671ED629D2DB4600266871 /* GetAllTripsApiModel.swift */; };
 		B46B0A6F29CCA9A2006F2BA2 /* UpdateUserApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46B0A6E29CCA9A2006F2BA2 /* UpdateUserApiModel.swift */; };
@@ -261,6 +264,9 @@
 		B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swif.swift"; sourceTree = "<group>"; };
 		B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repositories+Injection.swift"; sourceTree = "<group>"; };
 		B44CB22A29C03954007588DC /* MainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRepository.swift; sourceTree = "<group>"; };
+		B458C9A529DDCFBF00AE6A7A /* DecoderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderHelper.swift; sourceTree = "<group>"; };
+		B458C9A729DDD0ED00AE6A7A /* ConvertableFromApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertableFromApiModel.swift; sourceTree = "<group>"; };
+		B458C9A929DDD13900AE6A7A /* ApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiModel.swift; sourceTree = "<group>"; };
 		B4671ED429D2077F00266871 /* TripRepositoryNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRepositoryNode.swift; sourceTree = "<group>"; };
 		B4671ED629D2DB4600266871 /* GetAllTripsApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllTripsApiModel.swift; sourceTree = "<group>"; };
 		B46B0A6E29CCA9A2006F2BA2 /* UpdateUserApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserApiModel.swift; sourceTree = "<group>"; };
@@ -338,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				18591C8729BD73FF00FA987D /* User.swift */,
+				B458C9A729DDD0ED00AE6A7A /* ConvertableFromApiModel.swift */,
 				18D9713F29BD91B60064DC2A /* Event.swift */,
 				18D9714329BD9AF80064DC2A /* EventsStore.swift */,
 				1893D29229BF295400B61BC9 /* ChatMessage.swift */,
@@ -641,6 +648,7 @@
 				B4C3536B29C0A7930073931C /* UserRepositoryNode.swift */,
 				B485A8E029CEF76900786A34 /* EventRepositoryNode.swift */,
 				B485A8F629D0709300786A34 /* ApiErrorHelper.swift */,
+				B458C9A529DDCFBF00AE6A7A /* DecoderHelper.swift */,
 				B4671ED429D2077F00266871 /* TripRepositoryNode.swift */,
 			);
 			path = NodeRepository;
@@ -693,6 +701,7 @@
 				B485A8F029D04ADE00786A34 /* UserCreateEventApiModel.swift */,
 				B485A8F429D06F3200786A34 /* UserFriendApiModel.swift */,
 				B4671ED629D2DB4600266871 /* GetAllTripsApiModel.swift */,
+				B458C9A929DDD13900AE6A7A /* ApiModel.swift */,
 			);
 			path = ApiModels;
 			sourceTree = "<group>";
@@ -923,12 +932,15 @@
 				185CBD0E29CC0FE6008C3B79 /* MapStorageService.swift in Sources */,
 				18A1AC5629BB12940064CF37 /* Calendar.swift in Sources */,
 				B4C3536F29C0A88F0073931C /* NodeApi.swift in Sources */,
+				B458C9A629DDCFBF00AE6A7A /* DecoderHelper.swift in Sources */,
 				AC32F95D29BA1A260005F5B9 /* InvitePageView.swift in Sources */,
 				188EBDBE29C1B4AC002735F0 /* TripPageView.swift in Sources */,
 				B46B0A6F29CCA9A2006F2BA2 /* UpdateUserApiModel.swift in Sources */,
+				B458C9A829DDD0ED00AE6A7A /* ConvertableFromApiModel.swift in Sources */,
 				B485A8F329D06ECB00786A34 /* Friend.swift in Sources */,
 				AC63059C29BDA34F00EEEA85 /* ChatView.swift in Sources */,
 				181C746F29BDDEB700E6D3B1 /* ActionMenuButton.swift in Sources */,
+				B458C9AA29DDD13900AE6A7A /* ApiModel.swift in Sources */,
 				D7400E5029D8143000B5E74D /* Array+BinarySearch.swift in Sources */,
 				D7F6A9E429CF8E17006FBD26 /* ChatPageCellViewModel.swift in Sources */,
 				183F435629D02D1D00F4DFEE /* MapPageView.swift in Sources */,

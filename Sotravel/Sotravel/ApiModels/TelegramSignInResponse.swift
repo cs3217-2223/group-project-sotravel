@@ -13,7 +13,7 @@ struct TelegramSignInResponse: Codable {
 }
 
 // MARK: - User
-struct NodeApiUser: Codable {
+struct NodeApiUser: Codable, ApiModel {
     let id: String
     let backupID, teleUsername, teleID: String?
     let socialsTiktok, socialsInstagram: String?

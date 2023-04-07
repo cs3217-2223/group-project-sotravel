@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct GetAllTripsApiModel: Codable {
+struct GetAllTripsApiModel: Codable, ApiModel {
     let upcomingTrips, pastTrips: [TripApiModel]
 }
 
 // MARK: - Trip
-struct TripApiModel: Codable {
+struct TripApiModel: Codable, ApiModel {
     let id: Int
     let name, startDate, endDate, location: String
     let imageURL: String
