@@ -46,6 +46,26 @@ class UserService: ObservableObject {
         }
     }
 
+    func emailSignin(email: String, password: String, completion: @escaping (Bool, UUID?) -> Void) {
+        Task {
+            do {
+                if let fetchedUser = try await userRepository.emailSignin(email: email, password: password) {
+                    DispatchQueue.main.async {
+                        self.user = fetchedUser
+                        self.handleUserPropertyChange()
+                        completion(true, fetchedUser.id)
+                    }
+                } else {
+                    completion(false, nil)
+                }
+            } catch {
+                print("Error fetching user:", error)
+                // Handle error as needed
+                completion(false, nil)
+            }
+        }
+    }
+
     func fetchUser(id: UUID, completion: @escaping (Bool) -> Void) {
         Task {
             do {

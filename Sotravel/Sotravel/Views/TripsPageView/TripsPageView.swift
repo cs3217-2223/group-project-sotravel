@@ -49,6 +49,11 @@ struct TripsPageView: View {
     }
 
     private func loadUserData(for trip: Trip) {
+        // Check if trip data has already been loaded
+        if let id = tripService.getCurrTripId(), id == trip.id {
+            return
+        }
+
         userService.reloadUser { success in
             if success {
                 guard let userId = userService.getUserId() else {
@@ -61,10 +66,12 @@ struct TripsPageView: View {
 
                 eventService.loadUserEvents(forTrip: trip.id, userId: userId)
                 chatService.setUserId(userId: userId)
+
+                // Store the ID of the selected trip
+                tripService.lastSelectedTripId = trip.id
             } else {
                 print("failed to reload User")
             }
-
         }
     }
 
@@ -75,7 +82,9 @@ struct TripsPageView: View {
                     print("Fatal error, userId not found")
                     return
                 }
-                tripService.reloadUserTrips(userId: userId)
+                tripService.reloadUserTrips(userId: userId) {
+
+                }
             }
         }
     }

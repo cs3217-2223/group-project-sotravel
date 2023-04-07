@@ -73,7 +73,9 @@ struct ProfilePageView: View {
             return
         }
         // Reload the trips
-        tripService.reloadUserTrips(userId: userId)
+        tripService.reloadUserTrips(userId: userId) {
+
+        }
     }
 
     private func changeTrip(completion: @escaping (Bool) -> Void) {
@@ -101,8 +103,11 @@ struct ProfilePageView: View {
                     print("Error: User is nil")
                     return
                 }
-                tripService.reloadUserTrips(userId: userId)
+                tripService.reloadUserTrips(userId: userId) {
+
+                }
                 tripService.selectTrip(trip)
+                tripService.lastSelectedTripId = trip.id
                 eventService.loadUserEvents(forTrip: trip.id, userId: userId)
                 chatService.setUserId(userId: userId)
             } else {

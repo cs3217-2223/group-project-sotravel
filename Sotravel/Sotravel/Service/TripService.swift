@@ -5,7 +5,7 @@
 //  Created by Weiqiang Zhang on 30/3/23.
 //
 
-import Foundation
+import SwiftUI
 import Resolver
 
 class TripService: ObservableObject {
@@ -15,7 +15,7 @@ class TripService: ObservableObject {
     private var selectedTrip: Trip?
     private var tripCache: [Int: Trip]
 
-    var count = 0
+    @AppStorage("LastSelectedTripId") var lastSelectedTripId: Int?
 
     @Injected private var tripRepository: TripRepository
 
@@ -27,6 +27,10 @@ class TripService: ObservableObject {
 
     func getCurrTripId() -> Int? {
         selectedTrip?.id
+    }
+
+    func getTrip(from id: Int) -> Trip? {
+        tripCache[id]
     }
 
     func getTripIds() -> [Int] {
@@ -53,13 +57,14 @@ class TripService: ObservableObject {
         }
     }
 
-    func reloadUserTrips(userId: UUID) {
+    func reloadUserTrips(userId: UUID, completion: @escaping () -> Void) {
         Task {
             do {
                 let trips = try await tripRepository.getTrips(userId: userId)
                 DispatchQueue.main.async {
                     self.updateCache(from: trips)
                     self.trips = trips
+                    completion()
                 }
             } catch {
                 print("Error loading user events:", error)
@@ -69,6 +74,26 @@ class TripService: ObservableObject {
 
     func selectTrip(_ trip: Trip) {
         self.selectedTrip = trip
+    }
+
+    func getMostRecentTrip() -> Trip? {
+        guard !trips.isEmpty else {
+            return nil
+        }
+
+        let currentDate = Date()
+        var mostRecentTrip = trips[0]
+        var smallestTimeInterval = abs(currentDate.timeIntervalSince(mostRecentTrip.startDate))
+
+        for trip in trips {
+            let timeInterval = abs(currentDate.timeIntervalSince(trip.startDate))
+            if timeInterval < smallestTimeInterval {
+                smallestTimeInterval = timeInterval
+                mostRecentTrip = trip
+            }
+        }
+
+        return mostRecentTrip
     }
 
     func clear() {

@@ -11,6 +11,26 @@ import NIOHTTP1
 class UserRepositoryNode: UserRepository {
     private static var api = NodeApi()
 
+    func emailSignin(email: String, password: String) async throws -> User? {
+        let dataBody = ["email": email, "password": password]
+        let (status, response) = try await UserRepositoryNode.api.post(path: .demoSignin,
+                                                                       data: dataBody)
+        let functionName = "emailSignin"
+
+        try ApiErrorHelper.handleError(location: functionName, status: status)
+        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
+
+        do {
+            let responseModel = try JSONDecoder().decode(TelegramSignInResponse.self, from: Data(data.utf8))
+            NodeApi.storeAuthToken(token: responseModel.token)
+            return try User(apiUser: responseModel.user)
+        } catch is DecodingError {
+            throw SotravelError.message("Unable to parse Get User response")
+        } catch {
+            throw error
+        }
+    }
+
     func get(id: UUID) async throws -> User? {
         let functionName = "Get User"
         let params = ["user_id": id.uuidString]

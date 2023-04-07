@@ -11,6 +11,7 @@ protocol UserRepository {
     func get(id: UUID) async throws -> User?
     func getAllFriendsOnTrip(tripId: Int) async throws -> [User]
     func update(user: User) async throws -> User?
+    func emailSignin(email: String, password: String) async throws -> User?
 }
 
 class UserRepositoryStub: UserRepository {
@@ -18,6 +19,10 @@ class UserRepositoryStub: UserRepository {
 
     init() {
         self.dataBase = mockFriends + [mockUser]
+    }
+
+    func emailSignin(email: String, password: String) async throws -> User? {
+        mockUser
     }
 
     func get(id: UUID) async throws -> User? {
