@@ -25,6 +25,10 @@ class TripService: ObservableObject {
         self.trips = []
     }
 
+    func getCurrTrip() -> Trip? {
+        selectedTrip
+    }
+
     func getCurrTripId() -> Int? {
         selectedTrip?.id
     }

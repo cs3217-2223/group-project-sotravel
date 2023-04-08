@@ -6,12 +6,17 @@ struct UserListItemView<Content: View>: View {
 
     @State private var showActionSheet = false
 
+    init(user: User?, content: (() -> Content)? = { EmptyView() }) {
+        self.user = user
+        self.content = content
+    }
+
     var body: some View {
         HStack(spacing: 10) {
-            ProfileImageView(imageSrc: user?.imageURL, name: user?.name ?? "John Doe", width: 60, height: 60)
+            ProfileImageView(imageSrc: user?.imageURL, name: user?.name ?? "", width: 60, height: 60)
                 .padding(.trailing, 6)
             VStack(alignment: .leading, spacing: 6) {
-                Text(user?.name ?? "John Doe")
+                Text(user?.name ?? "")
                     .font(.uiHeadline)
                     .foregroundColor(.primary)
 
@@ -25,9 +30,9 @@ struct UserListItemView<Content: View>: View {
 
             Spacer()
 
-            //            if let content = content {
-            //                content()
-            //            }
+            if let content = content {
+                content()
+            }
         }
     }
 }

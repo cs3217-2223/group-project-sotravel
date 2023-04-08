@@ -55,6 +55,7 @@
 		18C3660629C0227C00AF0338 /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3660529C0227C00AF0338 /* ChatMessageView.swift */; };
 		18CC54D329DEC41C00B8C3D2 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC54D229DEC41C00B8C3D2 /* LoginButtonView.swift */; };
 		18CC54D529DEC4FA00B8C3D2 /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC54D429DEC4FA00B8C3D2 /* EmailLoginView.swift */; };
+		18CC54DA29E1B29700B8C3D2 /* UserListItemLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC54D929E1B29700B8C3D2 /* UserListItemLinkView.swift */; };
 		18D736A729C03A7C00EB7439 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D736A629C03A7C00EB7439 /* KeyboardResponder.swift */; };
 		18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713229BD74B10064DC2A /* MockUsers.swift */; };
 		18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713429BD7CC90064DC2A /* UserListItemView.swift */; };
@@ -218,6 +219,7 @@
 		18C3660529C0227C00AF0338 /* ChatMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageView.swift; sourceTree = "<group>"; };
 		18CC54D229DEC41C00B8C3D2 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
 		18CC54D429DEC4FA00B8C3D2 /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
+		18CC54D929E1B29700B8C3D2 /* UserListItemLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemLinkView.swift; sourceTree = "<group>"; };
 		18D736A629C03A7C00EB7439 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		18D9713229BD74B10064DC2A /* MockUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUsers.swift; sourceTree = "<group>"; };
 		18D9713429BD7CC90064DC2A /* UserListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemView.swift; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 				1817D0F729D538CF00D8D9F0 /* Toast.swift */,
 				1813523329DACE7B00C07F85 /* DismissKeyboardToolbarView.swift */,
 				18CC54D229DEC41C00B8C3D2 /* LoginButtonView.swift */,
+				18CC54D929E1B29700B8C3D2 /* UserListItemLinkView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -878,6 +881,7 @@
 				183F435829D02FF900F4DFEE /* CustomPointAnnotation.swift in Sources */,
 				18D9714029BD91B60064DC2A /* Event.swift in Sources */,
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
+				18CC54DA29E1B29700B8C3D2 /* UserListItemLinkView.swift in Sources */,
 				18591C8829BD73FF00FA987D /* User.swift in Sources */,
 				1813523629DACEF600C07F85 /* Utils.swift in Sources */,
 				B4C3536829C0A7160073931C /* ChatRepository.swift in Sources */,

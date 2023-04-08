@@ -1,9 +1,8 @@
 import SwiftUI
 
-struct FriendsListPageView: View {
+struct FriendsListPageView<ActionComponent: View>: View {
     @EnvironmentObject private var userService: UserService
     @State private var searchText = ""
-
     var friends: [User]
     var filteredFriends: [User] {
         if searchText.isEmpty {
@@ -18,24 +17,25 @@ struct FriendsListPageView: View {
         }
     }
 
+    var actionComponent: (User) -> ActionComponent
+
+    init(friends: [User], @ViewBuilder actionComponent: @escaping (User) -> ActionComponent) {
+        self.friends = friends
+        self.actionComponent = actionComponent
+    }
+
     var body: some View {
         VStack {
             SearchBar(text: $searchText)
                 .padding()
             ScrollView {
                 ForEach(filteredFriends, id: \.id) { friend in
-                    NavigationLink(destination: FriendProfilePageView(friend: friend)) {
-                        UserListItemView(user: friend) {
-                            ActionMenuButton()
-                        }
-                    }
-                    Divider()
+                    actionComponent(friend)
                 }
             }
             .padding(.horizontal, 20)
             .padding(.top, 6)
             .padding(.bottom, 20)
-
         }
         .navigationTitle("Friends")
     }
@@ -43,6 +43,6 @@ struct FriendsListPageView: View {
 
 struct FriendsListPageView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendsListPageView(friends: mockFriends)
+        FriendsListPageView(friends: mockFriends, actionComponent: { _ in EmptyView() })
     }
 }
