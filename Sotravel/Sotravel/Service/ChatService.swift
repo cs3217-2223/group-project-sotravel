@@ -14,6 +14,7 @@ class ChatService: ObservableObject {
     @Published var chatPageCellVMs: [ChatPageCellViewModel]
     @Published var chatHeaderVM: ChatHeaderViewModel
     @Published var chatMessageVMs: [ChatMessageViewModel]
+    @Published var chatPreviewVM: ChatPreviewViewModel
     var isChatPageCellListenerSet: [Int: Bool] = [:]
 
     @Injected private var chatRepository: ChatRepository
@@ -22,6 +23,7 @@ class ChatService: ObservableObject {
         self.chatPageCellVMs = []
         self.chatHeaderVM = ChatHeaderViewModel()
         self.chatMessageVMs = []
+        self.chatPreviewVM = ChatPreviewViewModel()
     }
 
     func setUserId(userId: UUID) {
@@ -147,9 +149,10 @@ class ChatService: ObservableObject {
         return message.messageTimestamp.timeIntervalSince(previousMessage.messageTimestamp) > 600 // 10 mins
     }
 
-    func getEventPagePreview(eventId: Int) { // (is alr being called on event page appear)
-        // TODO: clear the preview messages
-        // TODO: get the data from firebase (cant get from here since might not want to add listener)
+    func getEventPagePreview(eventId: Int) {
+        chatRepository.getChatPreview(for: eventId, completion: { chatPreview in
+            self.chatPreviewVM = self.convertChatToChatPreviewVM(chat: chatPreview)
+        })
     }
 
     func clear() {
@@ -174,6 +177,7 @@ class ChatService: ObservableObject {
         chatPageCellVMs = []
         chatHeaderVM = ChatHeaderViewModel()
         chatMessageVMs = []
+        chatPreviewVM = ChatPreviewViewModel()
     }
 }
 
@@ -187,6 +191,7 @@ extension ChatService {
     }
 
     private func convertChatToChatHeaderVM(chat: Chat) -> ChatHeaderViewModel {
+        // TODO: delete the chatTitle
         ChatHeaderViewModel(chatTitle: "to delete - get from event service", eventId: chat.id)
     }
 
@@ -196,5 +201,15 @@ extension ChatService {
                              senderId: chatMessage.sender,
                              isSentByMe: chatMessage.sender == userId,
                              id: chatMessage.id)
+    }
+
+    private func convertChatToChatPreviewVM(chat: Chat) -> ChatPreviewViewModel {
+        guard let userId = userId else {
+            return ChatPreviewViewModel()
+        }
+
+        let chatMessageVMs = chat.messages.map { convertChatMessageToChatMessageVM(chatMessage: $0, userId: userId) }
+        return ChatPreviewViewModel(lastMessageVMs: chatMessageVMs,
+                                    id: chat.id)
     }
 }
