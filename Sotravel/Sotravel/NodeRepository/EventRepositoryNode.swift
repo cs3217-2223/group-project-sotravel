@@ -14,35 +14,32 @@ class EventRepositoryNode: EventRepository {
     func get(id: Int) async throws -> Event {
         let params = ["invite_id": String(id)]
         let (status, response) = try await EventRepositoryNode.api.get(path: .inviteById, params: params)
-        let functionName = "Get event"
 
-        try ApiErrorHelper.handleError(location: functionName, status: status)
-        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
+        try ApiErrorHelper.handleError(status: status)
+        let data = try ApiErrorHelper.handleNilResponse(data: response)
 
-        return try DecoderHelper.decodeToClass(functionName: functionName, data: data)
+        return try DecoderHelper.decodeToClass(data: data)
     }
 
     func getUserEvents(userId: UUID, tripId: Int) async throws -> [Event] {
         let params = ["user_id": userId.uuidString,
                       "trip_id": String(tripId)]
         let (status, response) = try await EventRepositoryNode.api.get(path: .userInvites, params: params)
-        let functionName = "Get User events"
 
-        try ApiErrorHelper.handleError(location: functionName, status: status)
-        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
+        try ApiErrorHelper.handleError(status: status)
+        let data = try ApiErrorHelper.handleNilResponse(data: response)
 
-        return try DecoderHelper.decodeToClassArray(functionName: functionName, data: data)
+        return try DecoderHelper.decodeToClassArray(data: data)
     }
 
     func create(event: Event)  async throws -> Event {
         let apiModel = UserCreateEventApiModel(from: event)
         let (status, response) = try await EventRepositoryNode.api.post(path: .createInvite, data: apiModel.dictionary)
-        let functionName = "Create event"
 
-        try ApiErrorHelper.handleError(location: functionName, status: status)
-        let data = try ApiErrorHelper.handleNilResponse(location: functionName, data: response)
+        try ApiErrorHelper.handleError(status: status)
+        let data = try ApiErrorHelper.handleNilResponse(data: response)
 
-        return try DecoderHelper.decodeToClass(functionName: functionName, data: data)
+        return try DecoderHelper.decodeToClass(data: data)
     }
 
     func cancelEvent(id: Int) async throws {
@@ -50,9 +47,8 @@ class EventRepositoryNode: EventRepository {
             "invite_id": String(id)
         ]
         let (status, _) = try await EventRepositoryNode.api.post(path: .cancelInvite, data: body)
-        let functionName = "Cancel event"
 
-        try ApiErrorHelper.handleError(location: functionName, status: status)
+        try ApiErrorHelper.handleError(status: status)
     }
 
     func rsvpToEvent(eventId: Int, userId: UUID, status: EventRsvpStatus) async throws {
@@ -62,8 +58,7 @@ class EventRepositoryNode: EventRepository {
             "status": status == .yes ? "going" : "no"
         ]
         let (status, _) = try await EventRepositoryNode.api.put(path: .updateInvite, data: body)
-        let functionName = "RSVP to event"
 
-        try ApiErrorHelper.handleError(location: functionName, status: status)
+        try ApiErrorHelper.handleError(status: status)
     }
 }

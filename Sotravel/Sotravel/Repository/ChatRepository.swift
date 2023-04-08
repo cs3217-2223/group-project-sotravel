@@ -15,4 +15,5 @@ protocol ChatRepository {
     func getBasicInfo(for id: Int, completion: @escaping ((Chat) -> Void))
     func getChat(id: Int, completion: @escaping ((Chat) -> Void))
     func sendChatMessage(chatMessage: ChatMessage, to chatId: Int) -> Bool
+    func getChatPreview(for id: Int, completion: @escaping ((Chat) -> Void))
 }

@@ -61,17 +61,16 @@ struct EventPageView: View {
                         Spacer()
                     }
 
-                    // TODO: latest messages
-                    /*
-                     VStack {
-                     // Get latest 3 messages
-                     ForEach(chat.messages.sorted { $0.timestamp > $1.timestamp }.prefix(3), id: \.id) {message in
-                     ChatMessageView(chatMessage: message, isSentByMe: message.sender == eventPageUserViewModel.userId).font(.body)
-                     .id(message.id)
-                     }
-                     }.padding(.top, 3)
-                     .padding(.bottom, 14)
-                     */
+                    VStack {
+                        ForEach(chatService.chatPreviewVM.lastMessageVMs) { chatMessageVM in
+                            ChatMessageView(chatMessageVM: chatMessageVM)
+                                .font(.body)
+                                .id(chatMessageVM.id.uuidString)
+                        }
+                    }
+                    .padding(.top, 3)
+                    .padding(.bottom, 14)
+
                     NavigationLink(destination: ChatView()) {
                         HStack(alignment: .firstTextBaseline, spacing: 8) {
                             Image(systemName: "message.fill")

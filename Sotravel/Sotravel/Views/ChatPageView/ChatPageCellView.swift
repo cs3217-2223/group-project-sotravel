@@ -51,8 +51,7 @@ struct ChatPageCellView: View {
 
     private func getTitle(eventId: Int?) -> String {
         guard let eventId = eventId, let event = eventService.getEvent(id: eventId) else {
-            // Handle nil case here
-            return ""
+            return "Event Chat"
         }
         return event.title
     }

@@ -14,6 +14,7 @@ class ChatService: ObservableObject {
     @Published var chatPageCellVMs: [ChatPageCellViewModel]
     @Published var chatHeaderVM: ChatHeaderViewModel
     @Published var chatMessageVMs: [ChatMessageViewModel]
+    @Published var chatPreviewVM: ChatPreviewViewModel
     var isChatPageCellListenerSet: [Int: Bool] = [:]
 
     @Injected private var chatRepository: ChatRepository
@@ -22,6 +23,7 @@ class ChatService: ObservableObject {
         self.chatPageCellVMs = []
         self.chatHeaderVM = ChatHeaderViewModel()
         self.chatMessageVMs = []
+        self.chatPreviewVM = ChatPreviewViewModel()
     }
 
     func setUserId(userId: UUID) {
@@ -84,12 +86,14 @@ class ChatService: ObservableObject {
     func removeChatPageCell(id: Int) {
         chatPageCellVMs.removeAll(where: { ($0.id ?? -1) == id })
         chatRepository.removeListenerForChatBasicInfo(for: id)
+        isChatPageCellListenerSet[id] = false
     }
 
     func fetchChat(id: Int?) {
         guard let userId = userId, let id = id else {
             return
         }
+        removeChatListener()
         chatId = id
 
         chatRepository.getChat(id: id, completion: { chat in
@@ -116,7 +120,7 @@ class ChatService: ObservableObject {
         })
     }
 
-    func dismissChat() {
+    func removeChatListener() {
         guard let chatId = chatId else {
             return
         }
@@ -146,8 +150,9 @@ class ChatService: ObservableObject {
     }
 
     func getEventPagePreview(eventId: Int) {
-        // TODO: clear the preview messages
-        // TODO: populate with firebase data (sort and limit before processing)
+        chatRepository.getChatPreview(for: eventId, completion: { chatPreview in
+            self.chatPreviewVM = self.convertChatToChatPreviewVM(chat: chatPreview)
+        })
     }
 
     func clear() {
@@ -156,10 +161,7 @@ class ChatService: ObservableObject {
     }
 
     func removeAllListeners() {
-        guard let chatId = chatId else {
-            return
-        }
-        chatRepository.removeListenerForChatMessages(for: chatId)
+        removeChatListener()
 
         for chatPageCellVM in chatPageCellVMs {
             guard let id = chatPageCellVM.id else {
@@ -175,6 +177,7 @@ class ChatService: ObservableObject {
         chatPageCellVMs = []
         chatHeaderVM = ChatHeaderViewModel()
         chatMessageVMs = []
+        chatPreviewVM = ChatPreviewViewModel()
     }
 }
 
@@ -188,6 +191,7 @@ extension ChatService {
     }
 
     private func convertChatToChatHeaderVM(chat: Chat) -> ChatHeaderViewModel {
+        // TODO: delete the chatTitle
         ChatHeaderViewModel(chatTitle: "to delete - get from event service", eventId: chat.id)
     }
 
@@ -195,9 +199,17 @@ extension ChatService {
         ChatMessageViewModel(messageText: chatMessage.messageText,
                              messageTimestamp: chatMessage.timestamp,
                              senderId: chatMessage.sender,
-                             senderImageSrc: chatMessage.sender.uuidString, // TODO: delete this field
-                             senderName: chatMessage.sender.uuidString, // TODO: delete this field
                              isSentByMe: chatMessage.sender == userId,
                              id: chatMessage.id)
+    }
+
+    private func convertChatToChatPreviewVM(chat: Chat) -> ChatPreviewViewModel {
+        guard let userId = userId else {
+            return ChatPreviewViewModel()
+        }
+
+        let chatMessageVMs = chat.messages.map { convertChatMessageToChatMessageVM(chatMessage: $0, userId: userId) }
+        return ChatPreviewViewModel(lastMessageVMs: chatMessageVMs,
+                                    id: chat.id)
     }
 }
