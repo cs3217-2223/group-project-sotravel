@@ -44,9 +44,9 @@ struct ProfilePageView: View {
                                     }
                                 } label: {
                                     HStack {
-                                        Text("Change Trip")
+                                        Text("Change Trip (\(tripService.getCurrTrip()?.title ?? ""))")
                                             .font(.uiHeadline)
-                                        Image(systemName: "airplane.departure")
+                                            .lineLimit(1)
                                         Spacer()
                                         Image(systemName: "chevron.down")
                                     }

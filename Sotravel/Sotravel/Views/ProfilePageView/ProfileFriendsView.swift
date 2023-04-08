@@ -18,9 +18,7 @@ struct ProfileFriendsView: View {
                 let usersShown = viewModel.friends.prefix(3)
                 ForEach(Array(usersShown.enumerated()), id: \.element.id) { index, friend in
                     NavigationLink(destination: FriendProfilePageView(friend: friend)) {
-                        UserListItemView(user: friend) {
-                            ActionMenuButton()
-                        }
+                        UserListItemView(user: friend)
                     }
                     if index != usersShown.count - 1 {
                         Divider()
@@ -30,7 +28,9 @@ struct ProfileFriendsView: View {
                 }
             }.padding(.trailing)
             if viewModel.friends.count > 3 {
-                NavigationLink(destination: FriendsListPageView(friends: viewModel.friends)) {
+                NavigationLink(destination: FriendsListPageView(friends: viewModel.friends, actionComponent: {
+                    friend in UserListItemLinkView(friend: friend)
+                })) {
                     HStack {
                         Spacer()
                         Text("See All Friends")

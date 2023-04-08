@@ -16,95 +16,165 @@ struct CreateInvitePageView: View {
 
     let attendeesOptions = ["All Friends", "Selected friends"]
 
+    private func header() -> some View {
+        HStack {
+            Text("Create an invite ✨")
+                .font(.uiTitle1)
+
+            Spacer()
+        }
+        .padding(.leading)
+        .padding(.top, 24)
+    }
+
+    private func inviteDetailsSection() -> some View {
+        Section(header: Text("Invite Details ✍️")) {
+            TextField("Activity (e.g. Rock Climbing)", text: $title)
+                .autocapitalization(.words)
+                .disableAutocorrection(true)
+                .font(.body)
+            TextField("Location (e.g. Railay Beach)", text: $location)
+                .autocapitalization(.words)
+                .disableAutocorrection(true)
+            TextField("Meeting Point (e.g. Hotel Lobby)", text: $meetingPoint)
+                .autocapitalization(.words)
+                .disableAutocorrection(true)
+        }
+    }
+
+    private func dateAndTimeSection() -> some View {
+        Section(header: Text("Date and time ⏱")) {
+            DatePicker("Date", selection: $date, displayedComponents: .date)
+            DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
+        }
+    }
+
+    private func additionalInfoSection() -> some View {
+        Section(header: Text("Additional Information 🗞")) {
+            TextEditor(text: $description)
+                .frame(height: 100)
+                .padding(.vertical, 4)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+        }
+    }
+
+    func friendProfileView(friend: User) -> some View {
+        HStack {
+            ProfileImageView(imageSrc: friend.imageURL, name: friend.name ?? "", width: 40, height: 40)
+            Text(friend.name ?? "")
+        }
+    }
+
+    func friendToggleView<Content: View>(friend: User, @ViewBuilder content: () -> Content) -> some View {
+        Toggle(isOn: Binding(
+            get: { self.selectedAttendees.contains(friend.id) },
+            set: { selected in
+                if selected {
+                    self.selectedAttendees.append(friend.id)
+                } else {
+                    self.selectedAttendees.removeAll(where: { $0 == friend.id })
+                }
+            }
+        )) {
+            content()
+        }
+    }
+
+    private func createInviteButton() -> some View {
+        Button(action: {
+            createEvent()
+        }) {
+            HStack(alignment: .firstTextBaseline) {
+                Image(systemName: "plus")
+                Text("Create Invite")
+            }
+            .font(.body.weight(.medium))
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity)
+            .clipped()
+            .foregroundColor(.blue)
+            .cornerRadius(10) // add corner radius
+        }
+    }
+
+    private func attendeesSection() -> some View {
+        Section(header: Text("Who are you inviting? 👥")) {
+            Picker(selection: $selectedAttendeesOption, label: Text("Select attendees")) {
+                ForEach(0..<attendeesOptions.count) { index in
+                    Text(attendeesOptions[index]).tag(index)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+
+            if selectedAttendeesOption == 0 {
+                Text("This invite will be send to all your friends in \(tripService.getCurrTrip()?.title ?? "this trip").")
+                    .font(.uiBody)
+                ForEach(createInvitePageUserViewModel.friends.prefix(5), id: \.id) { friend in
+                    friendProfileView(friend: friend)
+                }
+                NavigationLink(destination: FriendsListPageView(
+                    friends: createInvitePageUserViewModel.friends,
+                    actionComponent: {
+                        friend in UserListItemLinkView(friend: friend)
+                    }
+                )
+                ) {
+                    VStack(alignment: .center) {
+                        Text("See more")
+                            .foregroundColor(.blue)
+                    }
+                }
+            } else {
+                ForEach(createInvitePageUserViewModel.friends.prefix(5), id: \.id) { friend in
+                    friendToggleView(friend: friend, content: {
+                        friendProfileView(friend: friend)
+                    })
+                }
+
+                NavigationLink(destination: FriendsListPageView(
+                    friends: createInvitePageUserViewModel.friends,
+                    actionComponent: {
+                        friend in friendToggleView(friend: friend, content: {
+                            VStack(spacing: 8) {
+                                UserListItemView(user: friend)
+                                Divider()
+                            }
+                        })
+                    }
+                )
+                ) {
+                    VStack(alignment: .center) {
+                        Text("See more")
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
+        }
+
+    }
+
     var body: some View {
-        ZStack {
-            VStack {
-                HStack {
-                    Text("Create an invite ✨")
-                        .font(.uiTitle1)
+        NavigationView {
+            ZStack {
+                VStack {
+                    header()
 
-                    Spacer()
-                }
-                .padding(.leading)
-                .padding(.top, 24)
-
-                Form {
-                    Section(header: Text("Invite Details ✍️")) {
-                        TextField("Activity (e.g. Rock Climbing)", text: $title)
-                            .autocapitalization(.words)
-                            .disableAutocorrection(true)
-                            .font(.body)
-                        TextField("Location (e.g. Railay Beach)", text: $location)
-                            .autocapitalization(.words)
-                            .disableAutocorrection(true)
-                        TextField("Meeting Point (e.g. Hotel Lobby)", text: $meetingPoint)
-                            .autocapitalization(.words)
-                            .disableAutocorrection(true)
+                    Form {
+                        inviteDetailsSection()
+                        dateAndTimeSection()
+                        additionalInfoSection()
+                        attendeesSection()
+                        createInviteButton()
                     }
-
-                    Section(header: Text("Date and time ⏱")) {
-                        DatePicker("Date", selection: $date, displayedComponents: .date)
-                        DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
-                    }
-
-                    Section(header: Text("Additional Information 🗞")) {
-                        TextEditor(text: $description)
-                            .frame(height: 100)
-                            .padding(.vertical, 4)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.gray, lineWidth: 1)
-                            )
-                    }
-
-                    Section(header: Text("Who are you inviting? 👥")) {
-                        Picker(selection: $selectedAttendeesOption, label: Text("Select attendees")) {
-                            ForEach(0..<attendeesOptions.count) { index in
-                                Text(attendeesOptions[index]).tag(index)
-                            }
+                }.toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("Done") {
+                            hideKeyboard()
                         }
-                        .pickerStyle(SegmentedPickerStyle())
-
-                        if selectedAttendeesOption == 0 {
-                            Text("This invite will be send to all your friends on this trip.").font(.uiBody)
-                        } else {
-                            ForEach(createInvitePageUserViewModel.friends, id: \.id) { friend in
-                                Toggle(isOn: Binding(
-                                    get: { self.selectedAttendees.contains(friend.id) },
-                                    set: { selected in
-                                        if selected {
-                                            self.selectedAttendees.append(friend.id)
-                                        } else {
-                                            self.selectedAttendees.removeAll(where: { $0 == friend.id })
-                                        }
-                                    }
-                                )) {
-                                    Text(friend.name ?? "John Doe")
-                                }
-                            }
-                        }
-                    }
-
-                    Button(action: {
-                        createEvent()
-                    }) {
-                        HStack(alignment: .firstTextBaseline) {
-                            Image(systemName: "plus")
-                            Text("Create Invite")
-                        }
-                        .font(.body.weight(.medium))
-                        .padding(.vertical, 8)
-                        .frame(maxWidth: .infinity)
-                        .clipped()
-                        .foregroundColor(.blue)
-                        .cornerRadius(10) // add corner radius
-                    }
-                }
-            }.toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button("Done") {
-                        hideKeyboard()
                     }
                 }
             }
@@ -158,13 +228,14 @@ struct CreateInvitePageView: View {
             switch result {
             case .success:
                 // Show success message and reset input fields
-                showAlert(message: "Invite created successfully!")
+                showAlert(message: "Woohoo! Your invite has been created ✨")
                 title = ""
                 location = ""
                 meetingPoint = ""
                 description = ""
                 selectedAttendees = []
                 selectedAttendeesOption = 0
+                navigateToInvitesPage()
             case .failure(let error):
                 // Show error message
                 showAlert(message: "Failed to create invite: \(error.localizedDescription)")
@@ -194,12 +265,19 @@ struct CreateInvitePageView: View {
             }
         }
     }
+
+    private func navigateToInvitesPage() {
+        tripService.selectedTapInCurrTrip = 1
+    }
 }
 
 struct CreateEventView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CreateInvitePageView(createInvitePageUserViewModel: CreateInvitePageUserViewModel()).environmentObject(EventService())
+            CreateInvitePageView(createInvitePageUserViewModel: CreateInvitePageUserViewModel(friends: mockFriends))
+                .environmentObject(EventService())
+                .environmentObject(UserService())
+                .environmentObject(TripService())
         }
     }
 }
