@@ -147,9 +147,9 @@ class ChatService: ObservableObject {
         return message.messageTimestamp.timeIntervalSince(previousMessage.messageTimestamp) > 600 // 10 mins
     }
 
-    func getEventPagePreview(eventId: Int) {
+    func getEventPagePreview(eventId: Int) { // (is alr being called on event page appear)
         // TODO: clear the preview messages
-        // TODO: populate with firebase data (sort and limit before processing)
+        // TODO: get the data from firebase (cant get from here since might not want to add listener)
     }
 
     func clear() {

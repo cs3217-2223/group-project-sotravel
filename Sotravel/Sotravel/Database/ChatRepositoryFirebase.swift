@@ -27,7 +27,7 @@ class ChatRepositoryFirebase: ChatRepository {
                 completion(chat)
                 return
             }
-            do {
+            do { // TODO: see if need to change to accommodate 3 messages
                 json["id"] = key
                 let chatBasicInfoAMData = try JSONSerialization.data(withJSONObject: json)
                 let chatBasicInfoAM = try self.decoder.decode(ChatBasicInfoApiModel.self, from: chatBasicInfoAMData)
@@ -118,7 +118,8 @@ class ChatRepositoryFirebase: ChatRepository {
         if !addChatMessage(chatMessage: chatMessage, chatId: chatId) {
             return false
         }
-        return updateChatBasicInfo(chatMessage: chatMessage, chatId: chatId)
+        updateChatBasicInfo(chatMessage: chatMessage, chatId: chatId)
+        return true
     }
 
     private func addChatMessage(chatMessage: ChatMessage, chatId: Int) -> Bool {
@@ -134,11 +135,57 @@ class ChatRepositoryFirebase: ChatRepository {
         return true
     }
 
-    private func updateChatBasicInfo(chatMessage: ChatMessage, chatId: Int) -> Bool {
+    private func updateChatBasicInfo(chatMessage: ChatMessage, chatId: Int) {
+        getLastThreeMessages(for: chatId, completion: { messageIds in
+            var update: [String: String] = [:]
+            if messageIds.isEmpty { // just update for last message
+                update = ["lastMessage": chatMessage.id.uuidString]
+            } else if messageIds.count == 1 { // update for last and second last message
+                update = ["lastMessage": chatMessage.id.uuidString,
+                          "secondLastMessage": messageIds[0]]
+            } else if messageIds.count == 2 { // update for all 3 messages
+                update = ["lastMessage": chatMessage.id.uuidString,
+                          "secondLastMessage": messageIds[0],
+                          "thirdLastMessage": messageIds[1]]
+            }
+            self.updateChatBasicInfoValues(chatId: chatId, update: update)
+        })
+    }
+
+    private func updateChatBasicInfoValues(chatId: Int, update: [String: String]) {
         let databasePath = databaseRef.child("chats/\(chatId)")
-        let updateMessage = ["lastMessage": chatMessage.id.uuidString]
-        databasePath.updateChildValues(updateMessage)
-        return true
+        databasePath.updateChildValues(update)
+    }
+
+    private func getLastThreeMessages(for id: Int, completion: @escaping (([String]) -> Void)) {
+        let databasePath = databaseRef.child("chats/\(id)")
+        databasePath.getData(completion: { error, snapshot in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let key = snapshot?.key, var json = snapshot?.value as? [String: Any] else { // no messages
+                completion([])
+                return
+            }
+            do {
+                json["id"] = key
+                let chatBasicInfoAMData = try JSONSerialization.data(withJSONObject: json)
+                let chatBasicInfoAM = try self.decoder.decode(ChatBasicInfoApiModel.self, from: chatBasicInfoAMData)
+                guard let lastMessageId = chatBasicInfoAM.lastMessage, !lastMessageId.isEmpty else { // no messages
+                    completion([])
+                    return
+                }
+                guard let secondLastMessageId = chatBasicInfoAM.secondLastMessage,
+                      !secondLastMessageId.isEmpty else { // only have last message
+                    completion([lastMessageId])
+                    return
+                }
+                completion([lastMessageId, secondLastMessageId]) // have both last and second last messages
+            } catch {
+                print("An error occurred", error)
+            }
+        })
     }
 
     // MARK: FOR LISTENERS
@@ -164,6 +211,7 @@ class ChatRepositoryFirebase: ChatRepository {
         databasePath.removeAllObservers()
     }
 
+    // TODO: see if need to change to accommodate 3 messages
     func setListenerForChatBasicInfo(for chatId: Int, completion: @escaping ((Chat) -> Void)) {
         print("Setting listener for \(chatId)")
         let databasePath = databaseRef.child("chats/\(chatId)")

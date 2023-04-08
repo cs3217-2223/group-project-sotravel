@@ -10,4 +10,6 @@ import Foundation
 struct ChatBasicInfoApiModel: Codable {
     let id: String?
     let lastMessage: String?
+    let secondLastMessage: String?
+    let thirdLastMessage: String?
 }
