@@ -29,7 +29,7 @@ struct ChatPageView: View {
                     Spacer()
                 }
                 .padding(.top, 24)
-                .padding(.bottom, 4)
+                .padding(.bottom, 6)
 
                 if chatService.chatPageCellVMs.isEmpty {
                     Text("No chats yet. Chats for invites you are going to will be shown here 😊")
@@ -43,11 +43,16 @@ struct ChatPageView: View {
                                 .font(.uiBody)
                             Spacer()
                         }
+                    } else {
+                        Text("Upcoming Invites")
+                            .foregroundColor(.gray)
+                            .font(.uiCaption1)
+                            .padding(.bottom)
                     }
                     ForEach(sortedChatPageCellUpcomingViewModels()) { chatPageCell in
                         chatCellView(chatPageCell: chatPageCell)
                     }
-                    Text("Past Invites")
+                    Text("Past")
                         .foregroundColor(.gray)
                         .font(.uiCaption1)
                         .padding(.vertical)
