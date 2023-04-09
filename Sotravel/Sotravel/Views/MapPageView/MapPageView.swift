@@ -90,7 +90,9 @@ struct MapPageView: View {
                                         )
                                 }
                             }) {
-                                Image(systemName: locationSharing.isSharingLocation ? "location.fill" : "location.slash")
+                                Image(systemName: locationSharing.isSharingLocation ?
+                                        "antenna.radiowaves.left.and.right" :
+                                        "antenna.radiowaves.left.and.right.slash")
                                     .foregroundColor(.white)
                                     .padding()
                                     .background(Color.blue)

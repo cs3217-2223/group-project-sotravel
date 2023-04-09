@@ -29,6 +29,20 @@ extension Date {
         return formatter.string(from: self)
     }
 
+    func toFriendlyDayTimeString() -> String {
+        let formatter = DateFormatter()
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let date = calendar.startOfDay(for: self)
+
+        if date == today {
+            formatter.dateFormat = "'Today at' h:mm a"
+        } else {
+            formatter.dateFormat = "EEE, MMM d 'at' h:mm a"
+        }
+        return formatter.string(from: self)
+    }
+
     func toFriendlyTimeString() -> String {
         let dateFormatter = DateFormatter()
 

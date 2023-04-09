@@ -21,6 +21,18 @@ class UserRepositoryNode: UserRepository {
         return try DecoderHelper.decodeToClass(data: data)
     }
 
+    // TODO: Remove if unused by specified date in EmailSignUpView
+    // Unused (See EmailSignUpView for detailed comments)
+    func emailSignup(email: String, password: String) async throws -> User? {
+        let dataBody = ["email": email, "password": password]
+        let (status, response) = try await UserRepositoryNode.api.post(path: .signup, data: dataBody)
+
+        try ApiErrorHelper.handleError(status: status)
+        let data = try ApiErrorHelper.handleNilResponse(data: response)
+
+        return try DecoderHelper.decodeToClass(data: data)
+    }
+
     func get(id: UUID) async throws -> User? {
         let params = ["user_id": id.uuidString]
         let (status, response) = try await UserRepositoryNode.api.get(path: .profile, params: params)

@@ -13,9 +13,20 @@ struct ChatHeaderView: View {
                 Text(getEventTitle(eventId: chatHeaderVM.eventId))
                     .font(.uiButton)
                     .lineLimit(1)
-                Text(getEventDatetime(eventId: chatHeaderVM.eventId))
-                    .font(.uiSubheadline)
-                    .lineLimit(1)
+                HStack {
+                    Image(systemName: "calendar")
+                        .imageScale(.medium)
+                        .symbolRenderingMode(.monochrome)
+                    Text(getEventDatetime(eventId: chatHeaderVM.eventId))
+                        .font(.uiSubheadline)
+                }
+                HStack {
+                    Image(systemName: "person.2.circle.fill")
+                        .imageScale(.medium)
+                        .symbolRenderingMode(.monochrome)
+                    Text(getEventMeetingPoint(eventId: chatHeaderVM.eventId))
+                        .font(.uiSubheadline)
+                }
                 if let eventVM = getEventVM(eventId: chatHeaderVM.eventId) {
                     NavigationLink(destination: EventPageView(eventViewModel: eventVM)) {
                         Text("View More").font(.uiFootnote).foregroundColor(.blue)
@@ -26,18 +37,25 @@ struct ChatHeaderView: View {
         }.padding(.leading, 20)
     }
 
+    private func getEventMeetingPoint(eventId: Int?) -> String {
+        guard let eventId = eventId, let event = eventService.getEvent(id: eventId) else {
+            return "No meeting point"
+        }
+        return "Meet at \(event.meetingPoint)"
+    }
+
     private func getEventTitle(eventId: Int?) -> String {
         guard let event = getEvent(eventId: eventId) else {
             return ""
         }
-        return event.title
+        return "\(event.title) at \(event.location)"
     }
 
     private func getEventDatetime(eventId: Int?) -> String {
         guard let event = getEvent(eventId: eventId) else {
             return ""
         }
-        return event.datetime.toFriendlyString()
+        return event.datetime.toFriendlyDayTimeString()
     }
 
     private func getEventVM(eventId: Int?) -> EventViewModel? {
@@ -54,11 +72,3 @@ struct ChatHeaderView: View {
         return eventService.getEvent(id: eventId)
     }
 }
-
-// struct ChatHeaderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            ChatHeaderView(chat: mockChatNoEvent)
-//        }
-//    }
-// }

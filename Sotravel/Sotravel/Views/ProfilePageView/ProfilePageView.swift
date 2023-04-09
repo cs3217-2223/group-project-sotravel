@@ -28,7 +28,7 @@ struct ProfilePageView: View {
                             Text("Settings")
                                 .font(.uiTitle3)
                             Spacer()
-                        }.padding(.bottom, 20)
+                        }.padding(.bottom, 8)
 
                         VStack(spacing: 32) {
                             Button(action: {
@@ -58,6 +58,13 @@ struct ProfilePageView: View {
                                             .stroke(Color.uiPrimary, lineWidth: 1)
                                     )
                                 }
+                            }
+                            Button(action: {
+                                userService.logout()
+                            }) {
+                                Text("Log Out")
+                                    .font(.uiButton)
+                                    .foregroundColor(.red)
                             }
                         }
                     }

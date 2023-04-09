@@ -14,20 +14,37 @@ struct ChatPageCellView: View {
     @EnvironmentObject var userService: UserService
     @EnvironmentObject var friendService: FriendService
 
+    private func makeTitle() -> some View {
+        HStack(alignment: .center) {
+            Text(getTitle(eventId: chatPageCellVM.id))
+                .font(.uiHeadline)
+                .foregroundColor(.primary)
+                .clipped()
+                .lineLimit(1)
+            Spacer()
+            Text(chatPageCellVM.lastMessageTimestamp ?? "")
+                .font(.uiCaption1)
+                .foregroundColor(.gray)
+                .lineLimit(1)
+        }
+    }
+
+    private func makeDate() -> some View {
+        HStack {
+            Image(systemName: "calendar")
+                .imageScale(.medium)
+                .symbolRenderingMode(.monochrome)
+                .foregroundColor(.primary)
+            Text(getDate(eventId: chatPageCellVM.id))
+                .font(.uiSubheadline)
+                .foregroundColor(.primary)
+        }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            HStack(alignment: .center) {
-                Text(getTitle(eventId: chatPageCellVM.id))
-                    .font(.uiHeadline)
-                    .foregroundColor(.primary)
-                    .clipped()
-                    .lineLimit(1)
-                Spacer()
-                Text(chatPageCellVM.lastMessageTimestamp ?? "")
-                    .font(.uiCaption1)
-                    .foregroundColor(.gray)
-                    .lineLimit(1)
-            }
+            makeTitle()
+            makeDate()
             HStack {
                 if let senderId = chatPageCellVM.lastMessageSender {
                     Text("\(getSenderName(senderId: senderId)):")
@@ -51,22 +68,29 @@ struct ChatPageCellView: View {
 
     private func getTitle(eventId: Int?) -> String {
         guard let eventId = eventId, let event = eventService.getEvent(id: eventId) else {
-            return "Event Chat"
+            return "No event name"
         }
-        return event.title
+        return "\(event.title) at \(event.location)"
+    }
+
+    private func getDate(eventId: Int?) -> String {
+        guard let eventId = eventId, let event = eventService.getEvent(id: eventId) else {
+            return "No date"
+        }
+        return event.datetime.toFriendlyDayTimeString()
     }
 
     private func getSenderName(senderId: String) -> String {
         // sender is the user
         if let userId = chatService.userId, senderId == userId.uuidString {
-            return userService.getUser()?.name ?? "John Doe"
+            return userService.getUser()?.name ?? ""
         }
 
         // sender is a friend
         guard let senderUUID = UUID(uuidString: senderId) else {
-            return "John Doe"
+            return ""
         }
-        return friendService.getFriend(id: senderUUID)?.name ?? "John Doe"
+        return friendService.getFriend(id: senderUUID)?.name ?? ""
     }
 
     private func showAlert(message: String) {

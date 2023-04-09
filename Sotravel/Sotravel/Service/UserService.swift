@@ -38,6 +38,16 @@ class UserService: ObservableObject {
         UserDefaults.standard.set(id.uuidString, forKey: userId)
     }
 
+    func logout() {
+        self.user = nil
+        self.isLoggedIn = false
+        self.profileHeaderVM = ProfileHeaderViewModel()
+        self.socialMediaLinksVM = SocialMediaLinksViewModel()
+        self.editProfileViewModel = EditProfileViewModel()
+        UserDefaults.standard.resetLogin()
+        UserDefaults.standard.resetLastSelectedTrip()
+    }
+
     func getStoredUserId() -> UUID? {
         if let uuidString = UserDefaults.standard.string(forKey: userId) {
             return UUID(uuidString: uuidString)
@@ -50,6 +60,28 @@ class UserService: ObservableObject {
         Task {
             do {
                 if let fetchedUser = try await userRepository.emailSignin(email: email, password: password) {
+                    DispatchQueue.main.async {
+                        self.user = fetchedUser
+                        self.handleUserPropertyChange()
+                        completion(true, fetchedUser.id)
+                    }
+                } else {
+                    completion(false, nil)
+                }
+            } catch {
+                print("Error fetching user:", error)
+                // Handle error as needed
+                completion(false, nil)
+            }
+        }
+    }
+
+    // TODO: Remove if unused by specified date in EmailSignUpView
+    // Unused (See EmailSignUpView for detailed comments)
+    func emailSignup(email: String, password: String, completion: @escaping (Bool, UUID?) -> Void) {
+        Task {
+            do {
+                if let fetchedUser = try await userRepository.emailSignup(email: email, password: password) {
                     DispatchQueue.main.async {
                         self.user = fetchedUser
                         self.handleUserPropertyChange()

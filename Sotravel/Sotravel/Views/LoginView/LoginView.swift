@@ -51,7 +51,7 @@ struct LoginView: View {
                                 imageName: "paperplane.fill",
                                 url: "https://sotravel.me/app-login"
                             )
-                            NavigationLink(destination: EmailSignUpView()) {
+                            NavigationLink(destination: EmailLoginView()) {
                                 Text("Continue With Email")
                                     .font(.uiButton)
                             }

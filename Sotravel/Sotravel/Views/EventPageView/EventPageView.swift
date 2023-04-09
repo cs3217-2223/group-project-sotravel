@@ -9,29 +9,52 @@ struct EventPageView: View {
     @State private var selectedTab = 0
     @State private var showConfirmationDialog = false
 
+    func makeTitle() -> some View {
+        HStack {
+            Text(eventViewModel.title)
+                .font(.uiTitle2)
+                .lineLimit(1)
+            Spacer()
+        }.padding(.bottom, 10)
+    }
+
+    func makeDate() -> some View {
+        HStack {
+            Image(systemName: "calendar")
+                .imageScale(.medium)
+                .symbolRenderingMode(.monochrome)
+            Text(eventViewModel.datetime.toFriendlyDayTimeString())
+                .font(.uiCallout)
+        }
+    }
+
+    func makeLocation() -> some View {
+        HStack {
+            Image(systemName: "location.fill")
+                .imageScale(.medium)
+                .symbolRenderingMode(.monochrome)
+            Text(eventViewModel.location)
+                .font(.uiCallout)
+        }
+    }
+
+    func makeMeetingPoint() -> some View {
+        HStack {
+            Image(systemName: "person.2.circle.fill")
+                .imageScale(.medium)
+                .symbolRenderingMode(.monochrome)
+            Text("Meet at \(eventViewModel.meetingPoint)")
+                .font(.uiCallout)
+        }
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    Text(eventViewModel.title)
-                        .font(.uiTitle2)
-                        .lineLimit(1)
-                    Spacer()
-                }.padding(.bottom, 10)
-                HStack {
-                    Image(systemName: "calendar")
-                        .imageScale(.medium)
-                        .symbolRenderingMode(.monochrome)
-                    Text(eventViewModel.datetime.formattedDateAndTime())
-                        .font(.uiCallout)
-                }
-                HStack {
-                    Image(systemName: "location.fill")
-                        .imageScale(.medium)
-                        .symbolRenderingMode(.monochrome)
-                    Text(eventViewModel.location)
-                        .font(.uiCallout)
-                }
+                makeTitle()
+                makeDate()
+                makeLocation()
+                makeMeetingPoint()
                 if let eventDetails = eventViewModel.details {
                     Text(eventDetails)
                         .font(.uiBody)

@@ -25,6 +25,8 @@ class NodeApi: RestApi {
         // Login
         .telegramSignIn: "/user/telegramSignin",
         .demoSignin: "/user/demoSignin",
+        .signin: "/user/signin",
+        .signup: "/user/signup",
         // Profile
         .profile: "/user/getUser",
         .updateProfile: "/user/updateUser",
@@ -150,5 +152,7 @@ enum NodeApiPath {
          cancelInvite,
          friends,
          userTrips,
-         demoSignin
+         demoSignin,
+         signin,
+         signup
 }
