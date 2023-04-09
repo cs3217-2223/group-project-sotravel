@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct EmailLoginView: View {
+struct EmailSignUpView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @EnvironmentObject var userService: UserService
@@ -27,37 +27,34 @@ struct EmailLoginView: View {
                     .padding(.bottom, 12)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
+                SecureField("Confirm Password", text: $password)
+                    .frame(height: 55)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding(.horizontal, 16)
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray))
+                    .padding(.bottom, 12)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
                 LoginButtonView(action: {
-                    userService.emailSignin(email: email, password: password) {success, userId in
-                        if !success {
-                            return
-                        }
-
-                        guard let userId = userId else {
-                            return
-                        }
-
-                        userService.isLoggedIn = true
-                        userService.storeUserId(id: userId)
-                        tripService.loadUserTrips(userId: userId) { _ in }
-                    }
-                }, title: "Sign In", imageName: nil, url: nil)
+//                    userService.emailSignin(email: email, password: password) {success, userId in
+//                        if !success {
+//                            return
+//                        }
+//
+//                        guard let userId = userId else {
+//                            return
+//                        }
+//
+//                        userService.isLoggedIn = true
+//                        userService.storeUserId(id: userId)
+//                        tripService.loadUserTrips(userId: userId) { _ in }
+//                    }
+                }, title: "Sign Up", imageName: nil, url: nil)
                 .padding(.bottom, 12)
-
-                NavigationLink(destination: EmailSignUpView()){
-                    Text("Don't have an account? Sign up here.")
-                        .font(.uiButton)
-                }
 
                 Spacer()
             }
             .padding()
         }
-    }
-}
-
-struct EmailLoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        EmailLoginView()
     }
 }

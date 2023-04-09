@@ -56,6 +56,7 @@
 		18CC54D329DEC41C00B8C3D2 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC54D229DEC41C00B8C3D2 /* LoginButtonView.swift */; };
 		18CC54D529DEC4FA00B8C3D2 /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC54D429DEC4FA00B8C3D2 /* EmailLoginView.swift */; };
 		18CC54DA29E1B29700B8C3D2 /* UserListItemLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC54D929E1B29700B8C3D2 /* UserListItemLinkView.swift */; };
+		18CC54DC29E263D700B8C3D2 /* EmailSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC54DB29E263D700B8C3D2 /* EmailSignUpView.swift */; };
 		18D736A729C03A7C00EB7439 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D736A629C03A7C00EB7439 /* KeyboardResponder.swift */; };
 		18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713229BD74B10064DC2A /* MockUsers.swift */; };
 		18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9713429BD7CC90064DC2A /* UserListItemView.swift */; };
@@ -220,6 +221,7 @@
 		18CC54D229DEC41C00B8C3D2 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
 		18CC54D429DEC4FA00B8C3D2 /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
 		18CC54D929E1B29700B8C3D2 /* UserListItemLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemLinkView.swift; sourceTree = "<group>"; };
+		18CC54DB29E263D700B8C3D2 /* EmailSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignUpView.swift; sourceTree = "<group>"; };
 		18D736A629C03A7C00EB7439 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		18D9713229BD74B10064DC2A /* MockUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUsers.swift; sourceTree = "<group>"; };
 		18D9713429BD7CC90064DC2A /* UserListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemView.swift; sourceTree = "<group>"; };
@@ -561,6 +563,7 @@
 			children = (
 				18F72A3729B997F40084B94A /* LoginView.swift */,
 				18CC54D429DEC4FA00B8C3D2 /* EmailLoginView.swift */,
+				18CC54DB29E263D700B8C3D2 /* EmailSignUpView.swift */,
 			);
 			path = LoginView;
 			sourceTree = "<group>";
@@ -974,6 +977,7 @@
 				18D9713529BD7CC90064DC2A /* UserListItemView.swift in Sources */,
 				18B33DAF29BE06E60036B51E /* CreateInvitePageView.swift in Sources */,
 				B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */,
+				18CC54DC29E263D700B8C3D2 /* EmailSignUpView.swift in Sources */,
 				AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */,
 				183F435229D02CDF00F4DFEE /* MapView.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
