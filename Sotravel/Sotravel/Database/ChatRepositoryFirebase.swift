@@ -27,7 +27,7 @@ class ChatRepositoryFirebase: ChatRepository {
                 completion(chat)
                 return
             }
-            do { // TODO: see if need to change to accommodate 3 messages
+            do {
                 json["id"] = key
                 let chatBasicInfoAMData = try JSONSerialization.data(withJSONObject: json)
                 let chatBasicInfoAM = try self.decoder.decode(ChatBasicInfoApiModel.self, from: chatBasicInfoAMData)
@@ -190,7 +190,6 @@ class ChatRepositoryFirebase: ChatRepository {
 
     // MARK: FOR CHAT PREVIEW
     func getChatPreview(for id: Int, completion: @escaping ((Chat) -> Void)) {
-        // TODO: refactor (with getBasicInfo)
         let databasePath = databaseRef.child("chats/\(id)")
         databasePath.getData(completion: { error, snapshot in
             guard error == nil else {
@@ -206,45 +205,49 @@ class ChatRepositoryFirebase: ChatRepository {
                 json["id"] = key
                 let chatBasicInfoAMData = try JSONSerialization.data(withJSONObject: json)
                 let chatBasicInfoAM = try self.decoder.decode(ChatBasicInfoApiModel.self, from: chatBasicInfoAMData)
-                // check for lastMessage
-                guard let lastMessageId = chatBasicInfoAM.lastMessage, !lastMessageId.isEmpty else {
-                    let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM)
-                    completion(chat)
-                    return
-                }
-                // convert lastMessage
-                self.getChatMessageAM(chatId: id, messageId: lastMessageId, completion: { lastChatMessageAM in
-                    // check for secondLastMessage
-                    guard let secondLastMessageId = chatBasicInfoAM.secondLastMessage,
-                          !secondLastMessageId.isEmpty else {
-                        let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM,
-                                                               chatMessageAMs: [lastChatMessageAM])
-                        completion(chat)
-                        return
-                    }
-                    // convert secondLastMessage
-                    self.getChatMessageAM(chatId: id, messageId: secondLastMessageId, completion: { secondLastChatMessageAM in
-                        // check for thirdLastMessage
-                        guard let thirdLastMessageId = chatBasicInfoAM.thirdLastMessage,
-                              !thirdLastMessageId.isEmpty else {
-                            let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM,
-                                                                   chatMessageAMs: [secondLastChatMessageAM, lastChatMessageAM])
-                            completion(chat)
-                            return
-                        }
-                        // convert thirdLastMessage
-                        self.getChatMessageAM(chatId: id, messageId: thirdLastMessageId, completion: { thirdLastChatMessageAM in
-                            let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM,
-                                                                   chatMessageAMs: [thirdLastChatMessageAM,
-                                                                                    secondLastChatMessageAM,
-                                                                                    lastChatMessageAM])
-                            completion(chat)
-                        })
-                    })
-                })
+                let messageIds = [chatBasicInfoAM.lastMessage,
+                                  chatBasicInfoAM.secondLastMessage,
+                                  chatBasicInfoAM.thirdLastMessage]
+                self.getChatMessagesAMs(chatId: id, messageIds: messageIds,
+                                        numMessages: 3, completion: { chatMessageAMs in
+                                            var chatMessageAMsReversed = chatMessageAMs
+                                            chatMessageAMsReversed.reverse()
+                                            let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM,
+                                                                                   chatMessageAMs: chatMessageAMsReversed)
+                                            completion(chat)
+                                        })
             } catch {
                 print("An error occurred", error)
             }
+        })
+    }
+
+    private func getChatMessagesAMs(chatId: Int, messageIds: [String?], numMessages: Int,
+                                    completion: @escaping (([ChatMessageApiModel])) -> Void) {
+        getChatMessageAMsHelper(chatId: chatId, messageIds: messageIds, numMessages: numMessages,
+                                accummulator: [], completion: completion)
+    }
+
+    private func getChatMessageAMsHelper(chatId: Int, messageIds: [String?], numMessages: Int,
+                                         accummulator: [ChatMessageApiModel],
+                                         completion: @escaping (([ChatMessageApiModel])) -> Void) {
+        if numMessages <= 0 {
+            completion(accummulator)
+            return
+        }
+
+        guard let id = messageIds.first, let messageId = id, !messageId.isEmpty else {
+            completion(accummulator)
+            return
+        }
+
+        getChatMessageAM(chatId: chatId, messageId: messageId, completion: { chatMessageAM in
+            var newMessageIds = messageIds
+            newMessageIds.remove(at: 0)
+            var newAccummulator = accummulator
+            newAccummulator.append(chatMessageAM)
+            self.getChatMessageAMsHelper(chatId: chatId, messageIds: newMessageIds, numMessages: numMessages - 1,
+                                         accummulator: newAccummulator, completion: completion)
         })
     }
 
@@ -271,9 +274,7 @@ class ChatRepositoryFirebase: ChatRepository {
         databasePath.removeAllObservers()
     }
 
-    // TODO: see if need to change to accommodate 3 messages
     func setListenerForChatBasicInfo(for chatId: Int, completion: @escaping ((Chat) -> Void)) {
-        print("Setting listener for \(chatId)")
         let databasePath = databaseRef.child("chats/\(chatId)")
         databasePath.observe(.value, with: { snapshot in
             guard var json = snapshot.value as? [String: Any] else {

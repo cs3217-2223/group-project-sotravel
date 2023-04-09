@@ -42,15 +42,7 @@ class ChatService: ObservableObject {
     func fetchChatPageCell(id: Int) {
         chatRepository.getBasicInfo(for: id, completion: { basicChat in
             let chatPageCellVM = self.convertChatToChatPageCellVM(chat: basicChat)
-            let index = self.chatPageCellVMs.insertionIndexOf(chatPageCellVM, isOrderedBefore: {
-                guard let date1 = $0.lastMessageDate else { // no date, place behind
-                    return false
-                }
-                guard let date2 = $1.lastMessageDate else { // other has no date, place in front
-                    return true
-                }
-                return date1 > date2 // place in front if the last message came later
-            })
+            let index = self.chatPageCellVMs.insertionIndexOf(chatPageCellVM, isOrderedBefore: self.isOrderedBefore)
             self.chatPageCellVMs.insert(chatPageCellVM, at: index)
 
             if self.isChatPageCellListenerSet[id] ?? false {
@@ -62,8 +54,6 @@ class ChatService: ObservableObject {
                     return
                 }
                 let updatedVM = self.convertChatToChatPageCellVM(chat: updatedChat)
-                chatPageCellVMToUpdate.update(with: updatedVM)
-                // TODO: check if below works then 1. replace update code above and 2. replace the comparison code above
                 self.chatPageCellVMs.removeAll(where: { $0.id ?? -1 == updatedChat.id })
                 let index = self.chatPageCellVMs.insertionIndexOf(updatedVM, isOrderedBefore: self.isOrderedBefore)
                 self.chatPageCellVMs.insert(updatedVM, at: index)
@@ -191,8 +181,7 @@ extension ChatService {
     }
 
     private func convertChatToChatHeaderVM(chat: Chat) -> ChatHeaderViewModel {
-        // TODO: delete the chatTitle
-        ChatHeaderViewModel(chatTitle: "to delete - get from event service", eventId: chat.id)
+        ChatHeaderViewModel(eventId: chat.id)
     }
 
     private func convertChatMessageToChatMessageVM(chatMessage: ChatMessage, userId: UUID) -> ChatMessageViewModel {

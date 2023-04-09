@@ -61,15 +61,25 @@ struct EventPageView: View {
                         Spacer()
                     }
 
-                    VStack {
-                        ForEach(chatService.chatPreviewVM.lastMessageVMs) { chatMessageVM in
-                            ChatMessageView(chatMessageVM: chatMessageVM)
-                                .font(.body)
-                                .id(chatMessageVM.id.uuidString)
+                    if chatService.chatPreviewVM.lastMessageVMs.isEmpty {
+                        HStack {
+                            Text("No messages yet!")
+                                .font(.uiCallout)
+                            Spacer()
                         }
+                        .padding(.top, 3)
+                        .padding(.bottom, 14)
+                    } else {
+                        VStack {
+                            ForEach(chatService.chatPreviewVM.lastMessageVMs) { chatMessageVM in
+                                ChatMessageView(chatMessageVM: chatMessageVM)
+                                    .font(.body)
+                                    .id(chatMessageVM.id.uuidString)
+                            }
+                        }
+                        .padding(.top, 3)
+                        .padding(.bottom, 14)
                     }
-                    .padding(.top, 3)
-                    .padding(.bottom, 14)
 
                     NavigationLink(destination: ChatView()) {
                         HStack(alignment: .firstTextBaseline, spacing: 8) {
