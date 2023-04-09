@@ -52,7 +52,7 @@ struct ChatPageView: View {
                     ForEach(sortedChatPageCellUpcomingViewModels()) { chatPageCell in
                         chatCellView(chatPageCell: chatPageCell)
                     }
-                    Text("Past")
+                    Text("Past Invites")
                         .foregroundColor(.gray)
                         .font(.uiCaption1)
                         .padding(.vertical)
