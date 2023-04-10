@@ -18,7 +18,8 @@ class UserRepositoryNode: UserRepository {
         try ApiErrorHelper.handleError(status: status)
         let data = try ApiErrorHelper.handleNilResponse(data: response)
 
-        return try DecoderHelper.decodeToClass(data: data)
+        let signInResponse: TelegramSignInResponse = try DecoderHelper.decodeToClass(data: data)
+        return try User(apiModel: signInResponse.user)
     }
 
     // TODO: Remove if unused by specified date in EmailSignUpView
