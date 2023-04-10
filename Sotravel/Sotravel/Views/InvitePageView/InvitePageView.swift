@@ -17,6 +17,7 @@ struct InvitePageView: View {
         NavigationView {
             VStack(spacing: 4) {
                 CalendarView(calendar: Calendar(identifier: .iso8601), selectedDate: $selectedDate)
+
                 ScrollView(.vertical) {
                     VStack(spacing: 20) {
                         let filteredEvents = eventService.eventViewModels.filter { eventViewModel in

@@ -6,6 +6,8 @@ struct LoginView: View {
     @EnvironmentObject private var tripService: TripService
     @State private var isNavigationActive = false
     @State private var isLoading = false
+    @State private var showSafariView = false
+
     var body: some View {
         // swiftlint:disable closure_body_length
         NavigationView {
@@ -46,11 +48,15 @@ struct LoginView: View {
                             ProgressView()
                         } else {
                             LoginButtonView(
-                                action: {},
+                                action: {
+                                    showSafariView = true
+                                },
                                 title: "Continue with Telegram",
-                                imageName: "paperplane.fill",
-                                url: "https://sotravel.me/app-login"
+                                imageName: "paperplane.fill"
                             )
+                            .fullScreenCover(isPresented: $showSafariView) {
+                                SafariView(url: URL(string: "https://sotravel.me/app-login")!)
+                            }
                             NavigationLink(destination: EmailLoginView()) {
                                 Text("Continue With Email")
                                     .font(.uiButton)

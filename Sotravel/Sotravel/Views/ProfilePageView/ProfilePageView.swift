@@ -25,47 +25,69 @@ struct ProfilePageView: View {
                     Divider()
                     VStack {
                         HStack {
-                            Text("Settings")
+                            Text("Current Trip")
                                 .font(.uiTitle3)
                             Spacer()
                         }.padding(.bottom, 8)
 
-                        VStack(spacing: 32) {
-                            Button(action: {
-                                self.reloadMenu()
-                            }) {
-                                Menu {
-                                    ForEach(tripService.trips, id: \.id) { trip in
-                                        Button(action: {
-                                            self.loadUserData(for: trip)
-                                        }) {
-                                            Text(trip.title)
-                                        }
-                                    }
-                                } label: {
-                                    HStack {
-                                        Text("Change Trip (\(tripService.getCurrTrip()?.title ?? ""))")
-                                            .font(.uiHeadline)
-                                            .lineLimit(1)
-                                        Spacer()
-                                        Image(systemName: "chevron.down")
-                                    }
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .foregroundColor(.uiPrimary)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(Color.uiPrimary, lineWidth: 1)
-                                    )
-                                }
+                        VStack(spacing: 16) {
+                            if let currTrip = self.tripService.getCurrTrip() {
+                                TripCardView(trip: currTrip)
                             }
+                            Button(action: {
+                                changeTrip(completion: { _ in })
+                            }) {
+                                HStack {
+                                    Text("Change Trip")
+                                        .font(.uiHeadline)
+                                        .lineLimit(1)
+                                    Spacer()
+                                    Image(systemName: "airplane.departure")
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .foregroundColor(.uiPrimary)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(Color.uiPrimary, lineWidth: 1)
+                                )
+                            }
+
+                            //                            Button(action: {
+                            //                                self.reloadMenu()
+                            //                            }) {
+                            //                                Menu {
+                            //                                    ForEach(tripService.trips, id: \.id) { trip in
+                            //                                        Button(action: {
+                            //                                            self.loadUserData(for: trip)
+                            //                                        }) {
+                            //                                            Text(trip.title)
+                            //                                        }
+                            //                                    }
+                            //                                } label: {
+                            //                                    HStack {
+                            //                                        Text("Change Trip (\(tripService.getCurrTrip()?.title ?? ""))")
+                            //                                            .font(.uiHeadline)
+                            //                                            .lineLimit(1)
+                            //                                        Spacer()
+                            //                                        Image(systemName: "chevron.down")
+                            //                                    }
+                            //                                    .frame(maxWidth: .infinity)
+                            //                                    .padding()
+                            //                                    .foregroundColor(.uiPrimary)
+                            //                                    .overlay(
+                            //                                        RoundedRectangle(cornerRadius: 8)
+                            //                                            .stroke(Color.uiPrimary, lineWidth: 1)
+                            //                                    )
+                            //                                }
+                            //                            }
                             Button(action: {
                                 userService.logout()
                             }) {
                                 Text("Log Out")
                                     .font(.uiButton)
                                     .foregroundColor(.red)
-                            }
+                            }.padding(.vertical)
                         }
                     }
                 }

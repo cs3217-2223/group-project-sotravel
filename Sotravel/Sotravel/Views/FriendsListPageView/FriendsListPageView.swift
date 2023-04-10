@@ -3,6 +3,7 @@ import SwiftUI
 struct FriendsListPageView<ActionComponent: View>: View {
     @EnvironmentObject private var userService: UserService
     @State private var searchText = ""
+    @Binding var hasNavigated: Bool
     var friends: [User]
     var filteredFriends: [User] {
         if searchText.isEmpty {
@@ -16,12 +17,12 @@ struct FriendsListPageView<ActionComponent: View>: View {
             }
         }
     }
-
     var actionComponent: (User) -> ActionComponent
 
-    init(friends: [User], @ViewBuilder actionComponent: @escaping (User) -> ActionComponent) {
+    init(friends: [User], actionComponent: @escaping (User) -> ActionComponent, hasNavigated: Binding<Bool> = .constant(false)) {
         self.friends = friends
         self.actionComponent = actionComponent
+        self._hasNavigated = hasNavigated
     }
 
     var body: some View {
@@ -38,6 +39,9 @@ struct FriendsListPageView<ActionComponent: View>: View {
             .padding(.bottom, 20)
         }
         .navigationTitle("Friends")
+        .onAppear {
+            hasNavigated = true
+        }
     }
 }
 

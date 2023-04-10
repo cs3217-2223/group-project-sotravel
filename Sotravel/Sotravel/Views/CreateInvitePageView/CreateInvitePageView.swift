@@ -13,8 +13,15 @@ struct CreateInvitePageView: View {
     @State private var description: String = ""
     @State private var selectedAttendees: [UUID] = []
     @State private var selectedAttendeesOption: Int = 0
+    @State private var hasNavigatedToSeeMoreSelectedFriends = false
 
     let attendeesOptions = ["All Friends", "Selected friends"]
+    var selectedFriends: [User] {
+        createInvitePageUserViewModel.friends.filter { selectedAttendees.contains($0.id) }
+    }
+    var remainingFriends: [User] {
+        createInvitePageUserViewModel.friends.filter { !selectedAttendees.contains($0.id) }
+    }
 
     private func header() -> some View {
         HStack {
@@ -68,11 +75,12 @@ struct CreateInvitePageView: View {
         }
     }
 
-    func friendToggleView<Content: View>(friend: User, @ViewBuilder content: () -> Content) -> some View {
+    func friendToggleView<Content: View>(friend: User, @ViewBuilder content: () -> Content, action: @escaping () -> Void = {}) -> some View {
         Toggle(isOn: Binding(
             get: { self.selectedAttendees.contains(friend.id) },
             set: { selected in
                 if selected {
+                    action()
                     self.selectedAttendees.append(friend.id)
                 } else {
                     self.selectedAttendees.removeAll(where: { $0 == friend.id })
@@ -128,21 +136,38 @@ struct CreateInvitePageView: View {
                     }
                 }
             } else {
-                ForEach(createInvitePageUserViewModel.friends.prefix(5), id: \.id) { friend in
-                    friendToggleView(friend: friend, content: {
-                        friendProfileView(friend: friend)
-                    })
+                if selectedFriends.isEmpty || !hasNavigatedToSeeMoreSelectedFriends {
+                    ForEach(createInvitePageUserViewModel.friends.prefix(5), id: \.id) { friend in
+                        friendToggleView(friend: friend, content: {
+                            friendProfileView(friend: friend)
+                        })
+                    }
+                } else {
+                    if selectedFriends.isEmpty {
+                        Text("You haven't selected any friends yet.")
+                    }
+                    ForEach(selectedFriends, id: \.id) { friend in
+                        friendToggleView(friend: friend, content: {
+                            friendProfileView(friend: friend)
+                        })
+                    }
                 }
 
                 NavigationLink(destination: FriendsListPageView(
                     friends: createInvitePageUserViewModel.friends,
                     actionComponent: {
-                        friend in friendToggleView(friend: friend, content: {
-                            VStack(spacing: 8) {
-                                UserListItemView(user: friend)
-                                Divider()
+                        friend in friendToggleView(
+                            friend: friend,
+                            content: {
+                                VStack(spacing: 8) {
+                                    UserListItemView(user: friend)
+                                    Divider()
+                                }
+                            },
+                            action: {
+                                hasNavigatedToSeeMoreSelectedFriends = true
                             }
-                        })
+                        ).padding(.trailing)
                     }
                 )
                 ) {
@@ -151,6 +176,7 @@ struct CreateInvitePageView: View {
                             .foregroundColor(.blue)
                     }
                 }
+
             }
         }
 
