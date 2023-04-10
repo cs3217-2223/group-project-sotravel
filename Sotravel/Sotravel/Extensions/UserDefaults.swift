@@ -15,4 +15,8 @@ extension UserDefaults {
     func resetLastSelectedTrip() {
         removeObject(forKey: "LastSelectedTripId")
     }
+
+    func resetApiKey() {
+        removeObject(forKey: "nodeApiBearerToken")
+    }
 }

@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct TelegramSignInResponse: Codable {
+struct TelegramSignInResponse: Codable, ApiModel, ConvertableFromApiModel {
     let user: NodeApiUser
     let token: String
+
+    init(apiModel: TelegramSignInResponse) throws {
+        self = apiModel
+    }
 }
 
 // MARK: - User
