@@ -67,7 +67,7 @@ struct ProfilePageView: View {
                             //                                )
                             //                            }
                             Button(action: {
-                                userService.logout()
+                                logout()
                             }) {
                                 Text("Log Out")
                                     .font(.uiButton)
@@ -90,6 +90,14 @@ struct ProfilePageView: View {
         tripService.reloadUserTrips(userId: userId) {
 
         }
+    }
+
+    private func logout() {
+        eventService.clear()
+        tripService.clear()
+        chatService.clear()
+        friendService.clear()
+        userService.logout()
     }
 
     private func changeTrip() {
