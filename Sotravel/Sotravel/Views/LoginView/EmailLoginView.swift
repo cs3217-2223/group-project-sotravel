@@ -51,7 +51,7 @@ struct EmailLoginView: View {
             //                    .font(.uiButton)
             //            }
             //
-            //            Spacer()
+            Spacer()
         }
         .padding()
     }
