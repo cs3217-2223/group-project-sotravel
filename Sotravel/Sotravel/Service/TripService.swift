@@ -102,6 +102,7 @@ class TripService: ObservableObject {
 
     func clear() {
         self.selectedTrip = nil
+        self.lastSelectedTripId = nil
         self.tripCache = [:]
     }
 

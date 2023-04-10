@@ -28,58 +28,43 @@ struct ProfilePageView: View {
                             Text("Current Trip")
                                 .font(.uiTitle3)
                             Spacer()
-                        }.padding(.bottom, 8)
+                            Button(action: {
+                                changeTrip()
+                            }) {
+                                HStack(spacing: 0) {
+                                    Text("Switch")
+                                        .font(.uiHeadline)
+                                        .lineLimit(1)
+                                        .padding(.trailing, 4) // Add padding to increase tap area
+                                        .background(Color(UIColor.systemBackground)) // Adjust the clickable area
+                                    Image(systemName: "repeat")
+                                }
+                            }
+                        }
+                        .padding(.bottom, 4)
+                        .zIndex(1)
 
                         VStack(spacing: 16) {
                             if let currTrip = self.tripService.getCurrTrip() {
                                 TripCardView(trip: currTrip)
                             }
-                            Button(action: {
-                                changeTrip(completion: { _ in })
-                            }) {
-                                HStack {
-                                    Text("Change Trip")
-                                        .font(.uiHeadline)
-                                        .lineLimit(1)
-                                    Spacer()
-                                    Image(systemName: "airplane.departure")
-                                }
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .foregroundColor(.uiPrimary)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(Color.uiPrimary, lineWidth: 1)
-                                )
-                            }
-
                             //                            Button(action: {
-                            //                                self.reloadMenu()
+                            //                                changeTrip(completion: { _ in })
                             //                            }) {
-                            //                                Menu {
-                            //                                    ForEach(tripService.trips, id: \.id) { trip in
-                            //                                        Button(action: {
-                            //                                            self.loadUserData(for: trip)
-                            //                                        }) {
-                            //                                            Text(trip.title)
-                            //                                        }
-                            //                                    }
-                            //                                } label: {
-                            //                                    HStack {
-                            //                                        Text("Change Trip (\(tripService.getCurrTrip()?.title ?? ""))")
-                            //                                            .font(.uiHeadline)
-                            //                                            .lineLimit(1)
-                            //                                        Spacer()
-                            //                                        Image(systemName: "chevron.down")
-                            //                                    }
-                            //                                    .frame(maxWidth: .infinity)
-                            //                                    .padding()
-                            //                                    .foregroundColor(.uiPrimary)
-                            //                                    .overlay(
-                            //                                        RoundedRectangle(cornerRadius: 8)
-                            //                                            .stroke(Color.uiPrimary, lineWidth: 1)
-                            //                                    )
+                            //                                HStack {
+                            //                                    Text("Change Trip")
+                            //                                        .font(.uiHeadline)
+                            //                                        .lineLimit(1)
+                            //                                    Spacer()
+                            //                                    Image(systemName: "airplane.departure")
                             //                                }
+                            //                                .frame(maxWidth: .infinity)
+                            //                                .padding()
+                            //                                .foregroundColor(.uiPrimary)
+                            //                                .overlay(
+                            //                                    RoundedRectangle(cornerRadius: 8)
+                            //                                        .stroke(Color.uiPrimary, lineWidth: 1)
+                            //                                )
                             //                            }
                             Button(action: {
                                 userService.logout()
@@ -107,42 +92,12 @@ struct ProfilePageView: View {
         }
     }
 
-    private func changeTrip(completion: @escaping (Bool) -> Void) {
+    private func changeTrip() {
         userService.changeTrip()
         eventService.clear()
         tripService.clear()
         chatService.clear()
         friendService.clear()
-
-        userService.reloadUser { success in
-            if success {
-                completion(true)
-            } else {
-                completion(false)
-            }
-        }
-    }
-
-    private func loadUserData(for trip: Trip) {
-        changeTrip { success in
-            if success {
-                friendService.fetchAllFriends(tripId: trip.id)
-
-                guard let userId = userService.getUserId() else {
-                    print("Error: User is nil")
-                    return
-                }
-                tripService.reloadUserTrips(userId: userId) {
-
-                }
-                tripService.selectTrip(trip)
-                tripService.lastSelectedTripId = trip.id
-                eventService.loadUserEvents(forTrip: trip.id, userId: userId)
-                chatService.setUserId(userId: userId)
-            } else {
-                print("failed to call changeTrip")
-            }
-        }
     }
 }
 
