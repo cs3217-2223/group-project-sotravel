@@ -19,6 +19,7 @@ class UserRepositoryNode: UserRepository {
         let data = try ApiErrorHelper.handleNilResponse(data: response)
 
         let signInResponse: TelegramSignInResponse = try DecoderHelper.decodeToClass(data: data)
+        NodeApi.storeAuthToken(token: signInResponse.token)
         return try User(apiModel: signInResponse.user)
     }
 

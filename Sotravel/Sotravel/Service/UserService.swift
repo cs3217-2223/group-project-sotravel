@@ -46,6 +46,7 @@ class UserService: ObservableObject {
         self.editProfileViewModel = EditProfileViewModel()
         UserDefaults.standard.resetLogin()
         UserDefaults.standard.resetLastSelectedTrip()
+        UserDefaults.standard.resetApiKey()
     }
 
     func getStoredUserId() -> UUID? {
