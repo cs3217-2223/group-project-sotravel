@@ -141,8 +141,6 @@
 		D7F6A9C729C5B55B006FBD26 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D7F6A9C629C5B55B006FBD26 /* FirebaseMessaging */; };
 		D7F6A9C929C5B55B006FBD26 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D7F6A9C829C5B55B006FBD26 /* FirebaseStorage */; };
 		D7F6A9CB29C6CEA9006FBD26 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D7F6A9CA29C6CEA9006FBD26 /* GoogleService-Info.plist */; };
-		D7F6A9CD29C6E6BB006FBD26 /* DatabaseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9CC29C6E6BB006FBD26 /* DatabaseAdapter.swift */; };
-		D7F6A9D029C6E755006FBD26 /* DatabaseConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9CF29C6E755006FBD26 /* DatabaseConnector.swift */; };
 		D7F6A9D229C6F661006FBD26 /* MockDatabaseData.json in Resources */ = {isa = PBXBuildFile; fileRef = D7F6A9D129C6F661006FBD26 /* MockDatabaseData.json */; };
 		D7F6A9E229CF8D56006FBD26 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9E129CF8D56006FBD26 /* ChatService.swift */; };
 		D7F6A9E429CF8E17006FBD26 /* ChatPageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9E329CF8E17006FBD26 /* ChatPageCellViewModel.swift */; };
@@ -302,8 +300,6 @@
 		D71BB5AB29E20808005362D1 /* ChatPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPreviewViewModel.swift; sourceTree = "<group>"; };
 		D7400E4F29D8143000B5E74D /* Array+BinarySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+BinarySearch.swift"; sourceTree = "<group>"; };
 		D7F6A9CA29C6CEA9006FBD26 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D7F6A9CC29C6E6BB006FBD26 /* DatabaseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAdapter.swift; sourceTree = "<group>"; };
-		D7F6A9CF29C6E755006FBD26 /* DatabaseConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseConnector.swift; sourceTree = "<group>"; };
 		D7F6A9D129C6F661006FBD26 /* MockDatabaseData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MockDatabaseData.json; sourceTree = "<group>"; };
 		D7F6A9E129CF8D56006FBD26 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		D7F6A9E329CF8E17006FBD26 /* ChatPageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPageCellViewModel.swift; sourceTree = "<group>"; };
@@ -407,7 +403,7 @@
 				1866DE6129B993E5005D9F59 /* Assets.xcassets */,
 				D7F6A9CA29C6CEA9006FBD26 /* GoogleService-Info.plist */,
 				1866DE6329B993E5005D9F59 /* Preview Content */,
-				D7F6A9CE29C6E6C2006FBD26 /* Database */,
+				D7F6A9CE29C6E6C2006FBD26 /* FirebaseRepository */,
 			);
 			path = Sotravel;
 			sourceTree = "<group>";
@@ -720,14 +716,12 @@
 			path = ApiModels;
 			sourceTree = "<group>";
 		};
-		D7F6A9CE29C6E6C2006FBD26 /* Database */ = {
+		D7F6A9CE29C6E6C2006FBD26 /* FirebaseRepository */ = {
 			isa = PBXGroup;
 			children = (
-				D7F6A9CC29C6E6BB006FBD26 /* DatabaseAdapter.swift */,
 				D7F6A9E929CFA253006FBD26 /* ChatRepositoryFirebase.swift */,
-				D7F6A9CF29C6E755006FBD26 /* DatabaseConnector.swift */,
 			);
-			path = Database;
+			path = FirebaseRepository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -879,7 +873,6 @@
 				D7F6A9EA29CFA253006FBD26 /* ChatRepositoryFirebase.swift in Sources */,
 				18CC54E129E3C35200B8C3D2 /* SafariView.swift in Sources */,
 				18DEC57E29B9A29700B3228A /* Font.swift in Sources */,
-				D7F6A9CD29C6E6BB006FBD26 /* DatabaseAdapter.swift in Sources */,
 				18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */,
 				AC832C9729D1F97200B3D52D /* MockFriends.swift in Sources */,
 				AC28033229C61CC500687D62 /* ChatsStore.swift in Sources */,
@@ -907,7 +900,6 @@
 				ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */,
 				B485A8F529D06F3200786A34 /* UserFriendApiModel.swift in Sources */,
 				18D9713A29BD86330064DC2A /* FriendsListPageView.swift in Sources */,
-				D7F6A9D029C6E755006FBD26 /* DatabaseConnector.swift in Sources */,
 				18591C8529BCDB7700FA987D /* SearchBarView.swift in Sources */,
 				18D9714229BD93F20064DC2A /* MockEvents.swift in Sources */,
 				D7F6A9E829CF8E2D006FBD26 /* ChatMessageViewModel.swift in Sources */,

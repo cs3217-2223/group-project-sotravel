@@ -18,32 +18,7 @@ class ChatRepositoryFirebase: ChatRepository {
     func getBasicInfo(for id: Int, completion: @escaping ((Chat) -> Void)) {
         let databasePath = databaseRef.child("chats/\(id)")
         databasePath.getData(completion: { error, snapshot in
-            guard error == nil else {
-                print(error!.localizedDescription)
-                return
-            }
-            guard let key = snapshot?.key, var json = snapshot?.value as? [String: Any] else {
-                let chat = Chat(id: id)
-                completion(chat)
-                return
-            }
-            do {
-                json["id"] = key
-                let chatBasicInfoAMData = try JSONSerialization.data(withJSONObject: json)
-                let chatBasicInfoAM = try self.decoder.decode(ChatBasicInfoApiModel.self, from: chatBasicInfoAMData)
-                guard let messageId = chatBasicInfoAM.lastMessage, !messageId.isEmpty else {
-                    let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM)
-                    completion(chat)
-                    return
-                }
-                self.getChatMessageAM(chatId: id, messageId: messageId, completion: { chatMessageAM in
-                    let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM,
-                                                           chatMessageAMs: [chatMessageAM])
-                    completion(chat)
-                })
-            } catch {
-                print("An error occurred", error)
-            }
+            self.getChatFromDataSnapshot(id: id, error: error, snapshot: snapshot, completion: completion)
         })
     }
 
@@ -51,29 +26,8 @@ class ChatRepositoryFirebase: ChatRepository {
                                   completion: @escaping ((ChatMessageApiModel) -> Void)) {
         let databasePath = databaseRef.child("messages/\(chatId)/\(messageId)")
         databasePath.getData(completion: { error, snapshot in
-            guard error == nil else {
-                print(error!.localizedDescription)
-                return
-            }
-            guard let json = snapshot?.value as? [String: Any] else {
-                return
-            }
-            do {
-                let chatMessageAMData = try JSONSerialization.data(withJSONObject: json)
-                let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
-                completion(chatMessageAM)
-            } catch {
-                guard let data = json[messageId] else {
-                    return
-                }
-                do {
-                    let chatMessageAMData = try JSONSerialization.data(withJSONObject: data)
-                    let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
-                    completion(chatMessageAM)
-                } catch {
-                    print("An error occurred", error)
-                }
-            }
+            self.getChatMessageAMFromDataSnapshot(id: messageId, error: error, snapshot: snapshot,
+                                                  completion: completion)
         })
     }
 
@@ -89,27 +43,7 @@ class ChatRepositoryFirebase: ChatRepository {
     private func getChatMessageAMs(id: Int, completion: @escaping (([ChatMessageApiModel]) -> Void)) {
         let databasePath = self.databaseRef.child("messages/\(id)")
         databasePath.getData(completion: { error, snapshot in
-            guard error == nil else {
-                print(error!.localizedDescription)
-                return
-            }
-            guard let jsons = snapshot?.value as? [String: Any] else {
-                // no chat messages
-                completion([])
-                return
-            }
-            var chatMessageAMs = [ChatMessageApiModel]()
-            for json in jsons {
-                let data = json.value
-                do {
-                    let chatMessageAMData = try JSONSerialization.data(withJSONObject: data)
-                    let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
-                    chatMessageAMs.append(chatMessageAM)
-                } catch {
-                    print("An error occurred", error)
-                }
-            }
-            completion(chatMessageAMs)
+            self.getChatMessageAMsFromDataSnapshot(error: error, snapshot: snapshot, completion: completion)
         })
     }
 
@@ -160,8 +94,7 @@ class ChatRepositoryFirebase: ChatRepository {
     private func getLastThreeMessages(for id: Int, completion: @escaping (([String]) -> Void)) {
         let databasePath = databaseRef.child("chats/\(id)")
         databasePath.getData(completion: { error, snapshot in
-            guard error == nil else {
-                print(error!.localizedDescription)
+            if self.doesErrorExist(error: error) {
                 return
             }
             guard let key = snapshot?.key, var json = snapshot?.value as? [String: Any] else { // no messages
@@ -209,11 +142,11 @@ class ChatRepositoryFirebase: ChatRepository {
                                   chatBasicInfoAM.secondLastMessage,
                                   chatBasicInfoAM.thirdLastMessage]
                 self.getChatMessagesAMs(chatId: id, messageIds: messageIds,
-                                        numMessages: 3, completion: { chatMessageAMs in
-                                            var chatMessageAMsReversed = chatMessageAMs
-                                            chatMessageAMsReversed.reverse()
+                                        numMessages: 3, completion: { chatMessageAMsReversed in
+                                            var chatMessageAMs = chatMessageAMsReversed
+                                            chatMessageAMs.reverse()
                                             let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM,
-                                                                                   chatMessageAMs: chatMessageAMsReversed)
+                                                                                   chatMessageAMs: chatMessageAMs)
                                             completion(chat)
                                         })
             } catch {
@@ -309,16 +242,116 @@ class ChatRepositoryFirebase: ChatRepository {
 
 // MARK: CONVERTERS
 extension ChatRepositoryFirebase {
-    func convertApiModelsToChat(chatBasicInfoAM: ChatBasicInfoApiModel,
-                                chatMessageAMs: [ChatMessageApiModel] = []) -> Chat {
+    private func convertApiModelsToChat(chatBasicInfoAM: ChatBasicInfoApiModel,
+                                        chatMessageAMs: [ChatMessageApiModel] = []) -> Chat {
         let chatMessages = chatMessageAMs.map { convertChatMessageAMToChatMessage(chatMessageAM: $0) }
         return Chat(id: Int(chatBasicInfoAM.id ?? "-1") ?? -1, messages: chatMessages)
     }
 
-    func convertChatMessageAMToChatMessage(chatMessageAM: ChatMessageApiModel) -> ChatMessage {
+    private func convertChatMessageAMToChatMessage(chatMessageAM: ChatMessageApiModel) -> ChatMessage {
         ChatMessage(id: UUID(uuidString: chatMessageAM.id ?? "") ?? UUID(),
                     messageText: chatMessageAM.messageText ?? "",
                     timestamp: Date(timeIntervalSinceReferenceDate: chatMessageAM.timestamp),
                     sender: UUID(uuidString: chatMessageAM.sender ?? "") ?? UUID())
+    }
+}
+
+// MARK: REFACTORING ATTEMPT
+extension ChatRepositoryFirebase {
+    private func doesErrorExist(error: Error?) -> Bool {
+        guard error == nil else {
+            print(error!.localizedDescription)
+            return true
+        }
+
+        return false
+    }
+
+    private func getChatFromDataSnapshot(id: Int, error: Error?, snapshot: DataSnapshot?,
+                                         completion: @escaping ((Chat) -> Void)) {
+        if doesErrorExist(error: error) {
+            return
+        }
+
+        guard let key = snapshot?.key, var json = snapshot?.value as? [String: Any] else {
+            let chat = Chat(id: id)
+            completion(chat)
+            return
+        }
+
+        json["id"] = key
+        getChatFromJson(id: id, json: json, completion: completion)
+    }
+
+    private func getChatFromJson(id: Int, json: [String: Any], completion: @escaping ((Chat) -> Void)) {
+        do {
+            let chatBasicInfoAMData = try JSONSerialization.data(withJSONObject: json)
+            let chatBasicInfoAM = try self.decoder.decode(ChatBasicInfoApiModel.self, from: chatBasicInfoAMData)
+            guard let messageId = chatBasicInfoAM.lastMessage, !messageId.isEmpty else {
+                let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM)
+                completion(chat)
+                return
+            }
+            self.getChatMessageAM(chatId: id, messageId: messageId, completion: { chatMessageAM in
+                let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM,
+                                                       chatMessageAMs: [chatMessageAM])
+                completion(chat)
+            })
+        } catch {
+            print("An error occurred", error)
+        }
+    }
+
+    private func getChatMessageAMFromDataSnapshot(id: String, error: Error?, snapshot: DataSnapshot?,
+                                                  completion: @escaping ((ChatMessageApiModel) -> Void)) {
+        if doesErrorExist(error: error) {
+            return
+        }
+
+        guard let json = snapshot?.value as? [String: Any] else {
+            return
+        }
+
+        getChatMessageAMFromJson(id: id, json: json, completion: completion)
+    }
+
+    private func getChatMessageAMFromJson(id: String, json: [String: Any],
+                                          completion: @escaping ((ChatMessageApiModel) -> Void)) {
+        do {
+            let chatMessageAMData = try JSONSerialization.data(withJSONObject: json)
+            let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
+            completion(chatMessageAM)
+        } catch {
+            guard let data = json[id] as? [String: Any] else {
+                print("An error occurred", error)
+                return
+            }
+            getChatMessageAMFromJson(id: id, json: data, completion: completion)
+        }
+    }
+
+    private func getChatMessageAMsFromDataSnapshot(error: Error?, snapshot: DataSnapshot?,
+                                                   completion: @escaping (([ChatMessageApiModel]) -> Void)) {
+        if doesErrorExist(error: error) {
+            return
+        }
+
+        guard let jsons = snapshot?.value as? [String: Any] else { // no chat messages
+            completion([])
+            return
+        }
+
+        var chatMessageAMs = [ChatMessageApiModel]()
+        for json in jsons {
+            let data = json.value
+            do {
+                let chatMessageAMData = try JSONSerialization.data(withJSONObject: data)
+                let chatMessageAM = try self.decoder.decode(ChatMessageApiModel.self, from: chatMessageAMData)
+                chatMessageAMs.append(chatMessageAM)
+            } catch {
+                print("An error occurred", error)
+            }
+        }
+        completion(chatMessageAMs)
     }
 }
