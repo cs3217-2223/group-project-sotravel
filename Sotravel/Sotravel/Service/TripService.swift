@@ -8,22 +8,21 @@
 import SwiftUI
 import Resolver
 
-class TripService: ObservableObject {
-
+class TripService: BaseCacheService<Trip>, ObservableObject {
     @Published var selectedTapInCurrTrip: Int = 0
     @Published var trips: [Trip]
+
     private var selectedTrip: Trip?
-    private var tripCache: [Int: Trip]
 
     @AppStorage("LastSelectedTripId") var lastSelectedTripId: Int?
 
     @Injected private var tripRepository: TripRepository
     @Injected private var serviceErrorHandler: ServiceErrorHandler
 
-    init() {
+    override init() {
         self.selectedTrip = nil
-        self.tripCache = [:]
         self.trips = []
+        super.init()
     }
 
     func getCurrTrip() -> Trip? {
@@ -32,14 +31,6 @@ class TripService: ObservableObject {
 
     func getCurrTripId() -> Int? {
         selectedTrip?.id
-    }
-
-    func getTrip(from id: Int) -> Trip? {
-        tripCache[id]
-    }
-
-    func getTripIds() -> [Int] {
-        Array(tripCache.keys)
     }
 
     func resetTapIndex() {
@@ -67,7 +58,7 @@ class TripService: ObservableObject {
             do {
                 let trips = try await tripRepository.getTrips(userId: userId)
                 DispatchQueue.main.async {
-                    self.updateCache(from: trips)
+                    self.updateCacheInLoop(from: trips)
                     self.trips = trips
                     completion()
                 }
@@ -81,41 +72,9 @@ class TripService: ObservableObject {
         self.selectedTrip = trip
     }
 
-    func getMostRecentTrip() -> Trip? {
-        guard !trips.isEmpty else {
-            return nil
-        }
-
-        let currentDate = Date()
-        var mostRecentTrip = trips[0]
-        var smallestTimeInterval = abs(currentDate.timeIntervalSince(mostRecentTrip.startDate))
-
-        for trip in trips {
-            let timeInterval = abs(currentDate.timeIntervalSince(trip.startDate))
-            if timeInterval < smallestTimeInterval {
-                smallestTimeInterval = timeInterval
-                mostRecentTrip = trip
-            }
-        }
-
-        return mostRecentTrip
-    }
-
     func clear() {
         self.selectedTrip = nil
         self.lastSelectedTripId = nil
-        self.tripCache = [:]
-    }
-
-    private func updateCache(from trips: [Trip]) {
-        for trip in trips where tripCache[trip.id] == nil {
-            tripCache[trip.id] = trip
-        }
-    }
-
-    private func initCache(from trips: [Trip]) {
-        for trip in trips {
-            self.tripCache[trip.id] = trip
-        }
+        super.clearCache()
     }
 }

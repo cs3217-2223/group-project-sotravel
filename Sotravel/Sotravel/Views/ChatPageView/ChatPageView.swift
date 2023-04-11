@@ -70,7 +70,7 @@ struct ChatPageView: View {
         self.chatService.chatPageCellVMs
             .filter { $0.id != nil }
             .compactMap { vm -> (ChatPageCellViewModel, Event)? in
-                if let event = eventService.getEvent(id: vm.id!) {
+                if let event = eventService.get(id: vm.id!) {
                     return (vm, event)
                 } else {
                     return nil

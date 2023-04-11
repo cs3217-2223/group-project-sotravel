@@ -73,7 +73,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let customAnnotation = view.annotation as? CustomPointAnnotation {
             if !customAnnotation.isUser {
-                parent.selectedFriend = parent.friendService.getFriend(id: customAnnotation.userId)
+                parent.selectedFriend = parent.friendService.get(id: customAnnotation.userId)
             } else {
                 parent.selectedFriend = parent.userService.getUser()
             }

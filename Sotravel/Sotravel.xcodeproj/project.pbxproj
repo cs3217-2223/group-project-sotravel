@@ -101,9 +101,9 @@
 		ACF2B20529CDB4DB0017A9F0 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */; };
 		ACF8714F29E5576900A4AD83 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8714E29E5576900A4AD83 /* Observer.swift */; };
 		ACF8715129E5577A00A4AD83 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715029E5577A00A4AD83 /* Subject.swift */; };
-		ACF8715329E5579600A4AD83 /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715229E5579600A4AD83 /* Cacheable.swift */; };
 		ACF8715529E562E900A4AD83 /* ViewAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715429E562E900A4AD83 /* ViewAlertController.swift */; };
 		ACF8715729E5843E00A4AD83 /* ServiceErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715629E5843E00A4AD83 /* ServiceErrorHandler.swift */; };
+		ACF8715929E5AC5C00A4AD83 /* BaseCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715829E5AC5C00A4AD83 /* BaseCacheService.swift */; };
 		B43AFA5729CA06BD0029AB85 /* RestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5629CA06BD0029AB85 /* RestApi.swift */; };
 		B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */; };
 		B43AFA6B29CA0E230029AB85 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = B43AFA6A29CA0E230029AB85 /* Resolver */; };
@@ -273,9 +273,9 @@
 		ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		ACF8714E29E5576900A4AD83 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		ACF8715029E5577A00A4AD83 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
-		ACF8715229E5579600A4AD83 /* Cacheable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
 		ACF8715429E562E900A4AD83 /* ViewAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAlertController.swift; sourceTree = "<group>"; };
 		ACF8715629E5843E00A4AD83 /* ServiceErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceErrorHandler.swift; sourceTree = "<group>"; };
+		ACF8715829E5AC5C00A4AD83 /* BaseCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCacheService.swift; sourceTree = "<group>"; };
 		B43AFA5629CA06BD0029AB85 /* RestApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApi.swift; sourceTree = "<group>"; };
 		B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swif.swift"; sourceTree = "<group>"; };
 		B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repositories+Injection.swift"; sourceTree = "<group>"; };
@@ -551,6 +551,7 @@
 				AC8AE12929D59AA3000F78BC /* TripService.swift */,
 				AC8AE12D29D5E40F000F78BC /* FriendService.swift */,
 				ACF8715629E5843E00A4AD83 /* ServiceErrorHandler.swift */,
+				ACF8715829E5AC5C00A4AD83 /* BaseCacheService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -654,7 +655,6 @@
 			children = (
 				ACF8714E29E5576900A4AD83 /* Observer.swift */,
 				ACF8715029E5577A00A4AD83 /* Subject.swift */,
-				ACF8715229E5579600A4AD83 /* Cacheable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -899,7 +899,6 @@
 				18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */,
 				AC832C9729D1F97200B3D52D /* MockFriends.swift in Sources */,
 				AC28033229C61CC500687D62 /* ChatsStore.swift in Sources */,
-				ACF8715329E5579600A4AD83 /* Cacheable.swift in Sources */,
 				1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */,
 				B4939BA929D481E200B736F2 /* URL+QueryParameters.swift in Sources */,
 				B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */,
@@ -1010,6 +1009,7 @@
 				18CC54DC29E263D700B8C3D2 /* EmailSignUpView.swift in Sources */,
 				AC6305A429BDC51500EEEA85 /* SocialMediaLinksView.swift in Sources */,
 				183F435229D02CDF00F4DFEE /* MapView.swift in Sources */,
+				ACF8715929E5AC5C00A4AD83 /* BaseCacheService.swift in Sources */,
 				18591C8329BCDB2800FA987D /* ProfileImageView.swift in Sources */,
 				B46B0A8129CEC6B4006F2BA2 /* MapViewModel.swift in Sources */,
 				B485A8E929CF628F00786A34 /* EventApiModel.swift in Sources */,

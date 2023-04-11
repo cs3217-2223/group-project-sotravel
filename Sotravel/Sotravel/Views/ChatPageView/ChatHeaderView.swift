@@ -38,7 +38,7 @@ struct ChatHeaderView: View {
     }
 
     private func getEventMeetingPoint(eventId: Int?) -> String {
-        guard let eventId = eventId, let event = eventService.getEvent(id: eventId) else {
+        guard let eventId = eventId, let event = eventService.get(id: eventId) else {
             return "No meeting point"
         }
         return "Meet at \(event.meetingPoint)"
@@ -69,6 +69,6 @@ struct ChatHeaderView: View {
         guard let eventId = eventId else {
             return nil
         }
-        return eventService.getEvent(id: eventId)
+        return eventService.get(id: eventId)
     }
 }

@@ -10,29 +10,17 @@ struct ContentView: View {
     @State private var isTripRefreshed = false
     @State private var timeoutReached = false
 
-    // MARK: Uncomment to reset login status
-    //    init() {
-    //        UserDefaults.standard.resetLogin()
-    //        UserDefaults.standard.resetLastSelectedTrip()
-    //    }
-
     var body: some View {
         Group {
             if isTripRefreshed {
                 if userService.isLoggedIn {
                     // MARK: Uncomment to navigate user to the last selected trip
                     if let lastSelectedTripId = tripService.lastSelectedTripId,
-                       let lastSelectedTrip = tripService.getTrip(from: lastSelectedTripId) {
+                       let lastSelectedTrip = tripService.get(id: lastSelectedTripId) {
                         TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)
                             .onAppear {
                                 self.loadUserData(for: lastSelectedTrip)
                             }
-                        // MARK: Uncomment to navigate user to the most recent trip when login
-                        //                    } else if let mostRecentTrip = tripService.getMostRecentTrip() {
-                        //                        TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)
-                        //                            .onAppear {
-                        //                                self.loadUserData(for: mostRecentTrip)
-                        //                            }
                     } else {
                         TripsPageView()
                     }

@@ -68,14 +68,14 @@ struct ChatPageCellView: View {
     }
 
     private func getTitle(eventId: Int?) -> String {
-        guard let eventId = eventId, let event = eventService.getEvent(id: eventId) else {
+        guard let eventId = eventId, let event = eventService.get(id: eventId) else {
             return "No event name"
         }
         return "\(event.title) at \(event.location)"
     }
 
     private func getDate(eventId: Int?) -> String {
-        guard let eventId = eventId, let event = eventService.getEvent(id: eventId) else {
+        guard let eventId = eventId, let event = eventService.get(id: eventId) else {
             return "No date"
         }
         return event.datetime.toFriendlyDayTimeString()
@@ -91,7 +91,7 @@ struct ChatPageCellView: View {
         guard let senderUUID = UUID(uuidString: senderId) else {
             return ""
         }
-        return friendService.getFriend(id: senderUUID)?.name ?? ""
+        return friendService.get(id: senderUUID)?.name ?? ""
     }
 }
 

@@ -8,23 +8,17 @@
 import Foundation
 import Resolver
 
-class FriendService: ObservableObject {
-
-    private var friendsCache: [UUID: User]
+class FriendService: BaseCacheService<User>, ObservableObject {
     @Published var profileFriendsViewModel: ProfileFriendsViewModel
     @Published var createInvitePageViewModel: CreateInvitePageUserViewModel
 
     @Injected private var userRepository: UserRepository
     @Injected private var serviceErrorHandler: ServiceErrorHandler
 
-    func getFriend(id: UUID) -> User? {
-        friendsCache[id]
-    }
-
-    init() {
+    override init() {
         self.profileFriendsViewModel = ProfileFriendsViewModel()
         self.createInvitePageViewModel = CreateInvitePageUserViewModel()
-        self.friendsCache = [:]
+        super.init()
     }
 
     func fetchAllFriends(tripId: Int, for user: UUID) {
@@ -33,7 +27,7 @@ class FriendService: ObservableObject {
                 let fetchedFriends = try await userRepository.getAllFriendsOnTrip(tripId: tripId)
                 DispatchQueue.main.async {
                     let filteredFriends = fetchedFriends.filter { $0.id != user }
-                    self.initCache(friends: filteredFriends)
+                    self.initCache(from: filteredFriends)
                     self.handlePropertyChange(fetchedFriends: filteredFriends)
                 }
             } catch {
@@ -48,7 +42,7 @@ class FriendService: ObservableObject {
                 let fetchedFriends = try await userRepository.getAllFriendsOnTrip(tripId: tripId)
                 DispatchQueue.main.async {
                     let filteredFriends = fetchedFriends.filter { $0.id != user }
-                    self.updateCache(friends: filteredFriends)
+                    self.updateCacheInLoop(from: filteredFriends)
                     self.handlePropertyChange(fetchedFriends: filteredFriends)
                     completion(true)
                 }
@@ -66,21 +60,9 @@ class FriendService: ObservableObject {
     }
 
     func clear() {
-        self.friendsCache = [:]
+        self.clearCache()
         self.profileFriendsViewModel.clear()
         self.createInvitePageViewModel.clear()
-    }
-
-    private func updateCache(friends: [User]) {
-        for friend in friends where friendsCache[friend.id] == nil {
-            friendsCache[friend.id] = friend
-        }
-    }
-
-    private func initCache(friends: [User]) {
-        for friend in friends {
-            friendsCache[friend.id] = friend
-        }
     }
 
     private func handlePropertyChange(fetchedFriends: [User]) {

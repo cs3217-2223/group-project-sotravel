@@ -67,7 +67,7 @@ struct MapView: UIViewRepresentable {
                 continue
             }
 
-            if let friend = friendService.getFriend(id: friendUUID) {
+            if let friend = friendService.get(id: friendUUID) {
                 let friendAnnotation = CustomPointAnnotation(
                     userId: friendUUID,
                     coordinate: friendLocation.coordinate,

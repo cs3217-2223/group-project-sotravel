@@ -11,9 +11,9 @@ struct ChatMessageView: View {
                 Spacer()
             } else {
                 NavigationLink(destination:
-                                FriendProfilePageView(friend: friendService.getFriend(id: chatMessageVM.senderId))) {
-                    ProfileImageView(imageSrc: friendService.getFriend(id: chatMessageVM.senderId)?.imageURL,
-                                     name: friendService.getFriend(id: chatMessageVM.senderId)?.name ?? "",
+                                FriendProfilePageView(friend: friendService.get(id: chatMessageVM.senderId))) {
+                    ProfileImageView(imageSrc: friendService.get(id: chatMessageVM.senderId)?.imageURL,
+                                     name: friendService.get(id: chatMessageVM.senderId)?.name ?? "",
                                      width: 30, height: 30)
                 }
             }
