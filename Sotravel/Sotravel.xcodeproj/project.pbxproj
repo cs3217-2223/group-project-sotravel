@@ -102,7 +102,8 @@
 		ACF8714F29E5576900A4AD83 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8714E29E5576900A4AD83 /* Observer.swift */; };
 		ACF8715129E5577A00A4AD83 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715029E5577A00A4AD83 /* Subject.swift */; };
 		ACF8715329E5579600A4AD83 /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715229E5579600A4AD83 /* Cacheable.swift */; };
-		ACF8715529E562E900A4AD83 /* ViewErrorHanlder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715429E562E900A4AD83 /* ViewErrorHanlder.swift */; };
+		ACF8715529E562E900A4AD83 /* ViewAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715429E562E900A4AD83 /* ViewAlertController.swift */; };
+		ACF8715729E5843E00A4AD83 /* ServiceErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715629E5843E00A4AD83 /* ServiceErrorHandler.swift */; };
 		B43AFA5729CA06BD0029AB85 /* RestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5629CA06BD0029AB85 /* RestApi.swift */; };
 		B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */; };
 		B43AFA6B29CA0E230029AB85 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = B43AFA6A29CA0E230029AB85 /* Resolver */; };
@@ -273,7 +274,8 @@
 		ACF8714E29E5576900A4AD83 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		ACF8715029E5577A00A4AD83 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
 		ACF8715229E5579600A4AD83 /* Cacheable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
-		ACF8715429E562E900A4AD83 /* ViewErrorHanlder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewErrorHanlder.swift; sourceTree = "<group>"; };
+		ACF8715429E562E900A4AD83 /* ViewAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAlertController.swift; sourceTree = "<group>"; };
+		ACF8715629E5843E00A4AD83 /* ServiceErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceErrorHandler.swift; sourceTree = "<group>"; };
 		B43AFA5629CA06BD0029AB85 /* RestApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApi.swift; sourceTree = "<group>"; };
 		B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swif.swift"; sourceTree = "<group>"; };
 		B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repositories+Injection.swift"; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				1866DE6B29B993FA005D9F59 /* Views */,
 				1866DE5D29B993E3005D9F59 /* SotravelApp.swift */,
 				B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */,
+				ACF8715429E562E900A4AD83 /* ViewAlertController.swift */,
 				1866DE5F29B993E3005D9F59 /* ContentView.swift */,
 				1866DE6129B993E5005D9F59 /* Assets.xcassets */,
 				D7F6A9CA29C6CEA9006FBD26 /* GoogleService-Info.plist */,
@@ -547,6 +550,7 @@
 				188C147629CDC13500531F9F /* LocationManagerService.swift */,
 				AC8AE12929D59AA3000F78BC /* TripService.swift */,
 				AC8AE12D29D5E40F000F78BC /* FriendService.swift */,
+				ACF8715629E5843E00A4AD83 /* ServiceErrorHandler.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -712,7 +716,6 @@
 			isa = PBXGroup;
 			children = (
 				B4E9460929C35CEF001B65EE /* SotravelError.swift */,
-				ACF8715429E562E900A4AD83 /* ViewErrorHanlder.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -969,7 +972,7 @@
 				B46B0A6F29CCA9A2006F2BA2 /* UpdateUserApiModel.swift in Sources */,
 				B458C9A829DDD0ED00AE6A7A /* ConvertableFromApiModel.swift in Sources */,
 				B485A8F329D06ECB00786A34 /* Friend.swift in Sources */,
-				ACF8715529E562E900A4AD83 /* ViewErrorHanlder.swift in Sources */,
+				ACF8715529E562E900A4AD83 /* ViewAlertController.swift in Sources */,
 				AC63059C29BDA34F00EEEA85 /* ChatView.swift in Sources */,
 				181C746F29BDDEB700E6D3B1 /* ActionMenuButton.swift in Sources */,
 				B458C9AA29DDD13900AE6A7A /* ApiModel.swift in Sources */,
@@ -979,6 +982,7 @@
 				B4E9460A29C35CEF001B65EE /* SotravelError.swift in Sources */,
 				B4C3536329C0A5D30073931C /* TripRepository.swift in Sources */,
 				188EBDBB29C1B142002735F0 /* MockTrips.swift in Sources */,
+				ACF8715729E5843E00A4AD83 /* ServiceErrorHandler.swift in Sources */,
 				1848F8FD29D0162800A70989 /* FirebaseMapRepository.swift in Sources */,
 				ACF2B20529CDB4DB0017A9F0 /* EventViewModel.swift in Sources */,
 				D7F6A9E629CF8E23006FBD26 /* ChatHeaderViewModel.swift in Sources */,

@@ -31,6 +31,7 @@ struct SotravelApp: App {
     // db should be 1 obj that is passed around?
     @StateObject var chatService = ChatService()
     @StateObject var locationSharingState = LocationSharingViewModel()
+    @StateObject var viewAlertController = ViewAlertController()
 
     var body: some Scene {
         WindowGroup {
@@ -41,6 +42,7 @@ struct SotravelApp: App {
                 .environmentObject(chatService)
                 .environmentObject(friendService)
                 .environmentObject(locationSharingState)
+                .environmentObject(viewAlertController)
         }
     }
 }

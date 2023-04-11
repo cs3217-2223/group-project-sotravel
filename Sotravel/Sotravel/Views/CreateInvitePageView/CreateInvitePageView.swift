@@ -4,6 +4,7 @@ struct CreateInvitePageView: View {
     @EnvironmentObject private var eventService: EventService
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var tripService: TripService
+    @EnvironmentObject private var viewAlertController: ViewAlertController
     @ObservedObject var createInvitePageUserViewModel: CreateInvitePageUserViewModel
     @State private var title: String = ""
     @State private var date = Date()
@@ -210,25 +211,25 @@ struct CreateInvitePageView: View {
     private func createEvent() {
         // TODO: Validate inputs
         guard !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            showAlert(message: "Please enter a title for your invite.")
+            viewAlertController.showAlert(message: "Please enter a title for your invite.")
             return
         }
         guard !location.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            showAlert(message: "Please enter a location for your invite.")
+            viewAlertController.showAlert(message: "Please enter a location for your invite.")
             return
         }
         guard !meetingPoint.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            showAlert(message: "Please enter a meeting point for your invite.")
+            viewAlertController.showAlert(message: "Please enter a meeting point for your invite.")
             return
         }
 
         guard let userId = userService.getUserId() else {
-            showAlert(message: "Cannot find host user")
+            viewAlertController.showAlert(message: "Cannot find host user")
             return
         }
 
         guard let tripId = tripService.getCurrTripId() else {
-            showAlert(message: "TripId not found")
+            viewAlertController.showAlert(message: "TripId not found")
             return
         }
 
@@ -254,7 +255,7 @@ struct CreateInvitePageView: View {
             switch result {
             case .success:
                 // Show success message and reset input fields
-                showAlert(message: "Woohoo! Your invite has been created ✨")
+                viewAlertController.showAlert(message: "Woohoo! Your invite has been created ✨")
                 title = ""
                 location = ""
                 meetingPoint = ""
@@ -264,7 +265,7 @@ struct CreateInvitePageView: View {
                 navigateToInvitesPage()
             case .failure(let error):
                 // Show error message
-                showAlert(message: "Failed to create invite: \(error.localizedDescription)")
+                viewAlertController.showAlert(message: "Failed to create invite: \(error.localizedDescription)")
             }
         }
     }
@@ -279,17 +280,6 @@ struct CreateInvitePageView: View {
                                                     hour: timeComponents.hour,
                                                     minute: timeComponents.minute)
         return calendar.date(from: combinedDateComponents)!
-    }
-
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
-        DispatchQueue.main.async {
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                windowScene.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
-            }
-        }
     }
 
     private func navigateToInvitesPage() {
