@@ -11,6 +11,7 @@ struct ChatView: View {
     @EnvironmentObject var chatService: ChatService
     @EnvironmentObject var userService: UserService
     @EnvironmentObject var eventService: EventService
+    @EnvironmentObject var viewAlertController: ViewAlertController
     @State private var messageText = ""
     @State private var isSending = false
 
@@ -89,22 +90,11 @@ struct ChatView: View {
         isSending = true
         let success = chatService.sendChatMessage(messageText: messageText)
         if !success {
-            showAlert(message: "Unable to send message. Please try again later.")
+            viewAlertController.showAlert(message: "Unable to send message. Please try again later.")
             return
         }
         messageText = ""
         isSending = false
-    }
-
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
-        DispatchQueue.main.async {
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                windowScene.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
-            }
-        }
     }
 }
 
