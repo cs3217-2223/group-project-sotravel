@@ -26,13 +26,14 @@ class FriendService: ObservableObject {
         self.friendsCache = [:]
     }
 
-    func fetchAllFriends(tripId: Int) {
+    func fetchAllFriends(tripId: Int, for user: UUID) {
         Task {
             do {
                 let fetchedFriends = try await userRepository.getAllFriendsOnTrip(tripId: tripId)
                 DispatchQueue.main.async {
-                    self.initCache(friends: fetchedFriends)
-                    self.handlePropertyChange(fetchedFriends: fetchedFriends)
+                    let filteredFriends = fetchedFriends.filter { $0.id != user }
+                    self.initCache(friends: filteredFriends)
+                    self.handlePropertyChange(fetchedFriends: filteredFriends)
                 }
             } catch {
                 print("Error fetching friends:", error)
@@ -40,13 +41,14 @@ class FriendService: ObservableObject {
         }
     }
 
-    func reloadFriends(tripId: Int, completion: @escaping (Bool) -> Void) {
+    func reloadFriends(tripId: Int, for user: UUID, completion: @escaping (Bool) -> Void) {
         Task {
             do {
                 let fetchedFriends = try await userRepository.getAllFriendsOnTrip(tripId: tripId)
                 DispatchQueue.main.async {
-                    self.updateCache(friends: fetchedFriends)
-                    self.handlePropertyChange(fetchedFriends: fetchedFriends)
+                    let filteredFriends = fetchedFriends.filter { $0.id != user }
+                    self.updateCache(friends: filteredFriends)
+                    self.handlePropertyChange(fetchedFriends: filteredFriends)
                     completion(true)
                 }
             } catch {

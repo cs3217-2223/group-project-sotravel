@@ -59,7 +59,7 @@ struct ContentView: View {
                     return
                 }
 
-                friendService.fetchAllFriends(tripId: trip.id)
+                friendService.fetchAllFriends(tripId: trip.id, for: userId)
                 tripService.selectTrip(trip)
 
                 eventService.loadUserEvents(forTrip: trip.id, userId: userId)
