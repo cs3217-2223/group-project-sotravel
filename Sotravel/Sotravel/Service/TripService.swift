@@ -18,6 +18,7 @@ class TripService: ObservableObject {
     @AppStorage("LastSelectedTripId") var lastSelectedTripId: Int?
 
     @Injected private var tripRepository: TripRepository
+    @Injected private var serviceErrorHandler: ServiceErrorHandler
 
     init() {
         self.selectedTrip = nil
@@ -55,7 +56,7 @@ class TripService: ObservableObject {
                     completion(true)
                 }
             } catch {
-                print("Error loading user trips:", error)
+                serviceErrorHandler.handle(error)
                 completion(false)
             }
         }
@@ -71,7 +72,7 @@ class TripService: ObservableObject {
                     completion()
                 }
             } catch {
-                print("Error loading user events:", error)
+                serviceErrorHandler.handle(error)
             }
         }
     }

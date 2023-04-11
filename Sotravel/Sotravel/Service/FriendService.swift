@@ -15,6 +15,7 @@ class FriendService: ObservableObject {
     @Published var createInvitePageViewModel: CreateInvitePageUserViewModel
 
     @Injected private var userRepository: UserRepository
+    @Injected private var serviceErrorHandler: ServiceErrorHandler
 
     func getFriend(id: UUID) -> User? {
         friendsCache[id]
@@ -36,7 +37,7 @@ class FriendService: ObservableObject {
                     self.handlePropertyChange(fetchedFriends: filteredFriends)
                 }
             } catch {
-                print("Error fetching friends:", error)
+                serviceErrorHandler.handle(error)
             }
         }
     }
@@ -52,7 +53,7 @@ class FriendService: ObservableObject {
                     completion(true)
                 }
             } catch {
-                print("Error fetching friends:", error)
+                serviceErrorHandler.handle(error)
                 completion(false)
             }
         }

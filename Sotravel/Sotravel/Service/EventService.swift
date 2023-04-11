@@ -15,6 +15,7 @@ class EventService: ObservableObject {
     private var eventToViewModels: [Event: EventViewModel]
 
     @Injected private var eventRepository: EventRepository
+    @Injected private var serviceErrorHandler: ServiceErrorHandler
 
     init() {
         self.eventViewModels = []
@@ -52,7 +53,7 @@ class EventService: ObservableObject {
                     self.objectWillChange.send()
                 }
             } catch {
-                print("Error loading user events:", error)
+                serviceErrorHandler.handle(error)
             }
         }
     }
@@ -67,7 +68,7 @@ class EventService: ObservableObject {
                     self.objectWillChange.send()
                 }
             } catch {
-                print("Error loading user events:", error)
+                serviceErrorHandler.handle(error)
             }
         }
     }
@@ -84,7 +85,7 @@ class EventService: ObservableObject {
                     completion(.success(newEvent))
                 }
             } catch {
-                print("Error creating event:", error)
+                serviceErrorHandler.handle(error)
                 completion(.failure(error))
             }
         }
@@ -99,7 +100,7 @@ class EventService: ObservableObject {
                     self.eventViewModels.removeAll { $0.id == id }
                 }
             } catch {
-                print("Error canceling event:", error)
+                serviceErrorHandler.handle(error)
             }
         }
     }
@@ -126,7 +127,7 @@ class EventService: ObservableObject {
 
                 self.handleEventPropertyChange(for: event)
             } catch {
-                print("Error RSVPing to event:", error)
+                serviceErrorHandler.handle(error)
             }
         }
     }
@@ -143,7 +144,7 @@ class EventService: ObservableObject {
                     self.objectWillChange.send()
                 }
             } catch {
-                print("Error fetching event:", error)
+                serviceErrorHandler.handle(error)
             }
         }
     }

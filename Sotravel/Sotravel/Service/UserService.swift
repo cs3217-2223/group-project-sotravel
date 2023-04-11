@@ -19,6 +19,7 @@ class UserService: ObservableObject {
     @AppStorage("LoggedIn") var isLoggedIn = false
 
     @Injected private var userRepository: UserRepository
+    @Injected private var serviceErrorHandler: ServiceErrorHandler
 
     init() {
         self.profileHeaderVM = ProfileHeaderViewModel()
@@ -70,8 +71,7 @@ class UserService: ObservableObject {
                     completion(false, nil)
                 }
             } catch {
-                print("Error fetching user:", error)
-                // Handle error as needed
+                serviceErrorHandler.handle(error)
                 completion(false, nil)
             }
         }
@@ -92,8 +92,7 @@ class UserService: ObservableObject {
                     completion(false, nil)
                 }
             } catch {
-                print("Error fetching user:", error)
-                // Handle error as needed
+                serviceErrorHandler.handle(error)
                 completion(false, nil)
             }
         }
@@ -112,8 +111,7 @@ class UserService: ObservableObject {
                     completion(false)
                 }
             } catch {
-                print("Error fetching user:", error)
-                // Handle error as needed
+                serviceErrorHandler.handle(error)
                 completion(false)
             }
         }
@@ -132,9 +130,8 @@ class UserService: ObservableObject {
                 self.user = updatedUser
                 self.handleUserPropertyChange()
             } catch {
-                print("Error updating user:", error)
-                // Handle error as needed
                 alertEditProfileView()
+                serviceErrorHandler.handle(error)
             }
         }
     }
