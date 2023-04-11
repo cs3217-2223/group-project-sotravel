@@ -35,44 +35,52 @@ struct CalendarView: View {
                     ? LocalizedStringKey("Today")
                     : "\(selectedDate, formatter: dateFormatter)")
                 .font(.uiTitle3)
-            HStack {
-                ForEach(self.days, id: \.self) { date in
-                    DateCellView(date: date, calendar: calendar)
-                        .foregroundColor(calendar.isDate(date, inSameDayAs: selectedDate) ? .uiPrimary :
-                                            date.isTodayOrAfter(using: calendar) ? .primary : .gray)
-                        .onTapGesture {
-                            selectedDate = date
-                        }
+            ScrollViewReader { proxy in
+                HStack {
+                    ForEach(self.days, id: \.self) { date in
+                        DateCellView(date: date, calendar: calendar)
+                            .foregroundColor(calendar.isDate(date, inSameDayAs: selectedDate) ? .uiPrimary :
+                                                date.isTodayOrAfter(using: calendar) ? .primary : .gray)
+                            .onTapGesture {
+                                withAnimation {
+                                    selectedDate = date
+                                }
+                                proxy.scrollTo(date, anchor: .center)
+                            }
+                    }
                 }
+                .offset(x: dragOffset.width)
+                .offset(x: finalOffset)
+                .onAppear {
+                    proxy.scrollTo(selectedDate, anchor: .center)
+                }
+                .gesture(DragGesture()
+                            .onChanged({ value in
+                                withAnimation(.spring()) {
+                                    self.dragOffset = value.translation
+                                }
+                            })
+                            .onEnded({ _ in
+                                if dragOffset.width > 150 && finalOffset != (width + 10) {
+                                    withAnimation(.spring()) {
+                                        finalOffset += (width + 10)
+                                        dragOffset = .zero
+                                    }
+
+                                } else if dragOffset.width < -150 && finalOffset != -(width + 10) {
+                                    withAnimation(.spring()) {
+                                        finalOffset -= (width + 10)
+                                        dragOffset = .zero
+                                    }
+
+                                } else {
+                                    withAnimation(.spring()) {
+                                        dragOffset = .zero
+                                    }
+                                }
+                            })
+                )
             }
-            .offset(x: dragOffset.width)
-            .offset(x: finalOffset)
-            .gesture(DragGesture()
-                        .onChanged({ value in
-                            withAnimation(.spring()) {
-                                self.dragOffset = value.translation
-                            }
-                        })
-                        .onEnded({ _ in
-                            if dragOffset.width > 150 && finalOffset != (width + 10) {
-                                withAnimation(.spring()) {
-                                    finalOffset += (width + 10)
-                                    dragOffset = .zero
-                                }
-
-                            } else if dragOffset.width < -150 && finalOffset != -(width + 10) {
-                                withAnimation(.spring()) {
-                                    finalOffset -= (width + 10)
-                                    dragOffset = .zero
-                                }
-
-                            } else {
-                                withAnimation(.spring()) {
-                                    dragOffset = .zero
-                                }
-                            }
-                        })
-            )
         }
     }
 }

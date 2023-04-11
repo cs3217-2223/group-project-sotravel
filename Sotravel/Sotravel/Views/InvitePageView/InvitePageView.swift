@@ -19,7 +19,7 @@ struct InvitePageView: View {
                 CalendarView(calendar: Calendar(identifier: .iso8601), selectedDate: $selectedDate)
 
                 ScrollView(.vertical) {
-                    VStack(spacing: 20) {
+                    LazyVStack(spacing: 20) {
                         let filteredEvents = eventService.eventViewModels.filter { eventViewModel in
                             let calendar = Calendar.current
                             return calendar.isDate(eventViewModel.datetime, equalTo: selectedDate, toGranularity: .day)
