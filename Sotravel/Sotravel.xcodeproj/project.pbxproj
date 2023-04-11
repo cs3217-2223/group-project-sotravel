@@ -99,6 +99,9 @@
 		ACA4016929C769A70076E183 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016829C769A70076E183 /* EditProfileViewModel.swift */; };
 		ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */; };
 		ACF2B20529CDB4DB0017A9F0 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */; };
+		ACF8714F29E5576900A4AD83 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8714E29E5576900A4AD83 /* Observer.swift */; };
+		ACF8715129E5577A00A4AD83 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715029E5577A00A4AD83 /* Subject.swift */; };
+		ACF8715329E5579600A4AD83 /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715229E5579600A4AD83 /* Cacheable.swift */; };
 		B43AFA5729CA06BD0029AB85 /* RestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5629CA06BD0029AB85 /* RestApi.swift */; };
 		B43AFA6029CA0C390029AB85 /* AppDelegate+Injection.swif.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */; };
 		B43AFA6B29CA0E230029AB85 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = B43AFA6A29CA0E230029AB85 /* Resolver */; };
@@ -266,6 +269,9 @@
 		ACA4016829C769A70076E183 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInvitePageUserViewModel.swift; sourceTree = "<group>"; };
 		ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		ACF8714E29E5576900A4AD83 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		ACF8715029E5577A00A4AD83 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
+		ACF8715229E5579600A4AD83 /* Cacheable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
 		B43AFA5629CA06BD0029AB85 /* RestApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApi.swift; sourceTree = "<group>"; };
 		B43AFA5F29CA0C390029AB85 /* AppDelegate+Injection.swif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swif.swift"; sourceTree = "<group>"; };
 		B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repositories+Injection.swift"; sourceTree = "<group>"; };
@@ -531,6 +537,7 @@
 		AC18140429C43DE4008D6944 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				ACF8714D29E5574D00A4AD83 /* Protocols */,
 				AC18140529C43E1A008D6944 /* UserService.swift */,
 				D7F6A9E129CF8D56006FBD26 /* ChatService.swift */,
 				AC11B87D29CB0C2500ADE703 /* EventService.swift */,
@@ -634,6 +641,16 @@
 				188EBDAD29C183E5002735F0 /* EditProfileView.swift */,
 			);
 			path = ProfilePageView;
+			sourceTree = "<group>";
+		};
+		ACF8714D29E5574D00A4AD83 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				ACF8714E29E5576900A4AD83 /* Observer.swift */,
+				ACF8715029E5577A00A4AD83 /* Subject.swift */,
+				ACF8715229E5579600A4AD83 /* Cacheable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		B44CB22929C03924007588DC /* Repository */ = {
@@ -876,6 +893,7 @@
 				18D9713E29BD910B0064DC2A /* EventPageView.swift in Sources */,
 				AC832C9729D1F97200B3D52D /* MockFriends.swift in Sources */,
 				AC28033229C61CC500687D62 /* ChatsStore.swift in Sources */,
+				ACF8715329E5579600A4AD83 /* Cacheable.swift in Sources */,
 				1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */,
 				B4939BA929D481E200B736F2 /* URL+QueryParameters.swift in Sources */,
 				B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */,
@@ -887,6 +905,7 @@
 				18D9714029BD91B60064DC2A /* Event.swift in Sources */,
 				18D9713329BD74B10064DC2A /* MockUsers.swift in Sources */,
 				18CC54DA29E1B29700B8C3D2 /* UserListItemLinkView.swift in Sources */,
+				ACF8714F29E5576900A4AD83 /* Observer.swift in Sources */,
 				18591C8829BD73FF00FA987D /* User.swift in Sources */,
 				1813523629DACEF600C07F85 /* Utils.swift in Sources */,
 				B4C3536829C0A7160073931C /* ChatRepository.swift in Sources */,
@@ -906,6 +925,7 @@
 				D7F6A9E229CF8D56006FBD26 /* ChatService.swift in Sources */,
 				AC32F96529BA33440005F5B9 /* ProfileHeaderView.swift in Sources */,
 				18A1AC5A29BB12CB0064CF37 /* DateFormatter.swift in Sources */,
+				ACF8715129E5577A00A4AD83 /* Subject.swift in Sources */,
 				188C147529CDA3A600531F9F /* LabelledToggleView.swift in Sources */,
 				18C3660629C0227C00AF0338 /* ChatMessageView.swift in Sources */,
 				18D9714429BD9AF80064DC2A /* EventsStore.swift in Sources */,
