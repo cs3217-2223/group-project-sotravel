@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct TripCardView: View {
-    let trip: Trip
+    var viewModel: TripViewModel
 
     var body: some View {
         VStack {
-            URLImageView(src: trip.imageURL)
+            URLImageView(src: viewModel.imageURL ?? URL(string: "about:blank")!)
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text(trip.title)
+                    Text(viewModel.title)
                         .font(.uiHeadline)
                     Spacer()
                 }
@@ -16,14 +16,14 @@ struct TripCardView: View {
                 HStack {
                     Image(systemName: "calendar")
 
-                    Text("\(trip.startDate.toFriendlyDateString()) - \(trip.endDate.toFriendlyDateString())")
+                    Text("\(viewModel.startDate.toFriendlyDateString()) - \(viewModel.endDate.toFriendlyDateString())")
                         .font(.uiSubheadline)
                 }
 
                 HStack {
                     Image(systemName: "location.fill")
 
-                    Text(trip.location)
+                    Text(viewModel.location)
                         .font(.uiSubheadline)
                 }
             }

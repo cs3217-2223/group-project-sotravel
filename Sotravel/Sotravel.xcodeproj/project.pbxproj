@@ -97,6 +97,7 @@
 		ACA4016529C7664D0076E183 /* SocialMediaLinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */; };
 		ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */; };
 		ACA4016929C769A70076E183 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016829C769A70076E183 /* EditProfileViewModel.swift */; };
+		ACCEC15129E6E74F00574A9A /* TripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCEC15029E6E74F00574A9A /* TripViewModel.swift */; };
 		ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */; };
 		ACF2B20529CDB4DB0017A9F0 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */; };
 		ACF8714F29E5576900A4AD83 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8714E29E5576900A4AD83 /* Observer.swift */; };
@@ -269,6 +270,7 @@
 		ACA4016429C7664D0076E183 /* SocialMediaLinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaLinksViewModel.swift; sourceTree = "<group>"; };
 		ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsViewModel.swift; sourceTree = "<group>"; };
 		ACA4016829C769A70076E183 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		ACCEC15029E6E74F00574A9A /* TripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModel.swift; sourceTree = "<group>"; };
 		ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInvitePageUserViewModel.swift; sourceTree = "<group>"; };
 		ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		ACF8714E29E5576900A4AD83 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 				ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */,
 				B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */,
 				1817D0F929D554CB00D8D9F0 /* LocationSharingViewModel.swift */,
+				ACCEC15029E6E74F00574A9A /* TripViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -914,6 +917,7 @@
 				18591C8829BD73FF00FA987D /* User.swift in Sources */,
 				1813523629DACEF600C07F85 /* Utils.swift in Sources */,
 				B4C3536829C0A7160073931C /* ChatRepository.swift in Sources */,
+				ACCEC15129E6E74F00574A9A /* TripViewModel.swift in Sources */,
 				B4671ED729D2DB4600266871 /* GetAllTripsApiModel.swift in Sources */,
 				188C147729CDC13500531F9F /* LocationManagerService.swift in Sources */,
 				B43AFA6D29CA0E9F0029AB85 /* Repositories+Injection.swift in Sources */,
