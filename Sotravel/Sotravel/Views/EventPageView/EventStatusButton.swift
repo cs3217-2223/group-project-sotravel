@@ -11,7 +11,6 @@ struct EventStatusButton: View {
     @EnvironmentObject private var eventService: EventService
     @EnvironmentObject private var chatService: ChatService
     @ObservedObject var eventViewModel: EventViewModel
-    @Binding var eventStatus: EventStatus
     @State private var isMenuVisible = false
 
     var body: some View {
@@ -31,17 +30,16 @@ struct EventStatusButton: View {
                 } else {
                     Menu {
                         Button(action: {
-                            eventStatus = .going
+                            eventViewModel.eventStatus = .going
                             eventService.rsvpToEvent(eventId: eventViewModel.id,
                                                      userId: userId,
                                                      status: EventRsvpStatus.yes)
                             chatService.fetchChatPageCell(id: eventViewModel.id)
-
                         }, label: {
                             Label("Going", systemImage: "checkmark.circle.fill")
                         })
                         Button(action: {
-                            eventStatus = .notGoing
+                            eventViewModel.eventStatus = .notGoing
                             eventService.rsvpToEvent(eventId: eventViewModel.id,
                                                      userId: userId,
                                                      status: EventRsvpStatus.no)
@@ -49,9 +47,9 @@ struct EventStatusButton: View {
                         }, label: {
                             Label("Not Going", systemImage: "xmark.circle.fill")
                         })
-                        if eventStatus == .pending {
+                        if eventViewModel.eventStatus == .pending {
                             Button(action: {
-                                eventStatus = .pending
+                                eventViewModel.eventStatus = .pending
                             }, label: {
                                 Label("Pending", systemImage: "clock")
                             })
@@ -76,8 +74,6 @@ struct EventStatusButton: View {
                     }
                     .menuStyle(BorderlessButtonMenuStyle())
                 }
-            }.onAppear {
-                eventViewModel.updateEventStatus(userId: userId)
             }
         } else {
             // Handle case where userId is nil
@@ -86,7 +82,7 @@ struct EventStatusButton: View {
     }
 
     var statusString: String {
-        switch eventStatus {
+        switch eventViewModel.eventStatus {
         case .pending:
             return "Are you going?"
         case .going:
@@ -97,7 +93,7 @@ struct EventStatusButton: View {
     }
 
     var statusColor: Color {
-        switch eventStatus {
+        switch eventViewModel.eventStatus {
         case .pending:
             return Color.uiPrimary
         case .going:

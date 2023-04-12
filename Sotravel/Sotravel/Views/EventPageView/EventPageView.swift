@@ -73,8 +73,7 @@ struct EventPageView: View {
 
                 }.padding(.top, 6)
                 VStack {
-                    EventStatusButton(eventViewModel: eventViewModel,
-                                      eventStatus: $eventViewModel.eventStatus)
+                    EventStatusButton(eventViewModel: eventViewModel)
                 }.padding(.top, 16)
                 // Attendees status
                 VStack {
