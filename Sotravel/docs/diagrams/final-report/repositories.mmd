@@ -1,0 +1,44 @@
+classDiagram
+    direction LR
+    class UserRepository{
+        <<Protocol>>
+        get(id: UUID) User?
+        update(user: User) User?
+        emailSignin(email: String, password: String) User?
+        emailSignup(email: String, password: String) User?
+    }
+
+    class TripRepository{
+        <<Protocol>>
+        getTrips(userId: UUID) [Trip]
+        getAllUsersOnTrip(tripId: Int) [User]
+    }
+
+    class EventRepository{
+        <<Protocol>>
+        get(id: Int) Event
+        getUserEvents(userId: UUID, tripId: Int) [Event]
+        create(event: Event) Event
+        cancelEvent(id: Int) 
+        rsvpToEvent(eventId: Int, userId: UUID, status: EventRsvpStatus)
+    }
+
+    class ChatRepository{
+        <<Protocol>>
+        setListenerForChatMessages(for chatId: Int, completion: ((ChatMessage) -> Void))
+        removeListenerForChatMessages(for chatId: Int)
+        setListenerForChatBasicInfo(for chatId: Int, completion: ((Chat) -> Void))
+        removeListenerForChatBasicInfo(for chatId: Int)
+        getBasicInfo(for id: Int, completion:((Chat) -> Void))
+        getChat(id: Int, completion: ((Chat) -> Void))
+        sendChatMessage(chatMessage: ChatMessage, to chatId: Int) Bool
+        getChatPreview(for id: Int, completion: ((Chat) -> Void))
+    }
+    
+    class MapRepository{
+        <<Protocol>>
+        listenForFriendsLocations(completion: ([String: CLLocation]) -> Void)
+        updateCurrentUserLocation(_ location: CLLocation, userId: String)
+        removeCurrentUserLocation(userId: String)
+    }
+    

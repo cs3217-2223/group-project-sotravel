@@ -64,12 +64,38 @@ of as the components that do not directly deal with the views. The frontend is
 the set of components that do deal with the views (and presentation more
 broadly).
 
-## Backend
+## Overall architecture
+
+![Overall](./diagrams/final-report/overall-architecture.svg)
+_See a higher resolution version of the image [here](./diagrams/final-report/overall-architecture.svg)_
+
+The overall architecture can be seen above. We can categorise the system into
+the following components
+
+-   Repository and API models
+-   Models
+-   Service and ViewModels
+-   Views
+
+The respositories handle retrieving/updating information from the data store. In
+our case, the repositories communicate with Firebase as well as a backend REST
+API written in NodeJS.
+
+The Models are the internal representation of key information within the trip.
+The API models (which are representations of data from the data source) are
+converted into models which are used as the source of truth for the Service
+layer and the front end.
+
+The Service layer consumes the models and publishes ViewModels which contain
+view-specific information. The ViewModels contain only the information required
+for a specific View. Thus, they prevent irrelevant information from being leaked
+to the View.
 
 ### Flow of data
 
 The backend of the application adopts a 3 layer architecture approach. A generic
 model of how the backend obtains data is shown below
+
 ![Generic 3 layer](./diagrams/sprint-2-report/generic-3-layer-seq.svg)
 
 The high level idea is as follows:
@@ -78,25 +104,19 @@ The high level idea is as follows:
     access layer. The repository conforms to an interface so that it can easily
     be swapped out later in favour of a repository that pulls information from a
     different data source.
-    ![How repository gets data](./diagrams/sprint-2-report/repository-seq.svg)
+
+    -   The diagram below shows how a repository gets data from a REST API
+        ![How repository gets data](./diagrams/sprint-2-report/repository-seq.svg)
 -   A service exists for that data model. It contains a dependency-injected
     repository. The service converts the model into a view model which the view
     can consume
 -   A view contains a reference to a service which generates a view model. The
     view observes the viewmodel to reflect changes to the data.
-    ![How view getd data](./diagrams/sprint-2-report/view-service-seq.svg)
+    ![How view gets data](./diagrams/sprint-2-report/view-service-seq.svg)
 
 The 3 layers put together show how data is called from each layer
 
 ![Detailed 3 layer](./diagrams/sprint-2-report/full-generic-3-layer-seq.svg)
-
-This generic pattern was adopted across each of the key models of `Trip`,
-`User`, `Event` and `Chat`. Thus, each model has it's own Service and Repository
-as well. We will see a concrete implementation for how this works in the case
-of the Get User Profile flow:
-
-![User Profile Data Gathering
-Flow](./diagrams/sprint-2-report/user-profile-vm-seq.svg)
 
 The `Repositories` for each model conform to an interface and are dependency
 injected into each `Service`. Dependency injection is done through property
@@ -127,7 +147,7 @@ only exposing a few of the API methods required, as well as a
 [Proxy](https://refactoring.guru/design-patterns/proxy) through the repository
 interface.
 
-## Frontend
+### Frontend
 
 The frontend is relatively straightforward, following an MVVM architecture. A
 service is injected into each view, and the view observes a view model in the
@@ -137,16 +157,35 @@ updated information.
 
 A concrete example of how this works for the `User` model can be seen below:
 ![Concrete User](./diagrams/sprint-2-report/concrete-view-service-viewmodel.svg)
-
-Another concrete example can be seen with the Chat views:
-![Concrete
-Chat](./diagrams/sprint-2-report/chat-concrete-view-service-viewmodel.svg)
-
 Notice how both the service and the repository act as
 [Mediators](https://refactoring.guru/design-patterns/mediator) to the viewmodel
 and the model respectively. The view collaborates with the viewmodel via the
 service, and the service collaborates with the model (to get the viewmodel) via
 the repository.
+
+## Models
+
+The application has 5 key models it makes use of. They are defined below.
+
+![Models](./diagrams/final-report/models.svg)
+
+These models are enough to ensure that all the key data for the application can
+be derived.
+
+## Repositories
+
+The application makes use of 5 repositories. All of them except `MapRepository`
+produce the models seen above. `MapRepository` listens for user
+coordinates and produces use of built-in datatype `CLLocation` instead. As a
+result, to avoid bloat, an encapsulating model does not exist.
+![Repositories](./diagrams/final-report/repositories.svg)
+
+Note that `UserRepository`, `TripRepository` and `EventRepository` pull
+information from a server when requested. In other words, they operate on a
+polling/pull basis. On the other hand, `ChatRepository` and `MapRepository`
+operate on a push basis, retrieving information from the real-time data store.
+To register changes in the data, they take in delegates to update their
+respective callers when there is a change in data.
 
 ## Live location sharing
 
