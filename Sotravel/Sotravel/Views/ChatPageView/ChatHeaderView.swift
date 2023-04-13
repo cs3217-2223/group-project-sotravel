@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ChatHeaderView: View {
     @EnvironmentObject var chatService: ChatService
-    @EnvironmentObject var userService: UserService
     @EnvironmentObject var eventService: EventService
     @ObservedObject var chatHeaderVM: ChatHeaderViewModel
     @Environment(\.dismiss) var dismiss
