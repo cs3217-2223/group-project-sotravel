@@ -75,6 +75,7 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
                     let viewModel = EventViewModel(event: newEvent)
                     self.eventViewModels.append(viewModel)
                     self.eventToViewModels[newEvent] = viewModel
+                    self.addObserver(viewModel, for: newEvent)
                     completion(.success(newEvent))
                 }
             } catch {
@@ -85,12 +86,16 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
     }
 
     func cancelEvent(id: Int) {
+        guard let event = get(id: id) else {
+            return
+        }
         Task {
             do {
                 try await eventRepository.cancelEvent(id: id)
                 DispatchQueue.main.async {
                     super.remove(item: id)
                     self.eventViewModels.removeAll { $0.id == id }
+                    self.removeAllObservers(for: event)
                 }
             } catch {
                 serviceErrorHandler.handle(error)
