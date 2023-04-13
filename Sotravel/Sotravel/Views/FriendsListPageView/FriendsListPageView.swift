@@ -30,8 +30,10 @@ struct FriendsListPageView<ActionComponent: View>: View {
             SearchBar(text: $searchText)
                 .padding()
             ScrollView {
-                ForEach(filteredFriends, id: \.id) { friend in
-                    actionComponent(friend)
+                LazyVStack {
+                    ForEach(filteredFriends, id: \.id) { friend in
+                        actionComponent(friend)
+                    }
                 }
             }
             .padding(.horizontal, 20)

@@ -59,10 +59,10 @@ struct ChatHeaderView: View {
     }
 
     private func getEventVM(eventId: Int?) -> EventViewModel? {
-        guard let event = getEvent(eventId: eventId) else {
+        guard let id = eventId else {
             return nil
         }
-        return EventViewModel(event: event)
+        return eventService.getEventViewModel(eventId: id)
     }
 
     private func getEvent(eventId: Int?) -> Event? {

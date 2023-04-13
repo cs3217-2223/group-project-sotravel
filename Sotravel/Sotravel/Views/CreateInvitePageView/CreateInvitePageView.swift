@@ -209,7 +209,6 @@ struct CreateInvitePageView: View {
     }
 
     private func createEvent() {
-        // TODO: Validate inputs
         guard !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             viewAlertController.showAlert(message: "Please enter a title for your invite.")
             return
@@ -218,6 +217,7 @@ struct CreateInvitePageView: View {
             viewAlertController.showAlert(message: "Please enter a location for your invite.")
             return
         }
+
         guard !meetingPoint.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             viewAlertController.showAlert(message: "Please enter a meeting point for your invite.")
             return
@@ -232,7 +232,6 @@ struct CreateInvitePageView: View {
             viewAlertController.showAlert(message: "TripId not found")
             return
         }
-
         let selected = selectedAttendeesOption == 0
             ? createInvitePageUserViewModel.friends.map { $0.id }
             : self.selectedAttendees

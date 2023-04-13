@@ -6,25 +6,25 @@
 //
 
 protocol Observer: AnyObject {
-    associatedtype DataType
-    func update(data: DataType)
+    associatedtype ObservedData
+    func updateFrom(data: ObservedData)
     func clear()
 }
 
-extension Observer {
-    // Make update(data:) an optional method
-    func update(data: DataType) {}
+class UserObserver: Observer {
+    typealias ObservedData = User
+    func updateFrom(data: ObservedData) {}
     func clear() {}
 }
 
-class UserObserver: Observer {
-    typealias DataType = User
-}
-
 class UsersObserver: Observer {
-    typealias DataType = [User]
+    typealias ObservedData = [User]
+    func updateFrom(data: ObservedData) {}
+    func clear() {}
 }
 
 class EventObserver: Observer {
-    typealias DataType = Event
+    typealias ObservedData = Event
+    func updateFrom(data: ObservedData) {}
+    func clear() {}
 }

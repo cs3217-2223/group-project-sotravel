@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EventViewModel: ObservableObject {
+class EventViewModel: EventObserver, ObservableObject {
     var id: Int
     @Published var title: String
     @Published var details: String?
@@ -67,22 +67,22 @@ class EventViewModel: ObservableObject {
         self.eventStatus = EventStatus.pending
     }
 
-    func updateFrom(event: Event) {
+    override func updateFrom(data: Event) {
         DispatchQueue.main.async {
-            self.id = event.id
-            self.title = event.title
-            self.datetime = event.datetime
-            self.location = event.location
-            self.details = event.details
-            self.meetingPoint = event.meetingPoint
-            self.invitedUsers = event.invitedUsers
-            self.attendingUsers = event.attendingUsers
-            self.rejectedUsers = event.rejectedUsers
-            self.hostUser = event.hostUser
+            self.id = data.id
+            self.title = data.title
+            self.datetime = data.datetime
+            self.location = data.location
+            self.details = data.details
+            self.meetingPoint = data.meetingPoint
+            self.invitedUsers = data.invitedUsers
+            self.attendingUsers = data.attendingUsers
+            self.rejectedUsers = data.rejectedUsers
+            self.hostUser = data.hostUser
         }
     }
 
-    func clear() {
+    override func clear() {
         self.id = .zero
         self.title = ""
         self.datetime = Date()

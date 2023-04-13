@@ -10,7 +10,7 @@ class AllTrips: ConvertableFromApiModel {
 
 }
 
-class Trip: Identifiable, ConvertableFromApiModel {
+class Trip: Hashable, Identifiable, ConvertableFromApiModel {
     let id: Int
     let title: String
     let startDate: Date
@@ -38,5 +38,13 @@ class Trip: Identifiable, ConvertableFromApiModel {
         self.location = apiModel.location
         // TODO: Remove force cast
         self.imageURL = URL(string: apiModel.imageURL)!
+    }
+
+    static func == (lhs: Trip, rhs: Trip) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

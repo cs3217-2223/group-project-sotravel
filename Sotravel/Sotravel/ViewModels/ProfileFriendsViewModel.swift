@@ -6,16 +6,16 @@
 //
 import Foundation
 
-class ProfileFriendsViewModel: ObservableObject {
+class ProfileFriendsViewModel: UsersObserver, ObservableObject {
     @Published var friends: [User]
 
     init(friends: [User] = []) {
         self.friends = friends
     }
 
-    func updateFrom(friends: [User]) {
+    override func updateFrom(data: [User]) {
         DispatchQueue.main.async {
-            self.friends = friends
+            self.friends = data
         }
     }
 
@@ -25,7 +25,7 @@ class ProfileFriendsViewModel: ObservableObject {
         }
     }
 
-    func clear() {
+    override func clear() {
         self.friends = []
     }
 }

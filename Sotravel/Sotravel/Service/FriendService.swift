@@ -8,7 +8,10 @@
 import Foundation
 import Resolver
 
-class FriendService: BaseCacheService<User>, ObservableObject {
+class FriendService: BaseCacheService<User>, ObservableObject, Subject {
+    typealias ObservedData = [User]
+    typealias ObserverProtocol = UsersObserver
+
     @Published var profileFriendsViewModel: ProfileFriendsViewModel
     @Published var createInvitePageViewModel: CreateInvitePageUserViewModel
 
@@ -16,9 +19,12 @@ class FriendService: BaseCacheService<User>, ObservableObject {
     @Injected private var tripRepository: TripRepository
     @Injected private var serviceErrorHandler: ServiceErrorHandler
 
+    internal var observers: [ObservedData: [ObserverProtocol]]
+
     override init() {
         self.profileFriendsViewModel = ProfileFriendsViewModel()
         self.createInvitePageViewModel = CreateInvitePageUserViewModel()
+        self.observers = [:]
         super.init()
     }
 
@@ -29,7 +35,7 @@ class FriendService: BaseCacheService<User>, ObservableObject {
                 DispatchQueue.main.async {
                     let filteredFriends = fetchedFriends.filter { $0.id != user }
                     self.initCache(from: filteredFriends)
-                    self.handlePropertyChange(fetchedFriends: filteredFriends)
+                    self.initObservers(filteredFriends, [self.profileFriendsViewModel, self.createInvitePageViewModel])
                 }
             } catch {
                 serviceErrorHandler.handle(error)
@@ -44,7 +50,7 @@ class FriendService: BaseCacheService<User>, ObservableObject {
                 DispatchQueue.main.async {
                     let filteredFriends = fetchedFriends.filter { $0.id != user }
                     self.updateCacheInLoop(from: filteredFriends)
-                    self.handlePropertyChange(fetchedFriends: filteredFriends)
+                    self.notifyAll(for: filteredFriends)
                     completion(true)
                 }
             } catch {
@@ -64,10 +70,6 @@ class FriendService: BaseCacheService<User>, ObservableObject {
         self.clearCache()
         self.profileFriendsViewModel.clear()
         self.createInvitePageViewModel.clear()
-    }
-
-    private func handlePropertyChange(fetchedFriends: [User]) {
-        self.profileFriendsViewModel.updateFrom(friends: fetchedFriends)
-        self.createInvitePageViewModel.updateFrom(friends: fetchedFriends)
+        self.observers = [:]
     }
 }

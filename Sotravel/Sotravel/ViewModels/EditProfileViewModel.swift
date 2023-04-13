@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class EditProfileViewModel: ObservableObject {
+class EditProfileViewModel: UserObserver, ObservableObject {
     @Published var firstName: String?
     @Published var lastName: String?
     @Published var description: String?
@@ -33,17 +33,17 @@ class EditProfileViewModel: ObservableObject {
         self.tiktokUsername = tiktokUsername
     }
 
-    func updateFrom(user: User) {
+    override func updateFrom(data: User) {
         DispatchQueue.main.async {
-            self.firstName = user.firstName
-            self.lastName = user.lastName
-            self.description = user.desc
-            self.instagramUsername = user.instagramUsername
-            self.tiktokUsername = user.tiktokUsername
+            self.firstName = data.firstName
+            self.lastName = data.lastName
+            self.description = data.desc
+            self.instagramUsername = data.instagramUsername
+            self.tiktokUsername = data.tiktokUsername
         }
     }
 
-    func clear() {
+    override func clear() {
         self.firstName = ""
         self.lastName = ""
         self.description = ""

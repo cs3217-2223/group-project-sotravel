@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class ProfileHeaderViewModel: ObservableObject {
+class ProfileHeaderViewModel: UserObserver, ObservableObject {
     @Published var name: String?
     @Published var description: String?
     @Published var imageURL: String?
@@ -17,15 +17,15 @@ class ProfileHeaderViewModel: ObservableObject {
         self.imageURL = imageURL
     }
 
-    func updateFrom(user: User) {
+    override func updateFrom(data: User) {
         DispatchQueue.main.async {
-            self.name = user.name
-            self.description = user.desc
-            self.imageURL = user.imageURL
+            self.name = data.name
+            self.description = data.desc
+            self.imageURL = data.imageURL
         }
     }
 
-    func clear() {
+    override func clear() {
         self.name = ""
         self.description = ""
         self.imageURL = ""
