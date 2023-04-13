@@ -15,7 +15,6 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     @Published var profileFriendsViewModel: ProfileFriendsViewModel
     @Published var createInvitePageViewModel: CreateInvitePageUserViewModel
 
-    @Injected private var userRepository: UserRepository
     @Injected private var tripRepository: TripRepository
     @Injected private var serviceErrorHandler: ServiceErrorHandler
 
@@ -31,7 +30,7 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     func fetchAllFriends(tripId: Int, for user: UUID) {
         Task {
             do {
-                let fetchedFriends = try await tripRepository.getAllFriendsOnTrip(tripId: tripId)
+                let fetchedFriends = try await tripRepository.getAllUsersOnTrip(tripId: tripId)
                 DispatchQueue.main.async {
                     let filteredFriends = fetchedFriends.filter { $0.id != user }
                     self.initCache(from: filteredFriends)
@@ -46,7 +45,7 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     func reloadFriends(tripId: Int, for user: UUID, completion: @escaping (Bool) -> Void) {
         Task {
             do {
-                let fetchedFriends = try await tripRepository.getAllFriendsOnTrip(tripId: tripId)
+                let fetchedFriends = try await tripRepository.getAllUsersOnTrip(tripId: tripId)
                 DispatchQueue.main.async {
                     let filteredFriends = fetchedFriends.filter { $0.id != user }
                     self.updateCacheInLoop(from: filteredFriends)

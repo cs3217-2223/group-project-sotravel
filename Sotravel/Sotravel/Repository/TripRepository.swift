@@ -9,7 +9,7 @@ import Foundation
 
 protocol TripRepository {
     func getTrips(userId: UUID) async throws -> [Trip]
-    func getAllFriendsOnTrip(tripId: Int) async throws -> [User]
+    func getAllUsersOnTrip(tripId: Int) async throws -> [User]
 }
 
 class TripRepositoryStub: TripRepository {
@@ -17,7 +17,7 @@ class TripRepositoryStub: TripRepository {
         mockTrips
     }
 
-    func getAllFriendsOnTrip(tripId: Int) async throws -> [User] {
+    func getAllUsersOnTrip(tripId: Int) async throws -> [User] {
         mockFriends
     }
 }

@@ -24,7 +24,7 @@ class TripRepositoryNode: TripRepository {
         return allTrips.pastTrips + allTrips.upcomingTrips
     }
 
-    func getAllFriendsOnTrip(tripId: Int) async throws -> [User] {
+    func getAllUsersOnTrip(tripId: Int) async throws -> [User] {
         let params = ["trip_id": String(tripId)]
         let (status, response) = try await Self.api.get(path: .friends, params: params)
         try ApiErrorHelper.handleError(status: status)
