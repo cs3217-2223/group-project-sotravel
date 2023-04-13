@@ -6,20 +6,20 @@
 //
 import Foundation
 
-class CreateInvitePageUserViewModel: ObservableObject {
+class CreateInvitePageUserViewModel: UsersObserver, ObservableObject {
     @Published var friends: [User]
 
     init(friends: [User] = []) {
         self.friends = friends
     }
 
-    func updateFrom(friends: [User]) {
+    override func updateFrom(data: [User]) {
         DispatchQueue.main.async {
-            self.friends = friends
+            self.friends = data
         }
     }
 
-    func clear() {
+    override func clear() {
         self.friends = []
     }
 }

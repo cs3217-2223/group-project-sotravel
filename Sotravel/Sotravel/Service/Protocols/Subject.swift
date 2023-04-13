@@ -6,28 +6,37 @@
 //
 
 protocol Subject: AnyObject {
-    associatedtype DataType: Hashable
-    associatedtype ObserverType: Observer where ObserverType.DataType == DataType
+    associatedtype ObservedData: Hashable
+    associatedtype ObserverProtocol: Observer where ObserverProtocol.ObservedData == ObservedData
 
-    var observers: [DataType: [ObserverType]] { get set }
+    var observers: [ObservedData: [ObserverProtocol]] { get set }
 }
 
 extension Subject {
-    func addObserver(_ obs: ObserverType, for data: DataType) {
+    func initObservers(_ data: ObservedData, _ obs: [ObserverProtocol]) {
+        observers[data] = obs
+        notifyAll(for: data)
+    }
+
+    func addObserver(_ obs: ObserverProtocol, for data: ObservedData) {
         observers[data, default: []].append(obs)
     }
 
-    func removeObserver(for data: DataType) {
+    func removeObserver(_ obs: ObserverProtocol, for data: ObservedData) {
+        observers[data]?.removeAll(where: { $0 === obs })
+    }
+
+    func removeAllObservers(for data: ObservedData) {
         observers[data] = nil
     }
 
-    func notifyAll(for data: DataType) {
+    func notifyAll(for data: ObservedData) {
         observers[data]?.forEach { observer in
-            observer.update(data: data)
+            observer.updateFrom(data: data)
         }
     }
 
-    func clearAll() {
+    func clearAllObservers() {
         observers.forEach { _, observers in
             observers.forEach { observer in
                 observer.clear()

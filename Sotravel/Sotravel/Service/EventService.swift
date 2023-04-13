@@ -9,7 +9,12 @@ import Foundation
 import Resolver
 import Combine
 
-class EventService: BaseCacheService<Event>, ObservableObject {
+class EventService: BaseCacheService<Event>, ObservableObject, Subject {
+    typealias ObservedData = Event
+    typealias ObserverProtocol = EventObserver
+
+    internal var observers: [ObservedData: [ObserverProtocol]]
+
     @Published var eventViewModels: [EventViewModel]
     private var eventToViewModels: [Event: EventViewModel]
 
@@ -19,6 +24,7 @@ class EventService: BaseCacheService<Event>, ObservableObject {
     override init() {
         self.eventViewModels = []
         self.eventToViewModels = [:]
+        self.observers = [:]
         super.init()
     }
 
@@ -112,7 +118,7 @@ class EventService: BaseCacheService<Event>, ObservableObject {
                     event.rejectedUsers.append(userId)
                 }
 
-                self.handleEventPropertyChange(for: event)
+                self.notifyAll(for: event)
             } catch {
                 serviceErrorHandler.handle(error)
             }
@@ -137,6 +143,7 @@ class EventService: BaseCacheService<Event>, ObservableObject {
         super.clearCache()
         self.eventToViewModels = [:]
         self.eventViewModels = []
+        self.observers = [:]
     }
 
     private func updateCacheAndViewModels(from events: [Event]) {
@@ -145,6 +152,7 @@ class EventService: BaseCacheService<Event>, ObservableObject {
             let viewModel = EventViewModel(event: event)
             self.eventViewModels.append(viewModel)
             self.eventToViewModels[event] = viewModel
+            self.addObserver(viewModel, for: event)
         }
     }
 
@@ -153,13 +161,7 @@ class EventService: BaseCacheService<Event>, ObservableObject {
             let viewModel = EventViewModel(event: event)
             self.eventViewModels.append(viewModel)
             self.eventToViewModels[event] = viewModel
+            self.addObserver(viewModel, for: event)
         }
-    }
-
-    private func handleEventPropertyChange(for event: Event) {
-        guard let viewModel = eventToViewModels[event] else {
-            return
-        }
-        viewModel.updateFrom(event: event)
     }
 }

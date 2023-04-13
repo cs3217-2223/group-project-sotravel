@@ -9,7 +9,12 @@ import SwiftUI
 import Resolver
 import Combine
 
-class UserService: ObservableObject {
+class UserService: ObservableObject, Subject {
+    typealias ObservedData = User
+    typealias ObserverProtocol = UserObserver
+
+    internal var observers: [ObservedData: [ObserverProtocol]]
+
     private var user: User?
     private let userId = "userIdKey"
     @Published var profileHeaderVM: ProfileHeaderViewModel
@@ -25,6 +30,7 @@ class UserService: ObservableObject {
         self.profileHeaderVM = ProfileHeaderViewModel()
         self.socialMediaLinksVM = SocialMediaLinksViewModel()
         self.editProfileViewModel = EditProfileViewModel()
+        self.observers = [:]
     }
 
     func getUser() -> User? {
@@ -64,7 +70,9 @@ class UserService: ObservableObject {
                 if let fetchedUser = try await userRepository.emailSignin(email: email, password: password) {
                     DispatchQueue.main.async {
                         self.user = fetchedUser
-                        self.handleUserPropertyChange()
+                        self.initObservers(fetchedUser, [self.profileHeaderVM,
+                                                         self.editProfileViewModel,
+                                                         self.socialMediaLinksVM])
                         completion(true, fetchedUser.id)
                     }
                 } else {
@@ -85,7 +93,7 @@ class UserService: ObservableObject {
                 if let fetchedUser = try await userRepository.emailSignup(email: email, password: password) {
                     DispatchQueue.main.async {
                         self.user = fetchedUser
-                        self.handleUserPropertyChange()
+                        self.initObservers(fetchedUser, [self.profileHeaderVM, self.editProfileViewModel, self.socialMediaLinksVM])
                         completion(true, fetchedUser.id)
                     }
                 } else {
@@ -104,7 +112,7 @@ class UserService: ObservableObject {
                 if let fetchedUser = try await userRepository.get(id: id) {
                     DispatchQueue.main.async {
                         self.user = fetchedUser
-                        self.handleUserPropertyChange()
+                        self.initObservers(fetchedUser, [self.profileHeaderVM, self.editProfileViewModel, self.socialMediaLinksVM])
                         completion(true)
                     }
                 } else {
@@ -128,7 +136,7 @@ class UserService: ObservableObject {
                     return
                 }
                 self.user = updatedUser
-                self.handleUserPropertyChange()
+                self.notifyAll(for: user)
             } catch {
                 alertEditProfileView()
                 serviceErrorHandler.handle(error)
@@ -171,6 +179,7 @@ class UserService: ObservableObject {
         self.profileHeaderVM.clear()
         self.socialMediaLinksVM.clear()
         self.editProfileViewModel.clear()
+        self.observers = [:]
     }
 
     func changeTrip() {
@@ -181,14 +190,5 @@ class UserService: ObservableObject {
 
     private func alertEditProfileView() {
         editProfileViewModel.updateError = true
-    }
-
-    private func handleUserPropertyChange() {
-        guard let user = user else {
-            return
-        }
-        self.profileHeaderVM.updateFrom(user: user)
-        self.socialMediaLinksVM.updateFrom(user: user)
-        self.editProfileViewModel.updateFrom(user: user)
     }
 }

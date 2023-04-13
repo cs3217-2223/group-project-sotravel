@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class SocialMediaLinksViewModel: ObservableObject {
+class SocialMediaLinksViewModel: UserObserver, ObservableObject {
     @Published var instagramUsername: String?
     @Published var tiktokUsername: String?
     @Published var telegramUsername: String?
@@ -17,15 +17,15 @@ class SocialMediaLinksViewModel: ObservableObject {
         self.telegramUsername = telegramUsername
     }
 
-    func updateFrom(user: User) {
+    override func updateFrom(data: User) {
         DispatchQueue.main.async {
-            self.instagramUsername = user.instagramUsername
-            self.tiktokUsername = user.tiktokUsername
-            self.telegramUsername = user.telegramUsername
+            self.instagramUsername = data.instagramUsername
+            self.tiktokUsername = data.tiktokUsername
+            self.telegramUsername = data.telegramUsername
         }
     }
 
-    func clear() {
+    override func clear() {
         self.instagramUsername = ""
         self.tiktokUsername = ""
         self.telegramUsername = ""
