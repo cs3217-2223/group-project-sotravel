@@ -9,12 +9,15 @@ import Foundation
 
 protocol TripRepository {
     func getTrips(userId: UUID) async throws -> [Trip]
+    func getAllFriendsOnTrip(tripId: Int) async throws -> [User]
 }
 
 class TripRepositoryStub: TripRepository {
-    let dataBase = mockTrips
-
     func getTrips(userId: UUID) async throws -> [Trip] {
-        dataBase
+        mockTrips
+    }
+
+    func getAllFriendsOnTrip(tripId: Int) async throws -> [User] {
+        mockFriends
     }
 }
