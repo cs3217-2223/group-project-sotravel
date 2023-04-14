@@ -83,7 +83,7 @@ struct ProfilePageView: View {
     }
 
     private func reloadMenu() {
-        guard let userId = userService.getUserId() else {
+        guard let userId = userService.userId else {
             return
         }
         // Reload the trips

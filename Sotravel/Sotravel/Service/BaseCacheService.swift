@@ -19,6 +19,13 @@ class BaseCacheService<T: Identifiable> {
         cache[id]
     }
 
+    func getOptional(optionalId: T.ID?) -> T? {
+        guard let id = optionalId else {
+            return nil
+        }
+        return cache[id]
+    }
+
     func getAll() -> [T] {
         Array(cache.values)
     }

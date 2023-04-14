@@ -20,7 +20,7 @@ struct InvitePageView: View {
 
                 ScrollView(.vertical) {
                     LazyVStack(spacing: 20) {
-                        let filteredEvents = eventService.eventViewModels.filter { eventViewModel in
+                        let filteredEvents = eventService.getEventViewModels().filter { eventViewModel in
                             let calendar = Calendar.current
                             return calendar.isDate(eventViewModel.datetime, equalTo: selectedDate, toGranularity: .day)
                         }
@@ -72,7 +72,7 @@ struct InvitePageView: View {
 
     @MainActor
     private func refreshEvents() async {
-        guard let userId = userService.getUserId(), let tripId = tripService.getCurrTripId() else {
+        guard let userId = userService.userId, let tripId = tripService.getCurrTripId() else {
             return
         }
         eventService.reloadUserEvents(forTrip: tripId, userId: userId)

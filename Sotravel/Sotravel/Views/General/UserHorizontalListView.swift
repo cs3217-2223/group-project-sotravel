@@ -35,7 +35,7 @@ struct UserHorizontalListView: View {
     private func getUser(id: UUID) -> User? {
         if let friend = friendService.get(id: id) {
             return friend
-        } else if let userId = userService.getUserId(), userId == id {
+        } else if let userId = userService.userId, userId == id {
             return userService.getUser()
         } else {
             return nil

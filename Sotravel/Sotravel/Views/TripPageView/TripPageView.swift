@@ -68,7 +68,7 @@ struct TripPageView: View {
 
         // Add any additional actions you want to perform when a tab is tapped
         if selectedTab == 1 {
-            if let tripId = tripService.getCurrTripId(), let userId = userService.getUserId() {
+            if let tripId = tripService.getCurrTripId(), let userId = userService.userId {
                 eventService.reloadUserEvents(forTrip: tripId, userId: userId)
             }
         } else if selectedTab == 3 {
@@ -78,7 +78,7 @@ struct TripPageView: View {
             }
         } else if selectedTab == 4 {
             if let tripId = tripService.getCurrTripId(),
-               let userId = userService.getUserId() {
+               let userId = userService.userId {
                 userService.reloadUser { _ in
                     // empty
                 }

@@ -14,7 +14,7 @@ struct EventStatusButton: View {
     @State private var isMenuVisible = false
 
     var body: some View {
-        if let userId = userService.getUserId() {
+        if let userId = userService.userId {
             Group {
                 if eventViewModel.hostUser == userId {
                     Text("You're hosting 😊")

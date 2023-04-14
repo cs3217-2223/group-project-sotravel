@@ -60,7 +60,7 @@ struct TripsPageView: View {
 
         userService.reloadUser { success in
             if success {
-                guard let userId = userService.getUserId() else {
+                guard let userId = userService.userId else {
                     print("Fatal error, userId not found")
                     return
                 }
@@ -82,7 +82,7 @@ struct TripsPageView: View {
     private func refreshTrip() {
         userService.reloadUser { success in
             if success {
-                guard let userId = userService.getUserId() else {
+                guard let userId = userService.userId else {
                     print("Fatal error, userId not found")
                     return
                 }

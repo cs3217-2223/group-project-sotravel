@@ -8,9 +8,14 @@
 import SwiftUI
 import Resolver
 
-class TripService: BaseCacheService<Trip>, ObservableObject {
+class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
+    typealias ObservedData = Trip
+    typealias ObserverProtocol = TripObserver
+
     @Published var selectedTapInCurrTrip: Int = 0
     @Published var tripViewModels: [TripViewModel]
+
+    internal var observers: [ObservedData: [ObserverProtocol]]
 
     private var selectedTrip: Trip?
     private var tripToTripViewModel: [Trip: TripViewModel]
@@ -24,6 +29,7 @@ class TripService: BaseCacheService<Trip>, ObservableObject {
         self.selectedTrip = nil
         self.tripViewModels = []
         self.tripToTripViewModel = [:]
+        self.observers = [:]
         super.init()
     }
 
@@ -78,6 +84,7 @@ class TripService: BaseCacheService<Trip>, ObservableObject {
             let viewModel = TripViewModel(trip: trip)
             self.tripViewModels.append(viewModel)
             self.tripToTripViewModel[trip] = viewModel
+            self.addObserver(viewModel, for: trip)
         }
     }
 
@@ -87,6 +94,7 @@ class TripService: BaseCacheService<Trip>, ObservableObject {
             let viewModel = TripViewModel(trip: trip)
             self.tripViewModels.append(viewModel)
             self.tripToTripViewModel[trip] = viewModel
+            self.addObserver(viewModel, for: trip)
         }
     }
 
@@ -99,6 +107,7 @@ class TripService: BaseCacheService<Trip>, ObservableObject {
         self.lastSelectedTripId = nil
         self.tripToTripViewModel = [:]
         self.tripViewModels = []
+        self.observers = [:]
         super.clearCache()
     }
 }

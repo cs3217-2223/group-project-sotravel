@@ -9,14 +9,13 @@ import SwiftUI
 import Resolver
 import Combine
 
-class UserService: ObservableObject, Subject {
+class UserService: BaseCacheService<User>, ObservableObject, Subject {
     typealias ObservedData = User
     typealias ObserverProtocol = UserObserver
 
     internal var observers: [ObservedData: [ObserverProtocol]]
 
-    private var user: User?
-    private let userId = "userIdKey"
+    private let userIdKey = "userIdKey"
     @Published var profileHeaderVM: ProfileHeaderViewModel
     @Published var socialMediaLinksVM: SocialMediaLinksViewModel
     @Published var editProfileViewModel: EditProfileViewModel
@@ -26,27 +25,31 @@ class UserService: ObservableObject, Subject {
     @Injected private var userRepository: UserRepository
     @Injected private var serviceErrorHandler: ServiceErrorHandler
 
-    init() {
+    var userId: UUID? {
+        if let uuidString = UserDefaults.standard.string(forKey: userIdKey) {
+            return UUID(uuidString: uuidString)
+        } else {
+            return nil
+        }
+    }
+
+    override init() {
         self.profileHeaderVM = ProfileHeaderViewModel()
         self.socialMediaLinksVM = SocialMediaLinksViewModel()
         self.editProfileViewModel = EditProfileViewModel()
         self.observers = [:]
+        super.init()
     }
 
     func getUser() -> User? {
-        user
-    }
-
-    func getUserId() -> UUID? {
-        user?.id
+        self.getOptional(optionalId: userId)
     }
 
     func storeUserId(id: UUID) {
-        UserDefaults.standard.set(id.uuidString, forKey: userId)
+        UserDefaults.standard.set(id.uuidString, forKey: userIdKey)
     }
 
     func logout() {
-        self.user = nil
         self.isLoggedIn = false
         self.profileHeaderVM = ProfileHeaderViewModel()
         self.socialMediaLinksVM = SocialMediaLinksViewModel()
@@ -56,23 +59,12 @@ class UserService: ObservableObject, Subject {
         UserDefaults.standard.resetApiKey()
     }
 
-    func getStoredUserId() -> UUID? {
-        if let uuidString = UserDefaults.standard.string(forKey: userId) {
-            return UUID(uuidString: uuidString)
-        } else {
-            return nil
-        }
-    }
-
     func emailSignin(email: String, password: String, completion: @escaping (Bool, UUID?) -> Void) {
         Task {
             do {
                 if let fetchedUser = try await userRepository.emailSignin(email: email, password: password) {
                     DispatchQueue.main.async {
-                        self.user = fetchedUser
-                        self.initObservers(fetchedUser, [self.profileHeaderVM,
-                                                         self.editProfileViewModel,
-                                                         self.socialMediaLinksVM])
+                        self.initCacheAndObservers(from: fetchedUser)
                         completion(true, fetchedUser.id)
                     }
                 } else {
@@ -92,8 +84,7 @@ class UserService: ObservableObject, Subject {
             do {
                 if let fetchedUser = try await userRepository.emailSignup(email: email, password: password) {
                     DispatchQueue.main.async {
-                        self.user = fetchedUser
-                        self.initObservers(fetchedUser, [self.profileHeaderVM, self.editProfileViewModel, self.socialMediaLinksVM])
+                        self.initCacheAndObservers(from: fetchedUser)
                         completion(true, fetchedUser.id)
                     }
                 } else {
@@ -111,8 +102,7 @@ class UserService: ObservableObject, Subject {
             do {
                 if let fetchedUser = try await userRepository.get(id: id) {
                     DispatchQueue.main.async {
-                        self.user = fetchedUser
-                        self.initObservers(fetchedUser, [self.profileHeaderVM, self.editProfileViewModel, self.socialMediaLinksVM])
+                        self.initCacheAndObservers(from: fetchedUser)
                         completion(true)
                     }
                 } else {
@@ -128,15 +118,15 @@ class UserService: ObservableObject, Subject {
     func updateUser() {
         Task {
             do {
-                guard let user = user else {
+                guard let user = getOptional(optionalId: userId) else {
                     return
                 }
                 guard let updatedUser = try await userRepository.update(user: user) else {
                     alertEditProfileView()
                     return
                 }
-                self.user = updatedUser
-                self.notifyAll(for: user)
+                self.updateCache(from: updatedUser)
+                self.notifyAll(for: updatedUser)
             } catch {
                 alertEditProfileView()
                 serviceErrorHandler.handle(error)
@@ -145,7 +135,7 @@ class UserService: ObservableObject, Subject {
     }
 
     func reloadUser(completion: @escaping (Bool) -> Void) {
-        guard let userId = getStoredUserId() else {
+        guard let userId = userId else {
             return
         }
 
@@ -163,11 +153,14 @@ class UserService: ObservableObject, Subject {
                   description: String,
                   instagramUsername: String,
                   tiktokUsername: String) {
-        self.user?.updateFirstName(firstName)
-        self.user?.updateLastName(lastName)
-        self.user?.updateDesc(description)
-        self.user?.updateInstagramUsername(instagramUsername)
-        self.user?.updateTiktokUsername(tiktokUsername)
+        guard let user = getOptional(optionalId: userId) else {
+            return
+        }
+        user.updateFirstName(firstName)
+        user.updateLastName(lastName)
+        user.updateDesc(description)
+        user.updateInstagramUsername(instagramUsername)
+        user.updateTiktokUsername(tiktokUsername)
     }
 
     func toggleEditProfileViewAlert() {
@@ -175,17 +168,24 @@ class UserService: ObservableObject, Subject {
     }
 
     func clear() {
-        self.user = nil
         self.profileHeaderVM.clear()
         self.socialMediaLinksVM.clear()
         self.editProfileViewModel.clear()
         self.observers = [:]
+        super.clearCache()
     }
 
     func changeTrip() {
         self.profileHeaderVM.clear()
         self.socialMediaLinksVM.clear()
         self.editProfileViewModel.clear()
+    }
+
+    private func initCacheAndObservers(from user: User) {
+        self.initCache(from: [user])
+        self.initObservers(user, [self.profileHeaderVM,
+                                  self.editProfileViewModel,
+                                  self.socialMediaLinksVM])
     }
 
     private func alertEditProfileView() {
