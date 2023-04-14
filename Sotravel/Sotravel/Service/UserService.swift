@@ -118,6 +118,7 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
                 }
                 self.updateCache(from: updatedUser)
                 self.notifyAll(for: updatedUser)
+                self.objectWillChange.send()
             } catch {
                 serviceErrorHandler.handle(error)
             }
@@ -133,6 +134,7 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
             if success {
                 if let user = self.getUser() {
                     self.notifyAll(for: user)
+                    self.objectWillChange.send()
                 }
                 completion(true)
             } else {
@@ -193,5 +195,6 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
         let editProfileViewModel = EditProfileViewModel(user: user)
         let socialMediaLinksViewModel = SocialMediaLinksViewModel(user: user)
         self.initObservers(user, [profileHeaderViewModel, editProfileViewModel, socialMediaLinksViewModel])
+        self.objectWillChange.send()
     }
 }

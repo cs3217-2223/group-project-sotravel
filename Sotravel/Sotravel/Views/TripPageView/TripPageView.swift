@@ -30,14 +30,15 @@ struct TripPageView: View {
                 }
                 .id(invitePageViewID)
                 .tag(1)
-
-            CreateInvitePageView(createInvitePageUserViewModel: friendService.createInvitePageViewModel)
-                .tabItem {
-                    Image(systemName: "plus.circle.fill")
-                    Text("Create")
-                }
-                .id(createInvitePageViewID)
-                .tag(2)
+            if let vm = friendService.getCreateInvitePageViewModel() {
+                CreateInvitePageView(createInvitePageViewModel: vm)
+                    .tabItem {
+                        Image(systemName: "plus.circle.fill")
+                        Text("Create")
+                    }
+                    .id(createInvitePageViewID)
+                    .tag(2)
+            }
 
             ChatPageView()
                 .tabItem {

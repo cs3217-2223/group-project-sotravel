@@ -22,7 +22,9 @@ struct ProfilePageView: View {
                         ProfileHeaderView(viewModel: vm)
                     }
                     Divider()
-                    ProfileFriendsView(viewModel: friendService.profileFriendsViewModel)
+                    if let vm = friendService.getProfileFriendsViewModel() {
+                        ProfileFriendsView(viewModel: vm)
+                    }
                     Spacer()
                     Divider()
                     VStack {
