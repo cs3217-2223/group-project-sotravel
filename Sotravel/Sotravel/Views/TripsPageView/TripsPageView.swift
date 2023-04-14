@@ -23,12 +23,12 @@ struct TripsPageView: View {
                         })
                     }
                     LazyVStack(alignment: .leading, spacing: 16) {
-                        if tripService.tripViewModels.isEmpty {
+                        if tripService.getTripViewModels().isEmpty {
                             Text("No trips found. Tap the refresh button to try again.")
                                 .font(.uiBody)
                                 .foregroundColor(.secondary)
                         } else {
-                            ForEach(tripService.tripViewModels, id: \.id) { viewModel in
+                            ForEach(tripService.getTripViewModels(), id: \.id) { viewModel in
                                 NavigationLink(destination: TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)) {
                                     TripCardView(viewModel: viewModel)
                                 }.foregroundColor(.primary)

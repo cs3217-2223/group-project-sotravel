@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class CreateInvitePageUserViewModel: UsersObserver, ObservableObject {
+class CreateInvitePageViewModel: UsersObserver, ObservableObject {
     @Published var friends: [User]
 
     init(friends: [User] = []) {

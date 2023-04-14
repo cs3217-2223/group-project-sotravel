@@ -5,7 +5,7 @@ struct CreateInvitePageView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var tripService: TripService
     @EnvironmentObject private var viewAlertController: ViewAlertController
-    @ObservedObject var createInvitePageUserViewModel: CreateInvitePageUserViewModel
+    @ObservedObject var createInvitePageViewModel: CreateInvitePageViewModel
     @State private var title: String = ""
     @State private var date = Date()
     @State private var time = Date()
@@ -18,10 +18,10 @@ struct CreateInvitePageView: View {
 
     let attendeesOptions = ["All Friends", "Selected friends"]
     var selectedFriends: [User] {
-        createInvitePageUserViewModel.friends.filter { selectedAttendees.contains($0.id) }
+        createInvitePageViewModel.friends.filter { selectedAttendees.contains($0.id) }
     }
     var remainingFriends: [User] {
-        createInvitePageUserViewModel.friends.filter { !selectedAttendees.contains($0.id) }
+        createInvitePageViewModel.friends.filter { !selectedAttendees.contains($0.id) }
     }
 
     private func header() -> some View {
@@ -121,11 +121,11 @@ struct CreateInvitePageView: View {
             if selectedAttendeesOption == 0 {
                 Text("This invite will be send to all your friends in \(tripService.getCurrTrip()?.title ?? "this trip").")
                     .font(.uiBody)
-                ForEach(createInvitePageUserViewModel.friends.prefix(5), id: \.id) { friend in
+                ForEach(createInvitePageViewModel.friends.prefix(5), id: \.id) { friend in
                     friendProfileView(friend: friend)
                 }
                 NavigationLink(destination: FriendsListPageView(
-                    friends: createInvitePageUserViewModel.friends,
+                    friends: createInvitePageViewModel.friends,
                     actionComponent: {
                         friend in UserListItemLinkView(friend: friend)
                     }
@@ -138,7 +138,7 @@ struct CreateInvitePageView: View {
                 }
             } else {
                 if selectedFriends.isEmpty || !hasNavigatedToSeeMoreSelectedFriends {
-                    ForEach(createInvitePageUserViewModel.friends.prefix(5), id: \.id) { friend in
+                    ForEach(createInvitePageViewModel.friends.prefix(5), id: \.id) { friend in
                         friendToggleView(friend: friend, content: {
                             friendProfileView(friend: friend)
                         })
@@ -155,7 +155,7 @@ struct CreateInvitePageView: View {
                 }
 
                 NavigationLink(destination: FriendsListPageView(
-                    friends: createInvitePageUserViewModel.friends,
+                    friends: createInvitePageViewModel.friends,
                     actionComponent: {
                         friend in friendToggleView(
                             friend: friend,
@@ -233,7 +233,7 @@ struct CreateInvitePageView: View {
             return
         }
         let selected = selectedAttendeesOption == 0
-            ? createInvitePageUserViewModel.friends.map { $0.id }
+            ? createInvitePageViewModel.friends.map { $0.id }
             : self.selectedAttendees
 
         let event = Event(
@@ -289,7 +289,7 @@ struct CreateInvitePageView: View {
 struct CreateEventView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CreateInvitePageView(createInvitePageUserViewModel: CreateInvitePageUserViewModel(friends: mockFriends))
+            CreateInvitePageView(createInvitePageViewModel: CreateInvitePageViewModel(friends: mockFriends))
                 .environmentObject(EventService())
                 .environmentObject(UserService())
                 .environmentObject(TripService())

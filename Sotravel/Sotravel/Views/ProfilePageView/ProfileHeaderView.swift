@@ -22,11 +22,13 @@ struct ProfileHeaderView: View {
                 Text(viewModel.name ?? "John Doe")
                     .font(.uiTitle2)
                     .fontWeight(.bold)
-                NavigationLink(destination: EditProfileView(viewModel: userService.editProfileViewModel)) {
-                    Image(systemName: "square.and.pencil")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.blue)
+                if let vm = userService.getEditProfileViewModel() {
+                    NavigationLink(destination: EditProfileView(viewModel: vm)) {
+                        Image(systemName: "square.and.pencil")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.blue)
+                    }
                 }
             }
 
@@ -36,7 +38,9 @@ struct ProfileHeaderView: View {
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
             }
-            SocialMediaLinksView(viewModel: userService.socialMediaLinksVM)
+            if let vm = userService.getSocialMediaLinksViewModel() {
+                SocialMediaLinksView(viewModel: vm)
+            }
         }
     }
 }

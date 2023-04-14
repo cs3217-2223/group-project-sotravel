@@ -18,6 +18,10 @@ extension Subject {
         notifyAll(for: data)
     }
 
+    func getObservers(for data: ObservedData) -> [ObserverProtocol]? {
+        observers[data]
+    }
+
     func addObserver(_ obs: ObserverProtocol, for data: ObservedData) {
         observers[data, default: []].append(obs)
     }

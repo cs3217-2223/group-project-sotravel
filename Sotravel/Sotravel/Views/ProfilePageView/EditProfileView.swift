@@ -2,6 +2,7 @@ import SwiftUI
 
 struct EditProfileView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var tripService: TripService
     @ObservedObject var viewModel: EditProfileViewModel
     @Environment(\.presentationMode) var presentationMode
 
@@ -71,6 +72,7 @@ struct EditProfileView: View {
             .navigationBarTitle("Edit Profile", displayMode: .inline)
             .navigationBarItems(
                 leading: Button(action: {
+                    tripService.selectedTapInCurrTrip = 4
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "chevron.backward")
@@ -83,12 +85,6 @@ struct EditProfileView: View {
             )
         }
         .navigationBarBackButtonHidden(true)
-        .alert("Error in updating profile",
-               isPresented: $viewModel.updateError) {
-            Button("ok") {
-                userService.toggleEditProfileViewAlert()
-            }
-        }
         .navigationBarBackButtonHidden(true)
     }
 
@@ -107,6 +103,7 @@ struct EditProfileView: View {
                              instagramUsername: instagramUsername,
                              tiktokUsername: tiktokUsername)
         userService.updateUser()
+        tripService.selectedTapInCurrTrip = 4
         presentationMode.wrappedValue.dismiss()
     }
 }

@@ -98,7 +98,7 @@
 		ACA4016729C768B60076E183 /* ProfileFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */; };
 		ACA4016929C769A70076E183 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4016829C769A70076E183 /* EditProfileViewModel.swift */; };
 		ACCEC15129E6E74F00574A9A /* TripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCEC15029E6E74F00574A9A /* TripViewModel.swift */; };
-		ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */; };
+		ACF2B20129CD8B620017A9F0 /* CreateInvitePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20029CD8B620017A9F0 /* CreateInvitePageViewModel.swift */; };
 		ACF2B20529CDB4DB0017A9F0 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */; };
 		ACF8714F29E5576900A4AD83 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8714E29E5576900A4AD83 /* Observer.swift */; };
 		ACF8715129E5577A00A4AD83 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8715029E5577A00A4AD83 /* Subject.swift */; };
@@ -271,7 +271,7 @@
 		ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsViewModel.swift; sourceTree = "<group>"; };
 		ACA4016829C769A70076E183 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		ACCEC15029E6E74F00574A9A /* TripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModel.swift; sourceTree = "<group>"; };
-		ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInvitePageUserViewModel.swift; sourceTree = "<group>"; };
+		ACF2B20029CD8B620017A9F0 /* CreateInvitePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInvitePageViewModel.swift; sourceTree = "<group>"; };
 		ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		ACF8714E29E5576900A4AD83 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		ACF8715029E5577A00A4AD83 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
@@ -569,7 +569,7 @@
 				ACA4016629C768B60076E183 /* ProfileFriendsViewModel.swift */,
 				D71BB5AB29E20808005362D1 /* ChatPreviewViewModel.swift */,
 				ACA4016829C769A70076E183 /* EditProfileViewModel.swift */,
-				ACF2B20029CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift */,
+				ACF2B20029CD8B620017A9F0 /* CreateInvitePageViewModel.swift */,
 				ACF2B20429CDB4DB0017A9F0 /* EventViewModel.swift */,
 				B46B0A8029CEC6B4006F2BA2 /* MapViewModel.swift */,
 				1817D0F929D554CB00D8D9F0 /* LocationSharingViewModel.swift */,
@@ -905,7 +905,7 @@
 				1893D29529BF2A4E00B61BC9 /* MockChat.swift in Sources */,
 				B4939BA929D481E200B736F2 /* URL+QueryParameters.swift in Sources */,
 				B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */,
-				ACF2B20129CD8B620017A9F0 /* CreateInvitePageUserViewModel.swift in Sources */,
+				ACF2B20129CD8B620017A9F0 /* CreateInvitePageViewModel.swift in Sources */,
 				1817D0FA29D554CB00D8D9F0 /* LocationSharingViewModel.swift in Sources */,
 				D7F6A9EE29D1B85A006FBD26 /* ChatMemberApiModel.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,

@@ -16,9 +16,6 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
     internal var observers: [ObservedData: [ObserverProtocol]]
 
     private let userIdKey = "userIdKey"
-    @Published var profileHeaderVM: ProfileHeaderViewModel
-    @Published var socialMediaLinksVM: SocialMediaLinksViewModel
-    @Published var editProfileViewModel: EditProfileViewModel
 
     @AppStorage("LoggedIn") var isLoggedIn = false
 
@@ -34,9 +31,6 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
     }
 
     override init() {
-        self.profileHeaderVM = ProfileHeaderViewModel()
-        self.socialMediaLinksVM = SocialMediaLinksViewModel()
-        self.editProfileViewModel = EditProfileViewModel()
         self.observers = [:]
         super.init()
     }
@@ -51,9 +45,7 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
 
     func logout() {
         self.isLoggedIn = false
-        self.profileHeaderVM = ProfileHeaderViewModel()
-        self.socialMediaLinksVM = SocialMediaLinksViewModel()
-        self.editProfileViewModel = EditProfileViewModel()
+        self.observers = [:]
         UserDefaults.standard.resetLogin()
         UserDefaults.standard.resetLastSelectedTrip()
         UserDefaults.standard.resetApiKey()
@@ -122,13 +114,12 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
                     return
                 }
                 guard let updatedUser = try await userRepository.update(user: user) else {
-                    alertEditProfileView()
                     return
                 }
                 self.updateCache(from: updatedUser)
                 self.notifyAll(for: updatedUser)
+                self.objectWillChange.send()
             } catch {
-                alertEditProfileView()
                 serviceErrorHandler.handle(error)
             }
         }
@@ -141,6 +132,10 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
 
         fetchUser(id: userId) { success in
             if success {
+                if let user = self.getUser() {
+                    self.notifyAll(for: user)
+                    self.objectWillChange.send()
+                }
                 completion(true)
             } else {
                 completion(false)
@@ -163,32 +158,43 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
         user.updateTiktokUsername(tiktokUsername)
     }
 
-    func toggleEditProfileViewAlert() {
-        editProfileViewModel.updateError.toggle()
-    }
-
     func clear() {
-        self.profileHeaderVM.clear()
-        self.socialMediaLinksVM.clear()
-        self.editProfileViewModel.clear()
+        self.clearAllObservers()
         self.observers = [:]
         super.clearCache()
     }
 
     func changeTrip() {
-        self.profileHeaderVM.clear()
-        self.socialMediaLinksVM.clear()
-        self.editProfileViewModel.clear()
+        self.clearAllObservers()
+    }
+
+    func getProfileHeaderViewModel() -> ProfileHeaderViewModel? {
+        guard let user = self.getUser() else {
+            return nil
+        }
+        return self.getObservers(for: user)?.compactMap { $0 as? ProfileHeaderViewModel }.first
+    }
+
+    func getEditProfileViewModel() -> EditProfileViewModel? {
+        guard let user = self.getUser() else {
+            return nil
+        }
+        return self.getObservers(for: user)?.compactMap { $0 as? EditProfileViewModel }.first
+    }
+
+    func getSocialMediaLinksViewModel() -> SocialMediaLinksViewModel? {
+        guard let user = self.getUser() else {
+            return nil
+        }
+        return self.getObservers(for: user)?.compactMap { $0 as? SocialMediaLinksViewModel }.first
     }
 
     private func initCacheAndObservers(from user: User) {
         self.initCache(from: [user])
-        self.initObservers(user, [self.profileHeaderVM,
-                                  self.editProfileViewModel,
-                                  self.socialMediaLinksVM])
-    }
-
-    private func alertEditProfileView() {
-        editProfileViewModel.updateError = true
+        let profileHeaderViewModel = ProfileHeaderViewModel(user: user)
+        let editProfileViewModel = EditProfileViewModel(user: user)
+        let socialMediaLinksViewModel = SocialMediaLinksViewModel(user: user)
+        self.initObservers(user, [profileHeaderViewModel, editProfileViewModel, socialMediaLinksViewModel])
+        self.objectWillChange.send()
     }
 }

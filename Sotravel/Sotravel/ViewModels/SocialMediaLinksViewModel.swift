@@ -17,6 +17,12 @@ class SocialMediaLinksViewModel: UserObserver, ObservableObject {
         self.telegramUsername = telegramUsername
     }
 
+    init(user: User) {
+        self.instagramUsername = user.instagramUsername
+        self.tiktokUsername = user.tiktokUsername
+        self.telegramUsername = user.telegramUsername
+    }
+
     override func updateFrom(data: User) {
         DispatchQueue.main.async {
             self.instagramUsername = data.instagramUsername

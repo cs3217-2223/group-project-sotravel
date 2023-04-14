@@ -17,6 +17,12 @@ class ProfileHeaderViewModel: UserObserver, ObservableObject {
         self.imageURL = imageURL
     }
 
+    init(user: User) {
+        self.name = user.name
+        self.description = user.description
+        self.imageURL = user.imageURL
+    }
+
     override func updateFrom(data: User) {
         DispatchQueue.main.async {
             self.name = data.name

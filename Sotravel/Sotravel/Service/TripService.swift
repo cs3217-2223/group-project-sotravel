@@ -13,12 +13,10 @@ class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
     typealias ObserverProtocol = TripObserver
 
     @Published var selectedTapInCurrTrip: Int = 0
-    @Published var tripViewModels: [TripViewModel]
 
     internal var observers: [ObservedData: [ObserverProtocol]]
 
     private var selectedTrip: Trip?
-    private var tripToTripViewModel: [Trip: TripViewModel]
 
     @AppStorage("LastSelectedTripId") var lastSelectedTripId: Int?
 
@@ -27,14 +25,21 @@ class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
 
     override init() {
         self.selectedTrip = nil
-        self.tripViewModels = []
-        self.tripToTripViewModel = [:]
         self.observers = [:]
         super.init()
     }
 
     func getTripViewModel(from trip: Trip) -> TripViewModel? {
-        tripToTripViewModel[trip]
+        guard let trip = get(id: trip.id), let observer = observers[trip]?.first else {
+            return nil
+        }
+        return observer as? TripViewModel
+    }
+
+    func getTripViewModels() -> [TripViewModel] {
+        let allObservers = observers.values.flatMap { $0 }
+        let triptViewModels = allObservers.compactMap { $0 as? TripViewModel }
+        return triptViewModels
     }
 
     func getCurrTrip() -> Trip? {
@@ -56,6 +61,7 @@ class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
                 DispatchQueue.main.async {
                     self.initCache(from: trips)
                     self.createTripCardViewModel(from: trips)
+                    self.objectWillChange.send()
                     completion(true)
                 }
             } catch {
@@ -71,6 +77,7 @@ class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
                 let trips = try await tripRepository.getTrips(userId: userId)
                 DispatchQueue.main.async {
                     self.updateCacheAndViewModels(from: trips)
+                    self.objectWillChange.send()
                     completion()
                 }
             } catch {
@@ -82,19 +89,19 @@ class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
     func createTripCardViewModel(from trips: [Trip]) {
         for trip in trips {
             let viewModel = TripViewModel(trip: trip)
-            self.tripViewModels.append(viewModel)
-            self.tripToTripViewModel[trip] = viewModel
             self.addObserver(viewModel, for: trip)
         }
     }
 
     private func updateCacheAndViewModels(from trips: [Trip]) {
-        for trip in trips where get(id: trip.id) == nil {
+        for trip in trips {
+            if self.get(id: trip.id) == nil {
+                let viewModel = TripViewModel(trip: trip)
+                self.addObserver(viewModel, for: trip)
+            } else {
+                self.notifyAll(for: trip)
+            }
             updateCache(from: trip)
-            let viewModel = TripViewModel(trip: trip)
-            self.tripViewModels.append(viewModel)
-            self.tripToTripViewModel[trip] = viewModel
-            self.addObserver(viewModel, for: trip)
         }
     }
 
@@ -105,8 +112,6 @@ class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
     func clear() {
         self.selectedTrip = nil
         self.lastSelectedTripId = nil
-        self.tripToTripViewModel = [:]
-        self.tripViewModels = []
         self.observers = [:]
         super.clearCache()
     }
