@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TripViewModel: ObservableObject {
+class TripViewModel: TripObserver, ObservableObject {
     @Published var id: Int
     @Published var title: String
     @Published var startDate: Date
@@ -38,16 +38,16 @@ class TripViewModel: ObservableObject {
         self.imageURL = trip.imageURL
     }
 
-    func updateFrom(trip: Trip) {
-        self.id = trip.id
-        self.title = trip.title
-        self.startDate = trip.startDate
-        self.endDate = trip.endDate
-        self.location = trip.location
-        self.imageURL = trip.imageURL
+    override func updateFrom(data: Trip) {
+        self.id = data.id
+        self.title = data.title
+        self.startDate = data.startDate
+        self.endDate = data.endDate
+        self.location = data.location
+        self.imageURL = data.imageURL
     }
 
-    func clear() {
+    override func clear() {
         self.id = .zero
         self.title = ""
         self.startDate = Date()

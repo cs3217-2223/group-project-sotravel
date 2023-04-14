@@ -28,3 +28,9 @@ class EventObserver: Observer {
     func updateFrom(data: ObservedData) {}
     func clear() {}
 }
+
+class TripObserver: Observer {
+    typealias ObservedData = Trip
+    func updateFrom(data: ObservedData) {}
+    func clear() {}
+}
