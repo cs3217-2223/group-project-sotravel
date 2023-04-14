@@ -91,6 +91,11 @@ view-specific information. The ViewModels contain only the information required
 for a specific View. Thus, they prevent irrelevant information from being leaked
 to the View.
 
+The Views consume the ViewModels and set up an observer relationship with them.
+This allows the views to be updated when a ViewModel is updated, without
+repeatedly setting the values of UI elements such as text boxes. In effect, this
+allows for a 1-way binding relationship.
+
 ### Flow of data
 
 The backend of the application adopts a 3 layer architecture approach. A generic
@@ -174,18 +179,33 @@ be derived.
 
 ## Repositories
 
-The application makes use of 5 repositories. All of them except `MapRepository`
-produce the models seen above. `MapRepository` listens for user
-coordinates and produces use of built-in datatype `CLLocation` instead. As a
-result, to avoid bloat, an encapsulating model does not exist.
-![Repositories](./diagrams/final-report/repositories.svg)
+The application makes use of 5 repositories. These repositories primarily
+perform CRUD operations on their respective models, and persist those changes to
+their respective persistent storage services (Firebase or REST API.)
 
-Note that `UserRepository`, `TripRepository` and `EventRepository` pull
+All of them except `MapRepository` produce the models seen above.
+`MapRepository` listens for user coordinates and produces use of built-in
+datatype `CLLocation` instead. As a result, to avoid bloat, an encapsulating
+model does not exist for the information produced by the `MapRepository`.
+
+### Pull Repositories
+
+`UserRepository`, `TripRepository` and `EventRepository` pull
 information from a server when requested. In other words, they operate on a
-polling/pull basis. On the other hand, `ChatRepository` and `MapRepository`
-operate on a push basis, retrieving information from the real-time data store.
-To register changes in the data, they take in delegates to update their
+polling/pull basis.
+![Repositories](./diagrams/final-report/repositories-pull.svg)
+
+### Push Repositories
+
+On the other hand, `ChatRepository` and `MapRepository`
+operate on a push basis, with information pushed to them from the real-time data
+store. To register changes in the data, they take in delegates to update their
 respective callers when there is a change in data.
+
+These delegates are termed as `completion` handlers, and are passed in to the
+respective repository functions that listen for changes in data on the
+database's side.
+![Repositories](./diagrams/final-report/repositories-push.svg)
 
 ## Live location sharing
 
