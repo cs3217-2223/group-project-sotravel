@@ -18,7 +18,9 @@ struct ProfilePageView: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    ProfileHeaderView(viewModel: userService.profileHeaderVM)
+                    if let vm = userService.getProfileHeaderViewModel() {
+                        ProfileHeaderView(viewModel: vm)
+                    }
                     Divider()
                     ProfileFriendsView(viewModel: friendService.profileFriendsViewModel)
                     Spacer()

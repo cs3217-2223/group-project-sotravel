@@ -12,7 +12,7 @@ class EditProfileViewModel: UserObserver, ObservableObject {
     @Published var description: String?
     @Published var instagramUsername: String?
     @Published var tiktokUsername: String?
-    @Published var updateError = false
+
     var name: String? {
         if firstName == nil && firstName == nil {
             return nil
@@ -33,6 +33,14 @@ class EditProfileViewModel: UserObserver, ObservableObject {
         self.tiktokUsername = tiktokUsername
     }
 
+    init(user: User) {
+        self.firstName = user.firstName
+        self.lastName = user.lastName
+        self.description = user.description
+        self.instagramUsername = user.instagramUsername
+        self.tiktokUsername = user.tiktokUsername
+    }
+
     override func updateFrom(data: User) {
         DispatchQueue.main.async {
             self.firstName = data.firstName
@@ -49,6 +57,5 @@ class EditProfileViewModel: UserObserver, ObservableObject {
         self.description = ""
         self.instagramUsername = ""
         self.tiktokUsername = ""
-        self.updateError = false
     }
 }
