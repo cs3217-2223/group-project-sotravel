@@ -142,6 +142,8 @@ struct EventPageView: View {
 
 struct CancelEventButton: View {
     @EnvironmentObject private var eventService: EventService
+    @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var tripService: TripService
     @ObservedObject var eventViewModel: EventViewModel
     @Binding var showConfirmationDialog: Bool
 
@@ -167,11 +169,25 @@ struct CancelEventButton: View {
                 title: Text("Cancel Event"),
                 message: Text("Are you sure you want to cancel this event?"),
                 primaryButton: .destructive(Text("Cancel Event")) {
-                    eventService.cancelEvent(id: eventViewModel.id)
+                    eventService.cancelEvent(id: eventViewModel.id) { success in
+                        if success {
+                            guard let userId = userService.userId, let tripId = tripService.getCurrTripId() else {
+                                return
+                            }
+                            eventService.reloadUserEvents(forTrip: tripId, userId: userId)
+                            navigateToInvitePageView()
+                        } else {
+
+                        }
+                    }
                 },
                 secondaryButton: .cancel()
             )
         }
+    }
+
+    private func navigateToInvitePageView() {
+        tripService.selectedTapInCurrTrip = 1
     }
 }
 

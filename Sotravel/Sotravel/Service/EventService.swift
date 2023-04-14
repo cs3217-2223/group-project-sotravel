@@ -15,24 +15,25 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
 
     internal var observers: [ObservedData: [ObserverProtocol]]
 
-    @Published var eventViewModels: [EventViewModel]
-    private var eventToViewModels: [Event: EventViewModel]
-
     @Injected private var eventRepository: EventRepository
     @Injected private var serviceErrorHandler: ServiceErrorHandler
 
     override init() {
-        self.eventViewModels = []
-        self.eventToViewModels = [:]
         self.observers = [:]
         super.init()
     }
 
     func getEventViewModel(eventId: Int) -> EventViewModel? {
-        guard let event = get(id: eventId) else {
+        guard let event = get(id: eventId), let observer = observers[event]?.first else {
             return nil
         }
-        return eventToViewModels[event]
+        return observer as? EventViewModel
+    }
+
+    func getEventViewModels() -> [EventViewModel] {
+        let allObservers = observers.values.flatMap { $0 }
+        let eventViewModels = allObservers.compactMap { $0 as? EventViewModel }
+        return eventViewModels
     }
 
     func loadUserEvents(forTrip tripId: Int, userId: UUID) {
@@ -43,7 +44,6 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
                 DispatchQueue.main.async {
                     self.initCache(from: events)
                     self.createEventViewModels(from: events)
-                    self.objectWillChange.send()
                 }
             } catch {
                 serviceErrorHandler.handle(error)
@@ -58,7 +58,6 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
                 let events = allEvents.filter { $0.status != "cancelled" }
                 DispatchQueue.main.async {
                     self.updateCacheAndViewModels(from: events)
-                    self.objectWillChange.send()
                 }
             } catch {
                 serviceErrorHandler.handle(error)
@@ -73,8 +72,6 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
                 DispatchQueue.main.async {
                     super.updateCache(from: newEvent)
                     let viewModel = EventViewModel(event: newEvent)
-                    self.eventViewModels.append(viewModel)
-                    self.eventToViewModels[newEvent] = viewModel
                     self.addObserver(viewModel, for: newEvent)
                     completion(.success(newEvent))
                 }
@@ -85,7 +82,7 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
         }
     }
 
-    func cancelEvent(id: Int) {
+    func cancelEvent(id: Int, completion: @escaping (Bool) -> Void) {
         guard let event = get(id: id) else {
             return
         }
@@ -94,11 +91,12 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
                 try await eventRepository.cancelEvent(id: id)
                 DispatchQueue.main.async {
                     super.remove(item: id)
-                    self.eventViewModels.removeAll { $0.id == id }
                     self.removeAllObservers(for: event)
+                    completion(true)
                 }
             } catch {
                 serviceErrorHandler.handle(error)
+                completion(false)
             }
         }
     }
@@ -141,31 +139,32 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
         let attendingEvents = super.getAll().filter { event in
             event.attendingUsers.contains(user.id) || event.hostUser == user.id
         }
-        return attendingEvents.compactMap { eventToViewModels[$0] }
+        let eventViewModels = attendingEvents.compactMap { event in
+            observers[event]?.first as? EventViewModel
+        }
+        return eventViewModels
     }
 
     func clear() {
         super.clearCache()
-        self.eventToViewModels = [:]
-        self.eventViewModels = []
         self.observers = [:]
     }
 
     private func updateCacheAndViewModels(from events: [Event]) {
-        for event in events where get(id: event.id) == nil {
+        for event in events {
+            if get(id: event.id) == nil {
+                let viewModel = EventViewModel(event: event)
+                self.addObserver(viewModel, for: event)
+            } else {
+                self.notifyAll(for: event)
+            }
             updateCache(from: event)
-            let viewModel = EventViewModel(event: event)
-            self.eventViewModels.append(viewModel)
-            self.eventToViewModels[event] = viewModel
-            self.addObserver(viewModel, for: event)
         }
     }
 
     private func createEventViewModels(from events: [Event]) {
         for event in events {
             let viewModel = EventViewModel(event: event)
-            self.eventViewModels.append(viewModel)
-            self.eventToViewModels[event] = viewModel
             self.addObserver(viewModel, for: event)
         }
     }
