@@ -1,0 +1,39 @@
+classDiagram
+    direction LR
+    UserService --|> BaseCacheService
+    EventService --|> BaseCacheService
+    TripService --|> BaseCacheService
+    FriendService --|> BaseCacheService
+    
+    UserService --|> Subject
+    EventService --|> Subject
+    TripService --|> Subject
+    FriendService --|> Subject
+    
+    class BaseCacheService { 
+        <<Generic>>
+    }
+    
+    class UserService{
+        - userRepository: UserRepository
+    }
+    class EventService{
+        - eventRepository: EventRepository
+    }
+    class ChatService{
+        - chatRepository: ChatRepository
+    }
+    class MapStorageService{
+        - mapRepository: MapRepository
+    }
+    class LocationManagerService { }
+    class TripService{
+        - tripRepository: TripRepository
+    }
+    class FriendService{
+        - tripRepository: TripRepository
+    }
+
+    class Subject{
+        <<Protocol>>
+    }

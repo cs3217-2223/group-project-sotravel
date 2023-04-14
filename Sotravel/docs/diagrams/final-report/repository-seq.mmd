@@ -1,0 +1,9 @@
+sequenceDiagram
+    Caller-->>+Repository:Request for data from server
+    Repository->>+API: Request data
+    API->>+HTTPClient: Perform HTTP request to server
+    HTTPClient-->>-API: 
+    API-->>-Repository: Return data as JSON string
+    Repository-->>+Repository: Serialise JSON to Model
+    Repository-->>-Caller: Return Model
+    

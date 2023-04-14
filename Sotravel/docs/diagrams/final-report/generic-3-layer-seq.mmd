@@ -1,0 +1,10 @@
+sequenceDiagram
+    View->>+Service: Request view-specific data
+    Service->>+Repository: Request Model
+    Repository-->>-Service: Return Model
+    Service->>+ViewModel: Create from Model
+    ViewModel-->>-Service: return ViewModel
+    Service->>Service: add ViewModel as Observer
+    Service-->>-View: return ViewModel
+    View->>ViewModel: Bind Observer
+    View->>View: Render

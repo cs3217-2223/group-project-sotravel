@@ -101,7 +101,7 @@ allows for a 1-way binding relationship.
 The backend of the application adopts a 3 layer architecture approach. A generic
 model of how the backend obtains data is shown below
 
-![Generic 3 layer](./diagrams/sprint-2-report/generic-3-layer-seq.svg)
+![Generic 3 layer](./diagrams/final-report/generic-3-layer-seq.svg)
 
 The high level idea is as follows:
 
@@ -117,11 +117,11 @@ The high level idea is as follows:
     can consume
 -   A view contains a reference to a service which generates a view model. The
     view observes the viewmodel to reflect changes to the data.
-    ![How view gets data](./diagrams/sprint-2-report/view-service-seq.svg)
+    ![How view gets data](./diagrams/final-report/view-service-seq.svg)
 
 The 3 layers put together show how data is called from each layer
 
-![Detailed 3 layer](./diagrams/sprint-2-report/full-generic-3-layer-seq.svg)
+![Detailed 3 layer](./diagrams/final-report/full-generic-3-layer-seq.svg)
 
 The `Repositories` for each model conform to an interface and are dependency
 injected into each `Service`. Dependency injection is done through property
@@ -155,10 +155,13 @@ interface.
 ### Frontend
 
 The frontend is relatively straightforward, following an MVVM architecture. A
-service is injected into each view, and the view observes a view model in the
-service that it cares about. As and when the service updates a view model
-(usually through a method call to the service) the view will propagate the
-updated information.
+`Service` is injected into each `View`, and the `View` observes a `ViewModel`
+returned by a `Service`. When the service is requested to provide new
+information, it obtains the information required and notifies the ViewModels
+observing it that there has been a change. The ViewModels then update
+themselves and these changes propagate to the View since the View is observing
+the ViewModel. Greater detail on how the Observers are set up can be found below
+under the section [Service-ViewModel observer relationship](#service-viewmodel-observer-relationship)
 
 A concrete example of how this works for the `User` model can be seen below:
 ![Concrete User](./diagrams/sprint-2-report/concrete-view-service-viewmodel.svg)
@@ -207,6 +210,77 @@ respective repository functions that listen for changes in data on the
 database's side.
 ![Repositories](./diagrams/final-report/repositories-push.svg)
 
+## Services
+
+There are 7 main services used in the application:
+
+-   UserService
+-   EventService
+-   TripService
+-   FriendService
+-   ChatService
+-   MapService
+-   LocationManagerService
+
+Most services interact with their respective repositories for data storage
+purposes (e.g `UserService` interacts with `UserRepository`). However, there are
+2 main excpetions:
+
+-   `LocationManagerService` interacts with the built-in `CLLocationManager`
+    which interfaces with the device's GPS module
+-   For better coherence, `FriendService` interacts primarily with
+    `TripRepository` to return the users who are going on a specific trip
+
+Each of the services can be seen below, alongside the Repositories they hold a
+reference to
+![Services at a high level](./diagrams/final-report/services-overview.svg)
+
+Of the 6 services, `UserService`, `EventService`, `TripService` and
+`FriendService` are observed by the `ViewModels` they serve. Since these
+services create the `ViewModel`s, they register the `ViewModel`s as observers
+which are notified when the underlying `Model`(s) change. We explain this in
+detail in the section
+[Service-ViewModel observer
+relationship](#service-viewmodel-observer-relationship)
+
+In addition, the same 4 Services also work with models that may regularly need
+to be retrieved but that information does not necessarily need to be up to date.
+To reduce the frequency of calls to the backend, they subclass the
+`BaseCacheService` class and ensure that data retrieval is attempted from a
+local cache first. This has improved the speed of the application, resulting in
+a better UX. We explain this in detail in the [caching](#caching) section.
+
+### Service-ViewModel observer relationship
+
+To decouple the `Service` from the `ViewModel`s it serves, an observer pattern
+was set up so that the `ViewModel` can observe the `Service` from whom it pulls
+data. This ensures that
+
+-   `Services` don't hold direct references to the `ViewModel`s who rely on it,
+    decoupling them through the observer abstraction
+-   The responsibility of updating the `ViewModel` is passed back to the ViewModel,
+    instead of the `Service`
+
+The pattern is set up as shown below:
+![Observer pattern](./diagrams/final-report/observer.svg)
+
+The observer pattern allows for the `Service` to inform its observers (typically
+other `ViewModels`) that it's relevant data has changed, and to trigger an
+update within themselves. The diagram below shows an example of how the observer
+pattern is set up within the `UserService`.
+
+In the diagram below, the associated types have been resolved to concrete types
+to aid the understanding of the diagram.
+
+![UserService Observer](./diagrams/final-report/user-observer.svg)
+
+Since the `UserService` and the `ViewModels` that rely on it
+(`ProfileHeaderViewModel`, `EditProfileViewModel`, `SocialMediaLinksViewModel`)
+are not directly linked (rather, they are linked through the
+`Observer`-`Subject`) relationship, it is easy to scale and add more ViewModels
+that rely on the `UserService`. A new ViewModel can easily be created, subclass
+the `UserObserver` class, and register itself with the `UserService` to be
+notified when a model changes.
 ## Live location sharing
 
 The live location sharing is one of the key features of the application. The
