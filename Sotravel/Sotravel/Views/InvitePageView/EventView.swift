@@ -13,7 +13,7 @@ struct EventView: View {
                 EventDetailsView(eventViewModel: eventViewModel)
             }
             if !isHideButton {
-                if let userId = userService.getUserId() {
+                if let userId = userService.userId {
                     Group {
                         NavigationLink(destination: EventPageView(eventViewModel: eventViewModel)) {
                             if eventViewModel.hostUser == userId {
@@ -126,7 +126,7 @@ struct EventDetailsView: View {
     private func getUser(id: UUID) -> User? {
         if let friend = friendService.get(id: id) {
             return friend
-        } else if let userId = userService.getUserId(), userId == id {
+        } else if let userId = userService.userId, userId == id {
             return userService.getUser()
         } else {
             return nil
@@ -174,7 +174,7 @@ struct AttendingUsersView: View {
     private func getUser(id: UUID) -> User? {
         if let friend = friendService.get(id: id) {
             return friend
-        } else if let userId = userService.getUserId(), userId == id {
+        } else if let userId = userService.userId, userId == id {
             return userService.getUser()
         } else {
             return nil
