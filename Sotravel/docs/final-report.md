@@ -501,24 +501,35 @@ an error handler at the presentation layer that only needs to know of a single
 Ideally, we hope to ensure that there is an exception handler that automatically
 triggers when errors are bubbled to the view layer.
 
+### Frontend
+
+## Design Patterns Utilised
+
+### Observer pattern
+
+#### Tradeoff: Where's the middle man?
+
+### Delegate pattern
+
+### Repository pattern
+
+### Adapter pattern
+
+### Mediator pattern
+
+### Notes from elsewhere:
+
+The repository acts as an
+[Adapter](https://refactoring.guru/design-patterns/adapter) in its conversion
+from the API model in the database to the model used in the application. Thus,
+the repository helps the application and the data store collaborate with each
+other. The repository also acts as a
+[Facade](https://refactoring.guru/design-patterns/facade) to the database by
+only exposing a few of the API methods required, as well as a
+[Proxy](https://refactoring.guru/design-patterns/proxy) through the repository
+interface.
+
 # Reflection
-
-## Evaluation
-
-### What's done so far
-
--   The app is (more or less) fully functional. We are bugfixing at the moment
--   All interactions conform to the 3 tier architecture that we designed
-
-### What's next
-
--   More bugfixing
--   End to end testing
-
-## Known Bugs and Limitations
-
--   There are some bugs in interacting with the backend api that occasionally
-    pop up. We are doing tests to resolve these issues.
 
 # Tests
 
