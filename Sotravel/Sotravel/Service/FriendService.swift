@@ -22,18 +22,28 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
         super.init()
     }
 
-    func getProfileFriendsViewModel() -> ProfileFriendsViewModel? {
-        self.observers.values
-            .flatMap { $0 }
-            .compactMap { $0 as? ProfileFriendsViewModel }
-            .first
+    func getProfileFriendsViewModel() -> ProfileFriendsViewModel {
+        let friends = self.getAll()
+
+        if let existingViewModel = self.getObservers(for: friends)?.compactMap({ $0 as? ProfileFriendsViewModel }).first {
+            return existingViewModel
+        } else {
+            let newViewModel = ProfileFriendsViewModel(friends: friends)
+            self.addObserver(newViewModel, for: friends)
+            return newViewModel
+        }
     }
 
     func getCreateInvitePageViewModel() -> CreateInvitePageViewModel? {
-        self.observers.values
-            .flatMap { $0 }
-            .compactMap { $0 as? CreateInvitePageViewModel }
-            .first
+        let friends = self.getAll()
+
+        if let existingViewModel = self.getObservers(for: friends)?.compactMap({ $0 as? CreateInvitePageViewModel }).first {
+            return existingViewModel
+        } else {
+            let newViewModel = CreateInvitePageViewModel(friends: friends)
+            self.addObserver(newViewModel, for: friends)
+            return newViewModel
+        }
     }
 
     func fetchAllFriends(tripId: Int, for user: UUID) {
@@ -43,7 +53,7 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
                 DispatchQueue.main.async {
                     let filteredFriends = fetchedFriends.filter { $0.id != user }
                     self.initCache(from: filteredFriends)
-                    self.initObservers(from: filteredFriends)
+                    self.objectWillChange.send()
                 }
             } catch {
                 serviceErrorHandler.handle(error)
@@ -78,12 +88,5 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     func clear() {
         self.clearCache()
         self.observers = [:]
-    }
-
-    private func initObservers(from friends: [User]) {
-        let profileFriendsViewModel = ProfileFriendsViewModel(friends: friends)
-        let createInvitePageViewModel = CreateInvitePageViewModel(friends: friends)
-        self.initObservers(friends, [profileFriendsViewModel, createInvitePageViewModel])
-        self.objectWillChange.send()
     }
 }
