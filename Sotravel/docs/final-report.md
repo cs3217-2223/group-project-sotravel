@@ -210,6 +210,63 @@ respective repository functions that listen for changes in data on the
 database's side.
 ![Repositories](./diagrams/final-report/repositories-push.svg)
 
+### Data conversion
+
+The repositories work in terms of `APIModels`, which are Swift classes that
+represent the JSON response returned by the server. However, the application
+itself fundamentally works in terms of `Model`s which mirror the data consumed
+by the application. Thus, the repositories needed essentially perform the
+following tasks:
+
+1. Retrieve relevant data as JSON string from server
+1. Decode JSON string into API Model type
+1. Handle JSON decoding errors if any
+1. Convert API Model Type into Model type
+1. Return Model to caller
+
+In particular, steps 2-5 were repetitive steps that every respository method
+needed to implement. Writing the same code to perform these tasks resulted in a
+lot of code reuse. Thus a generic `DecoderHelper` was created that made use of
+Swift's [associated
+types](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/generics/#Associated-Types)
+and type inference to convert `APIModels` into `Models`
+
+We linked the `APIModels` and `Models` through protocols
+`ConvertableFromApiModel` and `ApiModel`. The `ConvertableFromApiModel` protocol
+specified a constructor that would allow the `Model` to be initialised from an
+`ApiModel`.
+
+The relationship between these protocols and classes can be seen below:
+![ConvertableFromApiModel and
+ApiModel](./diagrams/final-report/apimodel-model-convertable-class.svg)
+
+One major benefit of using associated types here is that it allows the `Model`'s
+constructor to specify which specific sub-type of `ApiModel` it is able to
+convert. This improves type safety within the application and prevents issues
+such as a User model trying to be initialised from an Event API model.
+
+The code snippet that handles this conversion can be found in the file
+[DecoderHelper.swift](https://github.com/DrWala/sotravel-ios-app/blob/main/Sotravel/Sotravel/NodeRepository/DecoderHelper.swift).
+It has been replicated below as well:
+
+```swift
+static func decodeToClass<ReturnType: ConvertableFromApiModel>(data: String, location: String = #function, line: Int = #line) throws -> ReturnType {
+        do {
+            let responseModel = try JSONDecoder().decode(ReturnType.TypeToConvertFrom.self, from: Data(data.utf8))
+            return try ReturnType(apiModel: responseModel)
+        } catch is DecodingError {
+            let modelName = String(describing: ReturnType.self)
+            let prefix = constructErrorPrefix(location: location, line: line)
+            throw SotravelError.message(
+                "\(prefix) Unable to decode json at \(location) to \(modelName). The JSON string is \(data)")
+        } catch {
+            throw error
+        }
+    }
+```
+
+A similar snippet exists to decode into lists instead of singular types as well.
+
 ## Services
 
 There are 7 main services used in the application:

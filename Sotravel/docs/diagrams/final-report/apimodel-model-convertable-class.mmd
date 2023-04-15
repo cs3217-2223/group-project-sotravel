@@ -1,0 +1,20 @@
+classDiagram
+    direction BT
+    Model ..|> ConvertableFromApiModel
+    AnyApiResponse ..|> ApiModel
+
+    ConvertableFromApiModel ..> ApiModel
+
+    class ConvertableFromApiModel {
+        <<Protocol>>
+        associatedType TypeToConvertFrom: ApiModel
+        init(apiModel: TypeToConvertFrom)
+    }
+
+    class ApiModel {
+        <<Protocol>>
+    }
+
+    class Model { }
+
+    class AnyApiResponse { }
