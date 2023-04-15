@@ -507,15 +507,78 @@ triggers when errors are bubbled to the view layer.
 
 ### Observer pattern
 
-#### Tradeoff: Where's the middle man?
+The observer pattern was utilised to prevent tight coupling between the
+`ViewModel`s and `Service`s. Instead of using the existing `@Published`
+property which still resulted in the `Service` holding a reference to the
+`ViewModel`, we mde use of a custom implementation of the Observer pattern to
+ensure loose coupling and ease of extensibility between `ViewModel`s and
+`Service`s.
+
+#### Alternative implementation: `Model` as `Subject`
+
+One alternative implementation we considered was making the `Model` the subject.
 
 ### Delegate pattern
 
+We extensively made use of the delegate pattern. There are 2 main places these
+were used
+
+1. Completion handlers which were passed in to `Service`s
+1. Obtaining updates from the real-time database
+
+The delegate pattern allowed loose coupling between classes which were trying to
+obtain information, and classes which could provide it. By passing in a
+completion delegate, it also allows asynchronous method calls to return
+immediately, and act on the result of the call later.
+
+At the UI level, this ensures that the UI is not blocked while waiting for
+an action to complete. When dealing with the real-time database, this pattern
+ensures that the functionality encapsulated within the completion handler can be
+asynchronously handled by the Firebase SDK when a change is detected.
+
 ### Repository pattern
+
+The repository pattern has been invaluable in designing the application. It
+provides the core of the infrastructure persistence layer. By conforming to the
+repository pattern where we have one repository per model, it makes the
+application easier to reason about. It is immediately clear from the name of the
+repository which model will be prodiuced by it.
+
+In addition, the repository pattern has made testing the application as well as
+concurrent development much easier. The team set up Mock Repositories and used
+those while waiting for the infrastructure layer to be created and tested. In
+addition, it ensured that logic was easily testable since a mock repository
+could easily be injected into the core logic when required.
 
 ### Adapter pattern
 
-### Mediator pattern
+The repositories served a dual purpose, acting as an adapter between the JSON
+provided by the REST API or Firebase SDK and the Models used by the application.
+Since all conversion into Models happens at the Repository layer, it ensures
+that there is a single source of truth that the upper layers (Services,
+ViewModels, Views) can work with.
+
+### Proxy pattern
+
+The Repositories make use of the `NodeApi` class which acts as a proxy to the
+`AsyncHTTPClient` library. The `NodeApi` creates a single point of communication
+to the REST API, and handles important pre-request tasks such as adding the
+user's Authorization Token, converting dictionary data into a JSON, etc. It also
+handles errors originating in the `AsyncHTTPClient` library, and re-wraps them
+as `SoTravel` errors. This ensures that unexpected exceptions are rewritten into
+types that the rest of the codebase is able to handle.
+
+The proxy also ensures that the `Repositories` are not overloaded with extra
+tasks improving cohesion of the class.
+
+### Facade pattern
+
+The `Service` and `Repository` act as a facade between the complexities of API
+calls and 
+
+## Good Practices
+
+### Dependency Injection
 
 ### Notes from elsewhere:
 
