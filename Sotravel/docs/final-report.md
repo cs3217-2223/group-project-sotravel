@@ -516,28 +516,83 @@ ensure loose coupling and ease of extensibility between `ViewModel`s and
 
 #### Alternative implementation: `Model` as `Subject`
 
-One alternative implementation we considered was making the Model the subject and the ViewModel the observer. In this approach, the Model would implement the Subject protocol, and the ViewModel would implement the Observer protocol. When the Service updates the Model, the ViewModel observing the subject would automatically get updated.
+One alternative implementation we considered was making the Model the subject
+and the ViewModel the observer. In this approach, the Model would implement the
+Subject protocol, and the ViewModel would implement the Observer protocol. When
+the Service updates the Model, the ViewModel observing the subject would
+automatically get updated.
 
-Pros of the alternative implementation:
-Clear separation of concerns: By making the Model the subject, the responsibility of managing its state and notifying observers would be delegated to the Model, while the ViewModel would focus on handling updates and presentation logic. This separation would make the codebase easier to maintain and extend.
-Easier testing: The alternative implementation would make it easier to write unit tests for the ViewModel and Model without having to mock or stub the Service, resulting in more reliable and comprehensive test coverage.
-Increased modularity: Since the ViewModel would only interact with the Model, it would be easier to swap out the Service implementation without having to modify the ViewModel. This would allow for greater flexibility and modularity in the application architecture.
-Cons of the alternative implementation:
-Increased complexity: By moving the observer logic into the Model, the Model would become more complex, potentially making it harder to understand and maintain.
-Performance considerations: Having the Model notify observers directly could lead to performance issues if there are many observers or if updates are frequent.
-Potential for circular dependencies: If not implemented carefully, this approach could introduce circular dependencies between the Model and the ViewModel. Proper architecture and design patterns would need to be employed to prevent this issue.
+#### Pros of the alternative implementation:
 
-Comparison with the current implementation
-In the current implementation, the UserService implements the Subject protocol, and the ViewModel implements the Observer protocol. This approach has several advantages that make it a better choice for the given application:
+**Clear separation of concerns:** By making the Model the subject, the
+responsibility of managing its state and notifying observers would be delegated
+to the Model, while the ViewModel would focus on handling updates and
+presentation logic. This separation would make the codebase easier to maintain
+and extend.
 
-Simplified Model: The current approach keeps the Model simple and focused on representing the data structure, while the UserService takes care of managing observers and updates. This separation of concerns allows for a more streamlined data model, which can be easier to understand and maintain.
-Centralized observer management: The current implementation centralizes the management of observers in the UserService. This can be beneficial for consistency and maintainability, as it allows you to easily modify the observer management logic without having to touch the Model or ViewModel.
-Better encapsulation of service logic: By keeping the observer management in the Service, the current implementation ensures that service-related logic is isolated from the Model and the ViewModel. This encapsulation can make the overall architecture more robust and less prone to bugs, as it reduces the chances of inadvertently introducing side effects or dependencies between different components.
-Less risk of circular dependencies: In the current approach, the Service is responsible for managing observers and updating the ViewModel, which reduces the risk of introducing circular dependencies between the Model and the ViewModel. This can make the overall architecture more stable and easier to reason about.
-While the alternative implementation offers some benefits in terms of separation of concerns, easier testing, and increased modularity, the current implementation has several advantages that make it a more suitable choice for the given application. The current approach simplifies the Model, centralizes observer management, encapsulates service logic, and reduces the risk of circular dependencies, leading to a more stable, maintainable, and robust application architecture.
+**Easier testing:** The alternative implementation would make it easier to write
+unit tests for the ViewModel and Model without having to mock or stub the
+Service, resulting in more reliable and comprehensive test coverage.
+Increased modularity: Since the ViewModel would only interact with the Model, it
+would be easier to swap out the Service implementation without having to modify
+the ViewModel. This would allow for greater flexibility and modularity in the
+application architecture.
 
-In conclusion, considering the specific requirements and priorities of the Sotravel application, the current implementation with the UserService as the subject and the ViewModel as the observer is the better choice. This approach provides a streamlined and robust architecture that simplifies the data model, centralizes observer management, and isolates service-related logic, leading to a more stable and maintainable application.
+#### Cons of the alternative implementation:
 
+**Increased complexity:** By moving the observer logic into the Model, the Model
+would become more complex, potentially making it harder to understand and
+maintain.
+
+**Performance considerations:** Having the Model notify observers directly could
+lead to performance issues if there are many observers or if updates are
+frequent.
+
+**Potential for circular dependencies:** If not implemented carefully, this
+approach could introduce circular dependencies between the Model and the
+ViewModel. Proper architecture and design patterns would need to be employed to
+prevent this issue.
+
+### Comparison with the current implementation
+
+In the current implementation, the UserService implements the Subject protocol,
+and the ViewModel implements the Observer protocol. This approach has several
+advantages that make it a better choice for the given application:
+
+**Simplified Model:** The current approach keeps the Model simple and focused on
+representing the data structure, while the UserService takes care of managing
+observers and updates. This separation of concerns allows for a more streamlined
+data model, which can be easier to understand and maintain.
+
+**Centralized observer management:** The current implementation centralizes the
+management of observers in the UserService. This can be beneficial for
+consistency and maintainability, as it allows you to easily modify the observer
+management logic without having to touch the Model or ViewModel.
+Better encapsulation of service logic: By keeping the observer management in the
+Service, the current implementation ensures that service-related logic is
+isolated from the Model and the ViewModel. This encapsulation can make the
+overall architecture more robust and less prone to bugs, as it reduces the
+chances of inadvertently introducing side effects or dependencies between
+different components.
+
+**Less risk of circular dependencies:** In the current approach, the Service is
+responsible for managing observers and updating the ViewModel, which reduces the
+risk of introducing circular dependencies between the Model and the ViewModel.
+This can make the overall architecture more stable and easier to reason about.
+While the alternative implementation offers some benefits in terms of separation
+of concerns, easier testing, and increased modularity, the current
+implementation has several advantages that make it a more suitable choice for
+the given application. The current approach simplifies the Model, centralizes
+observer management, encapsulates service logic, and reduces the risk of
+circular dependencies, leading to a more stable, maintainable, and robust
+application architecture.
+
+In conclusion, considering the specific requirements and priorities of the
+Sotravel application, the current implementation with the UserService as the
+subject and the ViewModel as the observer is the better choice. This approach
+provides a streamlined and robust architecture that simplifies the data model,
+centralizes observer management, and isolates service-related logic, leading to
+a more stable and maintainable application.
 
 ### Delegate pattern
 
