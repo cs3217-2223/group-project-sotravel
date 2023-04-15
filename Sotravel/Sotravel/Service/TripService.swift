@@ -29,17 +29,18 @@ class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
         super.init()
     }
 
-    func getTripViewModel(from trip: Trip) -> TripViewModel? {
-        guard let trip = get(id: trip.id), let observer = observers[trip]?.first else {
+    func getTripViewModel(from tripId: Int) -> TripViewModel? {
+        guard let trip = get(id: tripId) else {
             return nil
         }
-        return observer as? TripViewModel
-    }
 
-    func getTripViewModels() -> [TripViewModel] {
-        let allObservers = observers.values.flatMap { $0 }
-        let triptViewModels = allObservers.compactMap { $0 as? TripViewModel }
-        return triptViewModels
+        if let existingViewModel = self.getObservers(for: trip)?.compactMap({ $0 as? TripViewModel }).first {
+            return existingViewModel
+        } else {
+            let newViewModel = TripViewModel(trip: trip)
+            self.addObserver(newViewModel, for: trip)
+            return newViewModel
+        }
     }
 
     func getCurrTrip() -> Trip? {
@@ -60,7 +61,6 @@ class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
                 let trips = try await tripRepository.getTrips(userId: userId)
                 DispatchQueue.main.async {
                     self.initCache(from: trips)
-                    self.createTripCardViewModel(from: trips)
                     self.objectWillChange.send()
                     completion(true)
                 }
@@ -86,19 +86,9 @@ class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
         }
     }
 
-    func createTripCardViewModel(from trips: [Trip]) {
-        for trip in trips {
-            let viewModel = TripViewModel(trip: trip)
-            self.addObserver(viewModel, for: trip)
-        }
-    }
-
     private func updateCacheAndViewModels(from trips: [Trip]) {
         for trip in trips {
-            if self.get(id: trip.id) == nil {
-                let viewModel = TripViewModel(trip: trip)
-                self.addObserver(viewModel, for: trip)
-            } else {
+            if self.get(id: trip.id) != nil {
                 self.notifyAll(for: trip)
             }
             updateCache(from: trip)

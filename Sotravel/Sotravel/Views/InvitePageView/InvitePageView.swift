@@ -20,9 +20,11 @@ struct InvitePageView: View {
 
                 ScrollView(.vertical) {
                     LazyVStack(spacing: 20) {
-                        let filteredEvents = eventService.getEventViewModels().filter { eventViewModel in
+                        let filteredEvents = eventService.getIds().compactMap { eventId in
+                            eventService.getEventViewModel(eventId: eventId)
+                        }.filter { vm in
                             let calendar = Calendar.current
-                            return calendar.isDate(eventViewModel.datetime, equalTo: selectedDate, toGranularity: .day)
+                            return calendar.isDate(vm.datetime, equalTo: selectedDate, toGranularity: .day)
                         }
                         if filteredEvents.isEmpty {
                             VStack(spacing: 20) {

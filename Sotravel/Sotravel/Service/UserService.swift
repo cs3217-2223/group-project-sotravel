@@ -56,7 +56,8 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
             do {
                 if let fetchedUser = try await userRepository.emailSignin(email: email, password: password) {
                     DispatchQueue.main.async {
-                        self.initCacheAndObservers(from: fetchedUser)
+                        self.initCache(from: [fetchedUser])
+                        self.objectWillChange.send()
                         completion(true, fetchedUser.id)
                     }
                 } else {
@@ -76,7 +77,8 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
             do {
                 if let fetchedUser = try await userRepository.emailSignup(email: email, password: password) {
                     DispatchQueue.main.async {
-                        self.initCacheAndObservers(from: fetchedUser)
+                        self.initCache(from: [fetchedUser])
+                        self.objectWillChange.send()
                         completion(true, fetchedUser.id)
                     }
                 } else {
@@ -94,7 +96,8 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
             do {
                 if let fetchedUser = try await userRepository.get(id: id) {
                     DispatchQueue.main.async {
-                        self.initCacheAndObservers(from: fetchedUser)
+                        self.initCache(from: [fetchedUser])
+                        self.objectWillChange.send()
                         completion(true)
                     }
                 } else {
@@ -172,29 +175,41 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
         guard let user = self.getUser() else {
             return nil
         }
-        return self.getObservers(for: user)?.compactMap { $0 as? ProfileHeaderViewModel }.first
+
+        if let existingViewModel = self.getObservers(for: user)?.compactMap({ $0 as? ProfileHeaderViewModel }).first {
+            return existingViewModel
+        } else {
+            let newViewModel = ProfileHeaderViewModel(user: user)
+            self.addObserver(newViewModel, for: user)
+            return newViewModel
+        }
     }
 
     func getEditProfileViewModel() -> EditProfileViewModel? {
         guard let user = self.getUser() else {
             return nil
         }
-        return self.getObservers(for: user)?.compactMap { $0 as? EditProfileViewModel }.first
+
+        if let existingViewModel = self.getObservers(for: user)?.compactMap({ $0 as? EditProfileViewModel }).first {
+            return existingViewModel
+        } else {
+            let newViewModel = EditProfileViewModel(user: user)
+            self.addObserver(newViewModel, for: user)
+            return newViewModel
+        }
     }
 
     func getSocialMediaLinksViewModel() -> SocialMediaLinksViewModel? {
         guard let user = self.getUser() else {
             return nil
         }
-        return self.getObservers(for: user)?.compactMap { $0 as? SocialMediaLinksViewModel }.first
-    }
 
-    private func initCacheAndObservers(from user: User) {
-        self.initCache(from: [user])
-        let profileHeaderViewModel = ProfileHeaderViewModel(user: user)
-        let editProfileViewModel = EditProfileViewModel(user: user)
-        let socialMediaLinksViewModel = SocialMediaLinksViewModel(user: user)
-        self.initObservers(user, [profileHeaderViewModel, editProfileViewModel, socialMediaLinksViewModel])
-        self.objectWillChange.send()
+        if let existingViewModel = self.getObservers(for: user)?.compactMap({ $0 as? SocialMediaLinksViewModel }).first {
+            return existingViewModel
+        } else {
+            let newViewModel = SocialMediaLinksViewModel(user: user)
+            self.addObserver(newViewModel, for: user)
+            return newViewModel
+        }
     }
 }
