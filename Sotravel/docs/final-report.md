@@ -650,11 +650,25 @@ tasks improving cohesion of the class.
 ### Facade pattern
 
 The `Service` and `Repository` act as a facade between the complexities of API
-calls and 
+calls and JSON decoding. They act as a single point of contact for the
+`ViewModel`s and `View`s to obtain the information to be displayed.
 
 ## Good Practices
 
 ### Dependency Injection
+
+We dependency inject dependencies using the Resolver library as well as through
+EnvironmentObjects. This allows each class to operate using the interface of the
+dependency rather than the concrete type. Using DI has the following key
+benefits for us:
+
+-   Easily swap implementations out for testing. We frequently replaced our
+    repositories with mock versions of them for testing or while awaiting
+    bugfixes on the repository
+-   Dependency management in one place: By using Resolver, we were able to manage
+    all our dependencies in the `Repositories+Injection.swift` file. This provided
+    a central location to dictate how each dependency was resolved into its
+    concrete type.
 
 ### Notes from elsewhere:
 
