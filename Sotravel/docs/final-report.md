@@ -136,22 +136,6 @@ wrappers. This allows for the following benefits:
     stubs/mocks. We already use such stubs/mocks of repositories such as the
     `UserRepository` to provide mock data during testing.
 
-We present another concrete implementation for how this works in the case of the
-Get Chat Page Cell flow:
-
-![Chat Page Cell Gathering
-Flow](./diagrams/sprint-2-report/chat-page-cell-vm-seq.svg)
-
-Here, we see how the repository acts as an
-[Adapter](https://refactoring.guru/design-patterns/adapter) in its conversion
-from the API model in the database to the model used in the application. Thus,
-the repository helps the application and the database collaborate with each
-other. The repository also acts as a
-[Facade](https://refactoring.guru/design-patterns/facade) to the database by
-only exposing a few of the API methods required, as well as a
-[Proxy](https://refactoring.guru/design-patterns/proxy) through the repository
-interface.
-
 ### Frontend
 
 The frontend is relatively straightforward, following an MVVM architecture. A
@@ -161,15 +145,8 @@ information, it obtains the information required and notifies the ViewModels
 observing it that there has been a change. The ViewModels then update
 themselves and these changes propagate to the View since the View is observing
 the ViewModel. Greater detail on how the Observers are set up can be found below
-under the section [Service-ViewModel observer relationship](#service-viewmodel-observer-relationship)
-
-A concrete example of how this works for the `User` model can be seen below:
-![Concrete User](./diagrams/sprint-2-report/concrete-view-service-viewmodel.svg)
-Notice how both the service and the repository act as
-[Mediators](https://refactoring.guru/design-patterns/mediator) to the viewmodel
-and the model respectively. The view collaborates with the viewmodel via the
-service, and the service collaborates with the model (to get the viewmodel) via
-the repository.
+under the section
+[Service-ViewModel observer relationship](#service-viewmodel-observer-relationship)
 
 ## Models
 
@@ -405,6 +382,46 @@ as a generic class with default implementations of all the methods within the
 class. This allows the the `BaseCacheService` to easily be subclassed and
 provide extensive caching functionality to any class that extends from it.
 
+## Live location sharing
+
+The live location sharing is one of the key features of the application. The
+goal is to allow the user to update their location and save that to the
+database, as well as allow the user to view the live locations of all of their
+friends.
+
+### Location Management: Key responsibilities
+
+The location management functionality has three key parts:
+
+1. Getting the user's current location via GPS
+1. Persisting the user's location to the real-time database
+1. Pulling all the friends' locations onto the map
+
+Part (1) is handled by the `LocationManager` while parts (2) and (3) are handled
+by the `MapStorageService` which relies on the `MapRepository`.
+
+The class diagram for how these 3 key classes interact with the `MapView` is
+shown below:
+![Location Management class
+diagram](./diagrams/sprint-2-report/map-class-diagram.svg)
+
+### Location Management: Flow of data
+
+The `LocationManager` resolves the user's current location via GPS, while the
+`MapStorageService` sends and receives information from the persistent data
+store. The delegate pattern is employed here, where the `MapStorageService`
+passes a delegate function to the `LocationManager` to call to when the user's
+location is updated. This allows the app to easily swap out the desired
+behaviour when the user's location changes, decoupling it from the GPS service
+itself as well as allowing flexibility on the actions to be taken when the user
+is moving around.
+
+The flow of how the user's GPS coordinates are stored in the data storage as
+well as how friends' locations are retrieved and updated on the map can be seen
+below:
+![Location Management Sequence
+Diagram](./diagrams/sprint-2-report/map-location-update-seq.svg)
+
 ## Sample Interactions
 
 ### Structure of User Service and Observer
@@ -452,47 +469,22 @@ the cache. Should it fail, it then proceeds to get the `User` from the
 repository. Following that, it constructs the `ProfileHeaderViewModel`, and sets
 it up as an observer to the `UserService`. This ensures that when the underlying
 `User` changes, `ProfileHeaderViewModel` can easuly update too.
-## Live location sharing
 
-The live location sharing is one of the key features of the application. The
-goal is to allow the user to update their location and save that to the
-database, as well as allow the user to view the live locations of all of their
-friends.
+### Get Chat Page Cell
 
-### Location Management: Key responsibilities
+We present another concrete implementation for how this works in the case of the
+Get Chat Page Cell flow:
 
-The location management functionality has three key parts:
+![Chat Page Cell Gathering
+Flow](./diagrams/sprint-2-report/chat-page-cell-vm-seq.svg)
 
-1. Getting the user's current location via GPS
-1. Persisting the user's location to the real-time database
-1. Pulling all the friends' locations onto the map
+Another concrete example can be seen with the Chat views:
+![Concrete
+Chat](./diagrams/sprint-2-report/chat-concrete-view-service-viewmodel.svg)
 
-Part (1) is handled by the `LocationManager` while parts (2) and (3) are handled
-by the `MapStorageService` which relies on the `MapRepository`.
+## Error handling
 
-The class diagram for how these 3 key classes interact with the `MapView` is
-shown below:
-![Location Management class
-diagram](./diagrams/sprint-2-report/map-class-diagram.svg)
-
-### Location Management: Flow of data
-
-The `LocationManager` resolves the user's current location via GPS, while the
-`MapStorageService` sends and receives information from the persistent data
-store. The delegate pattern is employed here, where the `MapStorageService`
-passes a delegate function to the `LocationManager` to call to when the user's
-location is updated. This allows the app to easily swap out the desired
-behaviour when the user's location changes, decoupling it from the GPS service
-itself as well as allowing flexibility on the actions to be taken when the user
-is moving around.
-
-The flow of how the user's GPS coordinates are stored in the data storage as
-well as how friends' locations are retrieved and updated on the map can be seen
-below:
-![Location Management Sequence
-Diagram](./diagrams/sprint-2-report/map-location-update-seq.svg)
-
-### Error handling
+### Backend
 
 The app defines a custom `SotravelError` class which is thrown at all layers. If
 exceptions caught are from other function calls (e.g. decoding JSON throws a
