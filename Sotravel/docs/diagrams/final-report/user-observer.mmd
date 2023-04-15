@@ -1,10 +1,10 @@
 classDiagram
     direction LR
-    UserService --|> Subject
+    UserService ..|> Subject
     ProfileHeaderViewModel --|> UserObserver
     EditProfileViewModel --|> UserObserver
     SocialMediaLinksViewModel --|> UserObserver
-    UserObserver --|> Observer
+    UserObserver ..|> Observer
     Subject "1" --> "* "Observer: Has list of
     
     class Subject {

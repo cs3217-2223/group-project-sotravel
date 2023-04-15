@@ -272,6 +272,14 @@ changed. Since the `Service` can then call the Observer's `updateFrom` method,
 the observers can then perform an update within themselves with the new data
 recieved.
 
+Notice that the `Observer` and `Subject` class make use of the [Swift Associated
+Types](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/generics/#Associated-Types)
+feature to ensure the protocol is kept generic. This means that any Service
+implementing the `Subject` protocol can dictate the type of the data being
+observed, as well as the type of Observer. This allows for complex observer
+relationships to be set up where the type of the data being observed does not
+necessarily need to match the class implementing the observer pattern.
+
 The `Service`s which have the Observer protocol implemented are the following:
 
 -   UserService
@@ -299,13 +307,8 @@ resolved to concrete types to aid the understanding of the diagram.
 
 ![UserService Observer](./diagrams/final-report/user-observer.svg)
 
-Since the `UserService` and the `ViewModels` that rely on it
-(`ProfileHeaderViewModel`, `EditProfileViewModel`, `SocialMediaLinksViewModel`)
-are not directly linked (rather, they are linked through the
-`Observer`-`Subject`) relationship, it is easy to scale and add more ViewModels
-that rely on the `UserService`. A new ViewModel can easily be created, subclass
-the `UserObserver` class, and register itself with the `UserService` to be
-notified when a model changes.
+To see a sample of how the User Service is set up, please proceed to [sample
+interactions](#sample-interaction-user-service)
 
 #### Updating data
 
@@ -340,6 +343,58 @@ One of the key benefits of introducing the cache at the `Service` layer is the
 following: Multiple `ViewModel`s rely on the same model, and thus if we cache
 the model, we avoid unnecessary network IO to produce those `ViewModel`s
 
+A class was used instead of a protocol because the `BaseCacheService` was set up
+as a generic class with default implementations of all the methods within the
+class. This allows the the `BaseCacheService` to easily be subclassed and
+provide extensive caching functionality to any class that extends from it.
+
+## Sample Interactions
+
+### Structure of User Service and Observer
+
+This section aims to explain how the UserService is structured with respect to
+the Observer protocol. The diagram below shows an example of how the observer
+pattern is set up within the `UserService`. The associated types within the
+protocols have been resolved to concrete types to aid the understanding of the
+diagram.
+
+![UserService Observer](./diagrams/final-report/user-observer.svg)
+
+Since the `UserService` and the `ViewModels` that rely on it
+(`ProfileHeaderViewModel`, `EditProfileViewModel`, `SocialMediaLinksViewModel`)
+are not directly linked (rather, they are linked through the
+`Observer`-`Subject`) relationship, it is easy to scale and add more ViewModels
+that rely on the `UserService`. A new ViewModel can easily be created, subclass
+the `UserObserver` class, and register itself with the `UserService` to be
+notified when a model changes.
+
+### Get User Profile
+
+This section aims to explain how the `ProfileHeaderViewModel` is populated.
+
+The `ProfileHeaderViewModel` is derived from the `User` model. It gets its
+information from the `UserService` and `UserRepository` classes. The interaction
+between them can be seen below.
+
+![User Profile VM class
+diagram](./diagrams/final-report/user-profile-vm-class.svg)
+
+The following diagram aims to illustrate how the `ProfileHeaderViewModel` would
+be populated when it is first called. It shows the full lifeline onf the
+information being retrieved and the how the Observer relationship is set up, as
+well as how the cache is used as a first attempt to get the User.
+
+![User Profile Data Gathering
+Flow](./diagrams/final-report/user-profile-vm-seq.svg)
+
+Notice how the cache and observer protocol come together here. The `UserService`
+first attempts to retrieve the requested `ProfileHeaderViewModel` from the set
+of Observers. If it does not exist, it then proceeds to consruct the
+`ProfileHeaderViewModel`. The `User` model is first attempted to be retrieved from
+the cache. Should it fail, it then proceeds to get the `User` from the
+repository. Following that, it constructs the `ProfileHeaderViewModel`, and sets
+it up as an observer to the `UserService`. This ensures that when the underlying
+`User` changes, `ProfileHeaderViewModel` can easuly update too.
 ## Live location sharing
 
 The live location sharing is one of the key features of the application. The

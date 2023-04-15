@@ -1,8 +1,8 @@
 classDiagram
     direction BT
-    Service --|> Subject
+    Service ..|> Subject
     ViewModel --|> ModelObserver
-    ModelObserver --|> Observer
+    ModelObserver ..|> Observer
     Subject "1" --> "* "Observer: Has list of
     
     class Subject {
