@@ -49,7 +49,7 @@ struct ProfilePageView: View {
                         .zIndex(1)
 
                         VStack(spacing: 16) {
-                            if let currTrip = self.tripService.getCurrTrip(), let viewModel = tripService.getTripViewModel(from: currTrip) {
+                            if let currTrip = self.tripService.getCurrTrip(), let viewModel = tripService.getTripViewModel(from: currTrip.id) {
                                 TripCardView(viewModel: viewModel)
                             }
                             //                            Button(action: {
