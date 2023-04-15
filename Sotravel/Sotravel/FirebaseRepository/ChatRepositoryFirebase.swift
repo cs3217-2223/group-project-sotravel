@@ -210,27 +210,7 @@ class ChatRepositoryFirebase: ChatRepository {
     func setListenerForChatBasicInfo(for chatId: Int, completion: @escaping ((Chat) -> Void)) {
         let databasePath = databaseRef.child("chats/\(chatId)")
         databasePath.observe(.value, with: { snapshot in
-            guard var json = snapshot.value as? [String: Any] else {
-                return
-            }
-            do {
-                let key = snapshot.key
-                json["id"] = key
-                let chatBasicInfoAMData = try JSONSerialization.data(withJSONObject: json)
-                let chatBasicInfoAM = try self.decoder.decode(ChatBasicInfoApiModel.self, from: chatBasicInfoAMData)
-                guard let messageId = chatBasicInfoAM.lastMessage, !messageId.isEmpty else {
-                    let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM)
-                    completion(chat)
-                    return
-                }
-                self.getChatMessageAM(chatId: chatId, messageId: messageId, completion: { chatMessageAM in
-                    let chat = self.convertApiModelsToChat(chatBasicInfoAM: chatBasicInfoAM,
-                                                           chatMessageAMs: [chatMessageAM])
-                    completion(chat)
-                })
-            } catch {
-                print("An error occurred", error)
-            }
+            self.getChatFromDataSnapshot(id: chatId, error: nil, snapshot: snapshot, completion: completion)
         })
     }
 
@@ -256,7 +236,7 @@ extension ChatRepositoryFirebase {
     }
 }
 
-// MARK: REFACTORING ATTEMPT
+// MARK: SNAPSHOT AND JSON HANDLERS
 extension ChatRepositoryFirebase {
     private func doesErrorExist(error: Error?) -> Bool {
         guard error == nil else {
