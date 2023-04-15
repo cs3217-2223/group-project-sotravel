@@ -87,6 +87,7 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
 
     func clear() {
         self.clearCache()
+        self.clearAllObservers()
         self.observers = [:]
     }
 }

@@ -24,16 +24,17 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
     }
 
     func getEventViewModel(eventId: Int) -> EventViewModel? {
-        guard let event = get(id: eventId), let observer = observers[event]?.first else {
+        guard let event = get(id: eventId) else {
             return nil
         }
-        return observer as? EventViewModel
-    }
 
-    func getEventViewModels() -> [EventViewModel] {
-        let allObservers = observers.values.flatMap { $0 }
-        let eventViewModels = allObservers.compactMap { $0 as? EventViewModel }
-        return eventViewModels
+        if let existingViewModel = self.getObservers(for: event)?.compactMap({ $0 as? EventViewModel }).first {
+            return existingViewModel
+        } else {
+            let newViewModel = EventViewModel(event: event)
+            self.addObserver(newViewModel, for: event)
+            return newViewModel
+        }
     }
 
     func loadUserEvents(forTrip tripId: Int, userId: UUID) {
@@ -43,7 +44,6 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
                 let events = allEvents.filter { $0.status != "cancelled" }
                 DispatchQueue.main.async {
                     self.initCache(from: events)
-                    self.createEventViewModels(from: events)
                 }
             } catch {
                 serviceErrorHandler.handle(error)
@@ -71,8 +71,7 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
                 let newEvent = try await eventRepository.create(event: event)
                 DispatchQueue.main.async {
                     super.updateCache(from: newEvent)
-                    let viewModel = EventViewModel(event: newEvent)
-                    self.addObserver(viewModel, for: newEvent)
+                    self.objectWillChange.send()
                     completion(.success(newEvent))
                 }
             } catch {
@@ -92,6 +91,7 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
                 DispatchQueue.main.async {
                     super.remove(item: id)
                     self.removeAllObservers(for: event)
+                    self.objectWillChange.send()
                     completion(true)
                 }
             } catch {
@@ -152,20 +152,10 @@ class EventService: BaseCacheService<Event>, ObservableObject, Subject {
 
     private func updateCacheAndViewModels(from events: [Event]) {
         for event in events {
-            if get(id: event.id) == nil {
-                let viewModel = EventViewModel(event: event)
-                self.addObserver(viewModel, for: event)
-            } else {
+            if get(id: event.id) != nil {
                 self.notifyAll(for: event)
             }
             updateCache(from: event)
-        }
-    }
-
-    private func createEventViewModels(from events: [Event]) {
-        for event in events {
-            let viewModel = EventViewModel(event: event)
-            self.addObserver(viewModel, for: event)
         }
     }
 }
