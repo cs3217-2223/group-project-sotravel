@@ -23,19 +23,21 @@ struct TripsPageView: View {
                         })
                     }
                     LazyVStack(alignment: .leading, spacing: 16) {
-                        if tripService.getTripViewModels().isEmpty {
+                        if tripService.getIds().isEmpty {
                             Text("No trips found. Tap the refresh button to try again.")
                                 .font(.uiBody)
                                 .foregroundColor(.secondary)
                         } else {
-                            ForEach(tripService.getTripViewModels(), id: \.id) { viewModel in
-                                NavigationLink(destination: TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)) {
-                                    TripCardView(viewModel: viewModel)
-                                }.foregroundColor(.primary)
-                                .simultaneousGesture(TapGesture().onEnded {
-                                    // Call loadUserData when the TripCardView is tapped
-                                    self.loadUserData(for: viewModel.id)
-                                })
+                            ForEach(tripService.getIds(), id: \.self) { tripId in
+                                if let vm = tripService.getTripViewModel(from: tripId) {
+                                    NavigationLink(destination: TripPageView(selectedTab: $tripService.selectedTapInCurrTrip)) {
+                                        TripCardView(viewModel: vm)
+                                    }.foregroundColor(.primary)
+                                    .simultaneousGesture(TapGesture().onEnded {
+                                        // Call loadUserData when the TripCardView is tapped
+                                        self.loadUserData(for: vm.id)
+                                    })
+                                }
                             }
                         }
                     }.onAppear {
