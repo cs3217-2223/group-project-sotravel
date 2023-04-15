@@ -27,7 +27,14 @@ struct ProfileFriendsView: View {
                     }
                 }
             }.padding(.trailing)
-            if viewModel.friends.count > 3 {
+            if viewModel.friends.isEmpty {
+                HStack {
+                    Spacer()
+                    ProgressView()
+                        .padding(.all)
+                    Spacer()
+                }
+            } else if viewModel.friends.count > 3 {
                 NavigationLink(destination: FriendsListPageView(friends: viewModel.friends, actionComponent: {
                     friend in UserListItemLinkView(friend: friend)
                 })) {
