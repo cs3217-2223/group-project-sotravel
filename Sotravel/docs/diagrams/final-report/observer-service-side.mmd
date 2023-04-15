@@ -1,0 +1,28 @@
+classDiagram
+    direction BT
+    UserService --|> Subject
+    EventService --|> Subject
+    TripService --|> Subject
+    FriendService --|> Subject
+
+    Subject "1" --> "* "Observer: Has list of
+    
+   class Subject {
+        <<Protocol>>
+    }
+
+    class Observer {
+        <<Protocol>>
+    }
+
+    class UserService{
+    }
+
+    class EventService{
+    }
+
+    class TripService{
+    }
+    
+    class FriendService{
+    }

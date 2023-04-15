@@ -234,6 +234,8 @@ purposes (e.g `UserService` interacts with `UserRepository`). However, there are
 Each of the services can be seen below, alongside the Repositories they hold a
 reference to
 ![Services at a high level](./diagrams/final-report/services-overview.svg)
+_See a higher resolution version of this image
+[here](./diagrams/final-report/services-overview.svg)_
 
 Of the 6 services, `UserService`, `EventService`, `TripService` and
 `FriendService` are observed by the `ViewModels` they serve. Since these
@@ -277,11 +279,16 @@ The `Service`s which have the Observer protocol implemented are the following:
 -   TripService
 -   FriendService
 
-The association between these Services and the ViewModels which rely on them can
-be seen in the diagram below:
+The association between these `Service`s and the `ViewModel`s which rely on them
+can be seen in the two diagrams below
 
-![All classes with observer
-implemented](./diagrams/final-report/observer-all-relevant-classes.svg)
+The first diagram shows which `Service`s implement the Subject protocol:
+
+![Services with Subject](./diagrams/final-report/observer-service-side.svg)
+
+The next diagram shows which `ViewModel`s implement the Observer protocol:
+
+![ViewModels with observer](./diagrams/final-report/observer-vm-side.svg)
 _Note: Methods have been ommitted for simplicity_
 
 #### Sample interaction: User Service
@@ -311,6 +318,27 @@ because the observer pattern allows the `Service` to directly notify observing
 how that interaction works in the diagram below:
 
 ![Updating data](./diagrams/final-report/on-update-viewmodel.svg)
+
+### Caching
+
+We've implemented a custom caching layer that allows for data to be cached and
+retrieved without a network call. Specifically, we cache the `Model`s associated
+with `UserService`, `EventService`, `TripService` and `FriendService`. The
+models associated with these services do not change frequently or in real time,
+and thus it is acceptable to cache their values. A `reload` function also
+exists in each of these services to pull fresh data from the server should it be
+required.
+
+A class diagram showing which classes implement the `BaseCacheService` can be
+seen below:
+![Classes implementing cache](./diagrams/final-report/services-cache.svg)
+
+In general, the workflow for working the Cache layer is as follows:
+![Generic get model](./diagrams/final-report/generic-get-cache.svg)
+
+One of the key benefits of introducing the cache at the `Service` layer is the
+following: Multiple `ViewModel`s rely on the same model, and thus if we cache
+the model, we avoid unnecessary network IO to produce those `ViewModel`s
 
 ## Live location sharing
 

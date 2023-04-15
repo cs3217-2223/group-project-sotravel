@@ -1,9 +1,5 @@
 classDiagram
-    direction RL
-    UserService --|> Subject
-    EventService --|> Subject
-    TripService --|> Subject
-    FriendService --|> Subject
+    direction BT
     
     UsersObserver --|> Observer
     UserObserver --|> Observer
@@ -27,18 +23,6 @@ classDiagram
 
     class Observer {
         <<Protocol>>
-    }
-
-    class UserService{
-    }
-
-    class EventService{
-    }
-
-    class TripService{
-    }
-    
-    class FriendService{
     }
     
     class UsersObserver{ }

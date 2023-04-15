@@ -1,21 +1,24 @@
 classDiagram
-    direction BT
+    direction LR
     UserService --|> BaseCacheService
     EventService --|> BaseCacheService
     TripService --|> BaseCacheService
     FriendService --|> BaseCacheService
     
-    UserService --|> Subject
-    EventService --|> Subject
-    TripService --|> Subject
-    FriendService --|> Subject
-    
-    class BaseCacheService { 
+    class BaseCacheService {
         <<Generic>>
+        - cache: [T.ID: T]
+        get(id: T.ID): T?
+        getOptional(optionalId: T.ID?): T?
+        getAll(): [T]
+        getIds(): [T.ID]
+        clearCache()
+        initCache(from items: [T])
+        updateCache(from item: T)
+        updateCacheInLoop(from items: [T])
+        remove(item: T.ID)
     }
-    class Subject{
-        <<Protocol>>
-    }
+
     class UserService{
         - userRepository: UserRepository
     }
@@ -28,10 +31,3 @@ classDiagram
     class FriendService{
         - tripRepository: TripRepository
     }
-    class ChatService{
-        - chatRepository: ChatRepository
-    }
-    class MapStorageService{
-        - mapRepository: MapRepository
-    }
-    class LocationManagerService { }
