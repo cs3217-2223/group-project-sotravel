@@ -265,12 +265,30 @@ The pattern is set up as shown below:
 ![Observer pattern](./diagrams/final-report/observer.svg)
 
 The observer pattern allows for the `Service` to inform its observers (typically
-other `ViewModels`) that it's relevant data has changed, and to trigger an
-update within themselves. The diagram below shows an example of how the observer
-pattern is set up within the `UserService`.
+other `ViewModels`) through the `notifyAll` method that it's relevant data has
+changed. Since the `Service` can then call the Observer's `updateFrom` method,
+the observers can then perform an update within themselves with the new data
+recieved.
 
-In the diagram below, the associated types have been resolved to concrete types
-to aid the understanding of the diagram.
+The `Service`s which have the Observer protocol implemented are the following:
+
+-   UserService
+-   EventService
+-   TripService
+-   FriendService
+
+The association between these Services and the ViewModels which rely on them can
+be seen in the diagram below:
+
+![All classes with observer
+implemented](./diagrams/final-report/observer-all-relevant-classes.svg)
+_Note: Methods have been ommitted for simplicity_
+
+#### Sample interaction: User Service
+
+The diagram below shows an example of how the observer pattern is set
+up within the `UserService`. The associated types within the protocols have been
+resolved to concrete types to aid the understanding of the diagram.
 
 ![UserService Observer](./diagrams/final-report/user-observer.svg)
 
@@ -281,6 +299,19 @@ are not directly linked (rather, they are linked through the
 that rely on the `UserService`. A new ViewModel can easily be created, subclass
 the `UserObserver` class, and register itself with the `UserService` to be
 notified when a model changes.
+
+#### Updating data
+
+We've provided a diagram showing how the `ViewModel` is registered as an
+observer of the service under [flow of data](#flow-of-data). However, when a
+model is updated by the service, the observer pattern allows the `ViewModel`s to
+be notified of a change without a new `ViewModel` being instantiated. This is
+because the observer pattern allows the `Service` to directly notify observing
+`ViewModels` that the associated underlying model has changed. We demonstrate
+how that interaction works in the diagram below:
+
+![Updating data](./diagrams/final-report/on-update-viewmodel.svg)
+
 ## Live location sharing
 
 The live location sharing is one of the key features of the application. The
