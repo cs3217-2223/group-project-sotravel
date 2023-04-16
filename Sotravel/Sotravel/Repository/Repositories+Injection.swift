@@ -14,6 +14,5 @@ extension Resolver {
         register { EventRepositoryNode() }.implements(EventRepository.self)
         register { TripRepositoryNode() }.implements(TripRepository.self)
         register { ChatRepositoryFirebase() }.implements(ChatRepository.self)
-        register { ServiceErrorHandler() }
     }
 }

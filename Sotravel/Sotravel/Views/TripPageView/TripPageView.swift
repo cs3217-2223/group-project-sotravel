@@ -69,27 +69,13 @@ struct TripPageView: View {
 
         // Add any additional actions you want to perform when a tab is tapped
         if selectedTab == 1 {
-            if let tripId = tripService.getCurrTripId(), let userId = userService.userId {
+            if let tripId = tripService.getCurrTripId(), let userId = userService.currentUserId {
                 eventService.reloadUserEvents(forTrip: tripId, userId: userId)
             }
         } else if selectedTab == 3 {
-            if let user = userService.getUser() {
+            if let user = userService.getCurrentUser() {
                 let eventIds = eventService.findAttendingEventsId(for: user)
                 chatService.fetchChatPageCells(ids: eventIds)
-            }
-        } else if selectedTab == 4 {
-            if let tripId = tripService.getCurrTripId(),
-               let userId = userService.userId {
-                userService.reloadUser { success in
-                    if !success {
-
-                    }
-                }
-                friendService.reloadFriends(tripId: tripId, for: userId) { success in
-                    if !success {
-
-                    }
-                }
             }
         }
     }

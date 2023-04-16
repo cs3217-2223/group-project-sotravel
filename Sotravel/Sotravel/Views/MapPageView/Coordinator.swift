@@ -75,7 +75,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
             if !customAnnotation.isUser {
                 parent.selectedFriend = parent.friendService.get(id: customAnnotation.userId)
             } else {
-                parent.selectedFriend = parent.userService.getUser()
+                parent.selectedFriend = parent.userService.getCurrentUser()
             }
         }
     }

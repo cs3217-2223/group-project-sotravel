@@ -22,7 +22,7 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
     @Injected private var userRepository: UserRepository
     @Injected private var serviceErrorHandler: ServiceErrorHandler
 
-    var userId: UUID? {
+    var currentUserId: UUID? {
         if let uuidString = UserDefaults.standard.string(forKey: userIdKey) {
             return UUID(uuidString: uuidString)
         } else {
@@ -35,8 +35,8 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
         super.init()
     }
 
-    func getUser() -> User? {
-        self.getOptional(optionalId: userId)
+    func getCurrentUser() -> User? {
+        self.getOptional(optionalId: currentUserId)
     }
 
     func storeUserId(id: UUID) {
@@ -45,7 +45,9 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
 
     func logout() {
         self.isLoggedIn = false
+        self.clearAllObservers()
         self.observers = [:]
+        self.clearCache()
         UserDefaults.standard.resetLogin()
         UserDefaults.standard.resetLastSelectedTrip()
         UserDefaults.standard.resetApiKey()
@@ -54,15 +56,10 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
     func emailSignin(email: String, password: String, completion: @escaping (Bool, UUID?) -> Void) {
         Task {
             do {
-                if let fetchedUser = try await userRepository.emailSignin(email: email, password: password) {
-                    DispatchQueue.main.async {
-                        self.initCache(from: [fetchedUser])
-                        self.objectWillChange.send()
-                        completion(true, fetchedUser.id)
-                    }
-                } else {
-                    completion(false, nil)
-                }
+                let fetchedUser = try await userRepository.emailSignin(email: email, password: password)
+                cacheUser(user: fetchedUser, completion: { success in
+                    completion(success, fetchedUser?.id)
+                })
             } catch {
                 serviceErrorHandler.handle(error)
                 completion(false, nil)
@@ -75,15 +72,10 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
     func emailSignup(email: String, password: String, completion: @escaping (Bool, UUID?) -> Void) {
         Task {
             do {
-                if let fetchedUser = try await userRepository.emailSignup(email: email, password: password) {
-                    DispatchQueue.main.async {
-                        self.initCache(from: [fetchedUser])
-                        self.objectWillChange.send()
-                        completion(true, fetchedUser.id)
-                    }
-                } else {
-                    completion(false, nil)
-                }
+                let fetchedUser = try await userRepository.emailSignup(email: email, password: password)
+                cacheUser(user: fetchedUser, completion: { success in
+                    completion(success, fetchedUser?.id)
+                })
             } catch {
                 serviceErrorHandler.handle(error)
                 completion(false, nil)
@@ -91,29 +83,47 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
         }
     }
 
-    func fetchUser(id: UUID, completion: @escaping (Bool) -> Void) {
+    func fetchAndCacheUserInBackground(id: UUID, completion: ((Bool) -> Void)?) {
         Task {
             do {
-                if let fetchedUser = try await userRepository.get(id: id) {
-                    DispatchQueue.main.async {
-                        self.initCache(from: [fetchedUser])
-                        self.objectWillChange.send()
-                        completion(true)
-                    }
-                } else {
-                    completion(false)
-                }
+                let fetchedUser = try await userRepository.get(id: id)
+                cacheUser(user: fetchedUser, completion: completion)
             } catch {
                 serviceErrorHandler.handle(error)
-                completion(false)
+                completion?(false)
             }
+        }
+    }
+
+    func getUser(userId: UUID, completion: ((Bool) -> Void)? = { _ in }) async throws -> User {
+        if let user = self.getOptional(optionalId: userId) {
+            return user
+        }
+
+        let fetchedUser = try await userRepository.get(id: userId)
+        guard let fetchedUser = fetchedUser else {
+            throw SotravelError.message("Unable to get user, returned nil")
+        }
+        cacheUser(user: fetchedUser, completion: completion)
+        return fetchedUser
+    }
+
+    private func cacheUser(user: User?, completion: ((Bool) -> Void)?) {
+        if let fetchedUser = user {
+            DispatchQueue.main.async {
+                self.updateCache(from: fetchedUser)
+                self.objectWillChange.send()
+                completion?(true)
+            }
+        } else {
+            completion?(false)
         }
     }
 
     func updateUser() {
         Task {
             do {
-                guard let user = getOptional(optionalId: userId) else {
+                guard let user = getCurrentUser() else {
                     return
                 }
                 guard let updatedUser = try await userRepository.update(user: user) else {
@@ -121,7 +131,9 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
                 }
                 self.updateCache(from: updatedUser)
                 self.notifyAll(for: updatedUser)
-                self.objectWillChange.send()
+                DispatchQueue.main.async {
+                    self.objectWillChange.send()
+                }
             } catch {
                 serviceErrorHandler.handle(error)
             }
@@ -129,13 +141,13 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
     }
 
     func reloadUser(completion: @escaping (Bool) -> Void) {
-        guard let userId = userId else {
+        guard let userId = currentUserId else {
             return
         }
 
-        fetchUser(id: userId) { success in
+        fetchAndCacheUserInBackground(id: userId) { success in
             if success {
-                if let user = self.getUser() {
+                if let user = self.getCurrentUser() {
                     self.notifyAll(for: user)
                     self.objectWillChange.send()
                 }
@@ -151,7 +163,7 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
                   description: String,
                   instagramUsername: String,
                   tiktokUsername: String) {
-        guard let user = getOptional(optionalId: userId) else {
+        guard let user = getOptional(optionalId: currentUserId) else {
             return
         }
         user.updateFirstName(firstName)
@@ -173,7 +185,7 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
     }
 
     func getProfileHeaderViewModel() -> ProfileHeaderViewModel? {
-        guard let user = self.getUser() else {
+        guard let user = self.getCurrentUser() else {
             return nil
         }
 
@@ -187,7 +199,7 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
     }
 
     func getEditProfileViewModel() -> EditProfileViewModel? {
-        guard let user = self.getUser() else {
+        guard let user = self.getCurrentUser() else {
             return nil
         }
 
@@ -201,7 +213,7 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
     }
 
     func getSocialMediaLinksViewModel() -> SocialMediaLinksViewModel? {
-        guard let user = self.getUser() else {
+        guard let user = self.getCurrentUser() else {
             return nil
         }
 

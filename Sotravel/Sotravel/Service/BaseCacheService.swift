@@ -16,7 +16,7 @@ class BaseCacheService<T: Identifiable> {
     }
 
     func get(id: T.ID) -> T? {
-        cache[id]
+        self.cache[id]
     }
 
     func getOptional(optionalId: T.ID?) -> T? {
@@ -45,16 +45,16 @@ class BaseCacheService<T: Identifiable> {
     }
 
     func updateCache(from item: T) {
-        cache[item.id] = item
+        self.cache[item.id] = item
     }
 
     func remove(item: T.ID) {
-        cache[item] = nil
+        self.cache[item] = nil
     }
 
     func updateCacheInLoop(from items: [T]) {
         for item in items where cache[item.id] == nil {
-            cache[item.id] = item
+            self.cache[item.id] = item
         }
     }
 }
