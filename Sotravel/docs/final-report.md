@@ -112,6 +112,8 @@ The high level idea is as follows:
 
     -   The diagram below shows how a repository gets data from a REST API
         ![How repository gets data](./diagrams/sprint-2-report/repository-seq.svg)
+    -   The way a repository gets data from a (Firebase) database is similar:
+        ![How firebase repository gets data](./diagrams/final-report/firebase-repository-seq.svg)
 -   A service exists for that data model. It contains a dependency-injected
     repository. The service converts the model into a view model which the view
     can consume

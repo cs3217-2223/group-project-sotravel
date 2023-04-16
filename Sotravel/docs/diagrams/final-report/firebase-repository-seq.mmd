@@ -1,0 +1,10 @@
+sequenceDiagram
+    Caller-->>+Repository: Request for data from server
+    Repository->>+Firebase API: Request data
+    Firebase API->>+Database: Perform HTTP request to server
+    Database-->>-Firebase API: 
+    Firebase API-->>-Repository: Return data as JSON string
+    Repository-->>+Repository: Serialise JSON to ApiModel
+    Repository-->>+Repository: Convert ApiModels to Model
+    Repository-->>-Caller: Return Model
+    
