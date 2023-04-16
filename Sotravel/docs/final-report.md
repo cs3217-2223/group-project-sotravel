@@ -336,16 +336,8 @@ The next diagram shows which `ViewModel`s implement the Observer protocol:
 ![ViewModels with observer](./diagrams/final-report/observer-vm-side.svg)
 _Note: Methods have been ommitted for simplicity_
 
-#### Sample interaction: User Service
-
-The diagram below shows an example of how the observer pattern is set
-up within the `UserService`. The associated types within the protocols have been
-resolved to concrete types to aid the understanding of the diagram.
-
-![UserService Observer](./diagrams/final-report/user-observer.svg)
-
-To see a sample of how the User Service is set up, please proceed to [sample
-interactions](#sample-interaction-user-service)
+For a sample on how a service implements the Observer protocol, please see
+[Structure of User Service and Observer](#structure-of-user-service-and-observer)
 
 #### Updating data
 
@@ -747,4 +739,18 @@ up the friend retrieval process, with a roughly 20x improvement in speed.
 
 # Tests
 
-Please see [Tests](./tests.md)
+## Testing Strategy
+
+We used glass box testing to write an exposition of the test cases we wish to
+use. Due to time limitations and a requirement to have the app live for an
+ongoing trip, we didn't have time to write explici test cases. The exposition of
+our test cases can be found [here](./tests.md)
+
+In addition, we found it hard to write explicit test cases for the real-time
+synchronisation across firebase. Consequently, we relied on manual testing with
+multiple devices to ensure that the chat and location functionality work as
+intended.
+
+We have an existing backend server using RESTful APIs which is developed by the
+Sotravel team. The backend server's APIs were manually tested using Postman to
+ensure that the APIs work as intended.
