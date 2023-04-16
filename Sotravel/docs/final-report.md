@@ -156,6 +156,8 @@ the ViewModel. Greater detail on how the Observers are set up can be found below
 under the section
 [Service-ViewModel observer relationship](#service-viewmodel-observer-relationship)
 
+<div class="page"/>
+
 ## Models
 
 The application has 5 key models it makes use of. They are defined below.
@@ -230,6 +232,8 @@ constructor to specify which specific sub-type of `ApiModel` it is able to
 convert. This improves type safety within the application and prevents issues
 such as a User model trying to be initialised from an Event API model.
 
+<div class="page"/>
+
 The code snippet that handles this conversion can be found in the file
 [DecoderHelper.swift](https://github.com/DrWala/sotravel-ios-app/blob/main/Sotravel/Sotravel/NodeRepository/DecoderHelper.swift).
 It has been replicated below as well:
@@ -251,6 +255,8 @@ static func decodeToClass<ReturnType: ConvertableFromApiModel>(data: String, loc
 ```
 
 A similar snippet exists to decode into lists instead of singular types as well.
+
+<div class="page"/>
 
 ## Services
 
@@ -356,6 +362,8 @@ how that interaction works in the diagram below:
 
 ![Updating data](./diagrams/final-report/on-update-viewmodel.svg)
 
+<div class="page"/>
+
 ### Caching
 
 We've implemented a custom caching layer that allows for data to be cached and
@@ -382,6 +390,8 @@ as a generic class with default implementations of all the methods within the
 class. This allows the the `BaseCacheService` to easily be subclassed and
 provide extensive caching functionality to any class that extends from it.
 
+<div class="page"/>
+
 ## Live location sharing
 
 The live location sharing is one of the key features of the application. The
@@ -405,6 +415,8 @@ shown below:
 ![Location Management class
 diagram](./diagrams/sprint-2-report/map-class-diagram.svg)
 
+<div class="page"/>
+
 ### Location Management: Flow of data
 
 The `LocationManager` resolves the user's current location via GPS, while the
@@ -421,6 +433,8 @@ well as how friends' locations are retrieved and updated on the map can be seen
 below:
 ![Location Management Sequence
 Diagram](./diagrams/sprint-2-report/map-location-update-seq.svg)
+
+<div class="page"/>
 
 ## Sample Interactions
 
@@ -441,6 +455,8 @@ are not directly linked (rather, they are linked through the
 that rely on the `UserService`. A new ViewModel can easily be created, subclass
 the `UserObserver` class, and register itself with the `UserService` to be
 notified when a model changes.
+
+<div class="page"/>
 
 ### Get User Profile
 
@@ -464,8 +480,8 @@ Flow](./diagrams/final-report/user-profile-vm-seq.svg)
 Notice how the cache and observer protocol come together here. The `UserService`
 first attempts to retrieve the requested `ProfileHeaderViewModel` from the set
 of Observers. If it does not exist, it then proceeds to consruct the
-`ProfileHeaderViewModel`. The `User` model is first attempted to be retrieved from
-the cache. Should it fail, it then proceeds to get the `User` from the
+`ProfileHeaderViewModel`. The `User` model is first attempted to be retrieved
+from the cache. Should it fail, it then proceeds to get the `User` from the
 repository. Following that, it constructs the `ProfileHeaderViewModel`, and sets
 it up as an observer to the `UserService`. This ensures that when the underlying
 `User` changes, `ProfileHeaderViewModel` can easuly update too.
@@ -474,7 +490,7 @@ it up as an observer to the `UserService`. This ensures that when the underlying
 
 This section aims to explain how the `ChatPageCellViewModel` is populated.
 
-The `ChatPageCellViewModel` is derived from the `Chat` model. It gets its 
+The `ChatPageCellViewModel` is derived from the `Chat` model. It gets its
 information from the `ChatService` and `ChatRepository` classes. The interaction
 between the classes can be seen below.
 
@@ -488,13 +504,16 @@ being retrieved and how the Observer relationship is set up.
 ![Chat Page Cell Gathering
 Flow](./diagrams/sprint-2-report/chat-page-cell-vm-seq.svg)
 
-The `ChatRepository` class first gets the basic data of the `Chat` and constructs it 
-into a `ChatBasicInfoApiModel`, the fields of which correspond to how it is stored
-in the database. Then, it gets the message from the message ID and similarly
-constructs it into a `ChatMessageApiModel`. A small difference with the above section
-is that the `ChatRepository` also attaches a listener with a callback function
-to the database. What this does is to let the database know to execute the
-callback function (with the new data) whenever the data along that path is updated.
+The `ChatRepository` class first gets the basic data of the `Chat` and
+constructs it into a `ChatBasicInfoApiModel`, the fields of which correspond to
+how it is stored in the database. Then, it gets the message from the message ID
+and similarly constructs it into a `ChatMessageApiModel`. A small difference
+with the above section is that the `ChatRepository` also attaches a listener
+with a callback function to the database. What this does is to let the database
+know to execute the callback function (with the new data) whenever the data
+along that path is updated.
+
+<div class="page"/>
 
 ## Error handling
 
@@ -575,7 +594,7 @@ approach could introduce circular dependencies between the Model and the
 ViewModel. Proper architecture and design patterns would need to be employed to
 prevent this issue.
 
-### Comparison with the current implementation
+#### Comparison with the current implementation
 
 In the current implementation, the UserService implements the Subject protocol,
 and the ViewModel implements the Observer protocol. This approach has several
@@ -622,24 +641,26 @@ The decision to not use the Observer pattern for chat came down to 3 main concer
 
 **Complexity:** Adding the Observer pattern for chat would greatly increase the
 complexity of the current chat service. In addition, the added complexity would
-decrease the overall readability of the code. Part of this stems from the polling
-nature of the chat repository (the callback function needed from the Service), 
-which was not a factor for the other services.
+decrease the overall readability of the code. Part of this stems from the
+polling nature of the chat repository (the callback function needed from the
+Service), which was not a factor for the other services.
 
-**Separating Model and ViewModel:** The implementation of the chat service cleanly
-separates the Model and the ViewModel, with neither needing to "know" about the
-other. This allows for the Service to function as the "bridge" between the two, thus
-changes to either the Model or the ViewModel can be handled in a single place.
-Implementing the Observer pattern in chat entails that the ViewModel know about certain
-aspects of the Model, which might make it difficult for future changes of either.
+**Separating Model and ViewModel:** The implementation of the chat service
+cleanly separates the Model and the ViewModel, with neither needing to "know"
+about the other. This allows for the Service to function as the "bridge" between
+the two, thus changes to either the Model or the ViewModel can be handled in a
+single place. Implementing the Observer pattern in chat entails that the
+ViewModel know about certain aspects of the Model, which might make it difficult
+for future changes of either.
 
-**Performance:** This was what we considered to be the biggest issue, and which does 
-not affect the other Services as much. As chat needs to be sorted (either in the chat 
-page cells or in the chat messages), implementing the Observer pattern means that the 
-ViewModels need to be sorted every time they are required. With a large number of 
-messages, as might very likely be the case, this constant sorting presents a huge 
-performance concern. In contrast, keeping to the same approach allows us to maintain 
-a sorted array that can be taken as-is, without needing to be sorted each time.
+**Performance:** This was what we considered to be the biggest issue, and which
+does not affect the other Services as much. As chat needs to be sorted (either
+in the chat page cells or in the chat messages), implementing the Observer
+pattern means that the ViewModels need to be sorted every time they are
+required. With a large number of messages, as might very likely be the case,
+this constant sorting presents a huge performance concern. In contrast, keeping
+to the same approach allows us to maintain a sorted array that can be taken
+as-is, without needing to be sorted each time.
 
 ### Delegate pattern
 
@@ -753,6 +774,8 @@ ProfileImageView, LoginButtonView, and SafariView:
    code but also ensures that any future updates to the web view behavior will
    be automatically propagated to all instances of the component.
 
+<div class="page"/>
+
 ## Async-Await and asynchronous processing
 
 Most functions within the application are async functions, greatly improving
@@ -767,6 +790,8 @@ concurrently. The best example of this is in the
 `FriendService#getUsersFromUserIds` method where we concurrently resolve a list
 of UserIds to User objects using `withThrowingTaskGroup`. This has greatly sped
 up the friend retrieval process, with a roughly 20x improvement in speed.
+
+<div class="page"/>
 
 # Roles and contributions
 
@@ -841,27 +866,32 @@ up the friend retrieval process, with a roughly 20x improvement in speed.
       efficient data flow between the presentation and service layers and
       ensuring application responsiveness and performance as the project grows.
 1. Neo Wei Qing
-    - Implemented the service layer for chat, focusing on encapsulating business logic
-      and extensibility for future development and changing requirements. Also considered varied
-      approaches in an effort to improve performance and efficiency, in particular for the large
-      amounts of chat messages that would inevitable come in.
-    - Updated and refactored a number of views to better abstract out internal program logic
-      and to ensure that the view is only concerned with what is to be presented to the user.
-    - Implemented real-time updating for chat and chat previews in other views, which involved
-      several design patterns related to callbacks and polling, while simultaneously optimising
-      for performance and scalability.
-    - Developed the data structure for chat that would enable easy conversion of data from the
-      ApiModel to the Model and finally to the ViewModel. Implemented the repository layer
-      for chat to better serve this function and perform key operations such as listening and
-      updating.
-    - Ensured that the links to chat from other components, such as chat previews were properly
-      handled and exposed several functions that made it easy for chat to be seamlessly integrated
-      in with the main portion of the app.
-    - Created some diagrams to help visualize project architecture and data flow in particular
-      for the repository portion as that used a different repository pattern from other
-      parts of the app.
-    - Conformed to the scalable project architecture as proposed by Azeem and Weiqiang, with 
-      benefits as described above.
+    - Implemented the service layer for chat, focusing on encapsulating business
+      logic and extensibility for future development and changing requirements.
+      Also considered varied approaches in an effort to improve performance and
+      efficiency, in particular for the large amounts of chat messages that
+      would inevitable come in.
+    - Updated and refactored a number of views to better abstract out internal
+      program logic and to ensure that the view is only concerned with what is
+      to be presented to the user.
+    - Implemented real-time updating for chat and chat previews in other views,
+      which involved several design patterns related to callbacks and polling,
+      while simultaneously optimising for performance and scalability.
+    - Developed the data structure for chat that would enable easy conversion of
+      data from the ApiModel to the Model and finally to the ViewModel.
+      Implemented the repository layer for chat to better serve this function
+      and perform key operations such as listening and updating.
+    - Ensured that the links to chat from other components, such as chat
+      previews were properly handled and exposed several functions that made it
+      easy for chat to be seamlessly integrated in with the main portion of the
+      app.
+    - Created some diagrams to help visualize project architecture and data flow
+      in particular for the repository portion as that used a different
+      repository pattern from other parts of the app.
+    - Conformed to the scalable project architecture as proposed by Azeem and
+      Weiqiang, with benefits as described above.
+
+<div class="page"/>
 
 # Reflection
 
