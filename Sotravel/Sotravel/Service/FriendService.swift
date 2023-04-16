@@ -95,12 +95,21 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     }
 
     func getUsersFromUserIds(userIds: [UUID]) async throws -> [User] {
-        var users: [User] = []
-        for id in userIds {
-            let user = try await self.userService.getUser(userId: id)
-            users.append(user)
-        }
-        return users
+        let result: [User] = []
+        return try await withThrowingTaskGroup(of: User.self, body: {group in
+            for id in userIds {
+                group.addTask { try await self.userService.getUser(userId: id) }
+            }
+            return try await group.reduce(into: result) { acc, curr in
+                acc.append(curr)
+            }
+        })
+        //        var users: [User] = []
+        //        for id in userIds {
+        //            let user = try await self.userService.getUser(userId: id)
+        //            users.append(user)
+        //        }
+        //        return users
     }
 
     func clear() {

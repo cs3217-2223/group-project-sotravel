@@ -129,9 +129,9 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
                 guard let updatedUser = try await userRepository.update(user: user) else {
                     return
                 }
+                self.updateCache(from: updatedUser)
+                self.notifyAll(for: updatedUser)
                 DispatchQueue.main.async {
-                    self.updateCache(from: updatedUser)
-                    self.notifyAll(for: updatedUser)
                     self.objectWillChange.send()
                 }
             } catch {
