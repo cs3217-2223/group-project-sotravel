@@ -843,7 +843,6 @@ create powerful and reusable abstractions.
     blacklisted and reduce spam for users. We will still continue to implement
     the deeplink so that the host can still send event RSVP links on Telegram
     without the bot.
--
 
 # Tests
 
