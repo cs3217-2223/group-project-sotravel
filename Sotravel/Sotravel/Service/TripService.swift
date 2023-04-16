@@ -71,17 +71,18 @@ class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
         }
     }
 
-    func reloadUserTrips(userId: UUID, completion: @escaping () -> Void) {
+    func reloadUserTrips(userId: UUID, completion: @escaping (Bool) -> Void) {
         Task {
             do {
                 let trips = try await tripRepository.getTrips(userId: userId)
                 DispatchQueue.main.async {
                     self.updateCacheAndViewModels(from: trips)
                     self.objectWillChange.send()
-                    completion()
+                    completion(true)
                 }
             } catch {
                 serviceErrorHandler.handle(error)
+                completion(false)
             }
         }
     }
@@ -102,6 +103,7 @@ class TripService: BaseCacheService<Trip>, ObservableObject, Subject {
     func clear() {
         self.selectedTrip = nil
         self.lastSelectedTripId = nil
+        self.clearAllObservers()
         self.observers = [:]
         super.clearCache()
     }

@@ -88,12 +88,14 @@ struct TripsPageView: View {
                     print("Fatal error, userId not found")
                     return
                 }
-                tripService.reloadUserTrips(userId: userId) {
+
+                tripService.reloadUserTrips(userId: userId) { _ in
 
                 }
             }
         }
     }
+
 }
 
 struct TripsPageView_Previews: PreviewProvider {

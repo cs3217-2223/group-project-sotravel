@@ -32,22 +32,19 @@ class TripRepositoryNode: TripRepository {
 
         do {
             let friendIds = try JSONDecoder().decode([String].self, from: Data(data.utf8))
-            let results: [User] = []
+            var results: [User] = []
 
-            return try await withThrowingTaskGroup(of: (User?).self) {group in
-                for id in friendIds {
-                    guard let idAsUUID = UUID(uuidString: id) else {
-                        continue
-                    }
-                    group.addTask { try await self.userRepository.get(id: idAsUUID) }
+            for id in friendIds {
+                guard let idAsUUID = UUID(uuidString: id) else {
+                    continue
                 }
-
-                return try await group.reduce(into: results) {acc, curr in
-                    if let curr = curr {
-                        acc.append(curr)
-                    }
+                let user = try await self.userRepository.get(id: idAsUUID)
+                guard let user = user else {
+                    continue
                 }
+                results.append(user)
             }
+            return results
         } catch is DecodingError {
             throw SotravelError.DecodingError("Unable to parse Get Friends response")
         } catch {

@@ -169,6 +169,7 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
 
     func changeTrip() {
         self.clearAllObservers()
+        super.clearCache()
     }
 
     func getProfileHeaderViewModel() -> ProfileHeaderViewModel? {

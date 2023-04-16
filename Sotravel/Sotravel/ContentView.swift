@@ -77,7 +77,7 @@ struct ContentView: View {
                     print("Fatal error, userId not found")
                     return
                 }
-                self.tripService.reloadUserTrips(userId: userId) {
+                self.tripService.reloadUserTrips(userId: userId) { _ in
                     DispatchQueue.main.async {
                         if !self.timeoutReached {
                             self.isTripRefreshed = true

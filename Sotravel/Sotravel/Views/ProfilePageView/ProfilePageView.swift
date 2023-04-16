@@ -24,6 +24,8 @@ struct ProfilePageView: View {
                     Divider()
                     if let vm = friendService.getProfileFriendsViewModel() {
                         ProfileFriendsView(viewModel: vm)
+                    } else {
+
                     }
                     Spacer()
                     Divider()
@@ -91,7 +93,7 @@ struct ProfilePageView: View {
             return
         }
         // Reload the trips
-        tripService.reloadUserTrips(userId: userId) {
+        tripService.reloadUserTrips(userId: userId) { _ in
 
         }
     }
@@ -105,11 +107,11 @@ struct ProfilePageView: View {
     }
 
     private func changeTrip() {
-        userService.changeTrip()
         eventService.clear()
         tripService.clear()
         chatService.clear()
         friendService.clear()
+        userService.changeTrip()
     }
 }
 

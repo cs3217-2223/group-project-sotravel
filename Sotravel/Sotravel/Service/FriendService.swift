@@ -17,6 +17,8 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
 
     internal var observers: [ObservedData: [ObserverProtocol]]
 
+    private var tasks: [Task<Void, Never>] = []
+
     override init() {
         self.observers = [:]
         super.init()
@@ -47,7 +49,7 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     }
 
     func fetchAllFriends(tripId: Int, for user: UUID) {
-        Task {
+        let task = Task {
             do {
                 let fetchedFriends = try await tripRepository.getAllUsersOnTrip(tripId: tripId)
                 DispatchQueue.main.async {
@@ -59,10 +61,11 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
                 serviceErrorHandler.handle(error)
             }
         }
+        tasks.append(task)
     }
 
     func reloadFriends(tripId: Int, for user: UUID, completion: @escaping (Bool) -> Void) {
-        Task {
+        let task = Task {
             do {
                 let fetchedFriends = try await tripRepository.getAllUsersOnTrip(tripId: tripId)
                 DispatchQueue.main.async {
@@ -77,6 +80,7 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
                 completion(false)
             }
         }
+        tasks.append(task)
     }
 
     func createTempFriendsSocialMediaLinkVM(for friend: User) -> SocialMediaLinksViewModel {
@@ -86,6 +90,12 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     }
 
     func clear() {
+        // Cancel all tasks
+        for task in tasks {
+            task.cancel()
+        }
+        tasks.removeAll()
+
         self.clearCache()
         self.clearAllObservers()
         self.observers = [:]
