@@ -114,6 +114,7 @@ The high level idea is as follows:
         ![How repository gets data](./diagrams/sprint-2-report/repository-seq.svg)
     -   The way a repository gets data from a (Firebase) database is similar:
         ![How firebase repository gets data](./diagrams/final-report/firebase-repository-seq.svg)
+
 -   A service exists for that data model. It contains a dependency-injected
     repository. The service converts the model into a view model which the view
     can consume
@@ -504,6 +505,12 @@ Ideally, we hope to ensure that there is an exception handler that automatically
 triggers when errors are bubbled to the view layer.
 
 ### Frontend
+
+We created the `ViewAlertController` as a reusable component that all views can
+make use of to display errors. This component will show a specified error
+message and contain buttons to dismiss the message. By centralising to a
+singular component to display errors, we follow the DRY (don't repeat yourself)
+princple and abstract the error dialog to one location.
 
 ## Design Patterns Utilised
 
