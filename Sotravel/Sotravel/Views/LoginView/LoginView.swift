@@ -86,7 +86,7 @@ struct LoginView: View {
                             return
                         }
                         userService.storeUserId(id: id)
-                        userService.fetchUser(id: id) { success in
+                        userService.fetchAndCacheUserInBackground(id: id) { success in
                             if !success {
                                 isLoading = false
                                 return

@@ -74,7 +74,7 @@ struct InvitePageView: View {
 
     @MainActor
     private func refreshEvents() async {
-        guard let userId = userService.userId, let tripId = tripService.getCurrTripId() else {
+        guard let userId = userService.currentUserId, let tripId = tripService.getCurrTripId() else {
             return
         }
         eventService.reloadUserEvents(forTrip: tripId, userId: userId)

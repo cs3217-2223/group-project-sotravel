@@ -13,6 +13,7 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     typealias ObserverProtocol = UsersObserver
 
     @Injected private var tripRepository: TripRepository
+    @Injected private var userService: UserService
     @Injected private var serviceErrorHandler: ServiceErrorHandler
 
     internal var observers: [ObservedData: [ObserverProtocol]]
@@ -27,7 +28,8 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     func getProfileFriendsViewModel() -> ProfileFriendsViewModel {
         let friends = self.getAll()
 
-        if let existingViewModel = self.getObservers(for: friends)?.compactMap({ $0 as? ProfileFriendsViewModel }).first {
+        if let existingViewModel = self.getObservers(for: friends)?
+            .compactMap({ $0 as? ProfileFriendsViewModel }).first {
             return existingViewModel
         } else {
             let newViewModel = ProfileFriendsViewModel(friends: friends)
@@ -39,7 +41,8 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     func getCreateInvitePageViewModel() -> CreateInvitePageViewModel? {
         let friends = self.getAll()
 
-        if let existingViewModel = self.getObservers(for: friends)?.compactMap({ $0 as? CreateInvitePageViewModel }).first {
+        if let existingViewModel = self.getObservers(for: friends)?
+            .compactMap({ $0 as? CreateInvitePageViewModel }).first {
             return existingViewModel
         } else {
             let newViewModel = CreateInvitePageViewModel(friends: friends)
@@ -51,10 +54,11 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     func fetchAllFriends(tripId: Int, for user: UUID) {
         let task = Task {
             do {
-                let fetchedFriends = try await tripRepository.getAllUsersOnTrip(tripId: tripId)
+                let fetchedFriendIds = try await tripRepository.getAllUsersOnTrip(tripId: tripId)
+                let filteredFriendIds = fetchedFriendIds.filter { $0 != user }
+                let friends = try await getUsersFromUserIds(userIds: filteredFriendIds)
+                self.initCache(from: friends)
                 DispatchQueue.main.async {
-                    let filteredFriends = fetchedFriends.filter { $0.id != user }
-                    self.initCache(from: filteredFriends)
                     self.objectWillChange.send()
                 }
             } catch {
@@ -67,11 +71,12 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
     func reloadFriends(tripId: Int, for user: UUID, completion: @escaping (Bool) -> Void) {
         let task = Task {
             do {
-                let fetchedFriends = try await tripRepository.getAllUsersOnTrip(tripId: tripId)
+                let fetchedFriendIds = try await tripRepository.getAllUsersOnTrip(tripId: tripId)
+                let filteredFriendIds = fetchedFriendIds.filter { $0 != user }
+                let friends = try await getUsersFromUserIds(userIds: filteredFriendIds)
+                self.updateCacheInLoop(from: friends)
+                self.notifyAll(for: friends)
                 DispatchQueue.main.async {
-                    let filteredFriends = fetchedFriends.filter { $0.id != user }
-                    self.updateCacheInLoop(from: filteredFriends)
-                    self.notifyAll(for: filteredFriends)
                     self.objectWillChange.send()
                     completion(true)
                 }
@@ -87,6 +92,24 @@ class FriendService: BaseCacheService<User>, ObservableObject, Subject {
         SocialMediaLinksViewModel(instagramUsername: friend.instagramUsername ?? "",
                                   tiktokUsername: friend.tiktokUsername ?? "",
                                   telegramUsername: friend.telegramUsername ?? "")
+    }
+
+    func getUsersFromUserIds(userIds: [UUID]) async throws -> [User] {
+        let result: [User] = []
+        return try await withThrowingTaskGroup(of: User.self, body: {group in
+            for id in userIds {
+                group.addTask { try await self.userService.getUser(userId: id) }
+            }
+            return try await group.reduce(into: result) { acc, curr in
+                acc.append(curr)
+            }
+        })
+        //        var users: [User] = []
+        //        for id in userIds {
+        //            let user = try await self.userService.getUser(userId: id)
+        //            users.append(user)
+        //        }
+        //        return users
     }
 
     func clear() {
