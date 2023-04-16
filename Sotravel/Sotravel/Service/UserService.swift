@@ -45,7 +45,9 @@ class UserService: BaseCacheService<User>, ObservableObject, Subject {
 
     func logout() {
         self.isLoggedIn = false
+        self.clearAllObservers()
         self.observers = [:]
+        self.clearCache()
         UserDefaults.standard.resetLogin()
         UserDefaults.standard.resetLastSelectedTrip()
         UserDefaults.standard.resetApiKey()
