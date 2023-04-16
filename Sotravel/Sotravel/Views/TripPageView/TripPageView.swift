@@ -77,8 +77,6 @@ struct TripPageView: View {
                 let eventIds = eventService.findAttendingEventsId(for: user)
                 chatService.fetchChatPageCells(ids: eventIds)
             }
-        } else if selectedTab == 4 {
-
         }
     }
 
