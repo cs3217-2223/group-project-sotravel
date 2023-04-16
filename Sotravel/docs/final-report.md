@@ -53,7 +53,7 @@ communicate with each other.
 
 # User Manual
 
-Please see [User Manual](./User%20Manual.md)
+Please see [User Manual](./user-manual.pdf)
 
 # Designs
 
@@ -727,6 +727,21 @@ concurrently. The best example of this is in the
 `FriendService#getUsersFromUserIds` method where we concurrently resolve a list
 of UserIds to User objects using `withThrowingTaskGroup`. This has greatly sped
 up the friend retrieval process, with a roughly 20x improvement in speed.
+
+# Roles and contributions
+
+1. Azeem Vasanwala
+    - General project architecture (3-layer architecture, MVVM)
+    - Repository implementation
+    - Dependency injection implementation
+    - Asynchronous processing
+    - Diagramming
+1. Your name here
+    - Things you did here
+    - Things you did here
+    - Things you did here
+    - Things you did here
+    - Things you did here
 
 # Reflection
 
