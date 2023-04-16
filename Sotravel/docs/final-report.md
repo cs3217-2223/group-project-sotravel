@@ -1,4 +1,13 @@
-# Overview
+# CS3217 Final Report: Sotravel
+
+## Team Members
+
+-   Azeem Vasanwala (A0200395M)
+-   Neo Wei Qing (A0217395X)
+-   Wang Rizhao (A0196660W)
+-   Zhang Weiqiang (A0234629Y)
+
+## Overview
 
 The sotravel application is designed to aid the startup
 [sotravel.me](https://sotravel.me) manage their trips.
