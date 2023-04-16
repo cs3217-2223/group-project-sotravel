@@ -734,22 +734,30 @@ up the friend retrieval process, with a roughly 20x improvement in speed.
 
     - Designed project architecture using 3-layer architecture and MVVM pattern,
       to allow for scalability and maintainability.
-    - Implemented repository pattern: Required deep understanding of data
-      model and data manipulation, and allows for easy extension with new data
-      sources or changes to existing data model.
-    - Implemented dependency injection: Required careful planning of
-      component interactions and dependencies, but allows for easy extension with
-      new components or changes to existing ones.
+    - Implemented repository pattern: Required deep understanding of data model
+      and data manipulation, and allows for easy extension with new data sources
+      or changes to existing data model.
+    - Implemented all polling repositories: Worked with Sotravel team to
+      understand API specifications, and implement generic repositories to serve
+      higher layers. Repositories performed key CRUD operations assisted by a
+      generic REST API.
+    - Developed generic transformers to map APIModels to Models to reduce
+      boilerplate
+    - Implemented dependency injection: Required careful planning of component
+      interactions and dependencies, but allows for easy extension with new
+      components or changes to existing ones.
     - Implemented asynchronous processing: Structured all repository layer calls
       to follow async-await pattern allowing client libraries to perform
       concurrent processing. Resulted in 20x increase in some functions without
       blocking the user interface.
-    - Created diagrams to help visualize project architecture and data flow, which
-      required translating complex technical concepts into easily understandable
-      diagrams, and helps communicate project structure to other developers and
-      stakeholders for easier collaboration and maintenance over time.
+    - Created diagrams to help visualize project architecture and data flow,
+      which required translating complex technical concepts into easily
+      understandable diagrams, and helps communicate project structure to other
+      developers and stakeholders for easier collaboration and maintenance over
+      time.
 
 1. Wang Rizhao
+
     - Implemented real-time map feature: Developed an interactive and dynamic
       map that displays and updates relevant information in real-time, enhancing
       user experience.
