@@ -1,0 +1,64 @@
+classDiagram
+    direction RL
+    
+    ProfileHeaderView --> ProfileHeaderVM: Observes
+    ProfileHeaderView --> UserService
+    ProfileHeaderVM --|> UserObserver
+    
+    UserService ..> User
+    UserService --> UserRepository: Has injected reference to
+    UserService ..|> Subject
+    UserService --|> BaseCacheService
+    
+    UserRepository ..> User
+    UserObserver ..|> Observer
+    Subject "1" --> "* "Observer: Has list of
+
+    
+    class ProfileHeaderView { }
+    class ProfileHeaderVM {
+        - name
+        - description
+        - imageURL
+        
+    }
+    class BaseCacheService {
+        <<Generic>>
+    }
+    
+    class UserObserver {
+        updateFrom(user: User)
+    }
+
+    class User { 
+        - id
+        - firstName
+        - lastName
+        - desc
+        - imageURL
+        - instagramUsername
+        - tiktokUsername
+        - telegramUsername
+        - email
+        - friends
+        - name
+    }
+    class UserService {
+        FetchUser(id)
+        UpdateUser()
+        ReloadUser()
+        GetProfileHeaderVM()
+    }
+    class UserRepository {
+        <<interface>>
+        get(): User
+        update(user: User)
+    }
+
+    class Subject {
+        <<Protocol>>
+    }
+
+    class Observer {
+        <<Protocol>>
+    }

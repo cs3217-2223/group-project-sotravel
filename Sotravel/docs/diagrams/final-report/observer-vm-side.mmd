@@ -1,0 +1,39 @@
+classDiagram
+    direction BT
+    
+    UsersObserver ..|> Observer
+    UserObserver ..|> Observer
+    EventObserver ..|> Observer
+    TripObserver ..|> Observer
+
+
+    ProfileHeaderViewModel --|> UserObserver
+    SocialMediaLinksViewModel --|> UserObserver
+    EditProfileViewModel --|> UserObserver
+    ProfileFriendsViewModel --|> UsersObserver
+    CreateInvitePageViewModel --|> UsersObserver
+    EventViewModel --|> EventObserver
+    TripViewModel --|> TripObserver
+
+    Subject "1" --> "* "Observer: Has list of
+    
+   class Subject {
+        <<Protocol>>
+    }
+
+    class Observer {
+        <<Protocol>>
+    }
+    
+    class UsersObserver{ }
+    class UserObserver{ }
+    class EventObserver{ }
+    class TripObserver{ }
+
+    class CreateInvitePageViewModel { }
+    class EditProfileViewModel { }
+    class EventViewModel { }
+    class ProfileFriendsViewModel { }
+    class ProfileHeaderViewModel { }
+    class SocialMediaLinksViewModel { }
+    class TripViewModel { }

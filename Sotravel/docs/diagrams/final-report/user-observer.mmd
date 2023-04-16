@@ -1,0 +1,36 @@
+classDiagram
+    direction LR
+    UserService ..|> Subject
+    ProfileHeaderViewModel --|> UserObserver
+    EditProfileViewModel --|> UserObserver
+    SocialMediaLinksViewModel --|> UserObserver
+    UserObserver ..|> Observer
+    Subject "1" --> "* "Observer: Has list of
+    
+    class Subject {
+        <<Protocol>>
+        - observers: [User: [UserObserver]]
+        initObservers(data: User, obs: [UserObserver])
+        getObservers(data: User): [UserObserver]?
+        addObserver(obs: UserObserver, data: User)
+        removeObserver(obs: UserObserver, data: User)
+        removeAllObservers(for data: User)
+        notifyAll(data: User)
+        clearAllObservers()
+    }
+
+    class Observer {
+        <<Protocol>>
+        updateFrom(data: User)
+        clear()
+    }
+
+    class UserService {
+        - userRespository: UserRepository
+    }
+
+    class ProfileHeaderViewModel { }
+    class EditProfileViewModel { }
+    class SocialMediaLinksViewModel { }
+
+    class UserObserver { }

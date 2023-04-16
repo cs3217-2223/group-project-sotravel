@@ -1,0 +1,15 @@
+sequenceDiagram
+    View->>Service: Request view-specific data
+    Service->>+Repository: Request data from storage
+    Repository-->>-Service: Return data as Model
+    loop for all data
+        Service->>Service: notify observers
+        activate Service
+        loop for all observers
+            Service->>ViewModel: update(from: model)
+            ViewModel->>ViewModel: Update self from Model
+            ViewModel->>View: update View through @Published property
+            View->>View: Render changes
+        end
+        deactivate Service
+    end

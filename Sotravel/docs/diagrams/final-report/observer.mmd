@@ -1,0 +1,33 @@
+classDiagram
+    direction BT
+    Service ..|> Subject
+    ViewModel --|> ModelObserver
+    ModelObserver ..|> Observer
+    Subject "1" --> "* "Observer: Has list of
+    
+    class Subject {
+        <<Protocol>>
+        associtedType ObservedData: Hashable
+        associatedType ObserverProtocol: Observer
+        - observers: [ObservedData: [ObserverProtocol]]
+        initObservers(data: ObservedData, obs: [ObserverProtocol])
+        getObservers(data: ObservedData): [ObserverProtocol]?
+        addObserver(obs: ObserverProtocol, data: ObservedData)
+        removeObserver(obs: ObserverProtocol, data: ObservedData)
+        removeAllObservers(for data: ObservedData)
+        notifyAll(data: ObservedData)
+        clearAllObservers()
+    }
+
+    class Observer {
+        <<Protocol>>
+        associatedtype ObservedData
+        updateFrom(data: ObservedData)
+        clear()
+    }
+
+    class Service { }
+
+    class ViewModel { }
+
+    class ModelObserver { }

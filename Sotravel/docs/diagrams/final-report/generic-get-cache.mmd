@@ -1,0 +1,12 @@
+sequenceDiagram
+    Caller->>Service: Request view-specific data
+    activate Service
+    Service->>Service: get Model from cache
+    opt not in cache
+    Service->>+Repository: Request Model
+    Repository-->>-Service: Return Model
+    Service->>Service: add Model to cache
+    end
+    Service->>Service: continue further processing
+    Service-->>Caller: return
+    deactivate Service

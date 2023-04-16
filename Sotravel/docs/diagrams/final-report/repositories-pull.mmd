@@ -1,0 +1,24 @@
+classDiagram
+    direction TB
+    class UserRepository{
+        <<Protocol>>
+        get(id: UUID) User?
+        update(user: User) User?
+        emailSignin(email: String, password: String) User?
+        emailSignup(email: String, password: String) User?
+    }
+
+    class TripRepository{
+        <<Protocol>>
+        getTrips(userId: UUID) [Trip]
+        getAllUsersOnTrip(tripId: Int) [User]
+    }
+
+    class EventRepository{
+        <<Protocol>>
+        get(id: Int) Event
+        getUserEvents(userId: UUID, tripId: Int) [Event]
+        create(event: Event) Event
+        cancelEvent(id: Int) 
+        rsvpToEvent(eventId: Int, userId: UUID, status: EventRsvpStatus)
+    }

@@ -1,0 +1,33 @@
+classDiagram
+    direction LR
+    UserService --|> BaseCacheService
+    EventService --|> BaseCacheService
+    TripService --|> BaseCacheService
+    FriendService --|> BaseCacheService
+    
+    class BaseCacheService {
+        <<Generic>>
+        - cache: [T.ID: T]
+        get(id: T.ID): T?
+        getOptional(optionalId: T.ID?): T?
+        getAll(): [T]
+        getIds(): [T.ID]
+        clearCache()
+        initCache(from items: [T])
+        updateCache(from item: T)
+        updateCacheInLoop(from items: [T])
+        remove(item: T.ID)
+    }
+
+    class UserService{
+        - userRepository: UserRepository
+    }
+    class EventService{
+        - eventRepository: EventRepository
+    }
+    class TripService{
+        - tripRepository: TripRepository
+    }
+    class FriendService{
+        - tripRepository: TripRepository
+    }

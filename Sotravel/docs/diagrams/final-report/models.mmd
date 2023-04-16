@@ -1,0 +1,45 @@
+classDiagram
+    Chat *-- ChatMessage
+    class Chat{
+      + id: Int
+    }
+    class ChatMessage {
+      + id: UUID
+      + messageText: String
+      + timestamp: Date
+      + sender: UUID
+    }
+    class Event {
+      + id: Int
+      + tripId: Int
+      + title: String
+      + details: String?
+      + status: String?
+      + datetime: Date
+      + meetingPoint: String
+      + location: String
+      + hostUser: UUID
+      + invitedUsers: [UUID]
+      + attendingUsers: [UUID]
+      + rejectedUsers: [UUID]
+    }
+    class Trip {
+      + id: Int
+      + title: String
+      + startDate: Date
+      + endDate: Date
+      + location: String
+      + imageURL: URL
+    }
+    class User {
+      + id: UUID
+      + firstName: String?
+      + lastName: String?
+      + desc: String?
+      + imageURL: String?
+      + instagramUsername: String?
+      + tiktokUsername: String?
+      + telegramUsername: String?
+      + email: String?
+      + friends: [User]
+    }

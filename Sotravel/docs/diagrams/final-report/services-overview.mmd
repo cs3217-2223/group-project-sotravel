@@ -1,0 +1,37 @@
+classDiagram
+    direction BT
+    UserService --|> BaseCacheService
+    EventService --|> BaseCacheService
+    TripService --|> BaseCacheService
+    FriendService --|> BaseCacheService
+    
+    UserService --|> Subject
+    EventService --|> Subject
+    TripService --|> Subject
+    FriendService --|> Subject
+    
+    class BaseCacheService { 
+        <<Generic>>
+    }
+    class Subject{
+        <<Protocol>>
+    }
+    class UserService{
+        - userRepository: UserRepository
+    }
+    class EventService{
+        - eventRepository: EventRepository
+    }
+    class TripService{
+        - tripRepository: TripRepository
+    }
+    class FriendService{
+        - tripRepository: TripRepository
+    }
+    class ChatService{
+        - chatRepository: ChatRepository
+    }
+    class MapStorageService{
+        - mapRepository: MapRepository
+    }
+    class LocationManagerService { }

@@ -1,0 +1,22 @@
+sequenceDiagram
+    ProfilePageView-->>+UserService: getProfileHeaderViewModel()
+    UserService->>UserService: get ProfileHeaderViewModel from Observers
+    opt ViewModel not in list of observers
+        UserService->>UserService: getUser(id)
+        opt not in cache
+            UserService->>+UserRepository: get(id)
+            UserRepository->>+API: get("/user/getUser", "user_id={id}")
+            API-->>-UserRepository: Return server response as JSON string
+            UserRepository-->>+User Model: Construct from JSON
+            User Model-->>-UserRepository: Return User Object
+            UserRepository-->>-UserService: Return User Model
+            UserService->>UserService: Add User to Cache
+        end
+        UserService->>+ProfileHeaderViewModel: ctor(User)
+        ProfileHeaderViewModel-->>-UserService: return ProfileHeaderViewModel
+        UserService->>UserService: Add ProfileHeaderViewModel to Observers
+    end
+    UserService-->>-ProfilePageView: return ProfileHeaderViewModel
+
+    ProfilePageView->>ProfilePageView: Update view values
+    

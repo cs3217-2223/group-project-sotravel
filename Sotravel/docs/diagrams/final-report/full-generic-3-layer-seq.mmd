@@ -1,0 +1,15 @@
+sequenceDiagram
+View->>+Service: Request view-specific data
+        Service->>+Repository: Request Model
+        Repository->>+API: Request data
+        API->>+HTTPClient: Perform HTTP request to server
+        HTTPClient-->>-API: 
+        API-->>-Repository: Return data as JSON string
+        Repository-->>Repository: Serialise JSON to Model
+        Repository-->>-Service: Return Model
+    Service->>+ViewModel: Create from Model
+    ViewModel-->>-Service: return ViewModel
+    Service->>Service: add ViewModel as Observer
+    Service-->>-View: return ViewModel
+    View->>ViewModel: Bind Observer
+    View->>View: Render
