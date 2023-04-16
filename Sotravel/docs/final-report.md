@@ -842,7 +842,8 @@ create powerful and reusable abstractions.
     opted to not blast a message to everyone on telegram to avoid being
     blacklisted and reduce spam for users. We will still continue to implement
     the deeplink so that the host can still send event RSVP links on Telegram
-    without the bot.
+    without the bot. In addition, this feature is also out of scope of the
+    module's aims for software engineering.
 
 # Tests
 
