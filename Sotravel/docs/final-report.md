@@ -679,18 +679,6 @@ benefits for us:
     a central location to dictate how each dependency was resolved into its
     concrete type.
 
-### Notes from elsewhere:
-
-The repository acts as an
-[Adapter](https://refactoring.guru/design-patterns/adapter) in its conversion
-from the API model in the database to the model used in the application. Thus,
-the repository helps the application and the data store collaborate with each
-other. The repository also acts as a
-[Facade](https://refactoring.guru/design-patterns/facade) to the database by
-only exposing a few of the API methods required, as well as a
-[Proxy](https://refactoring.guru/design-patterns/proxy) through the repository
-interface.
-
 # Reflection
 
 # Tests
