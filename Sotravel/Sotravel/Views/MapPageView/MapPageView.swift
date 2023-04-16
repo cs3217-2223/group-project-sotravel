@@ -32,7 +32,7 @@ struct MapPageView: View {
                     )
                     .edgesIgnoringSafeArea(.all)
                     .onAppear {
-                        guard let userId = userService.userId else {
+                        guard let userId = userService.currentUserId else {
                             return
                         }
 
@@ -65,7 +65,7 @@ struct MapPageView: View {
                         HStack {
                             Spacer()
                             Button(action: {
-                                guard let userId = userService.userId else {
+                                guard let userId = userService.currentUserId else {
                                     return
                                 }
 

@@ -24,7 +24,7 @@ class TripRepositoryNode: TripRepository {
         return allTrips.pastTrips + allTrips.upcomingTrips
     }
 
-    func getAllUsersOnTrip(tripId: Int) async throws -> [User] {
+    func getAllUsersOnTrip(tripId: Int) async throws -> [UUID] {
         let params = ["trip_id": String(tripId)]
         let (status, response) = try await Self.api.get(path: .friends, params: params)
         try ApiErrorHelper.handleError(status: status)
@@ -32,19 +32,7 @@ class TripRepositoryNode: TripRepository {
 
         do {
             let friendIds = try JSONDecoder().decode([String].self, from: Data(data.utf8))
-            var results: [User] = []
-
-            for id in friendIds {
-                guard let idAsUUID = UUID(uuidString: id) else {
-                    continue
-                }
-                let user = try await self.userRepository.get(id: idAsUUID)
-                guard let user = user else {
-                    continue
-                }
-                results.append(user)
-            }
-            return results
+            return friendIds.compactMap({ UUID(uuidString: $0) })
         } catch is DecodingError {
             throw SotravelError.DecodingError("Unable to parse Get Friends response")
         } catch {

@@ -84,7 +84,7 @@ struct ChatPageCellView: View {
     private func getSenderName(senderId: String) -> String {
         // sender is the user
         if let userId = chatService.userId, senderId == userId.uuidString {
-            return userService.getUser()?.name ?? ""
+            return userService.getCurrentUser()?.name ?? ""
         }
 
         // sender is a friend
