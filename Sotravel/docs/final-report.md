@@ -17,39 +17,39 @@ communicate with each other.
 
 ## Host features
 
--   Log in/Register with Telegram
--   View all traveller locations on a map (in real-time)
--   Send app-wide notifications to all users
+- Log in/Register with Telegram
+- View all traveller locations on a map (in real-time)
+- Send app-wide notifications to all users
 
 ## Traveller features
 
 ### General
 
--   Log in/register with Telegram
--   View all nearby traveller locations on a map (in real-time)
--   Add friend on the app
--   People on the same sotravel trip will automatically be friends
--   Create and send out event to people nearby, friends only or selected people
--   RSVP to events via telegram or on the app
--   User profile page that can be edited
+- Log in/register with Telegram
+- View all nearby traveller locations on a map (in real-time)
+- Add friend on the app
+- People on the same sotravel trip will automatically be friends
+- Create and send out event to people nearby, friends only or selected people
+- RSVP to events via telegram or on the app
+- User profile page that can be edited
 
 ### Ski Specific
 
--   View the ski lifts and routes around the area (colour coded by difficulty)
--   Map to take into account elevation
--   Bonus: User can select a desired destination and map can tell the user how
-    to get to destination
+- View the ski lifts and routes around the area (colour coded by difficulty)
+- Map to take into account elevation
+- Bonus: User can select a desired destination and map can tell the user how
+  to get to destination
 
 ### Map
 
--   Depending on where the user is at, load the correct map. Mountain map vs
-    street map.
+- Depending on where the user is at, load the correct map. Mountain map vs
+  street map.
 
 ### In-app instant messaging
 
--   Provides an easy means of communication between group members
--   Helps to ensure a degree of privacy as users do not need to share more
-    personal information like Telegram handle or phone number
+- Provides an easy means of communication between group members
+- Helps to ensure a degree of privacy as users do not need to share more
+  personal information like Telegram handle or phone number
 
 # User Manual
 
@@ -72,10 +72,10 @@ _See a higher resolution version of the image [here](./diagrams/final-report/ove
 The overall architecture can be seen above. We can categorise the system into
 the following components
 
--   Repository and API models
--   Models
--   Service and ViewModels
--   Views
+- Repository and API models
+- Models
+- Service and ViewModels
+- Views
 
 The respositories handle retrieving/updating information from the data store. In
 our case, the repositories communicate with Firebase as well as a backend REST
@@ -105,22 +105,22 @@ model of how the backend obtains data is shown below
 
 The high level idea is as follows:
 
--   A repository for each data model exists to retrieve information from a data
-    access layer. The repository conforms to an interface so that it can easily
-    be swapped out later in favour of a repository that pulls information from a
-    different data source.
+- A repository for each data model exists to retrieve information from a data
+  access layer. The repository conforms to an interface so that it can easily
+  be swapped out later in favour of a repository that pulls information from a
+  different data source.
 
-    -   The diagram below shows how a repository gets data from a REST API
-        ![How repository gets data](./diagrams/sprint-2-report/repository-seq.svg)
-    -   The way a repository gets data from a (Firebase) database is similar:
-        ![How firebase repository gets data](./diagrams/final-report/firebase-repository-seq.svg)
+  - The diagram below shows how a repository gets data from a REST API
+    ![How repository gets data](./diagrams/sprint-2-report/repository-seq.svg)
+  - The way a repository gets data from a (Firebase) database is similar:
+    ![How firebase repository gets data](./diagrams/final-report/firebase-repository-seq.svg)
 
--   A service exists for that data model. It contains a dependency-injected
-    repository. The service converts the model into a view model which the view
-    can consume
--   A view contains a reference to a service which generates a view model. The
-    view observes the viewmodel to reflect changes to the data.
-    ![How view gets data](./diagrams/final-report/view-service-seq.svg)
+- A service exists for that data model. It contains a dependency-injected
+  repository. The service converts the model into a view model which the view
+  can consume
+- A view contains a reference to a service which generates a view model. The
+  view observes the viewmodel to reflect changes to the data.
+  ![How view gets data](./diagrams/final-report/view-service-seq.svg)
 
 The 3 layers put together show how data is called from each layer
 
@@ -130,14 +130,14 @@ The `Repositories` for each model conform to an interface and are dependency
 injected into each `Service`. Dependency injection is done through property
 wrappers. This allows for the following benefits:
 
--   Repository implementation can easily be changed. Today we suffix many of the
-    concrete implementations with "Node" since our data source is essentially a
-    Node API, but in the future the data source may change
--   Dependencies are not injected through constructors, preventing a "carrying"
-    effect where each layer needs to pass dependencies down
--   Testability is greatly increased as dependencies can easily be replaced with
-    stubs/mocks. We already use such stubs/mocks of repositories such as the
-    `UserRepository` to provide mock data during testing.
+- Repository implementation can easily be changed. Today we suffix many of the
+  concrete implementations with "Node" since our data source is essentially a
+  Node API, but in the future the data source may change
+- Dependencies are not injected through constructors, preventing a "carrying"
+  effect where each layer needs to pass dependencies down
+- Testability is greatly increased as dependencies can easily be replaced with
+  stubs/mocks. We already use such stubs/mocks of repositories such as the
+  `UserRepository` to provide mock data during testing.
 
 ### Frontend
 
@@ -251,22 +251,22 @@ A similar snippet exists to decode into lists instead of singular types as well.
 
 There are 7 main services used in the application:
 
--   UserService
--   EventService
--   TripService
--   FriendService
--   ChatService
--   MapService
--   LocationManagerService
+- UserService
+- EventService
+- TripService
+- FriendService
+- ChatService
+- MapService
+- LocationManagerService
 
 Most services interact with their respective repositories for data storage
 purposes (e.g `UserService` interacts with `UserRepository`). However, there are
 2 main excpetions:
 
--   `LocationManagerService` interacts with the built-in `CLLocationManager`
-    which interfaces with the device's GPS module
--   For better coherence, `FriendService` interacts primarily with
-    `TripRepository` to return the users who are going on a specific trip
+- `LocationManagerService` interacts with the built-in `CLLocationManager`
+  which interfaces with the device's GPS module
+- For better coherence, `FriendService` interacts primarily with
+  `TripRepository` to return the users who are going on a specific trip
 
 Each of the services can be seen below, alongside the Repositories they hold a
 reference to
@@ -295,10 +295,10 @@ To decouple the `Service` from the `ViewModel`s it serves, an observer pattern
 was set up so that the `ViewModel` can observe the `Service` from whom it pulls
 data. This ensures that
 
--   `Services` don't hold direct references to the `ViewModel`s who rely on it,
-    decoupling them through the observer abstraction
--   The responsibility of updating the `ViewModel` is passed back to the ViewModel,
-    instead of the `Service`
+- `Services` don't hold direct references to the `ViewModel`s who rely on it,
+  decoupling them through the observer abstraction
+- The responsibility of updating the `ViewModel` is passed back to the ViewModel,
+  instead of the `Service`
 
 The pattern is set up as shown below:
 ![Observer pattern](./diagrams/final-report/observer.svg)
@@ -319,10 +319,10 @@ necessarily need to match the class implementing the observer pattern.
 
 The `Service`s which have the Observer protocol implemented are the following:
 
--   UserService
--   EventService
--   TripService
--   FriendService
+- UserService
+- EventService
+- TripService
+- FriendService
 
 The association between these `Service`s and the `ViewModel`s which rely on them
 can be seen in the two diagrams below
@@ -671,13 +671,25 @@ EnvironmentObjects. This allows each class to operate using the interface of the
 dependency rather than the concrete type. Using DI has the following key
 benefits for us:
 
--   Easily swap implementations out for testing. We frequently replaced our
-    repositories with mock versions of them for testing or while awaiting
-    bugfixes on the repository
--   Dependency management in one place: By using Resolver, we were able to manage
-    all our dependencies in the `Repositories+Injection.swift` file. This provided
-    a central location to dictate how each dependency was resolved into its
-    concrete type.
+- Easily swap implementations out for testing. We frequently replaced our
+  repositories with mock versions of them for testing or while awaiting
+  bugfixes on the repository
+- Dependency management in one place: By using Resolver, we were able to manage
+  all our dependencies in the `Repositories+Injection.swift` file. This provided
+  a central location to dictate how each dependency was resolved into its
+  concrete type.
+
+## View Composition
+
+View composition refers to the practice of creating reusable components that can be combined to build complex user interfaces. This approach allows developers to break down large and complex UI designs into smaller, more manageable pieces. These components can then be reused across different parts of the application, resulting in a more consistent and maintainable codebase.
+
+In our example, we use view composition to create reusable components such as ProfileImageView, LoginButtonView, and SafariView:
+
+1. ProfileImageView: This component is a reusable image view that displays the user's profile picture. It is used in various parts of the application, such as the event, chat, and profile pages. By encapsulating the functionality and styling of the profile image within a single component, we can easily reuse it across different pages without duplicating code. This not only saves development time but also ensures a consistent look and feel throughout the application.
+
+2. LoginButtonView: This component is a reusable button view used for both email and Telegram login. By creating a single LoginButtonView component, we can reuse it in multiple places, ensuring that the button's appearance and behavior remain consistent across different login methods. This approach adheres to the DRY (Don't Repeat Yourself) principle, which is a cornerstone of clean code and good programming practices.
+
+3. SafariView: This component is a reusable web view that can be used whenever the application requires displaying a web page. Currently, it is used during the Telegram login process. By encapsulating the web view functionality within the SafariView component, we can reuse it in other parts of the application where a web view might be needed. This not only simplifies the code but also ensures that any future updates to the web view behavior will be automatically propagated to all instances of the component.
 
 # Reflection
 
