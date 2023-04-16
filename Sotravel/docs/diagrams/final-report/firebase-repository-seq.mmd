@@ -7,4 +7,13 @@ sequenceDiagram
     Repository-->>+Repository: Serialise JSON to ApiModel
     Repository-->>+Repository: Convert ApiModels to Model
     Repository-->>-Caller: Return Model
+    Caller-->>+Repository: Sets a listener for data changes with a callback function
+    Repository->>+Firebase API: Sets a listener for data changes
+    Firebase API->>+Database: Attaches listener
+    Database-->>Firebase API: On data change, sends updated data
+    Firebase API-->>Repository: Return updated data as JSON string
+    Repository-->>+Repository: Serialise JSON to ApiModel
+    Repository-->>+Repository: Convert ApiModels to Model
+    Repository-->>-Caller: Calls the callback function with the Model
+    Caller-->>+Caller: Executes the callback function
     
