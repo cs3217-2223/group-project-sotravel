@@ -19,31 +19,33 @@ communicate with each other.
 
 -   Log in/Register with Telegram
 -   View all traveller locations on a map (in real-time)
--   Send app-wide notifications to all users
 
 ## Traveller features
 
 ### General
 
 -   Log in/register with Telegram
--   View all nearby traveller locations on a map (in real-time)
--   Add friend on the app
--   People on the same sotravel trip will automatically be friends
+-   Switch between active trips
+
+### Events
+
+-   Allow travelers to create events
+-   Allow travelers to RSVP to events
 -   Create and send out event to people nearby, friends only or selected people
--   RSVP to events via telegram or on the app
--   User profile page that can be edited
 
-### Ski Specific
+### Profile
 
--   View the ski lifts and routes around the area (colour coded by difficulty)
--   Map to take into account elevation
--   Bonus: User can select a desired destination and map can tell the user how
-    to get to destination
+-   Allow travelers to update their profile with social information
+
+### Friends
+
+-   Allow travelers to view friends on the trip and message them on Telegram
 
 ### Map
 
 -   Depending on where the user is at, load the correct map. Mountain map vs
     street map.
+-   View all nearby traveller locations on a map (in real-time)
 
 ### In-app instant messaging
 
@@ -54,6 +56,8 @@ communicate with each other.
 # User Manual
 
 Please see [User Manual](./user-manual.pdf)
+
+<div class="page"/>
 
 # Designs
 
@@ -504,6 +508,8 @@ message and contain buttons to dismiss the message. By centralising to a
 singular component to display errors, we follow the DRY (don't repeat yourself)
 princple and abstract the error dialog to one location.
 
+<div class="page"/>
+
 ## Design Patterns Utilised
 
 ### Observer pattern
@@ -654,6 +660,8 @@ The `Service` and `Repository` act as a facade between the complexities of API
 calls and JSON decoding. They act as a single point of contact for the
 `ViewModel`s and `View`s to obtain the information to be displayed.
 
+<div class="page"/>
+
 # Good Practices
 
 ## Dependency Injection
@@ -723,19 +731,111 @@ up the friend retrieval process, with a roughly 20x improvement in speed.
 # Roles and contributions
 
 1. Azeem Vasanwala
-    - General project architecture (3-layer architecture, MVVM)
-    - Repository implementation
-    - Dependency injection implementation
-    - Asynchronous processing
-    - Diagramming
-1. Your name here
-    - Things you did here
-    - Things you did here
-    - Things you did here
-    - Things you did here
-    - Things you did here
+
+    - Designed project architecture using 3-layer architecture and MVVM pattern,
+      to allow for scalability and maintainability.
+    - Implemented repository pattern: Required deep understanding of data
+      model and data manipulation, and allows for easy extension with new data
+      sources or changes to existing data model.
+    - Implemented dependency injection: Required careful planning of
+      component interactions and dependencies, but allows for easy extension with
+      new components or changes to existing ones.
+    - Implemented asynchronous processing: Structured all repository layer calls
+      to follow async-await pattern allowing client libraries to perform
+      concurrent processing. Resulted in 20x increase in some functions without
+      blocking the user interface.
+    - Created diagrams to help visualize project architecture and data flow, which
+      required translating complex technical concepts into easily understandable
+      diagrams, and helps communicate project structure to other developers and
+      stakeholders for easier collaboration and maintenance over time.
+
+1. Wang Rizhao
+    - Implemented real-time map feature: Developed an interactive and dynamic
+      map that displays and updates relevant information in real-time, enhancing
+      user experience.
+    - Mastered Apple's MapKit API: Gained expertise in utilizing Apple's MapKit
+      API for iOS applications, enabling seamless integration of mapping
+      features.
+    - Devised efficient synchronization between user device state and real-time
+      database: Ensured data consistency between the user's device state and the
+      real-time database by implementing effective synchronization techniques.
+    - Integrated data from real-time database and REST API: Combined information
+      from various sources, such as real-time databases and REST APIs, to
+      provide users with a comprehensive view of the map data.
+    - Developed all necessary views: Created custom UI elements and views to
+      support the map feature, maintaining a visually appealing and
+      user-friendly interface.
+    - Created reusable components for view composition: Developed modular and
+      reusable UI components that can be easily integrated into multiple parts
+      of the application, reducing code duplication and improving
+      maintainability.
 
 # Reflection
+
+## Evaluation
+
+Our team met most of the targets we have set at the start of the
+project. Thanks to our 3-layer structure that we have adopted early on in the
+project and the use of dependency injection to mock repositories, we were able
+to work in parallel despite the large number of discrete components in the
+project. Towards the end of the project with feedback from Prof Leong, we were
+able to develop further good abstractions to reduce coupling and make it easier
+to extend on the application without modifiying too many classes. This also
+provided the additional benefit of most changes happening closer to the
+View/ViewModel layer once the Repositories and Services were set up, proving
+that our design philosophy encapsulated good layering and modularisation.
+
+Towards the end of the project we did spend time rewriting some of our
+abstractions and introducing project-level efficiencies to improve the speed of
+the application as well as maintainability. Two of the key contributions to this
+was the development of the cache and observer protocol to reduce coupling and
+reduce unnecessary network IO for items that did not _need_ to be up to date.
+
+That being said, we are proud of our application and the fact that we managed to
+launch it to the app store. There are some things that still need to be fully
+integrated such as the push notifications and some further deep linking. We're
+glad that the application handled the scale at STEPs with over 600 users in the
+community trip without any major hiccups.
+
+## Lessons
+
+We learnt the importance of not working in a silo depsite components that seem
+to be isolated from each other. This was an issue in the first sprint that we
+quickly resolve moving forward, with check-ins every other day to improve
+communication and ensure everyone is on the same page.
+
+We also did our ebst to follow idiomatic swift principles to ensure that the
+application is maintainable and scalable within the iOS platform. While many of
+us came from backgrounds in different languages, we learnt to embrace and
+utilise Swift's type system and protocol oriented approach to programming to
+create powerful and reusable abstractions.
+
+## Things we were unable to implement
+
+-   **Push notifications:** We were unable to implement push notifications in
+    the application as it requires the provisioning of an iOS Developer
+    certificate. To save cost we had purchased a single user's Apple Developer
+    Account instead of an Enterprise account. While we got Firebase Cloud
+    Messaging (FCM) working on Rizhao's device, we realised the rest of us could
+    not build and deploy the application as it was tied to Rizhao's Apple
+    account. Should we have purhcased the more expensive enterprise certificate,
+    we could have been enrolled in a "team" that let all of us make use of FCM.
+    However, since we were unwilling to spend addtional money on this, we didn't
+    merge the FCM PR
+-   **Ski specific features:** We were unable to complete the ski map feature
+    due to the requirement of manually adding ski lift data, which we currently
+    do not possess, into Mapbox. This issue presents more of a logistical
+    challenge rather than an engineering one, which falls outside the scope of
+    this module. As a result, we have decided to focus on other aspects of the
+    project that align more closely with our engineering objectives.
+-   **RSVP to events via telegram:** While this was an intial goal, we realised
+    that for larger trips telegram's TOS would result in our service being
+    rate-limited or blocked for spamming. Not wanting to lose our account, we
+    opted to not blast a message to everyone on telegram to avoid being
+    blacklisted and reduce spam for users. We will still continue to implement
+    the deeplink so that the host can still send event RSVP links on Telegram
+    without the bot.
+-
 
 # Tests
 
