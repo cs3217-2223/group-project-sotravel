@@ -964,10 +964,13 @@ create powerful and reusable abstractions.
 
 ## Testing Strategy
 
-We used glass box testing to write an exposition of the test cases we wish to
-use. Due to time limitations and a requirement to have the app live for an
-ongoing trip, we didn't have time to write explici test cases. The exposition of
-our test cases can be found [here](./tests.md)
+We used white and black box testing to write an exposition of the test cases we
+wish to use. Due to time limitations and a requirement to have the app live for
+an ongoing trip, we didn't have time to write explicit test cases. The
+exposition of our test cases can be found [here](./tests.md). We used white box
+testing to test explicit pathways such as testing if information was added to a
+the cache, was cleared from the cache, etc. We used black box testing to test
+application flows such as navigation, redirects, etc.
 
 In addition, we found it hard to write explicit test cases for the real-time
 synchronisation across firebase. Consequently, we relied on manual testing with
