@@ -42,7 +42,7 @@ struct ContentView: View {
 
         userService.reloadUser { success in
             if success {
-                guard let userId = userService.userId else {
+                guard let userId = userService.currentUserId else {
                     print("Fatal error, userId not found")
                     return
                 }
@@ -73,7 +73,7 @@ struct ContentView: View {
 
         userService.reloadUser { success in
             if success {
-                guard let userId = self.userService.userId else {
+                guard let userId = self.userService.currentUserId else {
                     print("Fatal error, userId not found")
                     return
                 }

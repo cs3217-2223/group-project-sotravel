@@ -223,7 +223,7 @@ struct CreateInvitePageView: View {
             return
         }
 
-        guard let userId = userService.userId else {
+        guard let userId = userService.currentUserId else {
             viewAlertController.showAlert(message: "Cannot find host user")
             return
         }

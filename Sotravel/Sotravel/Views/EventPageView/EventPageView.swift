@@ -124,7 +124,7 @@ struct EventPageView: View {
                     }.simultaneousGesture(TapGesture().onEnded {
                         chatService.fetchChat(id: eventViewModel.id)
                     })
-                    if let userId = userService.userId, eventViewModel.hostUser == userId {
+                    if let userId = userService.currentUserId, eventViewModel.hostUser == userId {
                         CancelEventButton(eventViewModel: eventViewModel, showConfirmationDialog: $showConfirmationDialog)
                             .padding(.top, 18)
                     }
@@ -171,7 +171,7 @@ struct CancelEventButton: View {
                 primaryButton: .destructive(Text("Cancel Event")) {
                     eventService.cancelEvent(id: eventViewModel.id) { success in
                         if success {
-                            guard let userId = userService.userId, let tripId = tripService.getCurrTripId() else {
+                            guard let userId = userService.currentUserId, let tripId = tripService.getCurrTripId() else {
                                 return
                             }
                             eventService.reloadUserEvents(forTrip: tripId, userId: userId)
