@@ -155,9 +155,7 @@
 		D7F6A9E829CF8E2D006FBD26 /* ChatMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9E729CF8E2D006FBD26 /* ChatMessageViewModel.swift */; };
 		D7F6A9EA29CFA253006FBD26 /* ChatRepositoryFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9E929CFA253006FBD26 /* ChatRepositoryFirebase.swift */; };
 		D7F6A9EC29D1B7EF006FBD26 /* ChatBasicInfoApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9EB29D1B7EF006FBD26 /* ChatBasicInfoApiModel.swift */; };
-		D7F6A9EE29D1B85A006FBD26 /* ChatMemberApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9ED29D1B859006FBD26 /* ChatMemberApiModel.swift */; };
 		D7F6A9F029D1B87C006FBD26 /* ChatMessageApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9EF29D1B87C006FBD26 /* ChatMessageApiModel.swift */; };
-		D7F6A9F229D2D888006FBD26 /* ChatBasicInfoWithMessageApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A9F129D2D888006FBD26 /* ChatBasicInfoWithMessageApiModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -321,9 +319,7 @@
 		D7F6A9E729CF8E2D006FBD26 /* ChatMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageViewModel.swift; sourceTree = "<group>"; };
 		D7F6A9E929CFA253006FBD26 /* ChatRepositoryFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRepositoryFirebase.swift; sourceTree = "<group>"; };
 		D7F6A9EB29D1B7EF006FBD26 /* ChatBasicInfoApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBasicInfoApiModel.swift; sourceTree = "<group>"; };
-		D7F6A9ED29D1B859006FBD26 /* ChatMemberApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMemberApiModel.swift; sourceTree = "<group>"; };
 		D7F6A9EF29D1B87C006FBD26 /* ChatMessageApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageApiModel.swift; sourceTree = "<group>"; };
-		D7F6A9F129D2D888006FBD26 /* ChatBasicInfoWithMessageApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBasicInfoWithMessageApiModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -676,7 +672,6 @@
 				B4C3536729C0A7160073931C /* ChatRepository.swift */,
 				B43AFA6C29CA0E9F0029AB85 /* Repositories+Injection.swift */,
 				188C147829CDC31100531F9F /* MapRepository.swift */,
-				1848F8FC29D0162800A70989 /* FirebaseMapRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -731,8 +726,6 @@
 			children = (
 				B4E9461229C5C7C6001B65EE /* TelegramSignInResponse.swift */,
 				D7F6A9EB29D1B7EF006FBD26 /* ChatBasicInfoApiModel.swift */,
-				D7F6A9F129D2D888006FBD26 /* ChatBasicInfoWithMessageApiModel.swift */,
-				D7F6A9ED29D1B859006FBD26 /* ChatMemberApiModel.swift */,
 				D7F6A9EF29D1B87C006FBD26 /* ChatMessageApiModel.swift */,
 				B46B0A6E29CCA9A2006F2BA2 /* UpdateUserApiModel.swift */,
 				B46B0A7029CCB148006F2BA2 /* Encodable+Subscriptable.swift */,
@@ -748,6 +741,7 @@
 		D7F6A9CE29C6E6C2006FBD26 /* FirebaseRepository */ = {
 			isa = PBXGroup;
 			children = (
+				1848F8FC29D0162800A70989 /* FirebaseMapRepository.swift */,
 				D7F6A9E929CFA253006FBD26 /* ChatRepositoryFirebase.swift */,
 			);
 			path = FirebaseRepository;
@@ -911,7 +905,6 @@
 				B4E9461329C5C7C6001B65EE /* TelegramSignInResponse.swift in Sources */,
 				ACF2B20129CD8B620017A9F0 /* CreateInvitePageViewModel.swift in Sources */,
 				1817D0FA29D554CB00D8D9F0 /* LocationSharingViewModel.swift in Sources */,
-				D7F6A9EE29D1B85A006FBD26 /* ChatMemberApiModel.swift in Sources */,
 				AC32F95B29BA11B20005F5B9 /* EventView.swift in Sources */,
 				183F435829D02FF900F4DFEE /* CustomPointAnnotation.swift in Sources */,
 				18D9714029BD91B60064DC2A /* Event.swift in Sources */,
@@ -957,7 +950,6 @@
 				B4C3536129C0A5BE0073931C /* FriendRepository.swift in Sources */,
 				18F72A3829B997F40084B94A /* LoginView.swift in Sources */,
 				AC32F95329BA02700005F5B9 /* CalendarView.swift in Sources */,
-				D7F6A9F229D2D888006FBD26 /* ChatBasicInfoWithMessageApiModel.swift in Sources */,
 				181C746D29BDDBEF00E6D3B1 /* AttendeesView.swift in Sources */,
 				AC8AE12E29D5E40F000F78BC /* FriendService.swift in Sources */,
 				188C147929CDC31100531F9F /* MapRepository.swift in Sources */,
