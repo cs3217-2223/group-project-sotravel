@@ -662,9 +662,9 @@ The `Service` and `Repository` act as a facade between the complexities of API
 calls and JSON decoding. They act as a single point of contact for the
 `ViewModel`s and `View`s to obtain the information to be displayed.
 
-## Good Practices
+# Good Practices
 
-### Dependency Injection
+## Dependency Injection
 
 We dependency inject dependencies using the Resolver library as well as through
 EnvironmentObjects. This allows each class to operate using the interface of the
@@ -679,7 +679,7 @@ benefits for us:
     `Services+Injection.swift` file. This provided a central location to dictate
     how each dependency was resolved into its concrete type.
 
-### View Composition
+## View Composition
 
 View composition refers to the practice of creating reusable components that can
 be combined to build complex user interfaces. This approach allows developers to
@@ -698,20 +698,35 @@ ProfileImageView, LoginButtonView, and SafariView:
    development time but also ensures a consistent look and feel throughout the
    application.
 
-2. LoginButtonView: This component is a reusable button view used for both email
+1. LoginButtonView: This component is a reusable button view used for both email
    and Telegram login. By creating a single LoginButtonView component, we can
    reuse it in multiple places, ensuring that the button's appearance and
    behavior remain consistent across different login methods. This approach
    adheres to the DRY (Don't Repeat Yourself) principle, which is a cornerstone
    of clean code and good programming practices.
 
-3. SafariView: This component is a reusable web view that can be used whenever
+1. SafariView: This component is a reusable web view that can be used whenever
    the application requires displaying a web page. Currently, it is used during
    the Telegram login process. By encapsulating the web view functionality
    within the SafariView component, we can reuse it in other parts of the
    application where a web view might be needed. This not only simplifies the
    code but also ensures that any future updates to the web view behavior will
    be automatically propagated to all instances of the component.
+
+## Async-Await and asynchronous processing
+
+Most functions within the application are async functions, greatly improving
+code readability. Since the result of an async call is right next to the caller,
+there is no need to hunt for the the completion closure of method to process the
+result of an async call. While completion closures do exist within the codebase,
+they are only between the View <--> Service interface as async calls are not
+allowed within the main thread.
+
+We also make use of `TaskGroups` to perform large blocking operations
+concurrently. The best example of this is in the
+`FriendService#getUsersFromUserIds` method where we concurrently resolve a list
+of UserIds to User objects using `withThrowingTaskGroup`. This has greatly sped
+up the friend retrieval process, with a roughly 20x improvement in speed.
 
 # Reflection
 
