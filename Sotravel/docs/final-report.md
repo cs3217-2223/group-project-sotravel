@@ -755,7 +755,6 @@ up the friend retrieval process, with a roughly 20x improvement in speed.
       understandable diagrams, and helps communicate project structure to other
       developers and stakeholders for easier collaboration and maintenance over
       time.
-
 1. Wang Rizhao
 
     - Implemented real-time map feature: Developed an interactive and dynamic
@@ -777,6 +776,27 @@ up the friend retrieval process, with a roughly 20x improvement in speed.
       reusable UI components that can be easily integrated into multiple parts
       of the application, reducing code duplication and improving
       maintainability.
+1. Zhang Weiqiang
+    + Collaborated with Azeem on designing a scalable project architecture using the 
+      3-layer approach and MVVM pattern, promoting separation of concerns, modularity, 
+      and maintainability.
+    + Implemented the service layer, focusing on:
+      - Encapsulating business logic and adapting to changing requirements.
+      - Integrating a generic caching system that improves performance and efficiency 
+        by storing frequently accessed data in memory and reducing database queries.
+      - Incorporating the observer pattern to enable flexible communication between the
+        service layer and other components, promoting a modular and event-driven 
+        architecture.
+    + Developed several user-friendly and responsive views, ensuring an accessible and 
+      appealing user experience that encourages adoption and contributes to the project's 
+      success.
+    + Encapsulated a `ViewAlertController` class to handle situations where a view needs 
+      to display an alert, streamlining the process of alert management and improving 
+      user experience.
+    + Optimized interaction between views and the service layer by implementing data bindings 
+      and event-driven mechanisms, guaranteeing seamless and efficient data flow between the 
+      presentation and service layers and ensuring application responsiveness and performance 
+      as the project grows.
 
 # Reflection
 
@@ -812,7 +832,7 @@ to be isolated from each other. This was an issue in the first sprint that we
 quickly resolve moving forward, with check-ins every other day to improve
 communication and ensure everyone is on the same page.
 
-We also did our ebst to follow idiomatic swift principles to ensure that the
+We also did our best to follow idiomatic swift principles to ensure that the
 application is maintainable and scalable within the iOS platform. While many of
 us came from backgrounds in different languages, we learnt to embrace and
 utilise Swift's type system and protocol oriented approach to programming to
