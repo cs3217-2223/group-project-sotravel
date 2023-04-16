@@ -1,57 +1,57 @@
 1. Test: Verify user can login
 
-   - Tap on the continue with telegram button button, a webview of telegram sign in should show up
-   - Fill in your telegram credentails
-   - Should be redirected to show your trips
+    - Tap on the continue with telegram button button, a webview of telegram sign in should show up
+    - Fill in your telegram credentails
+    - Should be redirected to show your trips
 
 2. Test: Verify user can create an event
 
-   - Tap on the create event button
-   - Fill in required details
-   - Tap on the create button
-   - Verify the event is created
+    - Tap on the create event button
+    - Fill in required details
+    - Tap on the create button
+    - Verify the event is created
 
 3. Test: Verify user can delete an event
 
-   - Navigate to the event details page
-   - Tap on the delete button
-   - Verify the event is deleted
+    - Navigate to the event details page
+    - Tap on the delete button
+    - Verify the event is deleted
 
 4. Test: Verify user can view events
 
-   - Navigate to the events page
-   - Verify the events that the user has hosted or invited to are displayed
+    - Navigate to the events page
+    - Verify the events that the user has hosted or invited to are displayed
 
 5. Test: Verify user can view their profile
 
-   - Navigate to the profile page
-   - Verify the user's profile information is displayed
+    - Navigate to the profile page
+    - Verify the user's profile information is displayed
 
 6. Test: Verify user can update their profile
 
-   - Navigate to the profile page
-   - Tap on the edit button
-   - Update the required details
-   - Tap on the save button
-   - Verify the changes are saved
+    - Navigate to the profile page
+    - Tap on the edit button
+    - Update the required details
+    - Tap on the save button
+    - Verify the changes are saved
 
 7. Test: Verify user can view their friends
 
-   - Navigate to the profile page
-   - Navigate to the friends page by clicking "See All"
-   - Verify the user's friends are displayed
+    - Navigate to the profile page
+    - Navigate to the friends page by clicking "See All"
+    - Verify the user's friends are displayed
 
 8. Test: Verify user can search for events by date
 
-   - Navigate to the events page
-   - Tap on a date
-   - Verify that events for the date are shown
+    - Navigate to the events page
+    - Tap on a date
+    - Verify that events for the date are shown
 
 9. Test: Verify user can view event details
 
-   - Navigate to the events page
-   - Tap on an event
-   - Verify the event details are displayed
+    - Navigate to the events page
+    - Tap on an event
+    - Verify the event details are displayed
 
 10. Test: Verify user can RSVP to an event
 
@@ -91,5 +91,3 @@
     - Click the radar icon to toggle location sharing on or off
     - Verify the user's location sharing status is updated accordingly
     - Repeat the process to ensure location sharing can be toggled on and off successfully
-
-
