@@ -115,8 +115,9 @@ The high level idea is as follows:
     different data source.
 
     -   The diagram below shows how a repository gets data from a REST API
-        ![How repository gets data](./diagrams/sprint-2-report/repository-seq.svg)
-    -   The way a repository gets data from a (Firebase) database is similar, but also attaches a listener so as to get notified of any data changes:
+        ![How repository get data](./diagrams/final-report/repository-seq.svg)
+    -   The way a repository gets data from a (Firebase) database is similar,
+        but also attaches a listener so as to get notified of any data changes:
         ![How firebase repository gets data](./diagrams/final-report/firebase-repository-seq.svg)
 
 -   A service exists for that data model. It contains a dependency-injected
